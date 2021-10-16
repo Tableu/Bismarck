@@ -21,12 +21,14 @@ public class MovementController
     public Vector2 Position => _transform.position;
     public float BaseSpeed { get;}
     public float RotationSpeed { get; }
-    public void Move(Vector2 target, float speed)
+    public bool Move(Vector2 target, float speed)
     {
         if (Vector2.Distance(_transform.position, target) > .1f)
         {
             _transform.position = Vector2.MoveTowards(_transform.position, target, speed);
+            return true;
         }
+        return false;
     }
     //https://answers.unity.com/questions/650460/rotating-a-2d-sprite-to-face-a-target-on-a-single.html
     public void RotateTowards(Transform target, float speed)

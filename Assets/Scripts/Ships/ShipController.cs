@@ -4,14 +4,12 @@ using UnityEngine.EventSystems;
 public class ShipController : MonoBehaviour, IDamageable, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     protected MovementController _movementController;
-    [SerializeField] private GameObject projectilePrefab;
+    private AttackCommand _attackCommand;
+    [SerializeField] protected ProjectileAttack projectileAttack;
     [SerializeField] private bool move = true;
-    [SerializeField] private bool attack = false;
     [SerializeField] private int health;
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
-    [SerializeField] private float fireDelay;
-    [SerializeField] private float fireTimer;
     [SerializeField] private Vector2 moveTarget;
     [SerializeField] private bool isPlayer = false;
     [SerializeField] private LayerMask layerMask;
@@ -27,29 +25,24 @@ public class ShipController : MonoBehaviour, IDamageable, IPointerEnterHandler, 
         StateMachine = new FSM();
         StateMachine.SetState(moving);
         ShipManager.Instance.AddShip(gameObject);
+        _attackCommand = projectileAttack.MakeAttack();
+        StartCoroutine(_attackCommand.DoAttack(gameObject));
     }
 
     // Update is called once per frame
     protected void FixedUpdate()
     {
         StateMachine.Tick();
-        if (attack)
+
+        if (move)
         {
-            if (Mathf.Abs(Time.time-fireTimer) >= fireDelay)
+            if (!_movementController.Move(moveTarget, speed))
             {
-                fireTimer = Time.time;
-                SpawnProjectile();
+                move = false;
             }
         }
     }
-
-    protected void SpawnProjectile()
-    {
-        GameObject projectile = Instantiate(projectilePrefab, transform.localPosition, projectilePrefab.transform.rotation);
-        projectile.GetComponent<Projectile>().direction = (int)transform.localScale.x;
-        var rotation = transform.rotation.eulerAngles;
-        projectile.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z+projectile.transform.rotation.eulerAngles.z);
-    }
+    
     public void TakeDamage(Damage dmg)
     {
         health -= dmg.RawDamage;
@@ -63,6 +56,7 @@ public class ShipController : MonoBehaviour, IDamageable, IPointerEnterHandler, 
     {
         ShipManager.Instance.RemoveShip(gameObject);
         InputManager.Instance.DeselectShip(gameObject);
+        _attackCommand.StopAttack();
         Destroy(gameObject);
     }
     public void OnPointerEnter(PointerEventData eventData)

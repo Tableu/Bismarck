@@ -4,8 +4,7 @@ using UnityEngine;
 public interface AttackCommand
 {
     public IEnumerator DoAttack(GameObject attacker);
-    public bool IsRunning { get; }
-    public bool LockInput { get; }
+    public void StopAttack();
 }
 
 public abstract class AttackScriptableObject : ScriptableObject

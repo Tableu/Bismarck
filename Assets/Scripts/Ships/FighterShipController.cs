@@ -20,7 +20,7 @@ public class FighterShipController : ShipController
     // Update is called once per frame
     private new void FixedUpdate()
     {
-        base.FixedUpdate();
+        StateMachine.Tick();
         if (returning && Vector2.Distance(transform.position, mothership.transform.position) < .5f)
         {
             Death();

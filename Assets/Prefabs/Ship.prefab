@@ -123,14 +123,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dee762f69b5d2c4b952deeec478e6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 8144733008931587362, guid: 00de159b41387fb4483acf352e22a71a, type: 3}
+  projectileAttack: {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
   move: 0
-  attack: 1
   health: 2
   speed: 0.3
   rotationSpeed: 40
-  fireDelay: 0.4
-  fireTimer: 0
   moveTarget: {x: 0, y: 0}
   isPlayer: 1
   layerMask:
@@ -138,3 +135,4 @@ MonoBehaviour:
     m_Bits: 256
   target: {fileID: 0}
   mothership: {fileID: 0}
+  returning: 0
