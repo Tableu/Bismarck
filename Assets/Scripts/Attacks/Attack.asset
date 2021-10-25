@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951f35511ed205f4ba6da23b58d57bd5, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
-  fireDelay: 0
+  projectilePrefab: {fileID: 8144733008931587362, guid: 00de159b41387fb4483acf352e22a71a, type: 3}
+  fireDelay: 0.5

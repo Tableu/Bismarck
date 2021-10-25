@@ -1,19 +1,23 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ShipController : MonoBehaviour, IDamageable, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class ShipController : MonoBehaviour, IDamageable
 {
     protected MovementController _movementController;
-    private AttackCommand _attackCommand;
-    [SerializeField] protected ProjectileAttack projectileAttack;
+    protected AttackCommand _attackCommand;
+    [SerializeField] protected AttackScriptableObject attackScriptableObject;
     [SerializeField] private bool move = true;
     [SerializeField] private int health;
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private Vector2 moveTarget;
-    [SerializeField] private bool isPlayer = false;
+    [SerializeField] private bool isPlayer;
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] private bool blocksMovement;
     protected FSM StateMachine;
+    public bool BlocksMovement => blocksMovement;
+
     private void Awake()
     {
         _movementController = new MovementController(gameObject, speed, rotationSpeed, layerMask);
@@ -25,7 +29,7 @@ public class ShipController : MonoBehaviour, IDamageable, IPointerEnterHandler, 
         StateMachine = new FSM();
         StateMachine.SetState(moving);
         ShipManager.Instance.AddShip(gameObject);
-        _attackCommand = projectileAttack.MakeAttack();
+        _attackCommand = attackScriptableObject.MakeAttack();
         StartCoroutine(_attackCommand.DoAttack(gameObject));
     }
 
@@ -59,29 +63,17 @@ public class ShipController : MonoBehaviour, IDamageable, IPointerEnterHandler, 
         _attackCommand.StopAttack();
         Destroy(gameObject);
     }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        //Debug.Log("Hello - Mouse Enter");
-    }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void Highlight()
     {
-        if (isPlayer)
+        var color = GetComponent<SpriteRenderer>().color;
+        if (color.Equals(Color.white))
         {
-            var color = GetComponent<SpriteRenderer>().color;
-            if (color.Equals(Color.white))
-            {
-                GetComponent<SpriteRenderer>().color = Color.cyan;
-                InputManager.Instance.SelectShip(gameObject);
-            }
-            else
-            {
-                GetComponent<SpriteRenderer>().color = Color.white;
-            }
+            GetComponent<SpriteRenderer>().color = Color.cyan;
         }
-    }
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        //Debug.Log("Hello - Mouse Exit");
+        else
+        { 
+            GetComponent<SpriteRenderer>().color = Color.white;
+        }
     }
 }

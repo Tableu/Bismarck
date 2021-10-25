@@ -39,11 +39,20 @@ public class MovementController
         _transform.rotation = Quaternion.Slerp(_transform.rotation, q, Time.deltaTime * speed);
     }
     
-    public bool FrontClear(float distance)
+    public bool DirectionClear(Vector2 direction, float distance)
     {
-        var hit = new RaycastHit2D[1];
-        return _boxCollider.Raycast(new Vector2(GetDirection(), 0), hit, distance,
-            _layerMask) <= 0;
+        RaycastHit2D[] results = new RaycastHit2D[5];
+        int count = _boxCollider.Raycast(direction, results, distance, _layerMask);
+        for (int index = 0; index < count; index++)
+        {
+            var shipController = results[index].collider.GetComponent<ShipController>();
+            if (shipController != null)
+            {
+                if(shipController.BlocksMovement)
+                    return false;
+            }
+        }
+        return true;
     }
     public int GetDirection()
     {

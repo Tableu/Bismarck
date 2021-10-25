@@ -1,16 +1,20 @@
+using UnityEditor;
 using UnityEngine;
 
 public class FighterShipController : ShipController
 {
-    [SerializeField] private GameObject target;
-    [SerializeField] private GameObject mothership;
+    [SerializeField] public GameObject target;
+    [SerializeField] public GameObject mothership;
+
+    [SerializeField] private MoveToTargetState moveToTarget;
     [SerializeField] private bool returning;
+    [SerializeField] private float aggroRange;
     // Start is called before the first frame update
     private new void Start()
     {
         base.Start();
         returning = false;
-        var moveToTarget = new MoveToTargetState(this, _movementController, target);
+        moveToTarget = new MoveToTargetState(this, _movementController, target);
         var returnToMothership = new MoveToTargetState(this, _movementController, mothership);
         StateMachine = new FSM();
         StateMachine.AddTransition(moveToTarget, returnToMothership, HasReachedTarget);
@@ -29,9 +33,19 @@ public class FighterShipController : ShipController
 
     private bool HasReachedTarget()
     {
-        if (Vector2.Distance(transform.position, target.transform.position) < .5f)
+        if (target == null)
+        {
+            target = DetectionController.DetectShip(aggroRange, gameObject);
+            if (target != null)
+            {
+                moveToTarget.Target = target;
+                moveToTarget.OnEnter();
+            }
+        }
+        if (target == null || Vector2.Distance(transform.position, target.transform.position) < .5f)
         {
             returning = true;
+            _attackCommand.StopAttack();
             return true;
         }
         return false;

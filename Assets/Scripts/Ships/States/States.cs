@@ -15,11 +15,10 @@ public class MoveForwardState : IState
     }
     public void Tick()
     {
-        if (!_movement.FrontClear(1))
+        if (_movement.DirectionClear(_ship.transform.forward,1))
         {
-            _movement.SetDirection(-_movement.GetDirection());
+            _movement.Move(_ship.transform.position+(Vector3.right*10*_movement.GetDirection()),_speed);
         }
-        _movement.Move(_ship.transform.position+(Vector3.right*10*_movement.GetDirection()),_speed);
     }
 
     public void OnEnter()
@@ -37,7 +36,7 @@ public class MoveToTargetState : IState
 {
     private readonly ShipController _ship;
     private readonly MovementController _movement;
-    private readonly GameObject _target;
+    public GameObject Target { get; set; }
     private float _speed;
     private float _rotationSpeed;
 
@@ -45,18 +44,23 @@ public class MoveToTargetState : IState
     {
         _ship = ship;
         _movement = movement;
-        _target = target;
+        Target = target;
     }
     public void Tick()
     {
-        _movement.Move(_target.transform.position,_speed);
-        _movement.RotateTowards(_target.transform,_rotationSpeed);
+        if (_movement.DirectionClear(Target.transform.position - _ship.transform.position,1))
+        {
+            _movement.Move(Target.transform.position,_speed);
+        }
+        //_movement.RotateTowards(_target.transform,_rotationSpeed);
     }
 
     public void OnEnter()
     {
         _speed = _movement.BaseSpeed;
-        _rotationSpeed = _movement.RotationSpeed;
+        Vector3 diff = Target.transform.position - _ship.transform.position;
+        _movement.SetDirection((int)Mathf.Sign(diff.x));
+        //_rotationSpeed = _movement.RotationSpeed;
     }
 
     public void OnExit()

@@ -7,6 +7,7 @@ public class ShipManager : MonoBehaviour
 {
     private static ShipManager _instance;
     private List<GameObject> _playerShips;
+    private List<GameObject> _enemyShips;
     
     public static ShipManager Instance
     {
@@ -21,6 +22,7 @@ public class ShipManager : MonoBehaviour
         }
         _instance = this;
         _playerShips = new List<GameObject>();
+        _enemyShips = new List<GameObject>();
     }
 
     // Start is called before the first frame update
@@ -37,16 +39,45 @@ public class ShipManager : MonoBehaviour
 
     public void AddShip(GameObject ship)
     {
-        _playerShips.Add(ship);
+        if (ship.layer.Equals(LayerMask.NameToLayer("Player")))
+        {
+            _playerShips.Add(ship);
+        }else if (ship.layer.Equals(LayerMask.NameToLayer("Enemy")))
+        {
+            _enemyShips.Add(ship);
+        }
     }
 
     public void RemoveShip(GameObject ship)
     {
-        _playerShips.Remove(ship);
-        Debug.Log("removed ship");
+        if (ship.layer.Equals(LayerMask.NameToLayer("Player")))
+        {
+            _playerShips.Remove(ship);
+        }else if (ship.layer.Equals(LayerMask.NameToLayer("Enemy")))
+        {
+            _enemyShips.Remove(ship);
+        }
     }
-    public List<GameObject> PlayerShips
+    public List<GameObject> Ships(GameObject ship)
     {
-        get => _playerShips;
+        if (ship.layer.Equals(LayerMask.NameToLayer("Player")))
+        {
+            return _playerShips;
+        }else if (ship.layer.Equals(LayerMask.NameToLayer("Enemy")))
+        {
+            return _enemyShips;
+        }
+        return null;
+    }
+    public List<GameObject> EnemyShips(GameObject ship)
+    {
+        if (ship.layer.Equals(LayerMask.NameToLayer("Player")))
+        {
+            return _enemyShips;
+        }else if (ship.layer.Equals(LayerMask.NameToLayer("Enemy")))
+        {
+            return _playerShips;
+        }
+        return null;
     }
 }

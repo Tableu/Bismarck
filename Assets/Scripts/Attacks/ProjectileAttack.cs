@@ -39,9 +39,12 @@ public class ProjectileAttack : AttackScriptableObject
         public void SpawnProjectile(GameObject attacker)
         {
             GameObject projectile = Instantiate(_projectilePrefab, attacker.transform.localPosition, _projectilePrefab.transform.rotation);
-            projectile.GetComponent<Projectile>().direction = (int)attacker.transform.localScale.x;
+            Projectile controller = projectile.GetComponent<Projectile>();
+            controller.direction = (int)attacker.transform.localScale.x;
             var rotation = attacker.transform.rotation.eulerAngles;
             projectile.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z+projectile.transform.rotation.eulerAngles.z);
+            projectile.layer = attacker.layer;
+            controller.enemyLayer = controller.enemyLayer & ~LayerMask.GetMask(LayerMask.LayerToName(attacker.layer));
         }
     }
 }

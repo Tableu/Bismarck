@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 
 //Selection box code: https://gamedevacademy.org/rts-unity-tutorial/
@@ -82,15 +83,15 @@ public class InputManager : MonoBehaviour
         selectionBox.gameObject.SetActive(false);
         Vector2 min = selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2);
         Vector2 max = selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2);
-        foreach(GameObject ship in ShipManager.Instance.PlayerShips.ToList())
+        foreach(GameObject ship in ShipManager.Instance.Ships(gameObject).ToList())
         {
             ShipController controller = ship.GetComponent<ShipController>();
             Vector3 shipPos = ship.transform.position;
         
             if(shipPos.x > min.x && shipPos.x < max.x && shipPos.y > min.y && shipPos.y < max.y)
             {
-                controller.OnPointerClick(new PointerEventData(null));
-                //SelectShip(ship);
+                controller.Highlight();
+                SelectShip(ship);
             }
         }
     }
@@ -100,6 +101,16 @@ public class InputManager : MonoBehaviour
         {
             _startPos = _projectedMousePos;
             _drawSelectionBox = true;
+            RaycastHit2D hit = Physics2D.Raycast(_projectedMousePos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Player"));
+            if (hit.collider != null)
+            {
+                ShipController ship = hit.collider.gameObject.GetComponent<ShipController>();
+                if (ship != null)
+                {
+                    ship.Highlight();
+                    SelectShip(ship.gameObject);
+                }
+            }
         }else if (context.canceled)
         {
             _drawSelectionBox = false;
@@ -126,8 +137,11 @@ public class InputManager : MonoBehaviour
     {
         foreach(GameObject ship in _selectedShips.ToList())
         {
-            if(ship != null)
-                ship.GetComponent<ShipController>().OnPointerClick(new PointerEventData(null));
+            if (ship != null)
+            {
+                ship.GetComponent<ShipController>().Highlight();
+                SelectShip(ship);
+            }
         }
         //_selectedShip.GetComponent<ShipController>().Move(item.transform.position);
         //item.GetComponent<Button>().enabled = false;

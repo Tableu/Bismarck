@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
     {
         transform.Translate(Vector2.up*speed*Time.deltaTime);
     }
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (((1 << other.gameObject.layer) & enemyLayer) != 0)
         {
