@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -10,21 +7,19 @@ public class Projectile : MonoBehaviour
     public int damage;
     public LayerMask enemyLayer;
     public int speed;
-    public int direction;
+    public Vector2 direction;
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
-        var rotation = transform.rotation.eulerAngles;
-        rotation = new Vector3(rotation.x, rotation.y, direction*rotation.z);
-        transform.rotation = Quaternion.Euler(rotation);
+        
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
-        transform.Translate(Vector2.up*speed*Time.deltaTime);
+        transform.Translate(direction*speed*Time.deltaTime);
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         if (((1 << other.gameObject.layer) & enemyLayer) != 0)
         {

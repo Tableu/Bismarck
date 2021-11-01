@@ -48,6 +48,8 @@ public class MoveToTargetState : IState
     }
     public void Tick()
     {
+        if (Target == null)
+            return;
         if (_movement.DirectionClear(Target.transform.position - _ship.transform.position,1))
         {
             _movement.Move(Target.transform.position,_speed);
@@ -57,6 +59,8 @@ public class MoveToTargetState : IState
 
     public void OnEnter()
     {
+        if (Target == null)
+            return;
         _speed = _movement.BaseSpeed;
         Vector3 diff = Target.transform.position - _ship.transform.position;
         _movement.SetDirection((int)Mathf.Sign(diff.x));

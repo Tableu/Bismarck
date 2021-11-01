@@ -25,7 +25,7 @@ public class FighterShipController : ShipController
     private new void FixedUpdate()
     {
         StateMachine.Tick();
-        if (returning && Vector2.Distance(transform.position, mothership.transform.position) < .5f)
+        if (returning && mothership != null && Vector2.Distance(transform.position, mothership.transform.position) < .5f)
         {
             Death();
         }
