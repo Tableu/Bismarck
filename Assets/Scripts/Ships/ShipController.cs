@@ -62,6 +62,11 @@ public class ShipController : MonoBehaviour, IDamageable
         }
     }
 
+    public bool DestroyProjectile(CollisionType type)
+    {
+        return true;
+    }
+
     protected void Death()
     {
         ShipManager.Instance.RemoveShip(gameObject);

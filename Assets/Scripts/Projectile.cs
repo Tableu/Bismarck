@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     public LayerMask enemyLayer;
     public int speed;
     public Vector2 direction;
+    public CollisionType type;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -27,15 +28,17 @@ public class Projectile : MonoBehaviour
             var dmg = new Damage
             {
                 RawDamage = damage,
-                Source = transform.position
+                Source = transform.position,
+                Type = type
             };
             if (enemy != null)
             {
                 //pSoundManager.PlaySound(pSoundManager.Sound.eHit);
                 enemy.TakeDamage(dmg);
+                if(enemy.DestroyProjectile(CollisionType.energy))
+                    Destroy(gameObject);
             }
         }
-        Destroy(gameObject);
     }
 
     private void OnBecameInvisible()

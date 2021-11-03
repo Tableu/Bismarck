@@ -73,14 +73,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boxCollider2D: {fileID: 7201170805715880193}
-  damage: 0
+  damage: 1
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
   speed: 0
   direction: {x: 0, y: 0}
+  type: 2
   pointLaserPrefab: {fileID: 8659672467078212423, guid: b1eac09b76c9c06458f1c3c147968133, type: 3}
-  lasersPerTick: 2
+  cooldown: 20
+  maxLasersPerTick: 3
+  _size: 0
 --- !u!50 &8026159820068560182
 Rigidbody2D:
   serializedVersion: 4

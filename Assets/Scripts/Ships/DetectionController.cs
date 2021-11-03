@@ -10,6 +10,8 @@ public static class DetectionController
         GameObject target = null;
         foreach (GameObject ship in ShipManager.Instance.EnemyShips(attacker))
         {
+            if (ship == null)
+                continue;
             Vector2 diff = attacker.transform.position - ship.transform.position;
             if (diff.magnitude < aggroRange && diff.magnitude < currentMagnitude)
             {
