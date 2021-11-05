@@ -82,7 +82,7 @@ MonoBehaviour:
   type: 2
   pointLaserPrefab: {fileID: 8659672467078212423, guid: b1eac09b76c9c06458f1c3c147968133, type: 3}
   cooldown: 20
-  maxLasersPerTick: 3
+  maxLasers: 1
   _size: 0
 --- !u!50 &8026159820068560182
 Rigidbody2D:

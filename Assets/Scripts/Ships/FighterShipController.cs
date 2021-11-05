@@ -6,7 +6,7 @@ public class FighterShipController : ShipController
     [SerializeField] public GameObject target;
     [SerializeField] public GameObject mothership;
 
-    [SerializeField] private MoveToTargetState moveToTarget;
+    [SerializeField] private MoveToTargetState _moveToTarget;
     [SerializeField] private bool returning;
     [SerializeField] private float aggroRange;
     // Start is called before the first frame update
@@ -14,11 +14,11 @@ public class FighterShipController : ShipController
     {
         base.Start();
         returning = false;
-        moveToTarget = new MoveToTargetState(this, _movementController, target);
+        _moveToTarget = new MoveToTargetState(this, _movementController, target);
         var returnToMothership = new MoveToTargetState(this, _movementController, mothership);
         StateMachine = new FSM();
-        StateMachine.AddTransition(moveToTarget, returnToMothership, HasReachedTarget);
-        StateMachine.SetState(moveToTarget);
+        StateMachine.AddTransition(_moveToTarget, returnToMothership, HasReachedTarget);
+        StateMachine.SetState(_moveToTarget);
     }
 
     // Update is called once per frame
@@ -38,8 +38,8 @@ public class FighterShipController : ShipController
             target = DetectionController.DetectShip(aggroRange, gameObject);
             if (target != null)
             {
-                moveToTarget.Target = target;
-                moveToTarget.OnEnter();
+                _moveToTarget.Target = target;
+                _moveToTarget.OnEnter();
             }
         }
         if (target == null || Vector2.Distance(transform.position, target.transform.position) < .5f)

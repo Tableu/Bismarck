@@ -8,13 +8,16 @@ public class ShipController : MonoBehaviour, IDamageable
     [SerializeField] private int health;
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
-    [SerializeField] private Vector2 moveTarget;
+    [SerializeField] private GameObject target;
     [SerializeField] private bool isPlayer;
     [SerializeField] private bool blocksMovement;
     [SerializeField] private bool move = true;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private GameObject healthBarPrefab;
+    [SerializeField] private float aggroRange;
     private HealthBar _healthBar;
+    private MoveToTargetState _moveToTarget;
+    private MoveToPositionState _moveToPosition;
     protected FSM StateMachine;
     public bool BlocksMovement => blocksMovement;
 
@@ -25,9 +28,11 @@ public class ShipController : MonoBehaviour, IDamageable
 
     protected void Start()
     {
-        var moving = new MoveForwardState(this, _movementController);
+        var moveForward = new MoveForwardState(this, _movementController);
+        _moveToTarget = new MoveToTargetState(this, _movementController, target);
+        _moveToPosition = new MoveToPositionState(this, _movementController, Vector2.zero);
         StateMachine = new FSM();
-        StateMachine.SetState(moving);
+        StateMachine.SetState(moveForward);
         ShipManager.Instance.AddShip(gameObject);
         _attackCommand = attackScriptableObject.MakeAttack();
         StartCoroutine(_attackCommand.DoAttack(gameObject));
@@ -43,14 +48,6 @@ public class ShipController : MonoBehaviour, IDamageable
     {
         StateMachine.Tick();
         _healthBar.SetHealth(health);
-
-        if (move)
-        {
-            if (!_movementController.Move(moveTarget, speed))
-            {
-                move = false;
-            }
-        }
     }
     
     public void TakeDamage(Damage dmg)
@@ -87,5 +84,33 @@ public class ShipController : MonoBehaviour, IDamageable
         { 
             GetComponent<SpriteRenderer>().color = Color.white;
         }
+    }
+    public void MoveToPosition(Vector2 position)
+    {
+        _moveToPosition.Position = position;
+        StateMachine.SetState(_moveToPosition);
+    }
+
+    public void MoveToTarget(GameObject target)
+    {
+        _moveToTarget.Target = target;
+        StateMachine.SetState(_moveToTarget);
+    }
+    protected bool HasReachedTarget()
+    {
+        if (target == null)
+        {
+            target = DetectionController.DetectShip(aggroRange, gameObject);
+            if (target != null)
+            {
+                _moveToTarget.Target = target;
+                _moveToTarget.OnEnter();
+            }
+        }
+        if (target == null || Vector2.Distance(transform.position, target.transform.position) < .5f)
+        {
+            return true;
+        }
+        return false;
     }
 }

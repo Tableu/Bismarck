@@ -72,8 +72,8 @@ public class InputManager : MonoBehaviour
     {
         if(!selectionBox.gameObject.activeInHierarchy)
             selectionBox.gameObject.SetActive(true);
-        float width = _projectedMousePos.x - _startPos.x;
-        float height = _projectedMousePos.y - _startPos.y;
+        float width = _mousePos.x - _startPos.x;
+        float height = _mousePos.y - _startPos.y;
         selectionBox.sizeDelta = new Vector2(Mathf.Abs(width), Mathf.Abs(height));
         selectionBox.position = _startPos + new Vector2(width / 2, height / 2);
     }
@@ -81,8 +81,8 @@ public class InputManager : MonoBehaviour
     private void ReleaseSelectionBox()
     {
         selectionBox.gameObject.SetActive(false);
-        Vector2 min = selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2);
-        Vector2 max = selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2);
+        Vector2 min = mainCamera.ScreenToWorldPoint(selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2));
+        Vector2 max = mainCamera.ScreenToWorldPoint(selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2));
         foreach(GameObject ship in ShipManager.Instance.Ships(gameObject).ToList())
         {
             ShipController controller = ship.GetComponent<ShipController>();
@@ -99,7 +99,7 @@ public class InputManager : MonoBehaviour
     {
         if (context.started)
         {
-            _startPos = _projectedMousePos;
+            _startPos = _mousePos;
             _drawSelectionBox = true;
             RaycastHit2D hit = Physics2D.Raycast(_projectedMousePos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Player"));
             if (hit.collider != null)
@@ -140,7 +140,7 @@ public class InputManager : MonoBehaviour
             if (ship != null)
             {
                 ship.GetComponent<ShipController>().Highlight();
-                SelectShip(ship);
+                ship.GetComponent<ShipController>().MoveToPosition(mainCamera.ScreenToWorldPoint(item.transform.position));
             }
         }
         //_selectedShip.GetComponent<ShipController>().Move(item.transform.position);

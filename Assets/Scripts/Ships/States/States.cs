@@ -72,3 +72,41 @@ public class MoveToTargetState : IState
         
     }
 }
+public class MoveToPositionState : IState
+{
+    private readonly ShipController _ship;
+    private readonly MovementController _movement;
+    public Vector2 Position { get; set; }
+    private float _speed;
+    private float _rotationSpeed;
+
+    public MoveToPositionState(ShipController ship, MovementController movement, Vector2 position)
+    {
+        _ship = ship;
+        _movement = movement;
+        Position = position;
+    }
+    public void Tick()
+    {
+        if (_movement.DirectionClear(Position - (Vector2)_ship.transform.position,1))
+        {
+            _movement.Move(Position,_speed);
+        }
+        //_movement.RotateTowards(_target.transform,_rotationSpeed);
+    }
+
+    public void OnEnter()
+    {
+        if (Position == null)
+            return;
+        _speed = _movement.BaseSpeed;
+        Vector3 diff = Position - (Vector2)_ship.transform.position;
+        _movement.SetDirection((int)Mathf.Sign(diff.x));
+        //_rotationSpeed = _movement.RotationSpeed;
+    }
+
+    public void OnExit()
+    {
+        
+    }
+}
