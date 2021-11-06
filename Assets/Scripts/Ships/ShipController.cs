@@ -8,16 +8,16 @@ public class ShipController : MonoBehaviour, IDamageable
     [SerializeField] private int health;
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
-    [SerializeField] private GameObject target;
+    [SerializeField] public GameObject target;
     [SerializeField] private bool isPlayer;
     [SerializeField] private bool blocksMovement;
-    [SerializeField] private bool move = true;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private GameObject healthBarPrefab;
-    [SerializeField] private float aggroRange;
+    [SerializeField] protected float aggroRange;
     private HealthBar _healthBar;
-    private MoveToTargetState _moveToTarget;
-    private MoveToPositionState _moveToPosition;
+    protected MoveToTargetState _moveToTarget;
+    protected MoveToPositionState _moveToPosition;
+    protected MoveForwardState _moveForward;
     protected FSM StateMachine;
     public bool BlocksMovement => blocksMovement;
 
@@ -28,15 +28,14 @@ public class ShipController : MonoBehaviour, IDamageable
 
     protected void Start()
     {
-        var moveForward = new MoveForwardState(this, _movementController);
         _moveToTarget = new MoveToTargetState(this, _movementController, target);
         _moveToPosition = new MoveToPositionState(this, _movementController, Vector2.zero);
+        _moveForward = new MoveForwardState(this, _movementController);
         StateMachine = new FSM();
-        StateMachine.SetState(moveForward);
+        
         ShipManager.Instance.AddShip(gameObject);
         _attackCommand = attackScriptableObject.MakeAttack();
         StartCoroutine(_attackCommand.DoAttack(gameObject));
-        
         GameObject healthBars = GameObject.Find("HealthBars");
         GameObject healthBar = Instantiate(healthBarPrefab, healthBars.transform);
         _healthBar = healthBar.GetComponent<HealthBar>();
@@ -109,6 +108,17 @@ public class ShipController : MonoBehaviour, IDamageable
         }
         if (target == null || Vector2.Distance(transform.position, target.transform.position) < .5f)
         {
+            return true;
+        }
+        return false;
+    }
+
+    protected bool DetectEnemy()
+    {
+        GameObject enemy = DetectionController.DetectShip(aggroRange, gameObject);
+        if (enemy != null)
+        {
+            _moveToTarget.Target = enemy;
             return true;
         }
         return false;

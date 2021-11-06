@@ -3,18 +3,13 @@ using UnityEngine;
 
 public class FighterShipController : ShipController
 {
-    [SerializeField] public GameObject target;
     [SerializeField] public GameObject mothership;
-
-    [SerializeField] private MoveToTargetState _moveToTarget;
     [SerializeField] private bool returning;
-    [SerializeField] private float aggroRange;
     // Start is called before the first frame update
     private new void Start()
     {
         base.Start();
         returning = false;
-        _moveToTarget = new MoveToTargetState(this, _movementController, target);
         var returnToMothership = new MoveToTargetState(this, _movementController, mothership);
         StateMachine = new FSM();
         StateMachine.AddTransition(_moveToTarget, returnToMothership, HasReachedTarget);
