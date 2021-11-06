@@ -4,6 +4,8 @@ public class MotherShipController : ShipController
     {
         base.Start();
         StateMachine.AddTransition(_moveForward, _moveToTarget,DetectEnemy);
+        StateMachine.AddTransition(_moveToTarget, _moveForward,HasReachedTarget);
+        StateMachine.AddTransition(_moveToPosition, _moveForward, HasReachedPosition);
         StateMachine.SetState(_moveForward);
     }
 

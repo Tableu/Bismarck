@@ -29,6 +29,6 @@ public class GridItem : MonoBehaviour
 
     private void OnClick()
     {
-        InputManager.Instance.GridItemSelected(gameObject);
+        //InputManager.Instance.GridItemSelected(gameObject);
     }
 }

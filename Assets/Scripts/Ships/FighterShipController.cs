@@ -26,7 +26,7 @@ public class FighterShipController : ShipController
         }
     }
 
-    private bool HasReachedTarget()
+    private new bool HasReachedTarget()
     {
         if (target == null)
         {

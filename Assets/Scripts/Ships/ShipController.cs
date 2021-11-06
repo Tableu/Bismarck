@@ -97,16 +97,16 @@ public class ShipController : MonoBehaviour, IDamageable
     }
     protected bool HasReachedTarget()
     {
-        if (target == null)
+        if (_moveToTarget.Target == null || Vector2.Distance(transform.position, _moveToTarget.Target.transform.position) < .5f)
         {
-            target = DetectionController.DetectShip(aggroRange, gameObject);
-            if (target != null)
-            {
-                _moveToTarget.Target = target;
-                _moveToTarget.OnEnter();
-            }
+            return true;
         }
-        if (target == null || Vector2.Distance(transform.position, target.transform.position) < .5f)
+        return false;
+    }
+
+    protected bool HasReachedPosition()
+    {
+        if (Vector2.Distance(transform.position, _moveToPosition.Position) < .5f)
         {
             return true;
         }

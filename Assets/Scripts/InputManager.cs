@@ -14,7 +14,6 @@ public class InputManager : MonoBehaviour
     [SerializeField] private List<GameObject> _selectedShips;
     [SerializeField] private RectTransform selectionBox;
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private GameObject _grid;
     private Vector2 _startPos;
     private Vector2 _mousePos;
     private Vector2 _projectedMousePos;
@@ -49,12 +48,6 @@ public class InputManager : MonoBehaviour
         _playerInputActions.UI.Click.started += OnClick;
         _playerInputActions.UI.Click.performed += OnClick;
         _playerInputActions.UI.Click.canceled += OnClick;
-        
-        _grid = FindObjectOfType<GridLayoutGroup>().gameObject;
-        if (_grid != null)
-        {
-            _grid.SetActive(false);
-        }
     }
 
     // Update is called once per frame
@@ -99,27 +92,37 @@ public class InputManager : MonoBehaviour
     {
         if (context.started)
         {
-            _startPos = _mousePos;
-            _drawSelectionBox = true;
-            RaycastHit2D hit = Physics2D.Raycast(_projectedMousePos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Player"));
-            if (hit.collider != null)
+            if (_selectedShips.Count <= 0)
             {
-                ShipController ship = hit.collider.gameObject.GetComponent<ShipController>();
-                if (ship != null)
+                _startPos = _mousePos;
+                _drawSelectionBox = true;
+                RaycastHit2D hit = Physics2D.Raycast(_projectedMousePos, Vector2.zero, Mathf.Infinity,
+                    LayerMask.GetMask("Player"));
+                if (hit.collider != null)
                 {
-                    ship.Highlight();
-                    SelectShip(ship.gameObject);
+                    ShipController ship = hit.collider.gameObject.GetComponent<ShipController>();
+                    if (ship != null)
+                    {
+                        ship.Highlight();
+                        SelectShip(ship.gameObject);
+                    }
                 }
+            }
+            else
+            {
+                MoveSelectedShips(_mousePos);
             }
         }else if (context.canceled)
         {
-            _drawSelectionBox = false;
-            ReleaseSelectionBox();
+            if (_drawSelectionBox)
+            {
+                _drawSelectionBox = false;
+                ReleaseSelectionBox();
+            }
         }
     }
     public void SelectShip(GameObject ship)
     {
-        _grid.SetActive(true);
         _selectedShips.Add(ship);
     }
 
@@ -129,23 +132,20 @@ public class InputManager : MonoBehaviour
     }
     public void SelectShip(List<GameObject> ships)
     {
-        _grid.SetActive(true);
         _selectedShips.AddRange(ships);
     }
 
-    public void GridItemSelected(GameObject item)
+    public void MoveSelectedShips(Vector2 position)
     {
         foreach(GameObject ship in _selectedShips.ToList())
         {
             if (ship != null)
             {
                 ship.GetComponent<ShipController>().Highlight();
-                ship.GetComponent<ShipController>().MoveToPosition(mainCamera.ScreenToWorldPoint(item.transform.position));
+                ship.GetComponent<ShipController>().MoveToPosition(mainCamera.ScreenToWorldPoint(position));
             }
         }
-        //_selectedShip.GetComponent<ShipController>().Move(item.transform.position);
-        //item.GetComponent<Button>().enabled = false;
-        _grid.SetActive(false);
+        _drawSelectionBox = false;
         _selectedShips.Clear();
     }
     private void Pause(InputAction.CallbackContext context)
