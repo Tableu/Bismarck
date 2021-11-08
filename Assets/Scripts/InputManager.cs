@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.UI;
 
 //Selection box code: https://gamedevacademy.org/rts-unity-tutorial/
 public class InputManager : MonoBehaviour
@@ -13,7 +10,6 @@ public class InputManager : MonoBehaviour
     private PlayerInputActions _playerInputActions;
     [SerializeField] private List<GameObject> _selectedShips;
     [SerializeField] private RectTransform selectionBox;
-    [SerializeField] private Camera mainCamera;
     private Vector2 _startPos;
     private Vector2 _mousePos;
     private Vector2 _projectedMousePos;
@@ -45,16 +41,20 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         _playerInputActions.UI.Pause.started += Pause;
-        _playerInputActions.UI.Click.started += OnClick;
-        _playerInputActions.UI.Click.performed += OnClick;
-        _playerInputActions.UI.Click.canceled += OnClick;
+        _playerInputActions.UI.LeftClick.started += OnLeftClick;
+        _playerInputActions.UI.LeftClick.performed += OnLeftClick;
+        _playerInputActions.UI.LeftClick.canceled += OnLeftClick;
+
+        _playerInputActions.UI.RightClick.started += OnRightClick;
+        _playerInputActions.UI.RightClick.performed += OnRightClick;
+        _playerInputActions.UI.RightClick.canceled += OnRightClick;
     }
 
     // Update is called once per frame
     void Update()
     {
         _mousePos = _playerInputActions.UI.Point.ReadValue<Vector2>();
-        _projectedMousePos = mainCamera.ScreenToWorldPoint(_mousePos);
+        _projectedMousePos = Camera.main.ScreenToWorldPoint(_mousePos);
         if (_drawSelectionBox)
         {
             UpdateSelectionBox();
@@ -74,8 +74,8 @@ public class InputManager : MonoBehaviour
     private void ReleaseSelectionBox()
     {
         selectionBox.gameObject.SetActive(false);
-        Vector2 min = mainCamera.ScreenToWorldPoint(selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2));
-        Vector2 max = mainCamera.ScreenToWorldPoint(selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2));
+        Vector2 min = Camera.main.ScreenToWorldPoint(selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2));
+        Vector2 max = Camera.main.ScreenToWorldPoint(selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2));
         foreach(GameObject ship in ShipManager.Instance.Ships(gameObject).ToList())
         {
             ShipController controller = ship.GetComponent<ShipController>();
@@ -88,36 +88,49 @@ public class InputManager : MonoBehaviour
             }
         }
     }
-    private void OnClick(InputAction.CallbackContext context)
+    private void OnLeftClick(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            if (_selectedShips.Count <= 0)
-            {
-                _startPos = _mousePos;
-                _drawSelectionBox = true;
-                RaycastHit2D hit = Physics2D.Raycast(_projectedMousePos, Vector2.zero, Mathf.Infinity,
-                    LayerMask.GetMask("Player"));
-                if (hit.collider != null)
-                {
-                    ShipController ship = hit.collider.gameObject.GetComponent<ShipController>();
-                    if (ship != null)
-                    {
-                        ship.Highlight();
-                        SelectShip(ship.gameObject);
-                    }
-                }
-            }
-            else
-            {
-                MoveSelectedShips(_mousePos);
-            }
+            SelectShips();
         }else if (context.canceled)
         {
             if (_drawSelectionBox)
             {
                 _drawSelectionBox = false;
                 ReleaseSelectionBox();
+            }
+        }
+    }
+
+    private void OnRightClick(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if(_selectedShips.Count > 0)
+                MoveSelectedShips(_mousePos);
+        }else if (context.canceled)
+        {
+            
+        }
+    }
+
+    private void SelectShips()
+    {
+        if (_selectedShips.Count <= 0)
+        {
+            _startPos = _mousePos;
+            _drawSelectionBox = true;
+            RaycastHit2D hit = Physics2D.Raycast(_projectedMousePos, Vector2.zero, Mathf.Infinity,
+                LayerMask.GetMask("Player"));
+            if (hit.collider != null)
+            {
+                ShipController ship = hit.collider.gameObject.GetComponent<ShipController>();
+                if (ship != null)
+                {
+                    ship.Highlight();
+                    SelectShip(ship.gameObject);
+                }
             }
         }
     }
@@ -142,7 +155,7 @@ public class InputManager : MonoBehaviour
             if (ship != null)
             {
                 ship.GetComponent<ShipController>().Highlight();
-                ship.GetComponent<ShipController>().MoveToPosition(mainCamera.ScreenToWorldPoint(position));
+                ship.GetComponent<ShipController>().MoveToPosition(Camera.main.ScreenToWorldPoint(position));
             }
         }
         _drawSelectionBox = false;
