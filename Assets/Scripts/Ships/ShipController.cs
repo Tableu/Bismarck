@@ -7,6 +7,7 @@ public class ShipController : MonoBehaviour, IDamageable
     [SerializeField] protected AttackScriptableObject attackScriptableObject;
     [SerializeField] private int health;
     [SerializeField] private float speed;
+    [SerializeField] private int cost;
     [SerializeField] private float rotationSpeed;
     [SerializeField] public GameObject target;
     [SerializeField] private bool isPlayer;
@@ -20,6 +21,7 @@ public class ShipController : MonoBehaviour, IDamageable
     protected MoveForwardState _moveForward;
     protected FSM StateMachine;
     public bool BlocksMovement => blocksMovement;
+    public int Cost => cost;
 
     private void Awake()
     {
@@ -74,15 +76,12 @@ public class ShipController : MonoBehaviour, IDamageable
 
     public void Highlight()
     {
-        var color = GetComponent<SpriteRenderer>().color;
-        if (color.Equals(Color.white))
-        {
-            GetComponent<SpriteRenderer>().color = Color.cyan;
-        }
-        else
-        { 
-            GetComponent<SpriteRenderer>().color = Color.white;
-        }
+        GetComponent<SpriteRenderer>().color = Color.cyan;
+    }
+
+    public void DeHighlight()
+    {
+        GetComponent<SpriteRenderer>().color = Color.white;
     }
     public void MoveToPosition(Vector2 position)
     {
