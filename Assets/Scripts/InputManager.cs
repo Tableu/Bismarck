@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,16 +39,16 @@ public class InputManager : MonoBehaviour
         _playerInputActions.Disable();
     }
 
-    private void EnableCombatInput()
+    public void EnableCombatInput()
     {
-        _playerInputActions.Store.Disable();
+        _playerInputActions.UI.Disable();
         _playerInputActions.Combat.Enable();
         Time.timeScale = 1f;
     }
-    private void EnableStoreInput()
+    public void EnableStoreInput()
     {
         _playerInputActions.Combat.Disable();
-        _playerInputActions.Store.Enable();
+        _playerInputActions.UI.Enable();
         Time.timeScale = 0f;
     }
     // Start is called before the first frame update
@@ -64,15 +63,15 @@ public class InputManager : MonoBehaviour
         _playerInputActions.Combat.RightClick.performed += CombatRightClick;
         _playerInputActions.Combat.RightClick.canceled += CombatRightClick;
 
-        _playerInputActions.Store.LeftClick.started += StoreLeftClick;
-        _playerInputActions.Store.LeftClick.performed += StoreLeftClick;
-        _playerInputActions.Store.LeftClick.canceled += StoreLeftClick;
+        _playerInputActions.UI.LeftClick.started += StoreLeftClick;
+        _playerInputActions.UI.LeftClick.performed += StoreLeftClick;
+        _playerInputActions.UI.LeftClick.canceled += StoreLeftClick;
         
-        _playerInputActions.Store.RightClick.started += StoreRightClick;
-        _playerInputActions.Store.RightClick.performed += StoreRightClick;
-        _playerInputActions.Store.RightClick.canceled += StoreRightClick;
+        _playerInputActions.UI.RightClick.started += StoreRightClick;
+        _playerInputActions.UI.RightClick.performed += StoreRightClick;
+        _playerInputActions.UI.RightClick.canceled += StoreRightClick;
         
-        EnableCombatInput();
+        EnableStoreInput();
     }
 
     // Update is called once per frame

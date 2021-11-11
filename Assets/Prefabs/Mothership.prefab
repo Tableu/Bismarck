@@ -98,16 +98,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8e8f23689749e4295cb36a4bd079f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackScriptableObject: {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
-  move: 0
+  attackScriptableObject: {fileID: 11400000, guid: ce731468473b58b4988a683c822d85a6, type: 2}
   health: 5
   speed: 0.05
+  cost: 0
   rotationSpeed: 0
-  moveTarget: {x: 0, y: 0}
+  target: {fileID: 0}
   isPlayer: 1
+  blocksMovement: 1
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 384
+  healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
+  aggroRange: 10
 --- !u!61 &4271728520197243501
 BoxCollider2D:
   m_ObjectHideFlags: 0
