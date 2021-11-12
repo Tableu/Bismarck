@@ -100,8 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackScriptableObject: {fileID: 11400000, guid: ce731468473b58b4988a683c822d85a6, type: 2}
   health: 5
+  maxHealth: 5
   speed: 0.05
-  cost: 0
+  cost: 1000
   rotationSpeed: 0
   target: {fileID: 0}
   isPlayer: 1

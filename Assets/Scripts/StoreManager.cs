@@ -8,6 +8,8 @@ public class StoreManager : MonoBehaviour
     private static StoreManager _instance;
     [SerializeField] private int money;
     [SerializeField] private Text moneyText;
+    [SerializeField] private Text sellText;
+    [SerializeField] private Text repairText;
 
     public static StoreManager Instance
     {
@@ -41,10 +43,25 @@ public class StoreManager : MonoBehaviour
         }
     }
 
-    public bool Sell(int cost)
+    public void Sell(int cost)
     {
         money += cost;
         moneyText.text = money.ToString();
-        return true;
+    }
+
+    public void Repair(int cost)
+    {
+        money -= cost;
+        moneyText.text = money.ToString();
+    }
+
+    public void UpdateSellText(int cost)
+    {
+        sellText.text = cost.ToString();
+    }
+
+    public void UpdateRepairText(int cost)
+    {
+        repairText.text = cost.ToString();
     }
 }

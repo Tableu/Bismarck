@@ -1,15 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 //Selection box code: https://gamedevacademy.org/rts-unity-tutorial/
 public class InputManager : MonoBehaviour
 {
     private static InputManager _instance;
     private PlayerInputActions _playerInputActions;
-    [SerializeField] private List<GameObject> _selectedShips;
+    public List<GameObject> selectedShips;
     [SerializeField] private RectTransform selectionBox;
+    [SerializeField] private GraphicRaycaster graphicRaycaster;
     private Vector2 _startPos;
     private Vector2 _mousePos;
     private Vector2 _projectedMousePos;
@@ -85,11 +88,12 @@ public class InputManager : MonoBehaviour
         }
         if (_dragShips)
         {
-            foreach (GameObject ship in _selectedShips)
+            foreach (GameObject ship in selectedShips)
             {
                 if (ship != null)
                 {
-                    ship.transform.position = _projectedMousePos;
+                    ShipController controller = ship.GetComponent<ShipController>();
+                    ship.transform.position = _projectedMousePos + controller.positionOffset;
                 }
             }
         }
@@ -117,8 +121,11 @@ public class InputManager : MonoBehaviour
         
             if(shipPos.x > min.x && shipPos.x < max.x && shipPos.y > min.y && shipPos.y < max.y)
             {
-                controller.Highlight();
-                SelectShip(ship);
+                if (!selectedShips.Contains(ship))
+                {
+                    selectedShips.Add(ship);
+                    controller.Highlight();
+                }
             }
         }
     }
@@ -127,9 +134,15 @@ public class InputManager : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                _selectedShips.Clear();
+                selectedShips.Clear();
                 _drawSelectionBox = true;
-                SelectShips();
+                _startPos = _mousePos;
+                ShipController shipClicked = ShipRaycast();
+                if (shipClicked != null)
+                {
+                    selectedShips.Add(shipClicked.gameObject);
+                    shipClicked.Highlight();
+                }
                 break;
             case InputActionPhase.Canceled:
                 if (_drawSelectionBox)
@@ -146,23 +159,65 @@ public class InputManager : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                if(_selectedShips.Count > 0)
+                if(selectedShips.Count > 0)
                     MoveSelectedShips(_mousePos);
                 break;
         }
     }
 
-    private void StoreLeftClick(InputAction.CallbackContext context){
+    private void StoreLeftClick(InputAction.CallbackContext context)
+    {
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                _selectedShips.Clear();
-                SelectShips();
-                _dragShips = true;
+                _startPos = _mousePos;
+                if (UIRaycast())
+                    return;
+                ShipController shipClicked = ShipRaycast();
+                if (shipClicked != null && selectedShips.Count <= 1)
+                {
+                    if (!selectedShips.Contains(shipClicked.gameObject))
+                    {
+                        selectedShips.Add(shipClicked.gameObject);
+                        shipClicked.Highlight();
+                    }
+                    else
+                    {
+                        selectedShips.Remove(shipClicked.gameObject);
+                        shipClicked.DeHighlight();
+                    }
+                }
+                if (selectedShips.Count > 0 && shipClicked != null)
+                {
+                    _dragShips = true;
+                    _startPos = _mousePos;
+                    foreach (GameObject ship in selectedShips)
+                    {
+                        var controller = ship.GetComponent<ShipController>();
+                        controller.positionOffset = (Vector2) ship.transform.position - _projectedMousePos;
+                    }
+                }else if (selectedShips.Count > 0 && shipClicked == null)
+                {
+                    DeSelectShips();
+                }else
+                {
+                    _drawSelectionBox = true;
+                }
                 break;
             case InputActionPhase.Canceled:
-                _dragShips = false;
-                DeSelectShips();
+                if (_dragShips)
+                {
+                    _dragShips = false;
+                    if(Vector2.Distance(_startPos,_mousePos) > 1)
+                        DeSelectShips();
+                }
+                if (_drawSelectionBox)
+                {
+                    _drawSelectionBox = false;
+                    ReleaseSelectionBox();
+                }
+                UpdateRepairCost();
+                UpdateSellCost();
                 break;
         }
     }
@@ -170,50 +225,54 @@ public class InputManager : MonoBehaviour
     {
         
     }
-    private void SelectShips()
+    private ShipController ShipRaycast()
     {
-        _startPos = _mousePos;
         RaycastHit2D hit = Physics2D.Raycast(_projectedMousePos, Vector2.zero, Mathf.Infinity,
-            LayerMask.GetMask("Player"));
+            LayerMask.GetMask("Player","UI"));
         if (hit.collider != null)
         {
             ShipController ship = hit.collider.gameObject.GetComponent<ShipController>();
-            if (ship != null)
-            {
-                ship.Highlight();
-                SelectShip(ship.gameObject);
-            }
+            return ship;
         }
+        return null;
+    }
+
+    private bool UIRaycast()
+    {
+        var eventData = new PointerEventData(EventSystem.current);
+        eventData.position = _mousePos;
+        List<RaycastResult> hits = new List<RaycastResult>();
+        graphicRaycaster.Raycast(eventData, hits);
+        if (hits.Count > 0)
+            return true;
+        return false;
     }
     private void DeSelectShips()
     {
-        foreach(GameObject ship in _selectedShips.ToList())
+        foreach(GameObject ship in selectedShips.ToList())
         {
             if (ship != null)
             {
                 ship.GetComponent<ShipController>().DeHighlight();
             }
         }
-        _selectedShips.Clear();
-    }
-    public void SelectShip(GameObject ship)
-    {
-        if(!_selectedShips.Contains(ship))
-            _selectedShips.Add(ship);
+        selectedShips.Clear();
+        StoreManager.Instance.UpdateRepairText(0);
+        StoreManager.Instance.UpdateSellText(0);
     }
 
     public void DeselectShip(GameObject ship)
     {
-        _selectedShips.Remove(ship);
+        selectedShips.Remove(ship);
     }
     public void SelectShip(List<GameObject> ships)
     {
-        _selectedShips.AddRange(ships);
+        selectedShips.AddRange(ships);
     }
 
     public void MoveSelectedShips(Vector2 position)
     {
-        foreach(GameObject ship in _selectedShips.ToList())
+        foreach(GameObject ship in selectedShips.ToList())
         {
             if (ship != null)
             {
@@ -222,7 +281,7 @@ public class InputManager : MonoBehaviour
             }
         }
         _drawSelectionBox = false;
-        _selectedShips.Clear();
+        selectedShips.Clear();
     }
     private void Pause(InputAction.CallbackContext context)
     {
@@ -235,5 +294,32 @@ public class InputManager : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
+    }
+
+    private void UpdateSellCost()
+    {
+        int total = 0;
+        foreach (GameObject ship in selectedShips)
+        {
+            if (ship != null)
+            {
+                var controller = ship.GetComponent<ShipController>();
+                total += controller.SellCost();
+            }
+        }
+        StoreManager.Instance.UpdateSellText(total);
+    }
+    private void UpdateRepairCost()
+    {
+        int total = 0;
+        foreach (GameObject ship in selectedShips)
+        {
+            if (ship != null)
+            {
+                var controller = ship.GetComponent<ShipController>();
+                total += controller.RepairCost();
+            }
+        }
+        StoreManager.Instance.UpdateRepairText(total);
     }
 }

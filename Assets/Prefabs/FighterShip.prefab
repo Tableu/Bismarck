@@ -95,20 +95,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackScriptableObject: {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
   health: 2
+  maxHealth: 2
   speed: 0.3
+  cost: 5
   rotationSpeed: 40
-  moveTarget: {x: 0, y: 0}
+  target: {fileID: 0}
   isPlayer: 1
   blocksMovement: 0
-  move: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 256
   healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
-  target: {fileID: 0}
+  aggroRange: 3
   mothership: {fileID: 0}
   returning: 0
-  aggroRange: 3
 --- !u!212 &129691159520741700
 SpriteRenderer:
   m_ObjectHideFlags: 0

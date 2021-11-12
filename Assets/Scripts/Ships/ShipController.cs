@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ShipController : MonoBehaviour, IDamageable
@@ -6,6 +7,7 @@ public class ShipController : MonoBehaviour, IDamageable
     protected AttackCommand _attackCommand;
     [SerializeField] protected AttackScriptableObject attackScriptableObject;
     [SerializeField] private int health;
+    [SerializeField] private int maxHealth;
     [SerializeField] private float speed;
     [SerializeField] private int cost;
     [SerializeField] private float rotationSpeed;
@@ -22,6 +24,28 @@ public class ShipController : MonoBehaviour, IDamageable
     protected FSM StateMachine;
     public bool BlocksMovement => blocksMovement;
     public int Cost => cost;
+
+    public Vector2 positionOffset
+    {
+        set;
+        get;
+    }
+
+    public int RepairCost()
+    {
+        return (maxHealth-health)*100;
+    }
+
+    public int SellCost()
+    {
+        return cost - RepairCost();
+    }
+
+    public void Repair()
+    {
+        health = maxHealth;
+        _healthBar.SetHealth(health);
+    }
 
     private void Awake()
     {
@@ -41,7 +65,7 @@ public class ShipController : MonoBehaviour, IDamageable
         GameObject healthBars = GameObject.Find("HealthBars");
         GameObject healthBar = Instantiate(healthBarPrefab, healthBars.transform);
         _healthBar = healthBar.GetComponent<HealthBar>();
-        _healthBar.Init(transform,health, health, 2f);
+        _healthBar.Init(transform, maxHealth, health, 2f);
     }
 
     // Update is called once per frame
@@ -65,12 +89,16 @@ public class ShipController : MonoBehaviour, IDamageable
         return true;
     }
 
-    protected void Death()
+    private void OnDestroy()
     {
+        Destroy(_healthBar.gameObject);
         ShipManager.Instance.RemoveShip(gameObject);
         InputManager.Instance.DeselectShip(gameObject);
         _attackCommand.StopAttack();
-        Destroy(_healthBar.gameObject);
+    }
+
+    protected void Death()
+    {
         Destroy(gameObject);
     }
 
