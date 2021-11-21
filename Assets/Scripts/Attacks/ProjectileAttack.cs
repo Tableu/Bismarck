@@ -6,26 +6,41 @@ public class ProjectileAttack : AttackScriptableObject
 {
     public GameObject projectilePrefab;
     public float fireDelay;
+    public GameObject target;
     public override AttackCommand MakeAttack()
     {
-        return new Attack(projectilePrefab, fireDelay);
+        return new Attack(projectilePrefab, fireDelay, target);
     }
 
     private class Attack : AttackCommand
     {
         private GameObject _projectilePrefab;
+        private GameObject _target;
         private float _fireDelay;
+        private Vector2 _direction;
+        private bool _useTarget = true;
         private bool Stop { get; set; }
 
-        public Attack(GameObject projectilePrefab, float fireDelay)
+        public Attack(GameObject projectilePrefab, float fireDelay, GameObject target)
         {
             _projectilePrefab = projectilePrefab;
             _fireDelay = fireDelay;
+            _target = target;
+            if (target == null)
+            {
+                _useTarget = false;
+            }
         }
 
         public void StopAttack()
         {
             Stop = true;
+        }
+
+        public void SetTarget(GameObject target)
+        {
+            _target = target;
+            _useTarget = true;
         }
         public IEnumerator DoAttack(GameObject attacker)
         {
@@ -41,11 +56,20 @@ public class ProjectileAttack : AttackScriptableObject
         {
             GameObject projectile = Instantiate(_projectilePrefab, attacker.transform.localPosition, _projectilePrefab.transform.rotation);
             Projectile controller = projectile.GetComponent<Projectile>();
-            controller.direction = new Vector2(attacker.transform.localScale.x,0);
-            var rotation = attacker.transform.rotation.eulerAngles;
-            projectile.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z+projectile.transform.rotation.eulerAngles.z);
-            projectile.layer = attacker.layer;
-            controller.enemyLayer = controller.enemyLayer & ~LayerMask.GetMask(LayerMask.LayerToName(attacker.layer));
+            if (controller != null)
+            {
+                float rotation = 0;
+                if (!_useTarget)
+                {
+                    _direction = new Vector2(attacker.transform.localScale.x, 0);
+                }else if (_target != null)
+                {
+                    Vector2 diff = _target.transform.position - attacker.transform.position;
+                    _direction = diff.normalized;
+                    rotation = Vector2.Angle(Vector2.right, _direction);
+                }
+                controller.Init(_direction, rotation, attacker.layer);
+            }
         }
     }
 }

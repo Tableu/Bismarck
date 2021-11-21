@@ -29,8 +29,12 @@ public class ShrapnelProjectile : Projectile
         {
             GameObject shrapnel = Instantiate(shrapnelPrefab,transform.position,Quaternion.identity);
             Projectile projectile = shrapnel.GetComponent<Projectile>();
-            if(projectile != null)
-                projectile.direction = RandomVector2(Mathf.Deg2Rad*40, Mathf.Deg2Rad*-20);
+            if (projectile != null)
+            {
+                Vector2 randomVector = RandomVector2(Mathf.Deg2Rad * 40, Mathf.Deg2Rad * -20);
+                Vector2 shrapnelDirection = new Vector2(randomVector.x*direction.x, randomVector.y);
+                projectile.Init(shrapnelDirection, 0, gameObject.layer);
+            }
         }
         Destroy(gameObject);
     }

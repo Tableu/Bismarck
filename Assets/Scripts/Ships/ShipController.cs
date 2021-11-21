@@ -146,6 +146,7 @@ public class ShipController : MonoBehaviour, IDamageable
         if (enemy != null)
         {
             _moveToTarget.Target = enemy;
+            _attackCommand.SetTarget(enemy);
             return true;
         }
         return false;

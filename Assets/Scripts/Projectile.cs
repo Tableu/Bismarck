@@ -18,7 +18,19 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        transform.Translate(direction*speed*Time.deltaTime);
+        transform.Translate(new Vector2(direction.x*speed, direction.y)*Time.deltaTime);
+    }
+
+    public void Init(Vector2 direction, float zRotation, int projectileLayer)
+    {
+        this.direction = direction;
+        Vector3 scale = transform.localScale;
+        transform.localScale = new Vector3(scale.x*Mathf.Sign(direction.x), scale.y, scale.z);
+        Vector3 rotation = Quaternion.identity.eulerAngles;
+        transform.rotation = Quaternion.Euler(rotation.x, rotation.y,
+            rotation.z + zRotation);
+        gameObject.layer = projectileLayer;
+        enemyLayer = enemyLayer & ~LayerMask.GetMask(LayerMask.LayerToName(projectileLayer));
     }
     protected void OnTriggerEnter2D(Collider2D other)
     {

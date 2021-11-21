@@ -7,29 +7,32 @@ public class SpawnFighters : AttackScriptableObject
 {
     public GameObject fighterPrefab;
     public float fireDelay;
-    public float aggroRange;
     public override AttackCommand MakeAttack()
     {
-        return new Attack(fighterPrefab, fireDelay, aggroRange);
+        return new Attack(fighterPrefab, fireDelay);
     }
 
     private class Attack : AttackCommand
     {
         private GameObject _fighterPrefab;
+        private GameObject _target;
         private float _fireDelay;
-        private float _aggroRange;
         private bool Stop { get; set; }
 
-        public Attack(GameObject fighterPrefab, float fireDelay, float aggroRange)
+        public Attack(GameObject fighterPrefab, float fireDelay)
         {
             _fighterPrefab = fighterPrefab;
             _fireDelay = fireDelay;
-            _aggroRange = aggroRange;
         }
 
         public void StopAttack()
         {
             Stop = true;
+        }
+
+        public void SetTarget(GameObject target)
+        {
+            _target = target;
         }
         public IEnumerator DoAttack(GameObject attacker)
         {
@@ -43,21 +46,20 @@ public class SpawnFighters : AttackScriptableObject
                     continue;
                 }
                 
-                GameObject target = DetectionController.DetectShip(_aggroRange, attacker);
-                if (target != null)
+                if (_target != null)
                 {
-                    SpawnFighter(attacker, target);
+                    SpawnFighter(attacker);
                     yield return new WaitForSeconds(_fireDelay);
                 }
 
                 yield return null;
             }
         }
-        public void SpawnFighter(GameObject mothership, GameObject target)
+        public void SpawnFighter(GameObject mothership)
         {
             GameObject fighter = Instantiate(_fighterPrefab, mothership.transform.position, Quaternion.identity, mothership.transform.parent);
             FighterShipController controller = fighter.GetComponent<FighterShipController>();
-            controller.target = target;
+            controller.target = _target;
             controller.mothership = mothership;
             fighter.layer = mothership.layer;
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,8 +22,14 @@ public class StoreManager : MonoBehaviour
         if (Instance)
         {
             Destroy(gameObject);
+            return;
         }
         _instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        _instance = null;
     }
 
     private void Start()
