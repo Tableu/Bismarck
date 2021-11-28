@@ -1,22 +1,29 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public struct HyperLane
+{
+    public MapNode mapNode;
+    public GameObject hyperLane;
+}
 public class MapNode : MonoBehaviour
 {
     public List<MapNode> adjacentNodes;
     [SerializeField] private Button nodeButton;
     [SerializeField] private GameObject hyperLanePrefab;
-    private List<GameObject> hyperLanes;
+    private List<HyperLane> hyperLanes;
     private bool _visited;
-    private bool _linked;
-    private bool _complete;
+    private bool _linked; //node has been added
+    private bool _complete; //All hyperlanes drawn
     private bool Linked => _linked;
     // Start is called before the first frame update
     private void Awake()
     {
-        hyperLanes = new List<GameObject>();
+        hyperLanes = new List<HyperLane>();
     }
 
     void Start()
@@ -37,12 +44,26 @@ public class MapNode : MonoBehaviour
 
     public void VisitNode()
     {
-        if (!_visited)
+        MapNode currentNode = MapManager.Instance.CurrentNode;
+        foreach (HyperLane lane in hyperLanes.ToList())
         {
-            _visited = true;
-            ColorBlock colorBlock = nodeButton.colors;
-            colorBlock.normalColor = colorBlock.pressedColor;
-            nodeButton.colors = colorBlock;
+            LineRenderer laneRenderer = lane.hyperLane.GetComponent<LineRenderer>();
+            if (laneRenderer != null)
+            {
+                GameObject node = lane.mapNode.gameObject;
+                if (node != null && node.Equals(currentNode.gameObject))
+                {
+                    _visited = true;
+                    laneRenderer.startColor = Color.green;
+                    laneRenderer.endColor = Color.green;
+                        
+                    ColorBlock colorBlock = nodeButton.colors;
+                    colorBlock.normalColor = colorBlock.pressedColor;
+                    colorBlock.selectedColor = colorBlock.pressedColor;
+                    nodeButton.colors = colorBlock;
+                    MapManager.Instance.MovePlayer(this);
+                } 
+            }
         }
     }
 
@@ -64,9 +85,18 @@ public class MapNode : MonoBehaviour
                     MapManager.Instance.AddMapNode(node.gameObject);
                     node._linked = true;
                 }
+                
+                hyperLanes.Add(new HyperLane
+                {
+                    hyperLane = hyperLane,
+                    mapNode = node
+                });
 
-                hyperLanes.Add(hyperLane);
-                node.hyperLanes.Add(hyperLane);
+                node.hyperLanes.Add(new HyperLane
+                {
+                    hyperLane = hyperLane,
+                    mapNode = this
+                });
             }
         }
         _complete = true;
