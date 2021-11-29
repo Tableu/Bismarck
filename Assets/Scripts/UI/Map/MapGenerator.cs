@@ -13,6 +13,8 @@ public class MapGenerator
     private GameObject _nodePrefab;
     private GameObject _nodeParent;
     private char[][] _mazeGrid;
+    private int[][] _posGrid;
+    private List<Vector2> _nodes;
     private List<Vector2> _frontier;
     private int _columns;
     private int _rows;
@@ -24,20 +26,141 @@ public class MapGenerator
         _nodePrefab = nodePrefab;
         _nodeParent = nodeParent;
     }
-    public void SpawnNodes(Vector3 startPos, Vector3 padding, int branchRate)
+    public void SpawnNodes(Vector3 startPos, float r, int branchRate)
     {
         GenerateMap(branchRate);
+        PoissonDisk(r,20);
         for (int row = 0; row < _rows; row++)
         {
             for (int col = 0; col < _columns; col++)
             {
                 if (_mazeGrid[row][col] == '.')
                 {
-                    var pos = new Vector3(startPos.x + col * padding.x, startPos.y + row * padding.y, 0);
-                    GameObject.Instantiate(_nodePrefab, pos, Quaternion.identity, _nodeParent.transform);
+                    int posIndex = _posGrid[row][col];
+                    if(posIndex != -1)
+                        GameObject.Instantiate(_nodePrefab, (Vector3)_nodes[posIndex]+startPos, Quaternion.identity, _nodeParent.transform);
                 }
             }
         }
+    }
+
+    private void PoissonDisk(float r, int k)
+    {
+        _posGrid = new int[_rows][];
+        _nodes = new List<Vector2>();
+        List<Vector2> activeList = new List<Vector2>();
+        
+        for (int row = 0; row < _rows; row++)
+        {
+            _posGrid[row] = new int[_columns];
+            for (int col = 0; col < _columns; col++)
+            {
+                _posGrid[row][col] = -1;
+            }
+        }
+
+        float randX = Random.Range(0,r/Mathf.Sqrt(2));
+        randX = Random.Range(0f, 1f) < 0.5 ? -randX : randX;
+        float randY = Random.Range(0, r/Mathf.Sqrt(2));
+        randY = Random.Range(0f, 1f) < 0.5 ? -randY : randY;
+        
+        Vector2 initCoords = new Vector2(Random.Range(0, _columns - 1), Random.Range(0, _rows - 1));
+        activeList.Add(initCoords);
+        _nodes.Add(new Vector2(initCoords.x*(r/Mathf.Sqrt(2))+randX,initCoords.y*(r/Mathf.Sqrt(2))+randY));
+        int posIndex = 0;
+        _posGrid[(int) initCoords.y][(int) initCoords.x] = posIndex;
+        
+        while (activeList.Count > 0)
+        {
+            int i;
+            posIndex = Random.Range(0, activeList.Count - 1);
+            int col = (int)activeList[posIndex].x;
+            int row = (int)activeList[posIndex].y;
+            for (i = 0; i < k; i++)
+            {
+                randX = Random.Range(r, 2 * r);
+                randX = Random.Range(0f, 1f) < 0.5 ? -randX : randX;
+                randY = Random.Range(r, 2 * r);
+                randY = Random.Range(0f, 1f) < 0.5 ? -randY : randY;
+                Vector2? result = CheckPoissonPoint(new Vector2(randX, randY), col, row, r);
+                if (result != null)
+                {
+                    activeList.Add(result.Value);
+                    break;
+                }
+            }
+
+            if (i > k)
+            {
+                activeList.RemoveAt(posIndex);
+            }
+        }
+    }
+
+    private Vector2? CheckPoissonPoint(Vector2 posOffset, int col, int row, float r)
+    {
+        int nodeIndex = _posGrid[row][col];
+        Vector2 centerPos = _nodes[nodeIndex]+posOffset;
+        col = Mathf.FloorToInt(centerPos.x / (r / Mathf.Sqrt(2)));
+        row = Mathf.FloorToInt(centerPos.y / (r / Mathf.Sqrt(2)));
+        if (col < 0 || col > _columns - 1 || row < 0 || row > _rows - 1)
+        {
+            return null;
+        }
+        if (col > 0)
+        {
+            if (row > 0)
+            {
+                nodeIndex = _posGrid[row-1][col-1];
+                if (nodeIndex != -1 && (centerPos-_nodes[nodeIndex]).magnitude < r)
+                    return null;
+            }
+            if (row < _rows - 1)
+            {
+                nodeIndex = _posGrid[row+1][col-1];
+                if (nodeIndex != -1 && (centerPos-_nodes[nodeIndex]).magnitude < r)
+                    return null;
+            }
+            nodeIndex = _posGrid[row][col-1];
+            if (nodeIndex != -1 && (centerPos-_nodes[nodeIndex]).magnitude < r)
+                return null;
+        }
+
+        if (col < _columns - 1)
+        {
+            if (row > 0)
+            {
+                nodeIndex = _posGrid[row-1][col+1];
+                if (nodeIndex != -1 && (centerPos-_nodes[nodeIndex]).magnitude < r)
+                    return null;
+            }
+            if (row < _rows - 1)
+            {
+                nodeIndex = _posGrid[row+1][col+1];
+                if (nodeIndex != -1 && (centerPos-_nodes[nodeIndex]).magnitude < r)
+                    return null;
+            }
+            nodeIndex = _posGrid[row][col+1];
+            if (nodeIndex != -1 && (centerPos-_nodes[nodeIndex]).magnitude < r)
+                return null;
+        }
+
+        if (row > 0)
+        {
+            nodeIndex = _posGrid[row-1][col];
+            if (nodeIndex != -1 && (centerPos-_nodes[nodeIndex]).magnitude < r)
+                return null;
+        }
+
+        if (row < _rows - 1)
+        {
+            nodeIndex = _posGrid[row+1][col];
+            if (nodeIndex != -1 && (centerPos-_nodes[nodeIndex]).magnitude < r)
+                return null;
+        }
+        _nodes.Add(centerPos);
+        _posGrid[row][col] = _nodes.Count - 1;
+        return new Vector2(col, row);
     }
     
     //http://pcg.wdfiles.com/local--files/pcg-algorithm%3Amaze/growingtree.py by d.factorial@gmail.com

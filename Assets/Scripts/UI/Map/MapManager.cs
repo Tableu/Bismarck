@@ -35,7 +35,7 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         DrawVisibleHyperLanes(1);
-        _mapGenerator.SpawnNodes(new Vector3(0, 0f,0f), new Vector3(3,3,0), 30);
+        _mapGenerator.SpawnNodes(transform.position, 2, 30);
         //MovePlayer(currentNode);
     }
     
