@@ -29,13 +29,14 @@ public class MapManager : MonoBehaviour
         _instance = this;
 
         _mapNodes = new List<GameObject>();
-        _mapGenerator = new MapGenerator(30, 30, nodePrefab, nodeParent);
     }
 
     void Start()
     {
+        _mapGenerator = new MapGenerator(20, 20, nodePrefab, nodeParent);
+        currentNode = _mapGenerator.SpawnNodes(transform.position, 4, 30);
+        playerIcon.transform.position = currentNode.transform.position;
         DrawVisibleHyperLanes(1);
-        _mapGenerator.SpawnNodes(transform.position, 2, 30);
         //MovePlayer(currentNode);
     }
     

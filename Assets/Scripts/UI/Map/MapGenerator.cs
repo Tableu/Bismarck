@@ -13,6 +13,7 @@ public class MapGenerator
     private GameObject _nodePrefab;
     private GameObject _nodeParent;
     private char[][] _mazeGrid;
+    private MapNode[][] _mapNodeGrid;
     private int[][] _posGrid;
     private List<Vector2> _nodes;
     private List<Vector2> _frontier;
@@ -26,22 +27,61 @@ public class MapGenerator
         _nodePrefab = nodePrefab;
         _nodeParent = nodeParent;
     }
-    public void SpawnNodes(Vector3 startPos, float r, int branchRate)
+    public MapNode SpawnNodes(Vector3 startPos, float r, int branchRate)
     {
         GenerateMap(branchRate);
         PoissonDisk(r,20);
+        _mapNodeGrid = new MapNode[_rows][];
+        for (int row = 0; row < _rows; row++)
+        {
+            _mapNodeGrid[row] = new MapNode[_columns];
+            for (int col = 0; col < _columns; col++)
+            {
+                if (_mazeGrid[row][col] == '.')
+                {
+                    int posIndex = _posGrid[row][col];
+                    if (posIndex != -1)
+                    {
+                        GameObject node = GameObject.Instantiate(_nodePrefab, _nodes[posIndex] + (Vector2)startPos, Quaternion.identity,
+                            _nodeParent.transform);
+
+                        if (node != null)
+                        {
+                            MapNode mapNode = node.GetComponent<MapNode>();
+                            _mapNodeGrid[row][col] = mapNode;
+                        }
+                    }
+                }
+            }
+        }
+       
         for (int row = 0; row < _rows; row++)
         {
             for (int col = 0; col < _columns; col++)
             {
                 if (_mazeGrid[row][col] == '.')
                 {
-                    int posIndex = _posGrid[row][col];
-                    if(posIndex != -1)
-                        GameObject.Instantiate(_nodePrefab, (Vector3)_nodes[posIndex]+startPos, Quaternion.identity, _nodeParent.transform);
+                    MapNode mapNode = _mapNodeGrid[row][col];
+                    if (mapNode != null)
+                    {
+                        List<MapNode> adjacentNodes = GetAdjacentNodes(mapNode,row, col);
+                        mapNode.adjacentNodes = adjacentNodes;
+                    }
                 }
             }
         }
+
+        MapNode startNode = null;
+        while (startNode == null)
+        {
+            int randX = Random.Range(0, _columns);
+            int randY = Random.Range(0, _rows);
+            if (_mazeGrid[randY][randX] == '.')
+            {
+                startNode = _mapNodeGrid[randY][randX];
+            }
+        }
+        return startNode;
     }
 
     private void PoissonDisk(float r, int k)
@@ -90,7 +130,7 @@ public class MapGenerator
                 }
             }
 
-            if (i > k)
+            if (i >= k)
             {
                 activeList.RemoveAt(posIndex);
             }
@@ -103,7 +143,7 @@ public class MapGenerator
         Vector2 centerPos = _nodes[nodeIndex]+posOffset;
         col = Mathf.FloorToInt(centerPos.x / (r / Mathf.Sqrt(2)));
         row = Mathf.FloorToInt(centerPos.y / (r / Mathf.Sqrt(2)));
-        if (col < 0 || col > _columns - 1 || row < 0 || row > _rows - 1)
+        if (col < 0 || col > _columns - 1 || row < 0 || row > _rows - 1 || _posGrid[row][col] != -1)
         {
             return null;
         }
@@ -362,6 +402,63 @@ public class MapGenerator
         return false;
     }
 
+    private List<MapNode> GetAdjacentNodes(MapNode mapNode,int row, int col)
+    {
+        List<MapNode> nodeList = new List<MapNode>();
+        if (row > 0)
+        {
+            if (_mazeGrid[row - 1][col] == '.')
+            {
+                MapNode node = _mapNodeGrid[row - 1][col];
+                if (node != null)
+                {
+                    nodeList.Add(node);
+                    node.adjacentNodes.Add(mapNode);
+                }
+            }
+        }
+
+        if (row < _rows - 1)
+        {
+            if (_mazeGrid[row + 1][col] == '.')
+            {
+                MapNode node = _mapNodeGrid[row + 1][col];
+                if (node != null)
+                {
+                    nodeList.Add(node);
+                    node.adjacentNodes.Add(mapNode);
+                }
+            }
+        }
+
+        if (col > 0)
+        {
+            if (_mazeGrid[row][col - 1] == '.')
+            {
+                MapNode node = _mapNodeGrid[row][col - 1];
+                if (node != null)
+                {
+                    nodeList.Add(node);
+                    node.adjacentNodes.Add(mapNode);
+                }
+            }
+        }
+
+        if (col < _columns - 1)
+        {
+            if (_mazeGrid[row][col + 1] == '.')
+            {
+                MapNode node = _mapNodeGrid[row][col + 1];
+                if (node != null)
+                {
+                    nodeList.Add(node);
+                    node.adjacentNodes.Add(mapNode);
+                }
+            }
+        }
+
+        return nodeList;
+    }
     private void ShuffleList<T>(List<T> list)
     {
         for (int i = 0; i < list.Count-1; i++)
