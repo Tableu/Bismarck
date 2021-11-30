@@ -33,7 +33,7 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        _mapGenerator = new MapGenerator(20, 20, nodePrefab, nodeParent);
+        _mapGenerator = new MapGenerator(10, 10, nodePrefab, nodeParent,transform.position);
         currentNode = _mapGenerator.SpawnNodes(transform.position, 4, 30);
         playerIcon.transform.position = currentNode.transform.position;
         DrawVisibleHyperLanes(1);
