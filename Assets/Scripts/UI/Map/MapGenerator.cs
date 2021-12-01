@@ -96,9 +96,9 @@ public class MapGenerator
             int row = (int)activeList[posIndex].y;
             for (i = 0; i < k; i++)
             {
-                float randX = Random.Range(r, 2 * r);
+                float randX = Random.Range(r, r*2);
                 randX = Random.Range(0f, 1f) < 0.5 ? -randX : randX;
-                float randY = Random.Range(r, 2 * r);
+                float randY = Random.Range(r, r*2);
                 randY = Random.Range(0f, 1f) < 0.5 ? -randY : randY;
                 Vector2? result = CheckPoissonPoint(new Vector2(randX, randY), col, row, r);
                 if (result != null)
@@ -186,12 +186,6 @@ public class MapGenerator
         {
             MapNode mapNode = node.GetComponent<MapNode>();
             _mapNodeGrid[row][col] = mapNode;
-            MapNode parentNode = _mapNodeGrid[(int) centerIndex.y][(int) centerIndex.x];
-            if (parentNode != null)
-            {
-                mapNode.adjacentNodes.Add(parentNode);
-                parentNode.adjacentNodes.Add(mapNode);
-            }
         }
         return new Vector2(col, row);
     }

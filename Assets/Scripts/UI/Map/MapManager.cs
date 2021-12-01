@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
@@ -27,8 +28,8 @@ public class MapManager : MonoBehaviour
             return;
         }
         _instance = this;
-
         _mapNodes = new List<GameObject>();
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
@@ -36,7 +37,7 @@ public class MapManager : MonoBehaviour
         _mapGenerator = new MapGenerator(10, 10, nodePrefab, nodeParent,transform.position);
         currentNode = _mapGenerator.SpawnNodes(transform.position, 4, 30);
         playerIcon.transform.position = currentNode.transform.position;
-        DrawVisibleHyperLanes(1);
+        DrawVisibleHyperLanes();
         //MovePlayer(currentNode);
     }
     
@@ -49,7 +50,7 @@ public class MapManager : MonoBehaviour
     {
         playerIcon.transform.position = target.transform.position;
         currentNode = target;
-        DrawVisibleHyperLanes(1);
+        DrawVisibleHyperLanes();
     }
 
     public void AddMapNode(GameObject node)
@@ -67,25 +68,29 @@ public class MapManager : MonoBehaviour
         
     }
 
-    public void DrawVisibleHyperLanes(int maxDepth)
+    public void DrawVisibleHyperLanes()
     {
+        foreach(GameObject node in _mapNodes.ToList())
+        {
+            MapNode mapNode = node.GetComponent<MapNode>();
+            if (mapNode != null)
+            {
+                mapNode.ResetMapNode();
+            }
+        }
         _mapNodes.Clear();
         _mapNodes.Add(currentNode.gameObject);
+        currentNode.SetAdjacentNodes(8);
         currentNode.DrawHyperLanes();
-        int endIndex = _mapNodes.Count;
-        int index = 0;
-        for(int depth = 0; depth < maxDepth; depth++)
+
+        /*foreach(GameObject node in _mapNodes.ToList())
         {
-            while(index < endIndex)
-            {
-                MapNode mapNode = _mapNodes[index].GetComponent<MapNode>();
-                if (mapNode != null)
-                {
-                    mapNode.DrawHyperLanes();
-                } 
-                index++;
+            MapNode mapNode = node.GetComponent<MapNode>();
+            if (mapNode != null)
+            { 
+                mapNode.SetAdjacentNodes(8);
+                mapNode.DrawHyperLanes();
             }
-            endIndex = _mapNodes.Count;
-        }
+        }*/
     }
 }

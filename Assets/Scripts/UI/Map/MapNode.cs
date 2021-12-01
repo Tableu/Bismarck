@@ -58,47 +58,75 @@ public class MapNode : MonoBehaviour
                     laneRenderer.endColor = Color.green;
                         
                     ColorBlock colorBlock = nodeButton.colors;
-                    colorBlock.normalColor = colorBlock.pressedColor;
-                    colorBlock.selectedColor = colorBlock.pressedColor;
+                    colorBlock.normalColor = colorBlock.highlightedColor;
                     nodeButton.colors = colorBlock;
                     MapManager.Instance.MovePlayer(this);
+                    return;
                 } 
             }
         }
+    }
+
+    public void ResetMapNode()
+    {
+        adjacentNodes = new List<MapNode>();
+        _complete = false;
+        foreach (HyperLane hyperLane in hyperLanes)
+        {
+            Destroy(hyperLane.hyperLane);
+        }
+        hyperLanes = new List<HyperLane>();
     }
 
     public void DrawHyperLanes()
     {
         foreach (MapNode node in adjacentNodes)
         {
-            if (!node._complete)
+            if (node._complete)
+                continue;
+            GameObject hyperLane = Instantiate(hyperLanePrefab, transform);
+            LineRenderer hyperLaneRenderer = hyperLane.GetComponent<LineRenderer>();
+            hyperLaneRenderer.SetPositions(new[]
             {
-                GameObject hyperLane = Instantiate(hyperLanePrefab, transform);
-                LineRenderer hyperLaneRenderer = hyperLane.GetComponent<LineRenderer>();
-                hyperLaneRenderer.SetPositions(new[]
-                {
-                    transform.position,
-                    node.transform.position
-                });
-                if (!node._linked && !node._complete)
-                {
-                    MapManager.Instance.AddMapNode(node.gameObject);
-                    node._linked = true;
-                }
-                
-                hyperLanes.Add(new HyperLane
-                {
-                    hyperLane = hyperLane,
-                    mapNode = node
-                });
+                transform.position, 
+                node.transform.position
+            });
+            MapManager.Instance.AddMapNode(node.gameObject);
 
-                node.hyperLanes.Add(new HyperLane
-                {
-                    hyperLane = hyperLane,
-                    mapNode = this
-                });
-            }
+            hyperLanes.Add(new HyperLane
+            {
+                hyperLane = hyperLane, 
+                mapNode = node
+            });
+            node.hyperLanes.Add(new HyperLane
+            {
+                hyperLane = hyperLane, 
+                mapNode = this
+            });
         }
         _complete = true;
+    }
+
+    public void SetAdjacentNodes(float fuel)
+    {
+        adjacentNodes = new List<MapNode>();
+        if (fuel <= 0)
+            return;
+        
+        CircleCollider2D circleCollider = gameObject.AddComponent<CircleCollider2D>();
+        circleCollider.radius = fuel;
+        ContactFilter2D contactFilter2D = new ContactFilter2D();
+        contactFilter2D.layerMask = LayerMask.GetMask("UI");
+        List<RaycastHit2D> results = new List<RaycastHit2D>();
+        circleCollider.Cast(new Vector2(0, 0), contactFilter2D, results, ignoreSiblingColliders:true);
+        foreach (RaycastHit2D raycastHit2D in results)
+        {
+            var mapNode = raycastHit2D.transform.gameObject.GetComponent<MapNode>();
+            if (mapNode != null)
+            {
+                adjacentNodes.Add(mapNode);
+            }
+        }
+        Destroy(circleCollider);
     }
 }

@@ -91,7 +91,6 @@ public class ShipController : MonoBehaviour, IDamageable
 
     private void OnDestroy()
     {
-        Destroy(_healthBar.gameObject);
         ShipManager.Instance.RemoveShip(gameObject);
         InputManager.Instance.DeselectShip(gameObject);
         _attackCommand.StopAttack();
