@@ -38,7 +38,7 @@ public class StoreManager : MonoBehaviour
     }
     public bool Buy(int cost)
     {
-        if (money - cost > 0)
+        if (money - cost >= 0)
         {
             money -= cost;
             moneyText.text = money.ToString();

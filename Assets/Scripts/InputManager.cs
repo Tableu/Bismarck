@@ -252,8 +252,6 @@ public class InputManager : MonoBehaviour
     }
     public void DeSelectShips()
     {
-        if (StoreManager.Instance == null)
-            return;
         foreach(GameObject ship in selectedShips.ToList())
         {
             if (ship != null)
@@ -303,8 +301,6 @@ public class InputManager : MonoBehaviour
 
     private void UpdateSellCost()
     {
-        if (StoreManager.Instance == null)
-            return;
         int total = 0;
         foreach (GameObject ship in selectedShips)
         {
@@ -318,8 +314,6 @@ public class InputManager : MonoBehaviour
     }
     private void UpdateRepairCost()
     {
-        if (StoreManager.Instance == null)
-            return;
         int total = 0;
         foreach (GameObject ship in selectedShips)
         {
