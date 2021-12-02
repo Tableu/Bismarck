@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Projectiles
+  - Ships
   layers:
   - Default
   - TransparentFX
@@ -41,6 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UI
+    uniqueID: 649457069
+    locked: 0
   - name: Background
     uniqueID: 3027233851
     locked: 0
@@ -49,7 +54,4 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 560798983
-    locked: 0
-  - name: UI
-    uniqueID: 649457069
     locked: 0

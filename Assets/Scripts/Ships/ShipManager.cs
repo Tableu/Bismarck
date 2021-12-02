@@ -6,7 +6,12 @@ public class ShipManager : MonoBehaviour
     private static ShipManager _instance;
     private List<GameObject> _playerShips;
     private List<GameObject> _enemyShips;
-    
+
+    public GameObject ShipParent
+    {
+        get;
+        private set;
+    }
     public static ShipManager Instance
     {
         get { return _instance; }
@@ -26,7 +31,7 @@ public class ShipManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ShipParent = GameObject.FindWithTag("Ships");
     }
 
     // Update is called once per frame

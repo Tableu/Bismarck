@@ -29,7 +29,6 @@ public class MapManager : MonoBehaviour
         }
         _instance = this;
         _mapNodes = new List<GameObject>();
-        DontDestroyOnLoad(gameObject);
     }
 
     void Start()

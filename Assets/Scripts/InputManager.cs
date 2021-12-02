@@ -180,6 +180,9 @@ public class InputManager : MonoBehaviour
                     {
                         selectedShips.Add(shipClicked.gameObject);
                         shipClicked.Highlight();
+                    }else if (selectedShips.Count == 1 && selectedShips[0].gameObject.Equals(shipClicked.gameObject))
+                    {
+                        _drawSelectionBox = false;
                     }
                     else
                     {
@@ -247,8 +250,10 @@ public class InputManager : MonoBehaviour
             return true;
         return false;
     }
-    private void DeSelectShips()
+    public void DeSelectShips()
     {
+        if (StoreManager.Instance == null)
+            return;
         foreach(GameObject ship in selectedShips.ToList())
         {
             if (ship != null)
@@ -298,6 +303,8 @@ public class InputManager : MonoBehaviour
 
     private void UpdateSellCost()
     {
+        if (StoreManager.Instance == null)
+            return;
         int total = 0;
         foreach (GameObject ship in selectedShips)
         {
@@ -311,6 +318,8 @@ public class InputManager : MonoBehaviour
     }
     private void UpdateRepairCost()
     {
+        if (StoreManager.Instance == null)
+            return;
         int total = 0;
         foreach (GameObject ship in selectedShips)
         {
