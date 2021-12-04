@@ -107,6 +107,13 @@ public class MapNode : MonoBehaviour
         _complete = true;
     }
 
+    public void SetStartNode()
+    {
+        ColorBlock colorBlock = nodeButton.colors;
+        colorBlock.normalColor = colorBlock.highlightedColor;
+        nodeButton.colors = colorBlock;
+    }
+
     public void SetAdjacentNodes(float fuel)
     {
         adjacentNodes = new List<MapNode>();

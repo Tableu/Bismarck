@@ -31,6 +31,7 @@ public class InputManager : MonoBehaviour
         }
         _instance = this;
         _playerInputActions = new PlayerInputActions();
+        DontDestroyOnLoad(gameObject);
     }
     private void OnEnable()
     {
@@ -73,8 +74,6 @@ public class InputManager : MonoBehaviour
         _playerInputActions.UI.RightClick.started += StoreRightClick;
         _playerInputActions.UI.RightClick.performed += StoreRightClick;
         _playerInputActions.UI.RightClick.canceled += StoreRightClick;
-        
-        EnableStoreInput();
     }
 
     // Update is called once per frame

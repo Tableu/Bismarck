@@ -1,10 +1,12 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TransitionManager : MonoBehaviour
 {
     private static TransitionManager _instance;
     [SerializeField] private GameObject mapPopup;
-    [SerializeField] private GameObject battleScene;
+    [SerializeField] private GameObject fleetScreen;
 
     public static TransitionManager Instance
     {
@@ -22,17 +24,38 @@ public class TransitionManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(mapPopup);
+        DontDestroyOnLoad(fleetScreen);
     }
 
     public void OpenMap()
     {
         mapPopup.SetActive(true);
-        battleScene.SetActive(false);
+        fleetScreen.SetActive(false);
     }
 
     public void CloseMap()
     {
         mapPopup.SetActive(false);
-        battleScene.SetActive(true);
+        fleetScreen.SetActive(true);
+    }
+
+    public void SaveShipFleetScreenPositions()
+    {
+        GameObject shipParent = GameObject.FindWithTag("Ships");
+        ShipController[] shipControllers = shipParent.GetComponentsInChildren<ShipController>();
+        foreach (ShipController controller in shipControllers)
+        {
+            controller.SaveFleetScreenPosition();
+        }
+    }
+    public void SetShipFleetScreenPositions()
+    {
+        GameObject shipParent = GameObject.FindWithTag("Ships");
+        ShipController[] shipControllers = shipParent.GetComponentsInChildren<ShipController>();
+        foreach (ShipController controller in shipControllers)
+        {
+            controller.SetFleetScreenPosition();
+        }
     }
 }

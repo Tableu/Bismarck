@@ -21,7 +21,7 @@ public class MapGenerator
         _nodeParent = nodeParent;
         _startPos = startPos;
     }
-    public MapNode SpawnNodes(Vector2 startPos, float r, int branchRate)
+    public MapNode GenerateMap(Vector2 startPos, float r, int branchRate)
     {
         _startPos = startPos;
         _mapNodeGrid = new MapNode[_rows][];
@@ -34,17 +34,32 @@ public class MapGenerator
             }
         }
         PoissonDisk(r,20, branchRate);
-        /*for (int row = 0; row < _rows; row++)
+        
+        MapNode startNode = SpawnNodes();
+        startNode.VisitNode();
+        return startNode;
+    }
+
+    public MapNode SpawnNodes()
+    {
+        for (int row = 0; row < _rows; row++)
         {
             for (int column = 0; column < _columns; column++)
             {
-                MapNode node = _mapNodeGrid[row][column];
-                if (node != null)
+                int nodeIndex = _posGrid[row][column];
+                if (nodeIndex >= 0)
                 {
-                    node.adjacentNodes = GetAdjacentMapNodes(row, column);
+                    Vector2 nodePos = _nodes[nodeIndex];
+                    GameObject node = GameObject.Instantiate(_nodePrefab, nodePos + _startPos, Quaternion.identity, parent:_nodeParent.transform);
+                    if (node != null)
+                    {
+                        MapNode mapNode = node.GetComponent<MapNode>();
+                        _mapNodeGrid[row][column] = mapNode;
+                    }
                 }
             }
-        }*/
+        }
+        
         MapNode startNode = null;
         while (startNode == null)
         {
@@ -55,6 +70,7 @@ public class MapGenerator
                 startNode = _mapNodeGrid[randY][randX];
             }
         }
+        startNode.SetStartNode();
         return startNode;
     }
 
@@ -76,13 +92,6 @@ public class MapGenerator
         Vector2 initCoords = new Vector2(Random.Range(0, _columns - 1), Random.Range(0, _rows - 1));
         activeList.Add(initCoords);
         _nodes.Add(RandomCellPosition((int)initCoords.x, (int)initCoords.y,r));
-        GameObject node = GameObject.Instantiate(_nodePrefab, _nodes[0] + _startPos, Quaternion.identity,
-            _nodeParent.transform);
-        if (node != null)
-        {
-            MapNode mapNode = node.GetComponent<MapNode>();
-            _mapNodeGrid[(int)initCoords.y][(int)initCoords.x] = mapNode;
-        }
         int posIndex = 0;
         _posGrid[(int) initCoords.y][(int) initCoords.x] = posIndex;
         
@@ -117,7 +126,6 @@ public class MapGenerator
 
     private Vector2? CheckPoissonPoint(Vector2 posOffset, int col, int row, float r)
     {
-        Vector2 centerIndex = new Vector2(col, row);
         int nodeIndex = _posGrid[row][col];
         Vector2 centerPos = _nodes[nodeIndex]+posOffset;
         col = Mathf.FloorToInt(centerPos.x / (r / Mathf.Sqrt(2)));
@@ -179,14 +187,7 @@ public class MapGenerator
         }
         _nodes.Add(centerPos);
         _posGrid[row][col] = _nodes.Count - 1;
-        GameObject node = GameObject.Instantiate(_nodePrefab, centerPos + _startPos, Quaternion.identity,
-            _nodeParent.transform);
-
-        if (node != null)
-        {
-            MapNode mapNode = node.GetComponent<MapNode>();
-            _mapNodeGrid[row][col] = mapNode;
-        }
+        
         return new Vector2(col, row);
     }
     

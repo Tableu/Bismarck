@@ -18,6 +18,7 @@ public class ShipController : MonoBehaviour, IDamageable
     [SerializeField] private GameObject healthBarPrefab;
     [SerializeField] protected float aggroRange;
     private HealthBar _healthBar;
+    private Vector2 _fleetScreenPos;
     protected MoveToTargetState _moveToTarget;
     protected MoveToPositionState _moveToPosition;
     protected MoveForwardState _moveForward;
@@ -25,6 +26,7 @@ public class ShipController : MonoBehaviour, IDamageable
     public bool BlocksMovement => blocksMovement;
     public int Cost => cost;
 
+    #region Shop Functions
     public Vector2 positionOffset
     {
         set;
@@ -46,6 +48,7 @@ public class ShipController : MonoBehaviour, IDamageable
         health = maxHealth;
         _healthBar.SetHealth(health);
     }
+    #endregion
 
     private void Awake()
     {
@@ -153,5 +156,15 @@ public class ShipController : MonoBehaviour, IDamageable
             return true;
         }
         return false;
+    }
+
+    public void SaveFleetScreenPosition()
+    {
+        _fleetScreenPos = transform.position;
+    }
+
+    public void SetFleetScreenPosition()
+    {
+        transform.position = _fleetScreenPos;
     }
 }

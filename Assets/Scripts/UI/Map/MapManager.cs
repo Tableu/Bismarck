@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,7 +33,7 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         _mapGenerator = new MapGenerator(10, 10, nodePrefab, nodeParent,transform.position);
-        currentNode = _mapGenerator.SpawnNodes(transform.position, 4, 30);
+        currentNode = _mapGenerator.GenerateMap(transform.position, 4, 30);
         playerIcon.transform.position = currentNode.transform.position;
         DrawVisibleHyperLanes();
         //MovePlayer(currentNode);
