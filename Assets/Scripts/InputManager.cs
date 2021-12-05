@@ -28,10 +28,10 @@ public class InputManager : MonoBehaviour
         if (Instance)
         {
             Destroy(gameObject);
+            return;
         }
         _instance = this;
         _playerInputActions = new PlayerInputActions();
-        DontDestroyOnLoad(gameObject);
     }
     private void OnEnable()
     {

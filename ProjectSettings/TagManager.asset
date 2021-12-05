@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Projectiles
   - Ships
+  - FleetScreen
   layers:
   - Default
   - TransparentFX

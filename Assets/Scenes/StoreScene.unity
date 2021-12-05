@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 126162144}
   - component: {fileID: 126162143}
-  - component: {fileID: 126162145}
   - component: {fileID: 126162142}
   m_Layer: 6
   m_Name: PlayerInput
@@ -200,20 +199,8 @@ Transform:
   m_Children:
   - {fileID: 1300994142}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &126162145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 126162141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be86909634675e644bb908c1aa86067e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &143650560 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2473740277407861767, guid: 7b028babbc85d8649b7782681850be9c, type: 3}
@@ -364,7 +351,7 @@ Transform:
   - {fileID: 1052429222}
   - {fileID: 790273915}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &301048818 stripped
 RectTransform:
@@ -1550,7 +1537,7 @@ GameObject:
   - component: {fileID: 1043047938}
   m_Layer: 0
   m_Name: FleetScreen
-  m_TagString: Untagged
+  m_TagString: FleetScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1573,7 +1560,6 @@ Transform:
   - {fileID: 1891740056}
   - {fileID: 635365291}
   - {fileID: 149127587}
-  - {fileID: 2057650540}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1653,7 +1639,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1060620203
 MonoBehaviour:
@@ -1668,7 +1654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapPopup: {fileID: 216878816}
-  fleetScreen: {fileID: 1043047937}
+  ships: {fileID: 2057650539}
 --- !u!1 &1097969300 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4727292528032753109, guid: 072a5d96e07951b4887300902b4c0d63, type: 3}
@@ -1875,6 +1861,7 @@ GameObject:
   - component: {fileID: 1514131734}
   - component: {fileID: 1514131733}
   - component: {fileID: 1514131732}
+  - component: {fileID: 1514131735}
   m_Layer: 5
   m_Name: BackToStore
   m_TagString: Untagged
@@ -1946,21 +1933,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 216878816}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1043047937}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+      - m_Target: {fileID: 1514131735}
+        m_TargetAssemblyTypeName: MapButton, Assembly-CSharp
+        m_MethodName: OnMapButtonClick
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2008,6 +1983,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1514131730}
   m_CullTransparentMesh: 1
+--- !u!114 &1514131735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514131730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6e6dee32d5fee4ea5a31d56fb02c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1522941161
 GameObject:
   m_ObjectHideFlags: 0
@@ -2573,6 +2560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2057650540}
+  - component: {fileID: 2057650541}
   m_Layer: 0
   m_Name: Ships
   m_TagString: Ships
@@ -2587,16 +2575,28 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2057650539}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.9076486, y: -0.3928619, z: -289.4822}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 561762626}
   - {fileID: 1586547863}
   - {fileID: 143650560}
-  m_Father: {fileID: 1043047938}
-  m_RootOrder: 7
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2057650541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057650539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be86909634675e644bb908c1aa86067e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2080841213
 GameObject:
   m_ObjectHideFlags: 0
@@ -2609,6 +2609,7 @@ GameObject:
   - component: {fileID: 2080841217}
   - component: {fileID: 2080841216}
   - component: {fileID: 2080841215}
+  - component: {fileID: 2080841218}
   m_Layer: 5
   m_Name: Map
   m_TagString: Untagged
@@ -2680,21 +2681,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 216878816}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1043047937}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+      - m_Target: {fileID: 2080841218}
+        m_TargetAssemblyTypeName: MapButton, Assembly-CSharp
+        m_MethodName: OnMapButtonClick
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2742,6 +2731,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080841213}
   m_CullTransparentMesh: 1
+--- !u!114 &2080841218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080841213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6e6dee32d5fee4ea5a31d56fb02c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2085281522
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TransitionManager : MonoBehaviour
 {
     private static TransitionManager _instance;
     [SerializeField] private GameObject mapPopup;
-    [SerializeField] private GameObject fleetScreen;
+    [SerializeField] private GameObject ships;
+    private GameObject _fleetScreen;
 
     public static TransitionManager Instance
     {
@@ -18,28 +18,53 @@ public class TransitionManager : MonoBehaviour
         if (Instance)
         {
             Destroy(gameObject);
-            _instance = null;
             return;
         }
 
         _instance = this;
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(mapPopup);
-        DontDestroyOnLoad(fleetScreen);
+        DontDestroyOnLoad(ships);
+        SceneManager.sceneLoaded += (scene, mode) =>
+        {
+            if (scene.name == "StoreScene")
+            {
+                InputManager.Instance.EnableStoreInput();
+                mapPopup.SetActive(false);
+                ships.SetActive(true);
+                _fleetScreen = GameObject.FindWithTag("FleetScreen");
+                SetShipFleetScreenPositions();
+            }else if (scene.name == "BattleScene")
+            {
+                InputManager.Instance.EnableCombatInput();
+                mapPopup.SetActive(false);
+                ships.SetActive(true);
+                _fleetScreen = null;
+                SaveShipFleetScreenPositions();
+            }
+        };
     }
 
     public void OpenMap()
     {
         mapPopup.SetActive(true);
-        fleetScreen.SetActive(false);
+        ships.SetActive(false);
+        if(_fleetScreen != null)
+            _fleetScreen.SetActive(false);
     }
 
     public void CloseMap()
     {
         mapPopup.SetActive(false);
-        fleetScreen.SetActive(true);
+        ships.SetActive(true);
+        if(_fleetScreen != null)
+            _fleetScreen.SetActive(true);
     }
 
+    public void GoBackToFleetScreen()
+    {
+        SceneManager.LoadScene("Scenes/StoreScene");
+    }
     public void SaveShipFleetScreenPositions()
     {
         GameObject shipParent = GameObject.FindWithTag("Ships");

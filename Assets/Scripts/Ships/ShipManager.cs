@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShipManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class ShipManager : MonoBehaviour
         if (Instance)
         {
             Destroy(gameObject);
+            return;
         }
         _instance = this;
         _playerShips = new List<GameObject>();
@@ -59,6 +61,11 @@ public class ShipManager : MonoBehaviour
         }else if (ship.layer.Equals(LayerMask.NameToLayer("Enemy")))
         {
             _enemyShips.Remove(ship);
+        }
+
+        if (_enemyShips.Count <= 0 && SceneManager.GetActiveScene().name == "BattleScene")
+        {
+            TransitionManager.Instance.GoBackToFleetScreen();
         }
     }
     public List<GameObject> Ships(GameObject ship)

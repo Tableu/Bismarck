@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -61,6 +61,7 @@ public class MapNode : MonoBehaviour
                     colorBlock.normalColor = colorBlock.highlightedColor;
                     nodeButton.colors = colorBlock;
                     MapManager.Instance.MovePlayer(this);
+                    SceneManager.LoadScene("Scenes/BattleScene");
                     return;
                 } 
             }

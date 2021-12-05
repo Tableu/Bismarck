@@ -18,7 +18,7 @@ public class ShipController : MonoBehaviour, IDamageable
     [SerializeField] private GameObject healthBarPrefab;
     [SerializeField] protected float aggroRange;
     private HealthBar _healthBar;
-    private Vector2 _fleetScreenPos;
+    private Vector2? _fleetScreenPos = null;
     protected MoveToTargetState _moveToTarget;
     protected MoveToPositionState _moveToPosition;
     protected MoveForwardState _moveForward;
@@ -69,6 +69,8 @@ public class ShipController : MonoBehaviour, IDamageable
         GameObject healthBar = Instantiate(healthBarPrefab, healthBars.transform);
         _healthBar = healthBar.GetComponent<HealthBar>();
         _healthBar.Init(transform, maxHealth, health, 2f);
+        
+        SaveFleetScreenPosition();
     }
 
     // Update is called once per frame
@@ -100,7 +102,8 @@ public class ShipController : MonoBehaviour, IDamageable
         }
         ShipManager.Instance.RemoveShip(gameObject);
         InputManager.Instance.DeselectShip(gameObject);
-        _attackCommand.StopAttack();
+        if(_attackCommand != null)
+            _attackCommand.StopAttack();
     }
 
     protected void Death()
@@ -161,10 +164,14 @@ public class ShipController : MonoBehaviour, IDamageable
     public void SaveFleetScreenPosition()
     {
         _fleetScreenPos = transform.position;
+        _attackCommand = attackScriptableObject.MakeAttack();
+        StartCoroutine(_attackCommand.DoAttack(gameObject));
+        DetectEnemy();
     }
 
     public void SetFleetScreenPosition()
     {
-        transform.position = _fleetScreenPos;
+        if(_fleetScreenPos != null)
+            transform.position = _fleetScreenPos.Value;
     }
 }

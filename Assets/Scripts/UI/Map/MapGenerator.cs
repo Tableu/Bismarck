@@ -36,7 +36,6 @@ public class MapGenerator
         PoissonDisk(r,20, branchRate);
         
         MapNode startNode = SpawnNodes();
-        startNode.VisitNode();
         return startNode;
     }
 
