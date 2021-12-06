@@ -164,6 +164,7 @@ public class ShipController : MonoBehaviour, IDamageable
     public void SaveFleetScreenPosition()
     {
         _fleetScreenPos = transform.position;
+        _attackCommand.StopAttack();
         _attackCommand = attackScriptableObject.MakeAttack();
         StartCoroutine(_attackCommand.DoAttack(gameObject));
         DetectEnemy();

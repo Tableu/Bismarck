@@ -18,7 +18,7 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        transform.Translate(new Vector2(direction.x*speed, direction.y)*Time.deltaTime);
+        transform.Translate(new Vector2(direction.x, direction.y)*speed*Time.deltaTime);
     }
 
     public void Init(Vector2 direction, float zRotation, int projectileLayer)

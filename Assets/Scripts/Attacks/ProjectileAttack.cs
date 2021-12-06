@@ -54,19 +54,19 @@ public class ProjectileAttack : AttackScriptableObject
         }
         public void SpawnProjectile(GameObject attacker)
         {
-            GameObject projectile = Instantiate(_projectilePrefab, attacker.transform.localPosition, _projectilePrefab.transform.rotation);
+            GameObject projectile = Instantiate(_projectilePrefab, attacker.transform.position, _projectilePrefab.transform.rotation);
             Projectile controller = projectile.GetComponent<Projectile>();
             if (controller != null)
             {
                 float rotation = 0;
+                float direction = attacker.transform.localScale.x;
                 if (!_useTarget)
                 {
-                    _direction = new Vector2(attacker.transform.localScale.x, 0);
+                    _direction = new Vector2(direction, 0);
                 }else if (_target != null)
                 {
-                    Vector2 diff = _target.transform.position - attacker.transform.position;
+                    Vector2 diff = _target.transform.position-attacker.transform.position;
                     _direction = diff.normalized;
-                    rotation = Vector2.Angle(Vector2.right, _direction);
                 }
                 controller.Init(_direction, rotation, attacker.layer);
             }

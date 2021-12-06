@@ -25,14 +25,20 @@ public class ShrapnelProjectile : Projectile
 
     private void SpawnShrapnel()
     {
+        float angle = transform.rotation.eulerAngles.z;
+        if (direction.x < 0)
+        {
+            angle += 180;
+        }
+        
         for (int index = 0; index < shrapnelCount; index++)
         {
             GameObject shrapnel = Instantiate(shrapnelPrefab,transform.position,Quaternion.identity);
             Projectile projectile = shrapnel.GetComponent<Projectile>();
             if (projectile != null)
             {
-                Vector2 randomVector = RandomVector2(Mathf.Deg2Rad * 40, Mathf.Deg2Rad * -20);
-                Vector2 shrapnelDirection = new Vector2(randomVector.x*direction.x, randomVector.y);
+                Vector2 randomVector = RandomVector2(Mathf.Deg2Rad * 40, Mathf.Deg2Rad * (angle-20));
+                Vector2 shrapnelDirection = new Vector2(randomVector.x, randomVector.y*speed);
                 projectile.Init(shrapnelDirection, 0, gameObject.layer);
             }
         }

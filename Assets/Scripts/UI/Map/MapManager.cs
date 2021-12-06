@@ -23,7 +23,6 @@ public class MapManager : MonoBehaviour
         if (Instance)
         {
             Destroy(gameObject);
-            _instance = null;
             return;
         }
         _instance = this;
