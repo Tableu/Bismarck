@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boxCollider2D: {fileID: 62844092154022362}
+  visuals: {fileID: 2134607465072191025}
   damage: 1
   enemyLayer:
     serializedVersion: 2
@@ -163,5 +164,5 @@ MonoBehaviour:
   direction: {x: 1, y: 0}
   type: 1
   maxDistance: 10
-  shrapnelCount: 10
+  shrapnelCount: 5
   shrapnelPrefab: {fileID: 3493278232137537649, guid: 78f258e646aeeef45a557497a39bf77b, type: 3}

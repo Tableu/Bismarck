@@ -2702,6 +2702,14 @@ PrefabInstance:
       propertyPath: mothership
       value: 
       objectReference: {fileID: 561762621}
+    - target: {fileID: 6245183859499081741, guid: 7b028babbc85d8649b7782681850be9c, type: 3}
+      propertyPath: attackScriptableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6245183859499081741, guid: 7b028babbc85d8649b7782681850be9c, type: 3}
+      propertyPath: attackScriptableObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b028babbc85d8649b7782681850be9c, type: 3}
 --- !u!1 &2088629368
@@ -2891,16 +2899,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
       propertyPath: health
-      value: 1
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: maxHealth
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
       propertyPath: aggroRange
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: fighterSpawner
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
       propertyPath: attackScriptableObject
       value: 
       objectReference: {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: attackScriptableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: attackScriptableObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
 --- !u!1001 &4727292528308618788

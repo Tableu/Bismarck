@@ -68,7 +68,12 @@ public class ProjectileAttack : AttackScriptableObject
                     Vector2 diff = _target.transform.position-attacker.transform.position;
                     _direction = diff.normalized;
                 }
-                controller.Init(_direction, rotation, attacker.layer);
+                else
+                {
+                    Stop = true;
+                }
+                rotation = Vector2.SignedAngle(Vector2.right, _direction);
+                controller.Init(_direction, -direction*rotation, attacker.layer);
             }
         }
     }

@@ -70,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 560798983
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 6857371579078945755, guid: 913c2e9b2844a284cb588f18ebcf9f29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -155,9 +155,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boxCollider2D: {fileID: 1948783779247117279}
+  visuals: {fileID: 453626567986625588}
   damage: 1
   enemyLayer:
     serializedVersion: 2
     m_Bits: 192
   speed: 30
-  direction: 1
+  direction: {x: 0, y: 0}
+  type: 0

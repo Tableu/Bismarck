@@ -3,6 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D _boxCollider2D;
+    [SerializeField] private GameObject visuals;
 
     public int damage;
     public LayerMask enemyLayer;
@@ -26,9 +27,9 @@ public class Projectile : MonoBehaviour
         this.direction = direction;
         Vector3 scale = transform.localScale;
         transform.localScale = new Vector3(scale.x*Mathf.Sign(direction.x), scale.y, scale.z);
-        Vector3 rotation = Quaternion.identity.eulerAngles;
-        transform.rotation = Quaternion.Euler(rotation.x, rotation.y,
-            rotation.z + zRotation);
+        Vector3 rotation = visuals.transform.rotation.eulerAngles;
+        visuals.transform.rotation = Quaternion.Euler(rotation.x, rotation.y,
+            (rotation.z-zRotation)*Mathf.Sign(direction.x));
         gameObject.layer = projectileLayer;
         enemyLayer = enemyLayer & ~LayerMask.GetMask(LayerMask.LayerToName(projectileLayer));
     }

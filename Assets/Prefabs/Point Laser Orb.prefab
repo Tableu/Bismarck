@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boxCollider2D: {fileID: 7201170805715880193}
+  visuals: {fileID: 9128603762348205802}
   damage: 1
   enemyLayer:
     serializedVersion: 2
@@ -175,7 +176,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 560798983
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 4749110555603743678, guid: 913c2e9b2844a284cb588f18ebcf9f29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

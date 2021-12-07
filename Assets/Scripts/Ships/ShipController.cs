@@ -1,11 +1,10 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
-
 public class ShipController : MonoBehaviour, IDamageable
 {
     protected MovementController _movementController;
-    protected AttackCommand _attackCommand;
-    [SerializeField] protected AttackScriptableObject attackScriptableObject;
+    protected List<AttackCommand> _attackCommands = new List<AttackCommand>();
+    [SerializeField] protected List<AttackScriptableObject> attackScriptableObjects;
     [SerializeField] private int health;
     [SerializeField] private int maxHealth;
     [SerializeField] private float speed;
@@ -63,8 +62,10 @@ public class ShipController : MonoBehaviour, IDamageable
         StateMachine = new FSM();
         
         ShipManager.Instance.AddShip(gameObject);
-        _attackCommand = attackScriptableObject.MakeAttack();
-        StartCoroutine(_attackCommand.DoAttack(gameObject));
+        foreach (AttackScriptableObject attackScriptableObject in attackScriptableObjects)
+        {
+            _attackCommands.Add(attackScriptableObject.MakeAttack());
+        }
         GameObject healthBars = GameObject.Find("HealthBars");
         GameObject healthBar = Instantiate(healthBarPrefab, healthBars.transform);
         _healthBar = healthBar.GetComponent<HealthBar>();
@@ -102,8 +103,6 @@ public class ShipController : MonoBehaviour, IDamageable
         }
         ShipManager.Instance.RemoveShip(gameObject);
         InputManager.Instance.DeselectShip(gameObject);
-        if(_attackCommand != null)
-            _attackCommand.StopAttack();
     }
 
     protected void Death()
@@ -155,7 +154,10 @@ public class ShipController : MonoBehaviour, IDamageable
         if (enemy != null)
         {
             _moveToTarget.Target = enemy;
-            _attackCommand.SetTarget(enemy);
+            foreach (AttackCommand command in _attackCommands)
+            {
+                command.SetTarget(enemy);
+            }
             return true;
         }
         return false;
@@ -164,9 +166,10 @@ public class ShipController : MonoBehaviour, IDamageable
     public void SaveFleetScreenPosition()
     {
         _fleetScreenPos = transform.position;
-        _attackCommand.StopAttack();
-        _attackCommand = attackScriptableObject.MakeAttack();
-        StartCoroutine(_attackCommand.DoAttack(gameObject));
+        foreach (AttackCommand command in _attackCommands)
+        {
+            StartCoroutine(command.DoAttack(gameObject));
+        }
         DetectEnemy();
     }
 

@@ -311,6 +311,14 @@ PrefabInstance:
       propertyPath: layerMask.m_Bits
       value: 320
       objectReference: {fileID: 0}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: attackScriptableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: attackScriptableObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ce731468473b58b4988a683c822d85a6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
 --- !u!4 &368868287 stripped
@@ -1018,6 +1026,14 @@ PrefabInstance:
       propertyPath: layerMask.m_Bits
       value: 320
       objectReference: {fileID: 0}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: attackScriptableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: attackScriptableObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ce731468473b58b4988a683c822d85a6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
 --- !u!4 &1326354621 stripped
@@ -1104,6 +1120,22 @@ PrefabInstance:
       propertyPath: layerMask.m_Bits
       value: 320
       objectReference: {fileID: 0}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: attackScriptableObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: attackScriptableObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: ce731468473b58b4988a683c822d85a6, type: 2}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: attackScriptableObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: ce731468473b58b4988a683c822d85a6, type: 2}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: attackScriptableObjects.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: ce731468473b58b4988a683c822d85a6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
 --- !u!4 &1474347972 stripped

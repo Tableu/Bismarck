@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 560798983
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: -2906968706394230640, guid: 13a1c2f67d403ec4297d8230e7b40b3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -98,7 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8e8f23689749e4295cb36a4bd079f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackScriptableObject: {fileID: 11400000, guid: ce731468473b58b4988a683c822d85a6, type: 2}
+  attackScriptableObjects:
+  - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
+  - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
   health: 5
   maxHealth: 5
   speed: 0.05
@@ -111,7 +113,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
-  aggroRange: 10
+  aggroRange: 50
 --- !u!61 &4271728520197243501
 BoxCollider2D:
   m_ObjectHideFlags: 0

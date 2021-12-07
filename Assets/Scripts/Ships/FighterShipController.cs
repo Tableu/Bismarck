@@ -40,7 +40,10 @@ public class FighterShipController : ShipController
         if (target == null || Vector2.Distance(transform.position, target.transform.position) < .5f)
         {
             returning = true;
-            _attackCommand.StopAttack();
+            foreach (AttackCommand command in _attackCommands)
+            {
+                command.StopAttack();
+            }
             return true;
         }
         return false;
