@@ -5,17 +5,20 @@ public class ShipController : MonoBehaviour, IDamageable
     protected MovementController _movementController;
     protected List<AttackCommand> _attackCommands = new List<AttackCommand>();
     [SerializeField] protected List<AttackScriptableObject> attackScriptableObjects;
+    [Header("Stats")]
     [SerializeField] private int health;
     [SerializeField] private int maxHealth;
     [SerializeField] private float speed;
     [SerializeField] private int cost;
+    [SerializeField] private float stopDistance = 0.1f;
     [SerializeField] private float rotationSpeed;
-    [SerializeField] public GameObject target;
+    [SerializeField] protected float aggroRange;
     [SerializeField] private bool isPlayer;
     [SerializeField] private bool blocksMovement;
     [SerializeField] private LayerMask layerMask;
+    [Header("Objects")]
+    [SerializeField] public GameObject target;
     [SerializeField] private GameObject healthBarPrefab;
-    [SerializeField] protected float aggroRange;
     private HealthBar _healthBar;
     private Vector2? _fleetScreenPos = null;
     protected MoveToTargetState _moveToTarget;
@@ -51,7 +54,7 @@ public class ShipController : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        _movementController = new MovementController(gameObject, speed, rotationSpeed, layerMask);
+        _movementController = new MovementController(gameObject, speed, rotationSpeed, layerMask, stopDistance);
     }
 
     protected void Start()

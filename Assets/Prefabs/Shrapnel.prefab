@@ -71,8 +71,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa7315e69a378544a921425a26ceb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boxCollider2D: {fileID: 6518398653965323916}
+  boxCollider2D: {fileID: 6518398653965323916}
   visuals: {fileID: 5131538940010439015}
+  speedSegments: []
   damage: 1
   enemyLayer:
     serializedVersion: 2
@@ -80,6 +81,7 @@ MonoBehaviour:
   speed: 30
   direction: {x: 0, y: 0}
   type: 0
+  timer: 0
 --- !u!1 &5131538940010439015
 GameObject:
   m_ObjectHideFlags: 0

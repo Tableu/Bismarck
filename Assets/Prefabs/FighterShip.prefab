@@ -98,16 +98,17 @@ MonoBehaviour:
   health: 2
   maxHealth: 2
   speed: 0.3
-  cost: 5
+  cost: 200
+  stopDistance: 0.1
   rotationSpeed: 40
-  target: {fileID: 0}
+  aggroRange: 3
   isPlayer: 1
   blocksMovement: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  target: {fileID: 0}
   healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
-  aggroRange: 3
   mothership: {fileID: 0}
   returning: 0
 --- !u!212 &129691159520741700

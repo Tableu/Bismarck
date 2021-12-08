@@ -45,7 +45,7 @@ public class ProjectileAttack : AttackScriptableObject
         public IEnumerator DoAttack(GameObject attacker)
         {
             Stop = false;
-            yield return new WaitForSeconds(_fireDelay);
+            yield return new WaitForSeconds(_fireDelay/2);
             while (!Stop)
             {
                 SpawnProjectile(attacker);

@@ -17,8 +17,9 @@ public class PointLaserOrb : Projectile, IDamageable
         _lasers = 0;
     }
 
-    private void FixedUpdate()
+    private new void FixedUpdate()
     {
+        base.FixedUpdate();
         _cooldown++;
     }
 

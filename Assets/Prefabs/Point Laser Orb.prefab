@@ -72,15 +72,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8d8db2c1a9483d49aca5ebc38533aa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boxCollider2D: {fileID: 7201170805715880193}
+  boxCollider2D: {fileID: 7201170805715880193}
   visuals: {fileID: 9128603762348205802}
+  speedSegments:
+  - speed: 20
+    duration: 20
+  - speed: 5
+    duration: 4
   damage: 1
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
-  speed: 0
-  direction: {x: 0, y: 0}
+  speed: 8
+  direction: {x: 1, y: 0}
   type: 2
+  timer: 0
   pointLaserPrefab: {fileID: 8659672467078212423, guid: b1eac09b76c9c06458f1c3c147968133, type: 3}
   cooldown: 20
   maxLasers: 1

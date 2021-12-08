@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MovementController
@@ -9,21 +7,23 @@ public class MovementController
     
     private bool _inputLocked;
     private int _spriteForward = 1;
+    private float _stopDistance;
     private LayerMask _layerMask;
-    public MovementController(GameObject go, float baseSpeed, float rotationSpeed, LayerMask layerMask)
+    public MovementController(GameObject go, float baseSpeed, float rotationSpeed, LayerMask layerMask, float stopDistance = 0.1f)
     {
         _transform = go.transform;
         _boxCollider = go.GetComponent<BoxCollider2D>();
         BaseSpeed = baseSpeed;
         RotationSpeed = rotationSpeed;
         _layerMask = layerMask;
+        _stopDistance = stopDistance;
     }
     public Vector2 Position => _transform.position;
     public float BaseSpeed { get;}
     public float RotationSpeed { get; }
     public bool Move(Vector2 target, float speed)
     {
-        if (Vector2.Distance(_transform.position, target) > .1f)
+        if (Vector2.Distance(_transform.position, target) > _stopDistance)
         {
             _transform.position = Vector2.MoveTowards(_transform.position, target, speed);
             return true;

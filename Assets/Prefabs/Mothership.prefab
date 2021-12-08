@@ -105,15 +105,16 @@ MonoBehaviour:
   maxHealth: 5
   speed: 0.05
   cost: 1000
+  stopDistance: 10
   rotationSpeed: 0
-  target: {fileID: 0}
+  aggroRange: 50
   isPlayer: 1
   blocksMovement: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 384
+  target: {fileID: 0}
   healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
-  aggroRange: 50
 --- !u!61 &4271728520197243501
 BoxCollider2D:
   m_ObjectHideFlags: 0

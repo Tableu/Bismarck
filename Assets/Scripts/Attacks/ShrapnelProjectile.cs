@@ -14,9 +14,9 @@ public class ShrapnelProjectile : Projectile
         _startPos = transform.position;
     }
     
-    private new void Update()
+    private new void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
         if (Mathf.Abs(transform.position.x - _startPos.x) > maxDistance)
         {
             SpawnShrapnel();

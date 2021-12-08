@@ -154,8 +154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa7315e69a378544a921425a26ceb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boxCollider2D: {fileID: 1948783779247117279}
+  boxCollider2D: {fileID: 1948783779247117279}
   visuals: {fileID: 453626567986625588}
+  speedSegments: []
   damage: 1
   enemyLayer:
     serializedVersion: 2
@@ -163,3 +164,4 @@ MonoBehaviour:
   speed: 30
   direction: {x: 0, y: 0}
   type: 0
+  timer: 0
