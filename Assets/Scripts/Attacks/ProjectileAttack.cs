@@ -19,6 +19,7 @@ public class ProjectileAttack : AttackScriptableObject
         private float _fireDelay;
         private Vector2 _direction;
         private bool _useTarget = true;
+        private int _coroutineCount = 0;
         private bool Stop { get; set; }
 
         public Attack(GameObject projectilePrefab, float fireDelay, GameObject target)
@@ -37,22 +38,29 @@ public class ProjectileAttack : AttackScriptableObject
             Stop = true;
         }
 
-        public void SetTarget(GameObject target)
+        public bool SetTarget(GameObject target)
         {
-            _target = target;
-            _useTarget = true;
+            if (_target == null)
+            {
+                _target = target;
+                _useTarget = true;
+                return true;
+            }
+            return false;
         }
         public IEnumerator DoAttack(GameObject attacker)
         {
+            _coroutineCount++;
+            int coroutineCount = _coroutineCount;
             Stop = false;
             yield return new WaitForSeconds(_fireDelay/2);
-            while (!Stop)
+            while (!Stop && coroutineCount.Equals(_coroutineCount))
             {
                 SpawnProjectile(attacker);
                 yield return new WaitForSeconds(_fireDelay);
             }
         }
-        public void SpawnProjectile(GameObject attacker)
+        private void SpawnProjectile(GameObject attacker)
         {
             GameObject projectile = Instantiate(_projectilePrefab, attacker.transform.position, _projectilePrefab.transform.rotation);
             Projectile controller = projectile.GetComponent<Projectile>();
@@ -71,6 +79,7 @@ public class ProjectileAttack : AttackScriptableObject
                 else
                 {
                     Stop = true;
+                    return;
                 }
                 rotation = Vector2.SignedAngle(Vector2.right, _direction);
                 controller.Init(_direction, -direction*rotation, attacker.layer);

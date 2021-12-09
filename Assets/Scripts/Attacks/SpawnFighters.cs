@@ -17,6 +17,7 @@ public class SpawnFighters : AttackScriptableObject
         private GameObject _fighterPrefab;
         private GameObject _target;
         private float _fireDelay;
+        private int _coroutineCount = 0;
         private bool Stop { get; set; }
 
         public Attack(GameObject fighterPrefab, float fireDelay)
@@ -30,32 +31,33 @@ public class SpawnFighters : AttackScriptableObject
             Stop = true;
         }
 
-        public void SetTarget(GameObject target)
+        public bool SetTarget(GameObject target)
         {
-            _target = target;
+            if (_target == null)
+            {
+                _target = target;
+                return true;
+            }
+            return false;
         }
         public IEnumerator DoAttack(GameObject attacker)
         {
+            _coroutineCount++;
+            int coroutineCount = _coroutineCount;
             Stop = false;
-            while (!Stop)
+            while (!Stop && coroutineCount.Equals(_coroutineCount))
             {
                 List<GameObject> ships = ShipManager.Instance.EnemyShips(attacker);
-                if (ships == null || ships.Count == 0)
+                if (_target == null || ships == null || ships.Count == 0)
                 {
-                    yield return null;
-                    continue;
+                    break;
                 }
                 
-                if (_target != null)
-                {
-                    SpawnFighter(attacker);
-                    yield return new WaitForSeconds(_fireDelay);
-                }
-
-                yield return null;
+                SpawnFighter(attacker);
+                yield return new WaitForSeconds(_fireDelay);
             }
         }
-        public void SpawnFighter(GameObject mothership)
+        private void SpawnFighter(GameObject mothership)
         {
             GameObject fighter = Instantiate(_fighterPrefab, mothership.transform.position, Quaternion.identity, mothership.transform.parent);
             FighterShipController controller = fighter.GetComponent<FighterShipController>();

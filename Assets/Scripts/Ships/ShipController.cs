@@ -3,14 +3,14 @@ using UnityEngine;
 public class ShipController : MonoBehaviour, IDamageable
 {
     protected MovementController _movementController;
-    protected List<AttackCommand> _attackCommands = new List<AttackCommand>();
+    protected List<AttackCommand> _attackCommands;
     [SerializeField] protected List<AttackScriptableObject> attackScriptableObjects;
     [Header("Stats")]
     [SerializeField] private int health;
     [SerializeField] private int maxHealth;
     [SerializeField] private float speed;
     [SerializeField] private int cost;
-    [SerializeField] private float stopDistance = 0.1f;
+    [SerializeField] private float stopDistance = 0.5f;
     [SerializeField] private float rotationSpeed;
     [SerializeField] protected float aggroRange;
     [SerializeField] private bool isPlayer;
@@ -54,7 +54,7 @@ public class ShipController : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        _movementController = new MovementController(gameObject, speed, rotationSpeed, layerMask, stopDistance);
+        _movementController = new MovementController(gameObject, speed, rotationSpeed, layerMask);
     }
 
     protected void Start()
@@ -65,16 +65,17 @@ public class ShipController : MonoBehaviour, IDamageable
         StateMachine = new FSM();
         
         ShipManager.Instance.AddShip(gameObject);
+        _attackCommands = new List<AttackCommand>();
         foreach (AttackScriptableObject attackScriptableObject in attackScriptableObjects)
         {
-            _attackCommands.Add(attackScriptableObject.MakeAttack());
+            AttackCommand attackCommand = attackScriptableObject.MakeAttack();
+            StartCoroutine(attackCommand.DoAttack(gameObject));
+            _attackCommands.Add(attackCommand);
         }
         GameObject healthBars = GameObject.Find("HealthBars");
         GameObject healthBar = Instantiate(healthBarPrefab, healthBars.transform);
         _healthBar = healthBar.GetComponent<HealthBar>();
         _healthBar.Init(transform, maxHealth, health, 2f);
-        
-        SaveFleetScreenPosition();
     }
 
     // Update is called once per frame
@@ -135,7 +136,7 @@ public class ShipController : MonoBehaviour, IDamageable
     }
     protected bool HasReachedTarget()
     {
-        if (_moveToTarget.Target == null || Vector2.Distance(transform.position, _moveToTarget.Target.transform.position) < .5f)
+        if (_moveToTarget.Target == null || Vector2.Distance(transform.position, _moveToTarget.Target.transform.position) < stopDistance)
         {
             return true;
         }
@@ -159,7 +160,8 @@ public class ShipController : MonoBehaviour, IDamageable
             _moveToTarget.Target = enemy;
             foreach (AttackCommand command in _attackCommands)
             {
-                command.SetTarget(enemy);
+                if(command.SetTarget(enemy))
+                    StartCoroutine(command.DoAttack(gameObject));
             }
             return true;
         }
@@ -169,11 +171,6 @@ public class ShipController : MonoBehaviour, IDamageable
     public void SaveFleetScreenPosition()
     {
         _fleetScreenPos = transform.position;
-        foreach (AttackCommand command in _attackCommands)
-        {
-            StartCoroutine(command.DoAttack(gameObject));
-        }
-        DetectEnemy();
     }
 
     public void SetFleetScreenPosition()

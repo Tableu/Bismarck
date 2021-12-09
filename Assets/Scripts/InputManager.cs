@@ -133,7 +133,7 @@ public class InputManager : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                selectedShips.Clear();
+                DeSelectShips();
                 _drawSelectionBox = true;
                 _startPos = _mousePos;
                 ShipController shipClicked = ShipRaycast();
@@ -259,8 +259,11 @@ public class InputManager : MonoBehaviour
             }
         }
         selectedShips.Clear();
-        StoreManager.Instance.UpdateRepairText(0);
-        StoreManager.Instance.UpdateSellText(0);
+        if (StoreManager.Instance != null)
+        {
+            StoreManager.Instance.UpdateRepairText(0);
+            StoreManager.Instance.UpdateSellText(0);
+        }
     }
 
     public void DeselectShip(GameObject ship)
@@ -278,12 +281,10 @@ public class InputManager : MonoBehaviour
         {
             if (ship != null)
             {
-                ship.GetComponent<ShipController>().DeHighlight();
                 ship.GetComponent<ShipController>().MoveToPosition(Camera.main.ScreenToWorldPoint(position));
             }
         }
         _drawSelectionBox = false;
-        selectedShips.Clear();
     }
     private void Pause(InputAction.CallbackContext context)
     {
