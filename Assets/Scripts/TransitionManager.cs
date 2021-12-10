@@ -72,6 +72,7 @@ public class TransitionManager : MonoBehaviour
         foreach (ShipController controller in shipControllers)
         {
             controller.SaveFleetScreenPosition();
+            controller.enabled = true;
         }
     }
     public void SetShipFleetScreenPositions()
@@ -81,6 +82,7 @@ public class TransitionManager : MonoBehaviour
         foreach (ShipController controller in shipControllers)
         {
             controller.SetFleetScreenPosition();
+            controller.enabled = false;
         }
     }
 }

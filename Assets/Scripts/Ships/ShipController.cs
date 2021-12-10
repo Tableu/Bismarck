@@ -145,6 +145,7 @@ public class ShipController : MonoBehaviour, IDamageable
 
     protected bool HasReachedPosition()
     {
+        DetectEnemy();
         if (Vector2.Distance(transform.position, _moveToPosition.Position) < .5f)
         {
             return true;
@@ -154,14 +155,18 @@ public class ShipController : MonoBehaviour, IDamageable
 
     protected bool DetectEnemy()
     {
+        if (_moveToTarget.Target != null)
+        {
+            return false;
+        }
         GameObject enemy = DetectionController.DetectShip(aggroRange, gameObject);
         if (enemy != null)
         {
             _moveToTarget.Target = enemy;
             foreach (AttackCommand command in _attackCommands)
             {
-                if(command.SetTarget(enemy))
-                    StartCoroutine(command.DoAttack(gameObject));
+                command.SetTarget(enemy);
+                StartCoroutine(command.DoAttack(gameObject));
             }
             return true;
         }
