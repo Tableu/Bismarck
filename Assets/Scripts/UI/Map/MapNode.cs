@@ -16,6 +16,8 @@ public class MapNode : MonoBehaviour
     [SerializeField] private Button nodeButton;
     [SerializeField] private GameObject hyperLanePrefab;
     private List<HyperLane> hyperLanes;
+
+    private ContactFilter2D _uiFilter;
     private bool _visited;
     private bool _linked; //node has been added
     private bool _complete; //All hyperlanes drawn
@@ -24,6 +26,10 @@ public class MapNode : MonoBehaviour
     private void Awake()
     {
         hyperLanes = new List<HyperLane>();
+        _uiFilter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("UI")
+        };
     }
 
     void Start()
@@ -121,12 +127,9 @@ public class MapNode : MonoBehaviour
         if (fuel <= 0)
             return;
         
-        CircleCollider2D circleCollider = gameObject.AddComponent<CircleCollider2D>();
-        circleCollider.radius = fuel;
-        ContactFilter2D contactFilter2D = new ContactFilter2D();
-        contactFilter2D.layerMask = LayerMask.GetMask("UI");
         List<RaycastHit2D> results = new List<RaycastHit2D>();
-        circleCollider.Cast(new Vector2(0, 0), contactFilter2D, results, ignoreSiblingColliders:true);
+        Physics2D.CircleCast(gameObject.transform.position, fuel, Vector2.zero, _uiFilter, results);
+        
         foreach (RaycastHit2D raycastHit2D in results)
         {
             var mapNode = raycastHit2D.transform.gameObject.GetComponent<MapNode>();
@@ -135,6 +138,5 @@ public class MapNode : MonoBehaviour
                 adjacentNodes.Add(mapNode);
             }
         }
-        Destroy(circleCollider);
     }
 }

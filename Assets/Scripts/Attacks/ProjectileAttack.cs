@@ -38,15 +38,13 @@ public class ProjectileAttack : AttackScriptableObject
             Stop = true;
         }
 
-        public bool SetTarget(GameObject target)
+        public void SetTarget(GameObject target)
         {
-            if (_target == null)
+            if (target != null)
             {
                 _target = target;
                 _useTarget = true;
-                return true;
             }
-            return false;
         }
         public IEnumerator DoAttack(GameObject attacker)
         {

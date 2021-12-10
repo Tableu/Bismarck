@@ -38,7 +38,7 @@ public class PointLaserOrb : Projectile, IDamageable
         if (_cooldown > cooldown)
         {
             GameObject pointLaser = Instantiate(pointLaserPrefab,transform.position,Quaternion.identity);
-            Stretch(pointLaser, transform.position, other.transform.position, true);
+            Stretch(pointLaser, transform.position, other.ClosestPoint(transform.position), true);
             var enemy = other.gameObject.GetComponent<IDamageable>();
             if (enemy != null)
             {
@@ -107,7 +107,7 @@ public class PointLaserOrb : Projectile, IDamageable
         direction = Vector3.Normalize(direction);
         _sprite.transform.right = direction;
         if (_mirrorZ) _sprite.transform.right *= -1f;
-        Vector3 scale = new Vector3(1,1,1);
+        Vector3 scale = new Vector3(1f,1f,1);
         scale.x = Vector3.Distance(_initialPosition, _finalPosition);
         _sprite.transform.localScale = scale;
     }

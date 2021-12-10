@@ -31,14 +31,12 @@ public class SpawnFighters : AttackScriptableObject
             Stop = true;
         }
 
-        public bool SetTarget(GameObject target)
+        public void SetTarget(GameObject target)
         {
-            if (_target == null)
+            if (target != null)
             {
                 _target = target;
-                return true;
             }
-            return false;
         }
         public IEnumerator DoAttack(GameObject attacker)
         {

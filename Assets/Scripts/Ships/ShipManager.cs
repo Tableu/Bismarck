@@ -44,10 +44,10 @@ public class ShipManager : MonoBehaviour
 
     public void AddShip(GameObject ship)
     {
-        if (ship.layer.Equals(LayerMask.NameToLayer("Player")))
+        if (ship.layer.Equals(LayerMask.NameToLayer("PlayerShips")))
         {
             _playerShips.Add(ship);
-        }else if (ship.layer.Equals(LayerMask.NameToLayer("Enemy")))
+        }else if (ship.layer.Equals(LayerMask.NameToLayer("EnemyShips")))
         {
             _enemyShips.Add(ship);
         }
@@ -55,10 +55,10 @@ public class ShipManager : MonoBehaviour
 
     public void RemoveShip(GameObject ship)
     {
-        if (ship.layer.Equals(LayerMask.NameToLayer("Player")))
+        if (ship.layer.Equals(LayerMask.NameToLayer("PlayerShips")))
         {
             _playerShips.Remove(ship);
-        }else if (ship.layer.Equals(LayerMask.NameToLayer("Enemy")))
+        }else if (ship.layer.Equals(LayerMask.NameToLayer("EnemyShips")))
         {
             _enemyShips.Remove(ship);
         }
@@ -70,10 +70,10 @@ public class ShipManager : MonoBehaviour
     }
     public List<GameObject> Ships(GameObject ship)
     {
-        if (ship.layer.Equals(LayerMask.NameToLayer("Player")))
+        if (ship.layer.Equals(LayerMask.NameToLayer("PlayerShips")))
         {
             return _playerShips;
-        }else if (ship.layer.Equals(LayerMask.NameToLayer("Enemy")))
+        }else if (ship.layer.Equals(LayerMask.NameToLayer("EnemyShips")))
         {
             return _enemyShips;
         }
@@ -81,10 +81,10 @@ public class ShipManager : MonoBehaviour
     }
     public List<GameObject> EnemyShips(GameObject ship)
     {
-        if (ship.layer.Equals(LayerMask.NameToLayer("Player")))
+        if (ship.layer.Equals(LayerMask.NameToLayer("PlayerShips")))
         {
             return _enemyShips;
-        }else if (ship.layer.Equals(LayerMask.NameToLayer("Enemy")))
+        }else if (ship.layer.Equals(LayerMask.NameToLayer("EnemyShips")))
         {
             return _playerShips;
         }

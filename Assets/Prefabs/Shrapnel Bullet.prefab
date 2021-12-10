@@ -154,8 +154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d2a0bff1b3d46e4997eddf58de653f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boxCollider2D: {fileID: 62844092154022362}
+  boxCollider2D: {fileID: 62844092154022362}
   visuals: {fileID: 2134607465072191025}
+  speedSegments: []
   damage: 1
   enemyLayer:
     serializedVersion: 2
@@ -163,6 +164,7 @@ MonoBehaviour:
   speed: 20
   direction: {x: 1, y: 0}
   type: 1
+  timer: 0
   maxDistance: 10
   shrapnelCount: 5
   shrapnelPrefab: {fileID: 3493278232137537649, guid: 78f258e646aeeef45a557497a39bf77b, type: 3}
