@@ -6,26 +6,22 @@ namespace Map
 {
     public class Starmap
     {
-        private int _seed;
+        public delegate void StarSystemUpdateHandler();
 
-        public Starmap(int numSystems, int seed)
+        public Starmap(int n, Texture2D texture2D)
         {
-            _seed = seed;
-            Random.InitState(seed);
             // todo: generate fixed number of points
-            var pointGenerator = new PoissonDisk(10, 10);
+            var pointGenerator = new PoissonDisk(200, 200, texture2D);
             var systemCoordinates = pointGenerator.GeneratePoints();
 
             foreach (var coordinate in systemCoordinates)
                 StarSystems.Add(new StarSystem
                 {
-                    Coordinates = coordinate
+                    Coordinates = coordinate*25
                 });
         }
 
         public List<StarSystem> StarSystems { get; } = new List<StarSystem>();
-
-        public delegate void StarSystemUpdateHandler();
         public event StarSystemUpdateHandler OnMapUpdate;
     }
 }
