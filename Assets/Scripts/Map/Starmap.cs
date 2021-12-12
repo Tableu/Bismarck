@@ -11,7 +11,7 @@ namespace Map
         public Starmap(int n, Texture2D texture2D)
         {
             // todo: generate fixed number of points
-            var pointGenerator = new PoissonDisk(200, 200, texture2D);
+            var pointGenerator = new PoissonDisk(0.005f, 0.05f, texture2D);
             var systemCoordinates = pointGenerator.GeneratePoints();
 
             foreach (var coordinate in systemCoordinates)

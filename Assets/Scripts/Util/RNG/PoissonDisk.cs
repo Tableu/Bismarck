@@ -8,24 +8,26 @@ namespace Util.RNG
 {
     /// <summary>
     ///     Based on https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf
+    ///     https://nicholasdwork.com/papers/fastVDPD.pdf
     /// </summary>
     public class PoissonDisk
     {
         private readonly Texture2D _densityMap;
         private readonly int _k;
-        private readonly int _numColumn;
-        private readonly int _numRow;
         private readonly float _rMax;
         private readonly float _rMin;
+        private readonly int _size;
 
-        public PoissonDisk(int numRow, int numColumn, Texture2D densityMap, int k = 30)
+
+        public PoissonDisk(float minDist, float maxDist, Texture2D densityMap = null, int k = 30)
         {
-            _numRow = numRow;
-            _numColumn = numColumn;
-            _rMin = 1f / _numColumn;
-            _rMax = 10*_rMin;
+            _rMin = minDist;
+            _rMax = maxDist;
+            _densityMap = densityMap ? densityMap : Texture2D.whiteTexture;
+            var meanDensity = _densityMap.GetPixels().Select(i => i.grayscale).Sum() / _densityMap.GetPixels().Length;
             _k = k;
-            _densityMap = densityMap;
+            var cellSize = _rMin / Mathf.Sqrt(2);
+            _size = Mathf.CeilToInt(1 / cellSize);
         }
 
         public List<Vector2> GeneratePoints(int seed)
@@ -37,19 +39,19 @@ namespace Util.RNG
         public List<Vector2> GeneratePoints()
         {
             // Step 0.
-            var grid = new int[_numRow, _numColumn];
+            var grid = new int[_size, _size];
             for (var x = 0; x < grid.GetLength(0); x++)
             for (var y = 0; y < grid.GetLength(1); y++)
                 grid[x, y] = -1;
 
             var cellSize = _rMin / Mathf.Sqrt(2);
             // Step 1.
-            var index = Random.Range(0, _numColumn * _numRow - 1);
+            var index = Random.Range(0, _size * _size - 1);
             var activeList = new HashSet<int>();
             var points = new List<Vector2>();
 
-            var x0 = index % _numRow;
-            var y0 = index / _numColumn;
+            var x0 = index % _size;
+            var y0 = index / _size;
             activeList.Add(index);
             grid[x0, y0] = points.Count;
             points.Add(new Vector2(x0, y0) * cellSize);
@@ -61,11 +63,11 @@ namespace Util.RNG
             while (activeList.Count > 0)
             {
                 var activeIndex = activeList.ElementAt(Random.Range(0, activeList.Count - 1));
-                var activeX = activeIndex % _numRow;
-                var activeY = activeIndex / _numColumn;
+                var activeX = activeIndex % _size;
+                var activeY = activeIndex / _size;
                 var activeDensity = _densityMap.GetPixel(
-                    Mathf.FloorToInt(Remap(activeX, 0, _numColumn, 0, texWidth)),
-                    Mathf.FloorToInt(Remap(activeY, 0, _numRow, 0, texHeight))
+                    Mathf.FloorToInt(Remap(activeX, 0, _size, 0, texWidth)),
+                    Mathf.FloorToInt(Remap(activeY, 0, _size, 0, texHeight))
                 ).grayscale;
 
                 var rActive = Remap(1 - activeDensity, 0, 1, _rMin, _rMax);
@@ -85,17 +87,17 @@ namespace Util.RNG
                     y = (int) Mathf.Floor(point.y / cellSize);
 
                     var density = _densityMap.GetPixel(
-                        Mathf.FloorToInt(Remap(x, 0, _numColumn, 0, texWidth)),
-                        Mathf.FloorToInt(Remap(y, 0, _numRow, 0, texHeight))
+                        Mathf.FloorToInt(Remap(x, 0, _size, 0, texWidth)),
+                        Mathf.FloorToInt(Remap(y, 0, _size, 0, texHeight))
                     ).grayscale;
-                    isValid = x < _numColumn && x >= 0 && y < _numRow && y >= 0;
+                    isValid = x < _size && x >= 0 && y < _size && y >= 0;
 
                     var r = Remap(1 - density, 0, 1, _rMin, _rMax);
 
-                    var dist = Mathf.CeilToInt(r/cellSize);
+                    var dist = Mathf.CeilToInt(r / cellSize);
 
-                    for (var i = Math.Max(x - dist, 0); i <= Math.Min(x + dist, _numRow - 1) && isValid; i++)
-                    for (var j = Math.Max(y - dist, 0); j <= Math.Min(y + dist, _numColumn - 1) && isValid; j++)
+                    for (var i = Math.Max(x - dist, 0); i <= Math.Min(x + dist, _size - 1) && isValid; i++)
+                    for (var j = Math.Max(y - dist, 0); j <= Math.Min(y + dist, _size - 1) && isValid; j++)
                     {
                         var idx = grid[i, j];
                         if (idx == -1) continue;
@@ -109,7 +111,7 @@ namespace Util.RNG
                 {
                     grid[x, y] = points.Count;
                     points.Add(point);
-                    activeList.Add(x + y * _numColumn);
+                    activeList.Add(x + y * _size);
                     continue;
                 }
 
@@ -120,11 +122,11 @@ namespace Util.RNG
             var pointsToRemove = new HashSet<int>(points.Select((vector2, i) => new {vector2, i}).Where(i =>
             {
                 var d = _densityMap.GetPixel(
-                    Mathf.FloorToInt(Remap(i.vector2.x, 0, cellSize*_numColumn, 0, texWidth)),
-                    Mathf.FloorToInt(Remap(i.vector2.y, 0, cellSize*_numColumn, 0, texHeight))
+                    Mathf.FloorToInt(Remap(i.vector2.x, 0, cellSize * _size, 0, texWidth)),
+                    Mathf.FloorToInt(Remap(i.vector2.y, 0, cellSize * _size, 0, texHeight))
                 ).grayscale;
                 return d == 0;
-            }).Select(i=>i.i));
+            }).Select(i => i.i));
 
             return points.Where((vector2, i) => !pointsToRemove.Contains(i)).ToList();
         }
