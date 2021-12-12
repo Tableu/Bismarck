@@ -89,8 +89,8 @@ MonoBehaviour:
   timer: 0
   pointLaserPrefab: {fileID: 8659672467078212423, guid: b1eac09b76c9c06458f1c3c147968133, type: 3}
   cooldown: 20
-  maxLasers: 1
-  _size: 0
+  maxLasers: 2
+  size: 0
 --- !u!50 &8026159820068560182
 Rigidbody2D:
   serializedVersion: 4

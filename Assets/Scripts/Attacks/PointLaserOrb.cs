@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PointLaserOrb : Projectile, IDamageable
@@ -6,14 +5,14 @@ public class PointLaserOrb : Projectile, IDamageable
     [SerializeField] private GameObject pointLaserPrefab;
     [SerializeField] private int cooldown;
     [SerializeField] private int maxLasers;
-    [SerializeField] private float _size;
+    [SerializeField] private float size;
     private int _cooldown;
     private int _lasers;
     private new void Start()
     {
         base.Start();
         _cooldown = 0;
-        _size = 0;
+        size = 0;
         _lasers = 0;
     }
 
@@ -54,15 +53,15 @@ public class PointLaserOrb : Projectile, IDamageable
                 Destroy(other.gameObject);
             }
             _lasers++;
-            _size--;
+            size--;
             if (_lasers >= maxLasers)
             {
                 _cooldown = 0;
                 _lasers = 0;
             }
             var localScale = transform.localScale;
-            localScale.x = 1 + (_size / 10);
-            localScale.y = 1 + (_size / 10);
+            localScale.x = 1 + (size / 10);
+            localScale.y = 1 + (size / 10);
             transform.localScale = localScale;
         }
     }
@@ -74,17 +73,17 @@ public class PointLaserOrb : Projectile, IDamageable
             switch (dmg.Type)
             {
                 case CollisionType.energy:
-                    _size += 2*dmg.RawDamage;
+                    size += 2*dmg.RawDamage;
                     break;
                 case CollisionType.kinetic:
-                    _size--;
+                    size--;
                     break;
                 case CollisionType.pointlaser:
                     break;
                 case CollisionType.ship:
                     break;
                 default:
-                    _size--;
+                    size--;
                     break;
             }
         }

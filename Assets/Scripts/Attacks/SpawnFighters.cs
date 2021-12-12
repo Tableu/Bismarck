@@ -45,8 +45,7 @@ public class SpawnFighters : AttackScriptableObject
             Stop = false;
             while (!Stop && coroutineCount.Equals(_coroutineCount))
             {
-                List<GameObject> ships = ShipManager.Instance.EnemyShips(attacker);
-                if (_target == null || ships == null || ships.Count == 0)
+                if (_target == null)
                 {
                     break;
                 }

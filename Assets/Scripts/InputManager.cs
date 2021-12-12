@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -18,6 +19,9 @@ public class InputManager : MonoBehaviour
     private Vector2 _projectedMousePos;
     private bool _drawSelectionBox = false;
     private bool _dragShips = false;
+    private CinemachineBrain _brain;
+    private CinemachineVirtualCamera _virtualCamera;
+    private static ContactFilter2D PlayerFilter;
 
     public static InputManager Instance
     {
@@ -32,10 +36,17 @@ public class InputManager : MonoBehaviour
         }
         _instance = this;
         _playerInputActions = new PlayerInputActions();
+        PlayerFilter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("PlayerShips"),
+            useLayerMask = true
+        };
     }
     private void OnEnable()
     {
         _playerInputActions.Enable();
+        _brain = FindObjectOfType<CinemachineBrain>();
+        _virtualCamera = _brain.ActiveVirtualCamera as CinemachineVirtualCamera;
     }
 
     private void OnDisable()
@@ -113,18 +124,17 @@ public class InputManager : MonoBehaviour
         selectionBox.gameObject.SetActive(false);
         Vector2 min = Camera.main.ScreenToWorldPoint(selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2));
         Vector2 max = Camera.main.ScreenToWorldPoint(selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2));
-        foreach(GameObject ship in ShipManager.Instance.Ships(gameObject).ToList())
+        List<RaycastHit2D> results = new List<RaycastHit2D>();
+        Physics2D.BoxCast(Camera.main.ScreenToWorldPoint(selectionBox.position), 
+            max-min,0,Vector2.zero, PlayerFilter, results);
+        foreach(RaycastHit2D hit in results)
         {
-            ShipController controller = ship.GetComponent<ShipController>();
-            Vector3 shipPos = ship.transform.position;
-        
-            if(shipPos.x > min.x && shipPos.x < max.x && shipPos.y > min.y && shipPos.y < max.y)
-            {
-                if (!selectedShips.Contains(ship))
-                {
-                    selectedShips.Add(ship);
-                    controller.Highlight();
-                }
+            ShipController controller = hit.collider.GetComponent<ShipController>();
+            
+            if (!selectedShips.Contains(controller.gameObject))
+            { 
+                selectedShips.Add(controller.gameObject);
+                controller.Highlight();
             }
         }
     }
@@ -230,7 +240,7 @@ public class InputManager : MonoBehaviour
     private ShipController ShipRaycast()
     {
         RaycastHit2D hit = Physics2D.Raycast(_projectedMousePos, Vector2.zero, Mathf.Infinity,
-            LayerMask.GetMask("Player","UI"));
+            LayerMask.GetMask("PlayerShips","UI"));
         if (hit.collider != null)
         {
             ShipController ship = hit.collider.gameObject.GetComponent<ShipController>();
