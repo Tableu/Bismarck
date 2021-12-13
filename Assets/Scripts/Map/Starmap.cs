@@ -6,9 +6,8 @@ namespace Map
 {
     public class Starmap
     {
-        public delegate void StarSystemUpdateHandler();
 
-        public Starmap(int n, Texture2D texture2D)
+        public Starmap(Texture2D texture2D)
         {
             // todo: generate fixed number of points
             var pointGenerator = new PoissonDisk(0.005f, 0.05f, texture2D);
@@ -22,6 +21,5 @@ namespace Map
         }
 
         public List<StarSystem> StarSystems { get; } = new List<StarSystem>();
-        public event StarSystemUpdateHandler OnMapUpdate;
     }
 }
