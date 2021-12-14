@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0319b8abee3464c9334cf03b9171426, type: 3}
+  m_Name: ClassM
+  m_EditorClassIdentifier: 
+  starClassName: Class M
+  starColor: {r: 0.754717, g: 0.28875822, b: 0.12459949, a: 1}
+  sizeRange:
+    minValue: 1
+    maxValue: 1.4495327
