@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class StoreManager : MonoBehaviour
 {
     private static StoreManager _instance;
+    [SerializeField] private FleetSpawner fleetSpawner;
     [SerializeField] private int money;
     [SerializeField] private Text moneyText;
     [SerializeField] private Text sellText;
