@@ -25,7 +25,7 @@ public class TransitionManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(mapPopup);
         DontDestroyOnLoad(ships);
-        SceneManager.sceneLoaded += (scene, mode) =>
+        /*SceneManager.sceneLoaded += (scene, mode) =>
         {
             if (scene.name == "StoreScene")
             {
@@ -42,7 +42,7 @@ public class TransitionManager : MonoBehaviour
                 _fleetScreen = null;
                 SaveShipFleetScreenPositions();
             }
-        };
+        };*/
     }
 
     public void OpenMap()
@@ -64,25 +64,5 @@ public class TransitionManager : MonoBehaviour
     public void GoBackToFleetScreen()
     {
         SceneManager.LoadScene("Scenes/StoreScene");
-    }
-    public void SaveShipFleetScreenPositions()
-    {
-        GameObject shipParent = GameObject.FindWithTag("Ships");
-        ShipController[] shipControllers = shipParent.GetComponentsInChildren<ShipController>();
-        foreach (ShipController controller in shipControllers)
-        {
-            controller.SaveFleetScreenPosition();
-            controller.enabled = true;
-        }
-    }
-    public void SetShipFleetScreenPositions()
-    {
-        GameObject shipParent = GameObject.FindWithTag("Ships");
-        ShipController[] shipControllers = shipParent.GetComponentsInChildren<ShipController>();
-        foreach (ShipController controller in shipControllers)
-        {
-            controller.SetFleetScreenPosition();
-            controller.enabled = false;
-        }
     }
 }

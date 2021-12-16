@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipShopItem : MonoBehaviour
+public class ShipStoreController : ShipController
 {
     [Header("Stats")]
     [SerializeField] private int cost;
@@ -31,6 +29,11 @@ public class ShipShopItem : MonoBehaviour
         health = maxHealth;
         _healthBar.SetHealth(health);
     }
+
+    public override void Init(ShipData shipData)
+    {
+        
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -43,12 +46,12 @@ public class ShipShopItem : MonoBehaviour
         
     }
     
-    public void Highlight()
+    public override void Highlight()
     {
         GetComponent<SpriteRenderer>().color = Color.cyan;
     }
 
-    public void DeHighlight()
+    public override void DeHighlight()
     {
         GetComponent<SpriteRenderer>().color = Color.white;
     }

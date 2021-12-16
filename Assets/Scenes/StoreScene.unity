@@ -2080,7 +2080,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7775974, y: 1}
+    m_SensorSize: {x: 1.3333334, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2749,6 +2749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa8ca6cfbfdfde640b4cc5b4b1a243ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fleetSpawner: {fileID: 0}
   money: 2000
   moneyText: {fileID: 343763222}
   sellText: {fileID: 1887474248}

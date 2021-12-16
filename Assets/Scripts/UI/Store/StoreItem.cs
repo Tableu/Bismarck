@@ -13,7 +13,7 @@ public class StoreItem : MonoBehaviour
     }
     public void SpawnShip()
     {
-        if (StoreManager.Instance.Buy(cost))
+        if (StoreWindow.Instance.Buy(cost))
         {
             Instantiate(shipPrefab, Vector3.zero, Quaternion.identity, ShipManager.Instance.ShipParent.transform);
         }

@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RepairButton : MonoBehaviour
 {
     // Start is called before the first frame update
+    public StoreWindow store;
     void Start()
     {
         
@@ -22,13 +21,13 @@ public class RepairButton : MonoBehaviour
         {
             foreach (GameObject ship in InputManager.Instance.selectedShips)
             {
-                var controller = ship.GetComponent<ShipController>();
-                StoreManager.Instance.Repair(controller.RepairCost());
+                var controller = ship.GetComponent<ShipStoreController>();
+                store.Repair(controller.RepairCost());
                 controller.Repair();
             }
             InputManager.Instance.selectedShips.Clear();
-            StoreManager.Instance.UpdateRepairText(0);
-            StoreManager.Instance.UpdateSellText(0);
+            store.UpdateRepairText(0);
+            store.UpdateSellText(0);
         }    
     }
 }

@@ -43,7 +43,7 @@ public class MovementController
         int count = _boxCollider.Raycast(direction, results, distance, _layerMask);
         for (int index = 0; index < count; index++)
         {
-            var shipController = results[index].collider.GetComponent<ShipController>();
+            var shipController = results[index].collider.GetComponent<ShipBattleController>();
             if (shipController != null)
             {
                 if(shipController.BlocksMovement)

@@ -57,9 +57,9 @@ public class SpawnFighters : AttackScriptableObject
         private void SpawnFighter(GameObject mothership)
         {
             GameObject fighter = Instantiate(_fighterPrefab, mothership.transform.position, Quaternion.identity, mothership.transform.parent);
-            FighterShipController controller = fighter.GetComponent<FighterShipController>();
-            controller.target = _target;
-            controller.mothership = mothership;
+            FighterShipBattleController battleController = fighter.GetComponent<FighterShipBattleController>();
+            battleController.target = _target;
+            battleController.mothership = mothership;
             fighter.layer = mothership.layer;
         }
     }

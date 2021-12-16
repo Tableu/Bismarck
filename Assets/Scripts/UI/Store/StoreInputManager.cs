@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
@@ -6,10 +7,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-//Selection box code: https://gamedevacademy.org/rts-unity-tutorial/
-public class InputManager : MonoBehaviour
+public class StoreInputManager : MonoBehaviour
 {
-    private static InputManager _instance;
+    private static StoreInputManager _instance;
     private PlayerInputActions _playerInputActions;
     public List<GameObject> selectedShips;
     [SerializeField] private RectTransform selectionBox;
@@ -23,7 +23,7 @@ public class InputManager : MonoBehaviour
     private CinemachineVirtualCamera _virtualCamera;
     private static ContactFilter2D PlayerFilter;
 
-    public static InputManager Instance
+    public static StoreInputManager Instance
     {
         get { return _instance; }
     }
@@ -69,15 +69,6 @@ public class InputManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerInputActions.Combat.Pause.started += Pause;
-        _playerInputActions.Combat.LeftClick.started += CombatLeftClick;
-        _playerInputActions.Combat.LeftClick.performed += CombatLeftClick;
-        _playerInputActions.Combat.LeftClick.canceled += CombatLeftClick;
-
-        _playerInputActions.Combat.RightClick.started += CombatRightClick;
-        _playerInputActions.Combat.RightClick.performed += CombatRightClick;
-        _playerInputActions.Combat.RightClick.canceled += CombatRightClick;
-
         _playerInputActions.UI.LeftClick.started += StoreLeftClick;
         _playerInputActions.UI.LeftClick.performed += StoreLeftClick;
         _playerInputActions.UI.LeftClick.canceled += StoreLeftClick;
@@ -136,41 +127,6 @@ public class InputManager : MonoBehaviour
                 selectedShips.Add(battleController.gameObject);
                 battleController.Highlight();
             }
-        }
-    }
-    private void CombatLeftClick(InputAction.CallbackContext context)
-    {
-        switch (context.phase)
-        {
-            case InputActionPhase.Started:
-                DeSelectShips();
-                _drawSelectionBox = true;
-                _startPos = _mousePos;
-                ShipController shipBattleClicked = ShipRaycast();
-                if (shipBattleClicked != null)
-                {
-                    selectedShips.Add(shipBattleClicked.gameObject);
-                    shipBattleClicked.Highlight();
-                }
-                break;
-            case InputActionPhase.Canceled:
-                if (_drawSelectionBox)
-                {
-                    _drawSelectionBox = false;
-                    ReleaseSelectionBox();
-                }
-                break;
-        }
-    }
-
-    private void CombatRightClick(InputAction.CallbackContext context)
-    {
-        switch (context.phase)
-        {
-            case InputActionPhase.Started:
-                if(selectedShips.Count > 0)
-                    MoveSelectedShips(_mousePos);
-                break;
         }
     }
 
@@ -279,18 +235,7 @@ public class InputManager : MonoBehaviour
     {
         selectedShips.AddRange(ships);
     }
-
-    public void MoveSelectedShips(Vector2 position)
-    {
-        foreach(GameObject ship in selectedShips.ToList())
-        {
-            if (ship != null)
-            {
-                ship.GetComponent<ShipBattleController>().MoveToPosition(Camera.main.ScreenToWorldPoint(position));
-            }
-        }
-        _drawSelectionBox = false;
-    }
+    
     private void Pause(InputAction.CallbackContext context)
     {
         Debug.Log("Pause");

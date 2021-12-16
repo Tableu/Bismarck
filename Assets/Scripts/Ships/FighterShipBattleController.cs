@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public class FighterShipController : ShipController
+public class FighterShipBattleController : ShipBattleController
 {
     [SerializeField] public GameObject mothership;
     [SerializeField] private bool returning;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SellButton : MonoBehaviour
 {
+    public StoreWindow store;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +23,12 @@ public class SellButton : MonoBehaviour
         {
             foreach (GameObject ship in InputManager.Instance.selectedShips)
             {
-                var controller = ship.GetComponent<ShipController>();
-                StoreManager.Instance.Sell(controller.Cost);
+                var controller = ship.GetComponent<ShipStoreController>();
+                store.Sell(controller.Cost);
                 Destroy(ship);
             }
             InputManager.Instance.selectedShips.Clear();
-            StoreManager.Instance.UpdateSellText(0);
+            store.UpdateSellText(0);
         }
     }
 }
