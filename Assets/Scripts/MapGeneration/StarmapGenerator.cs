@@ -15,11 +15,12 @@ namespace MapGeneration
 
         public List<StarSystem> GenerateMap()
         {
-            var pointGenerator = new PoissonDisk(0.005f, 0.05f, _densityMap);
+            var pointGenerator = new PoissonDisk(0.01f, 0.1f, _densityMap);
             var systemCoordinates = pointGenerator.GeneratePoints();
+            var connectedSystems = Triangulation.Delaunay(systemCoordinates);
 
-            var starSystems = systemCoordinates.Select(coordinate =>
-                new StarSystem {Coordinates = coordinate * 25}).ToList();
+            var starSystems = connectedSystems.Select(vertex =>
+                new StarSystem {Coordinates = (vertex.Point - 0.5f*Vector2.one) * 25, ConnectedSystems = vertex.Connections}).ToList();
             return starSystems;
         }
     }

@@ -8,5 +8,6 @@ namespace MapGeneration
         public Vector2 Coordinates;
         public StellarObject MainStar;
         public List<int> ConnectedSystems;
+        public HashSet<int> HyperLanes;
     }
 }
