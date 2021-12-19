@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public interface ISpawner
 {
     public void SpawnFleet(List<ShipData> shipDatas);
@@ -9,5 +10,6 @@ public interface ISpawner
 
 public abstract class SpawnerScriptableObject : ScriptableObject
 {
-    public abstract ISpawner MakeSpawner(Transform parent);
+    public abstract void SpawnFleet(List<ShipData> shipDatas);
+    public abstract void SpawnShip(ShipData data);
 }

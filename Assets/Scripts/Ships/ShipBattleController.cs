@@ -5,6 +5,7 @@ public class ShipBattleController : ShipController, IDamageable
 {
     protected MovementController _movementController;
     protected List<AttackCommand> _attackCommands;
+    public ShipListScriptableObject selectedShips;
     [SerializeField] protected List<AttackScriptableObject> attackScriptableObjects;
     [Header("Stats")]
     [SerializeField] private int health;
@@ -48,7 +49,6 @@ public class ShipBattleController : ShipController, IDamageable
         _moveForward = new MoveForwardState(this, _movementController);
         StateMachine = new FSM();
         
-        ShipManager.Instance.AddShip(gameObject);
         _attackCommands = new List<AttackCommand>();
         foreach (AttackScriptableObject attackScriptableObject in attackScriptableObjects)
         {
@@ -89,8 +89,7 @@ public class ShipBattleController : ShipController, IDamageable
         {
             Destroy(_healthBar.gameObject);
         }
-        ShipManager.Instance.RemoveShip(gameObject);
-        InputManager.Instance.DeselectShip(gameObject);
+        selectedShips.RemoveShip(gameObject);
     }
 
     protected void Death()

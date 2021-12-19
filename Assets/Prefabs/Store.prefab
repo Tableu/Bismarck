@@ -90,14 +90,13 @@ GameObject:
   - component: {fileID: 4727292528032753110}
   - component: {fileID: 4727292528032753104}
   - component: {fileID: 4727292528032753111}
-  - component: {fileID: 4727292528032753105}
   m_Layer: 5
   m_Name: Store
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4727292528032753110
 RectTransform:
   m_ObjectHideFlags: 0
@@ -163,22 +162,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4727292528032753105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4727292528032753109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa8ca6cfbfdfde640b4cc5b4b1a243ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 2000
-  moneyText: {fileID: 4727292528361683713}
-  sellText: {fileID: 4727292528240676399}
-  repairText: {fileID: 4727292529364823892}
 --- !u!1 &4727292528145405529
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +400,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1000
+  m_Text: 0
 --- !u!1 &4727292528410216750
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,7 +687,6 @@ GameObject:
   - component: {fileID: 4727292529418487993}
   - component: {fileID: 4727292529418487992}
   - component: {fileID: 4727292529418487999}
-  - component: {fileID: 4727292529418487994}
   m_Layer: 5
   m_Name: RepairButton
   m_TagString: Untagged
@@ -813,31 +795,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4727292529418487992}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4727292529418487994}
-        m_TargetAssemblyTypeName: RepairButton, Assembly-CSharp
-        m_MethodName: OnRepairButtonClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &4727292529418487994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4727292529418487997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c2b90b12531bd840abae15d98ad26d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!1 &4727292529429165057
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,7 +808,6 @@ GameObject:
   - component: {fileID: 4727292529429165069}
   - component: {fileID: 4727292529429165068}
   - component: {fileID: 4727292529429165059}
-  - component: {fileID: 4727292529429165070}
   m_Layer: 5
   m_Name: Mothership
   m_TagString: Untagged
@@ -959,7 +916,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4727292529429165070}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StoreItem, Assembly-CSharp
         m_MethodName: SpawnShip
         m_Mode: 1
@@ -971,20 +928,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4727292529429165070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4727292529429165057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409e5c61d6105714dacc15767c53a965, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shipPrefab: {fileID: 4271728520197243408, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
-  cost: 1000
 --- !u!1 &4727292529529683798
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,7 +940,6 @@ GameObject:
   - component: {fileID: 4727292529529683794}
   - component: {fileID: 4727292529529683793}
   - component: {fileID: 4727292529529683792}
-  - component: {fileID: 4727292529529683795}
   m_Layer: 5
   m_Name: SellButton
   m_TagString: Untagged
@@ -1106,31 +1048,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4727292529529683793}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4727292529529683795}
-        m_TargetAssemblyTypeName: SellButton, Assembly-CSharp
-        m_MethodName: OnSellButtonClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &4727292529529683795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4727292529529683798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: febabbdec278c8e4faa216881f5c5325, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!1 &4727292529565553754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,4 +1260,40 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: DeSelectShips
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2

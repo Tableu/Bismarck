@@ -1,8 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class ShipData
 {
+    public string ShipName;
+    public int Cost;
     public int Health;
     public int MaxHealth;
     public int Speed;

@@ -184,8 +184,6 @@ public class StoreInputManager : MonoBehaviour
                     _drawSelectionBox = false;
                     ReleaseSelectionBox();
                 }
-                UpdateRepairCost();
-                UpdateSellCost();
                 break;
         }
     }
@@ -247,32 +245,5 @@ public class StoreInputManager : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
-    }
-
-    private void UpdateSellCost()
-    {
-        int total = 0;
-        foreach (GameObject ship in selectedShips)
-        {
-            if (ship != null)
-            {
-                var controller = ship.GetComponent<ShipStoreController>();
-                total += controller.SellCost();
-            }
-        }
-        //StoreWindow.Instance.UpdateSellText(total);
-    }
-    private void UpdateRepairCost()
-    {
-        int total = 0;
-        foreach (GameObject ship in selectedShips)
-        {
-            if (ship != null)
-            {
-                var controller = ship.GetComponent<ShipStoreController>();
-                total += controller.RepairCost();
-            }
-        }
-        //StoreWindow.Instance.UpdateRepairText(total);
     }
 }

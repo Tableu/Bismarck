@@ -8,7 +8,7 @@ public class ShipStoreController : ShipController
     [SerializeField] private int maxHealth;
     private HealthBar _healthBar;
     public int Cost => cost;
-    public Vector2 positionOffset
+    public Vector2 PositionOffset
     {
         set;
         get;
