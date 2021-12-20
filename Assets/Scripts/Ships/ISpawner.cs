@@ -10,6 +10,6 @@ public interface ISpawner
 
 public abstract class SpawnerScriptableObject : ScriptableObject
 {
-    public abstract void SpawnFleet(List<ShipData> shipDatas);
-    public abstract void SpawnShip(ShipData data);
+    public abstract void SpawnFleet(List<ShipData> shipDatas, Transform parent);
+    public abstract void SpawnShip(ShipData data, Transform parent);
 }

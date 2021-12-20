@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MoveForwardState : IState
 {
-    private readonly ShipBattleController _shipBattle;
+    private readonly ShipLogic _shipBattle;
     private readonly MovementController _movement;
     private float _speed;
 
-    public MoveForwardState(ShipBattleController shipBattle, MovementController movement)
+    public MoveForwardState(ShipLogic shipBattle, MovementController movement)
     {
         _shipBattle = shipBattle;
         _movement = movement;
@@ -34,13 +34,13 @@ public class MoveForwardState : IState
 
 public class MoveToTargetState : IState
 {
-    private readonly ShipBattleController _shipBattle;
+    private readonly ShipLogic _shipBattle;
     private readonly MovementController _movement;
     public GameObject Target { get; set; }
     private float _speed;
     private float _rotationSpeed;
 
-    public MoveToTargetState(ShipBattleController shipBattle, MovementController movement, GameObject target)
+    public MoveToTargetState(ShipLogic shipBattle, MovementController movement, GameObject target)
     {
         _shipBattle = shipBattle;
         _movement = movement;
@@ -74,13 +74,13 @@ public class MoveToTargetState : IState
 }
 public class MoveToPositionState : IState
 {
-    private readonly ShipBattleController _shipBattle;
+    private readonly ShipLogic _shipBattle;
     private readonly MovementController _movement;
     public Vector2 Position { get; set; }
     private float _speed;
     private float _rotationSpeed;
 
-    public MoveToPositionState(ShipBattleController shipBattle, MovementController movement, Vector2 position)
+    public MoveToPositionState(ShipLogic shipBattle, MovementController movement, Vector2 position)
     {
         _shipBattle = shipBattle;
         _movement = movement;

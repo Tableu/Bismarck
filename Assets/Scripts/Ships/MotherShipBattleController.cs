@@ -1,5 +1,5 @@
 
-public class MotherShipBattleController : ShipBattleController
+public class MotherShipBattleController : ShipLogic
 {
     
     private new void Start()

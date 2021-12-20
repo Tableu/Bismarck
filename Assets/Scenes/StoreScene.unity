@@ -168,7 +168,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 7fe74156-ebb0-4c0f-890b-d8353e4654ff
+  m_DefaultActionMap: 15049782-f5b3-45cb-aa8c-9899180dba77
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 519420031}
 --- !u!114 &126162143
@@ -187,6 +187,7 @@ MonoBehaviour:
   playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
   selectionBox: {fileID: 1440918100}
   graphicRaycaster: {fileID: 594208356}
+  isStore: 1
 --- !u!4 &126162144
 Transform:
   m_ObjectHideFlags: 0

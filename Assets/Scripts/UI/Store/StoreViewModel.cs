@@ -10,9 +10,11 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     private string sellValue;
     private string shipToSpawn;
     private Vector3 spawnPosition;
+    [SerializeField] private Transform fleetParent;
     public ShipListScriptableObject selectedShips;
     public ShipDBScriptableObject shipDB;
     public PlayerShipSpawner spawner;
+    public PlayerShipDictionary playerShips;
     private int playerMoney;
 
     [Binding]
@@ -118,8 +120,8 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             foreach (GameObject ship in selectedShips.ShipList)
             {
-                var controller = ship.GetComponent<ShipStoreController>();
-                playerMoney += controller.Cost;
+                ShipData data = playerShips.GetShip(ship.GetInstanceID());
+                playerMoney += data.Cost;
                 Destroy(ship);
             }
             selectedShips.ClearList();
@@ -135,8 +137,8 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             foreach (GameObject ship in selectedShips.ShipList)
             {
-                var controller = ship.GetComponent<ShipStoreController>();
-                playerMoney -= controller.RepairCost();
+                ShipData data = playerShips.GetShip(ship.GetInstanceID());
+                playerMoney -= data.RepairCost;
                 Destroy(ship);
             }
             selectedShips.ClearList();
@@ -153,7 +155,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
             playerMoney -= shipData.Cost;
             Money = playerMoney.ToString();
             shipData.StartingPos = spawnPosition;
-            spawner.SpawnShip(shipData);
+            spawner.SpawnShip(shipData, fleetParent);
         }
     }
 }

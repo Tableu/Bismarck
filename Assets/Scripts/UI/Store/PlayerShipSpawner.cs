@@ -5,31 +5,31 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Spawners", menuName = "Spawners/ShipSpawner", order = 0)][Serializable]
 public class PlayerShipSpawner : SpawnerScriptableObject
 {
-    public Transform _fleetParent;
     private List<ShipData> _shipDatas;
     public List<ShipData> FleetData => _shipDatas;
+    public PlayerShipDictionary ShipDictionary;
 
-    public override void SpawnFleet(List<ShipData> shipDatas)
+    public override void SpawnFleet(List<ShipData> shipDatas, Transform parent)
     {
         foreach (ShipData ship in shipDatas)
         {
-            SpawnShip(ship);
+            SpawnShip(ship, parent);
         }
     }
 
-    public override void SpawnShip(ShipData data)
+    public override void SpawnShip(ShipData data, Transform parent)
     {
-        if (_fleetParent == null)
+        if (parent == null)
             return;
-        GameObject ship = Instantiate(data.ShipVisuals, _fleetParent, false);
+        GameObject ship = Instantiate(data.ShipVisuals, parent, false);
         if (ship != null)
         {
             _shipDatas.Add(data);
-            ShipController shipController;
-            shipController = ship.AddComponent(data.BattleController.GetType()) as ShipController;
-
-            if (shipController != null)
-                shipController.Init(data);
+            ShipDictionary.AddShip(data,ship.GetInstanceID());
+            ship.AddComponent(data.BattleController.GetType());
+            ShipDataComponent dataComponent = ship.AddComponent<ShipDataComponent>();
+            if (dataComponent != null)
+                dataComponent.ShipData = data;
         }
     }
 }

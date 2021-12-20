@@ -1,7 +1,6 @@
-using UnityEditor;
 using UnityEngine;
 
-public class FighterShipBattleController : ShipBattleController
+public class FighterShipBattleController : ShipLogic
 {
     [SerializeField] public GameObject mothership;
     [SerializeField] private bool returning;
@@ -22,7 +21,7 @@ public class FighterShipBattleController : ShipBattleController
         StateMachine.Tick();
         if (returning && mothership != null && Vector2.Distance(transform.position, mothership.transform.position) < .5f)
         {
-            Death();
+            Destroy(gameObject);
         }
     }
 
@@ -30,7 +29,7 @@ public class FighterShipBattleController : ShipBattleController
     {
         if (target == null)
         {
-            target = DetectionController.DetectShip(aggroRange, gameObject);
+            target = DetectionController.DetectShip(ShipData.AggroRange, gameObject);
             if (target != null)
             {
                 _moveToTarget.Target = target;
