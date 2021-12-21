@@ -14,7 +14,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     public ShipListScriptableObject selectedShips;
     public ShipDBScriptableObject shipDB;
     public PlayerShipSpawner spawner;
-    public PlayerShipDictionary playerShips;
+    public ShipDictionary ships;
     private int playerMoney;
 
     [Binding]
@@ -120,7 +120,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             foreach (GameObject ship in selectedShips.ShipList)
             {
-                ShipData data = playerShips.GetShip(ship.GetInstanceID());
+                ShipData data = ships.GetShip(ship.GetInstanceID());
                 playerMoney += data.Cost;
                 Destroy(ship);
             }
@@ -137,7 +137,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             foreach (GameObject ship in selectedShips.ShipList)
             {
-                ShipData data = playerShips.GetShip(ship.GetInstanceID());
+                ShipData data = ships.GetShip(ship.GetInstanceID());
                 playerMoney -= data.RepairCost;
                 Destroy(ship);
             }

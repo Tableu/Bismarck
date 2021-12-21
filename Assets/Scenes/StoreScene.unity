@@ -1629,9 +1629,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c2b90b12531bd840abae15d98ad26d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fleetParent: {fileID: 0}
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
   shipDB: {fileID: 11400000, guid: 5f58e8f36caa17847889686627cf9e37, type: 2}
   spawner: {fileID: 0}
+  ships: {fileID: 0}
 --- !u!1 &1133316093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2787,6 +2789,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
     - target: {fileID: 6245183859499081741, guid: 7b028babbc85d8649b7782681850be9c, type: 3}
+      propertyPath: ShipDictionary
+      value: 
+      objectReference: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
+    - target: {fileID: 6245183859499081741, guid: 7b028babbc85d8649b7782681850be9c, type: 3}
       propertyPath: attackScriptableObjects.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2954,6 +2960,10 @@ PrefabInstance:
       propertyPath: selectedShips
       value: 
       objectReference: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
+    - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+      propertyPath: ShipDictionary
+      value: 
+      objectReference: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
     - target: {fileID: 4271728520197243500, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
       propertyPath: fighterSpawner
       value: 

@@ -3,7 +3,7 @@ using UnityEngine;
 public class ShipHealth : MonoBehaviour,IDamageable
 {
     public ShipListScriptableObject selectedShips;
-    public PlayerShipDictionary shipDict;
+    public ShipDictionary shipDict;
     [SerializeField] private GameObject healthBarPrefab;
     [SerializeField] private int maxHealth;
     [SerializeField] private int health;

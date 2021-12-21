@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShipDictionary : ScriptableObject
+[CreateAssetMenu(fileName = "Ships", menuName = "Ships/ShipDictionary")]
+public class ShipDictionary : ScriptableObject
 {
     private Dictionary<int, ShipData> shipDict;
     public int Count => shipDict.Count;

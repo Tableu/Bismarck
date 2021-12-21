@@ -16,8 +16,6 @@ public class ShipData
     public List<ScriptableObject> Modules;
     public List<ScriptableObject> Buffs;
     public Vector2 StartingPos;
-    public GameObject ShipVisuals;
-    public ShipDataComponent BattleController;
-    public ShipDataComponent ShopUI;
+    public GameObject ShipPrefab;
     public int RepairCost => (MaxHealth - Health) * 100;
 }

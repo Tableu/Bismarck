@@ -5,6 +5,7 @@ public class ShipLogic : MonoBehaviour
 {
     protected MovementController _movementController;
     protected List<AttackCommand> _attackCommands;
+    public ShipDictionary ShipDictionary;
     [SerializeField] protected List<AttackScriptableObject> attackScriptableObjects;
     [Header("Stats")]
     [SerializeField] private bool blocksMovement;
@@ -25,6 +26,7 @@ public class ShipLogic : MonoBehaviour
     
     private void Awake()
     {
+        var shipData = ShipDictionary.GetShip(GetInstanceID());
         _movementController = new MovementController(gameObject, shipData.Speed, 0, layerMask);
     }
 
@@ -63,6 +65,7 @@ public class ShipLogic : MonoBehaviour
     }
     protected bool HasReachedTarget()
     {
+        var shipData = ShipDictionary.GetShip(GetInstanceID());
         if (_moveToTarget.Target == null || Vector2.Distance(transform.position, _moveToTarget.Target.transform.position) < shipData.StopDistance)
         {
             return true;
@@ -82,6 +85,7 @@ public class ShipLogic : MonoBehaviour
 
     protected bool DetectEnemy()
     {
+        var shipData = ShipDictionary.GetShip(GetInstanceID());
         if (_moveToTarget.Target != null)
         {
             return false;
