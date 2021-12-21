@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: ShipDB
   m_EditorClassIdentifier: 
   shipDB:
-  - ShipName: 
+  - ShipName: Mothership
     Cost: 0
-    Health: 0
-    MaxHealth: 0
-    Speed: 0
-    StopDistance: 0
-    AggroRange: 0
-    Weapons: []
+    Health: 10
+    MaxHealth: 10
+    Speed: 5
+    StopDistance: 0.5
+    AggroRange: 10
+    Weapons:
+    - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
+    - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
     Modules: []
     Buffs: []
     StartingPos: {x: 0, y: 0}
-    ShipVisuals: {fileID: 0}
-    BattleController: {fileID: 0}
-    ShopUI: {fileID: 0}
+    ShipPrefab: {fileID: 4271728520197243408, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}

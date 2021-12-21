@@ -23,20 +23,16 @@ public class ShipLogic : MonoBehaviour
         set;
         get;
     }
-    
-    private void Awake()
-    {
-        var shipData = ShipDictionary.GetShip(GetInstanceID());
-        _movementController = new MovementController(gameObject, shipData.Speed, 0, layerMask);
-    }
 
     protected void Start()
     {
+        var shipData = ShipDictionary.GetShip(gameObject.GetInstanceID());
+        _movementController = new MovementController(gameObject, shipData.Speed, 0, layerMask);
         _moveToTarget = new MoveToTargetState(this, _movementController, target);
         _moveToPosition = new MoveToPositionState(this, _movementController, Vector2.zero);
         _moveForward = new MoveForwardState(this, _movementController);
         StateMachine = new FSM();
-        
+        attackScriptableObjects = shipData.Weapons;
         _attackCommands = new List<AttackCommand>();
         foreach (AttackScriptableObject attackScriptableObject in attackScriptableObjects)
         {

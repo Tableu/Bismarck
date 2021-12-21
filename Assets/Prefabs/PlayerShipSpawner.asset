@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d928435bfa263af4bb199d1d1e84741c, type: 3}
-  m_Name: ShipSpawner
+  m_Name: PlayerShipSpawner
   m_EditorClassIdentifier: 
-  _fleetParent: {fileID: 0}
+  ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}

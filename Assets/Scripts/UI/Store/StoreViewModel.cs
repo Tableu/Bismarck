@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityWeld.Binding;
@@ -9,11 +10,11 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     private string repairCost;
     private string sellValue;
     private string shipToSpawn;
-    private Vector3 spawnPosition;
     [SerializeField] private Transform fleetParent;
     public ShipListScriptableObject selectedShips;
     public ShipDBScriptableObject shipDB;
-    public PlayerShipSpawner spawner;
+    public PlayerInputScriptableObject playerInput;
+    public ShipSpawner spawner;
     public ShipDictionary ships;
     private int playerMoney;
 
@@ -74,25 +75,9 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
                 return;
             }
             shipToSpawn = value;
-            OnPropertyChanged("ShipToSpawn");
         }
     }
-
-    [Binding]
-    public Vector3 SpawnPosition
-    {
-        get => spawnPosition;
-        set
-        {
-            if (spawnPosition == value)
-            {
-                return;
-            }
-
-            spawnPosition = value;
-            OnPropertyChanged("SpawnPosition");
-        }
-    }
+    
     public event PropertyChangedEventHandler PropertyChanged;
     void Start()
     {
@@ -150,12 +135,12 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     public void BuyShip()
     {
         ShipData shipData = shipDB.GetShip(shipToSpawn);
-        if (playerMoney - shipData.Cost > 0)
+        if (shipData != null && playerMoney - shipData.Cost >= 0)
         {
             playerMoney -= shipData.Cost;
             Money = playerMoney.ToString();
-            shipData.StartingPos = spawnPosition;
-            spawner.SpawnShip(shipData, fleetParent);
+            Vector2 startingPos = Camera.main.ScreenToWorldPoint(playerInput.PlayerInputActions.Mouse.Point.ReadValue<Vector2>());
+            spawner.SpawnShip(shipData, fleetParent, startingPos);
         }
     }
 }

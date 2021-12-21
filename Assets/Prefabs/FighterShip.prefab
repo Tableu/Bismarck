@@ -93,22 +93,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dee762f69b5d2c4b952deeec478e6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
   attackScriptableObjects:
   - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
-  health: 2
-  maxHealth: 2
-  speed: 0.3
-  cost: 200
-  stopDistance: 0.1
-  rotationSpeed: 40
-  aggroRange: 3
-  isPlayer: 1
   blocksMovement: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 256
   target: {fileID: 0}
-  healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
   mothership: {fileID: 0}
   returning: 0
 --- !u!212 &129691159520741700

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,5 +26,10 @@ public class ShipDictionary : ScriptableObject
     public ShipData GetShip(int id)
     {
         return shipDict[id];
+    }
+
+    private void OnEnable()
+    {
+        shipDict = new Dictionary<int, ShipData>();
     }
 }
