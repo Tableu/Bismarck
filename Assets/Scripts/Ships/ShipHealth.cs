@@ -54,6 +54,9 @@ public class ShipHealth : MonoBehaviour,IDamageable, INotifyPropertyChanged
     public void TakeDamage(Damage dmg)
     {
         health -= dmg.RawDamage;
+        ShipData shipData = shipDict.GetShip(gameObject.GetInstanceID());
+        shipData.Health = health;
+        shipDict.UpdateShip(gameObject.GetInstanceID(), shipData);
         if (health == 0)
         {
             Destroy(gameObject);

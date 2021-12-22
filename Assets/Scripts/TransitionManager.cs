@@ -22,26 +22,6 @@ public class TransitionManager : MonoBehaviour
         }
 
         _instance = this;
-        DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(mapPopup);
-        /*SceneManager.sceneLoaded += (scene, mode) =>
-        {
-            if (scene.name == "StoreScene")
-            {
-                InputManager.Instance.EnableStoreInput();
-                mapPopup.SetActive(false);
-                ships.SetActive(true);
-                _fleetScreen = GameObject.FindWithTag("FleetScreen");
-                SetShipFleetScreenPositions();
-            }else if (scene.name == "BattleScene")
-            {
-                InputManager.Instance.EnableCombatInput();
-                mapPopup.SetActive(false);
-                ships.SetActive(true);
-                _fleetScreen = null;
-                SaveShipFleetScreenPositions();
-            }
-        };*/
     }
 
     public void OpenMap()

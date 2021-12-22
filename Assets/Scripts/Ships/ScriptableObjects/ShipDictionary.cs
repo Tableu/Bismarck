@@ -28,6 +28,11 @@ public class ShipDictionary : ScriptableObject
         return shipDict[id];
     }
 
+    public void UpdateShip(int id, ShipData shipData)
+    {
+        shipDict[id] = shipData;
+    }
+
     private void OnEnable()
     {
         shipDict = new Dictionary<int, ShipData>();
