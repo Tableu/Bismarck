@@ -6,10 +6,8 @@ public class ShipLogic : MonoBehaviour
     protected MovementController _movementController;
     protected List<AttackCommand> _attackCommands;
     public ShipDictionary ShipDictionary;
-    [SerializeField] protected List<AttackScriptableObject> attackScriptableObjects;
-    [Header("Stats")]
-    [SerializeField] private bool blocksMovement;
-    [SerializeField] private LayerMask layerMask;
+    private List<AttackScriptableObject> attackScriptableObjects;
+    private bool blocksMovement;
     [Header("Objects")]
     [SerializeField] public GameObject target;
     
@@ -27,7 +25,8 @@ public class ShipLogic : MonoBehaviour
     protected void Start()
     {
         var shipData = ShipDictionary.GetShip(gameObject.GetInstanceID());
-        _movementController = new MovementController(gameObject, shipData.Speed, 0, layerMask);
+        blocksMovement = shipData.BlocksMovement;
+        _movementController = new MovementController(gameObject, shipData.Speed, 0, shipData.LayerMask);
         _moveToTarget = new MoveToTargetState(this, _movementController, target);
         _moveToPosition = new MoveToPositionState(this, _movementController, Vector2.zero);
         _moveForward = new MoveForwardState(this, _movementController);

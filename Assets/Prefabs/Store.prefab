@@ -112,6 +112,7 @@ RectTransform:
   - {fileID: 4727292527964715661}
   - {fileID: 4727292528361683712}
   - {fileID: 4727292529429165058}
+  - {fileID: 4727292528939536117}
   - {fileID: 4727292529614336323}
   - {fileID: 4727292529418487998}
   - {fileID: 4727292529364823883}
@@ -178,6 +179,7 @@ MonoBehaviour:
   fleetParent: {fileID: 0}
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
   shipDB: {fileID: 11400000, guid: 5f58e8f36caa17847889686627cf9e37, type: 2}
+  playerInput: {fileID: 0}
   spawner: {fileID: 11400000, guid: 54ea476e58d1b0e4ba45083d418715ca, type: 2}
   ships: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
 --- !u!1 &4727292528145405529
@@ -292,7 +294,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4727292528032753110}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -559,14 +561,14 @@ RectTransform:
   m_GameObject: {fileID: 4727292528939536116}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4727292529429165058}
-  m_RootOrder: 0
+  m_Father: {fileID: 4727292528032753110}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -12.6875}
+  m_AnchoredPosition: {x: -196, y: 149.25}
   m_SizeDelta: {x: 100, y: 42.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4727292528939536119
@@ -642,7 +644,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4727292528032753110}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -740,7 +742,7 @@ RectTransform:
   m_Children:
   - {fileID: 4727292529565553755}
   m_Father: {fileID: 4727292528032753110}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -876,8 +878,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
-  m_Children:
-  - {fileID: 4727292528939536117}
+  m_Children: []
   m_Father: {fileID: 4727292528032753110}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1053,6 +1054,9 @@ MonoBehaviour:
   StoreItemReleased:
     m_PersistentCalls:
       m_Calls: []
+  UpdateShipName:
+    m_PersistentCalls:
+      m_Calls: []
   shipName: Mothership
   playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
 --- !u!1 &4727292529529683798
@@ -1088,7 +1092,7 @@ RectTransform:
   m_Children:
   - {fileID: 4727292528410216751}
   m_Father: {fileID: 4727292528032753110}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1302,7 +1306,7 @@ RectTransform:
   m_Children:
   - {fileID: 4727292528145405530}
   m_Father: {fileID: 4727292528032753110}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

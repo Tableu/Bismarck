@@ -1,14 +1,40 @@
+using System.ComponentModel;
 using UnityEngine;
+using UnityWeld.Binding;
 
-public class ShipHealth : MonoBehaviour,IDamageable
+[Binding]
+public class ShipHealth : MonoBehaviour,IDamageable, INotifyPropertyChanged
 {
     public ShipListScriptableObject selectedShips;
     public ShipDictionary shipDict;
     [SerializeField] private GameObject healthBarPrefab;
-    [SerializeField] private int maxHealth;
-    [SerializeField] private int health;
+    private int maxHealth;
+    private int health;
     private HealthBar _healthBar;
 
+    [Binding]
+    public int Health
+    {
+        get => health;
+        set
+        {
+            if (health == value)
+            {
+                return;
+            }
+            health = value;
+            OnPropertyChanged("Health");
+        }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+    private void OnPropertyChanged(string propertyName)
+    {
+        if (PropertyChanged != null)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
     private void Start()
     {
         GameObject healthBars = GameObject.Find("HealthBars");

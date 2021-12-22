@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4271728520197243500}
   - component: {fileID: 4271728520197243501}
   - component: {fileID: 4110894785859016863}
+  - component: {fileID: 4068734266353574668}
+  - component: {fileID: 8710635969263158167}
   m_Layer: 6
   m_Name: Mothership
   m_TagString: Untagged
@@ -99,13 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
-  attackScriptableObjects:
-  - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
-  - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
-  blocksMovement: 1
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 384
   target: {fileID: 0}
 --- !u!61 &4271728520197243501
 BoxCollider2D:
@@ -154,3 +149,34 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4068734266353574668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4271728520197243408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8efca4d101e4534f9ac43a45e4dfab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
+  selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
+--- !u!114 &8710635969263158167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4271728520197243408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a97b3bf16789c544b9a7b220e406788b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
+  shipDict: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
+  healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
+  maxHealth: 0
+  health: 0

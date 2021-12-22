@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d928435bfa263af4bb199d1d1e84741c, type: 3}
-  m_Name: PlayerShipSpawner
+  m_Script: {fileID: 11500000, guid: 9c82b3f4b4d49df41a8cb220400d3d80, type: 3}
+  m_Name: PlayerShipList
   m_EditorClassIdentifier: 
-  ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
-  ShipList: {fileID: 11400000, guid: cec3350c72ba1364e97ea9e45db1b17c, type: 2}

@@ -14,16 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipDB:
   - ShipName: Mothership
-    Cost: 0
+    Cost: 10
     Health: 10
     MaxHealth: 10
     Speed: 5
     StopDistance: 0.5
     AggroRange: 10
+    LayerMask:
+      serializedVersion: 2
+      m_Bits: 64
+    BlocksMovement: 1
     Weapons:
     - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
     - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
     Modules: []
     Buffs: []
-    StartingPos: {x: 0, y: 0}
+    StartingPos: {x: -7.974026, y: -3.8961039}
     ShipPrefab: {fileID: 4271728520197243408, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}

@@ -24,7 +24,6 @@ public class TransitionManager : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(mapPopup);
-        DontDestroyOnLoad(ships);
         /*SceneManager.sceneLoaded += (scene, mode) =>
         {
             if (scene.name == "StoreScene")

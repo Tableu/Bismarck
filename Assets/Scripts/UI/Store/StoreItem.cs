@@ -9,9 +9,9 @@ using UnityEngine.UI;
 public class StoreItem : MonoBehaviour, IPointerClickHandler
 {
     public UnityEvent StoreItemReleased;
+    public UnityEvent UpdateShipName;
     public String shipName;
     public PlayerInputScriptableObject playerInput;
-    public Button button;
     private PlayerInputActions _playerInputActions;
     private Vector2 originalPos;
     private bool holding;
@@ -36,6 +36,8 @@ public class StoreItem : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             holding = true;
+            gameObject.name = shipName;
+            UpdateShipName.Invoke();
             originalPos = transform.position;
         }
     }
@@ -45,7 +47,7 @@ public class StoreItem : MonoBehaviour, IPointerClickHandler
         if (!holding)
             return;
         
-        List<RaycastHit2D> results = new List<RaycastHit2D>();
+        /*List<RaycastHit2D> results = new List<RaycastHit2D>();
         
         Physics2D.BoxCast(Camera.main.ScreenToWorldPoint(transform.position), 
             GetComponent<BoxCollider2D>().size,0,Vector2.zero, playerInput.PlayerFilter, results);
@@ -53,7 +55,8 @@ public class StoreItem : MonoBehaviour, IPointerClickHandler
         {
             gameObject.name = shipName;
             StoreItemReleased.Invoke();
-        }
+        }*/
+        StoreItemReleased.Invoke();
         transform.position = originalPos;
         holding = false;
     }

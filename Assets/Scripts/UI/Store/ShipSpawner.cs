@@ -7,6 +7,7 @@ using UnityEngine;
 public class ShipSpawner : SpawnerScriptableObject
 {
     public ShipDictionary ShipDictionary;
+    public ShipListScriptableObject ShipList;
 
     public override void SpawnFleet(List<ShipData> shipDatas, Transform parent)
     {
@@ -29,6 +30,7 @@ public class ShipSpawner : SpawnerScriptableObject
                 data.StartingPos = ship.transform.localPosition;
             }
             ShipDictionary.AddShip(data,ship.GetInstanceID());
+            ShipList.AddShip(ship);
         }
     }
 }

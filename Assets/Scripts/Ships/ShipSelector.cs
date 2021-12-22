@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -10,13 +11,15 @@ public class ShipSelector : MonoBehaviour
 {
     private PlayerInputActions _playerInputActions;
     public ShipListScriptableObject selectedShips;
+    public ShipListScriptableObject playerShips;
     public PlayerInputScriptableObject playerInput;
+    public UnityEvent SelectedShipsEvent;
     [SerializeField] private RectTransform selectionBox;
     [SerializeField] private GraphicRaycaster graphicRaycaster;
     [SerializeField] private bool isStore;
-    private Vector2 _startPos;
-    private Vector2 _mousePos;
-    private Vector2 _projectedMousePos;
+    [SerializeField]private Vector2 _startPos;
+    [SerializeField]private Vector2 _mousePos;
+    [SerializeField]private Vector2 _projectedMousePos;
     private bool _drawSelectionBox = false;
     private bool _dragShips = false;
     private CinemachineBrain _brain;
@@ -89,22 +92,24 @@ public class ShipSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _mousePos = _playerInputActions.Mouse.Point.ReadValue<Vector2>();
+        _mousePos = Mouse.current.position.ReadValue();
         _projectedMousePos = Camera.main.ScreenToWorldPoint(_mousePos);
-        if (_drawSelectionBox)
-        {
-            UpdateSelectionBox();
-        }
+
         if (_dragShips)
         {
-            foreach (GameObject ship in selectedShips.ShipList)
+            foreach(GameObject ship in selectedShips.ShipList)
             {
-                if (ship != null)
-                {
-                    ShipLogic battleController = ship.GetComponent<ShipLogic>();
-                    ship.transform.position = _projectedMousePos + battleController.positionOffset;
+                if (ship == null)
+                    continue;
+                ShipUI shipUI = ship.GetComponent<ShipUI>();
+                if (shipUI != null) 
+                { 
+                    shipUI.OnDrag(null);
                 }
             }
+        }else if (_drawSelectionBox)
+        {
+            UpdateSelectionBox();
         }
     }
 
@@ -121,20 +126,28 @@ public class ShipSelector : MonoBehaviour
     private void ReleaseSelectionBox()
     {
         selectionBox.gameObject.SetActive(false);
-        Vector2 min = Camera.main.ScreenToWorldPoint(selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2));
-        Vector2 max = Camera.main.ScreenToWorldPoint(selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2));
-        List<RaycastHit2D> results = new List<RaycastHit2D>();
-        Physics2D.BoxCast(Camera.main.ScreenToWorldPoint(selectionBox.position), 
-            max-min,0,Vector2.zero, PlayerFilter, results);
-        foreach(RaycastHit2D hit in results)
+        Vector3 min = Camera.main.ScreenToWorldPoint(selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2));
+        Vector3 max = Camera.main.ScreenToWorldPoint(selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2));
+        
+        foreach(GameObject ship in playerShips.ShipList)
         {
-            ShipLogic battleController = hit.collider.GetComponent<ShipLogic>();
-            
-            if (!selectedShips.ShipList.Contains(battleController.gameObject))
-            { 
-                selectedShips.AddShip(battleController.gameObject);
-                battleController.GetComponent<SpriteRenderer>().color = Color.cyan;
+            if (ship == null)
+                continue;
+            Vector3 position = ship.transform.position;
+            if (position.x < max.x && position.x > min.x && 
+                position.y < max.y && position.y > min.y)
+            {
+                ShipUI shipUI = ship.GetComponent<ShipUI>();
+                if (shipUI != null)
+                {
+                    shipUI.SelectShip();
+                }
             }
+        }
+
+        if (selectedShips.Count > 0)
+        {
+            SelectedShipsEvent.Invoke();
         }
     }
     private void CombatLeftClick(InputAction.CallbackContext context)
@@ -145,12 +158,6 @@ public class ShipSelector : MonoBehaviour
                 DeSelectShips();
                 _drawSelectionBox = true;
                 _startPos = _mousePos;
-                ShipLogic shipBattleClicked = ShipRaycast();
-                if (shipBattleClicked != null)
-                {
-                    selectedShips.AddShip(shipBattleClicked.gameObject);
-                    shipBattleClicked.GetComponent<SpriteRenderer>().color = Color.cyan;
-                }
                 break;
             case InputActionPhase.Canceled:
                 if (_drawSelectionBox)
@@ -181,47 +188,29 @@ public class ShipSelector : MonoBehaviour
                 _startPos = _mousePos;
                 if (UIRaycast())
                     return;
-                ShipLogic shipClicked = ShipRaycast();
-                if (shipClicked != null && selectedShips.Count <= 1)
+
+                if (selectedShips.Count > 0)
                 {
-                    if (!selectedShips.ShipList.Contains(shipClicked.gameObject))
-                    {
-                        selectedShips.AddShip(shipClicked.gameObject);
-                        shipClicked.GetComponent<SpriteRenderer>().color = Color.cyan;
-                    }else if (selectedShips.Count == 1 && selectedShips.ShipList[0].gameObject.Equals(shipClicked.gameObject))
-                    {
-                        _drawSelectionBox = false;
-                    }
-                    else
-                    {
-                        selectedShips.RemoveShip(shipClicked.gameObject);
-                        shipClicked.GetComponent<SpriteRenderer>().color = Color.white;
-                    }
-                }
-                if (selectedShips.Count > 0 && shipClicked != null)
-                {
-                    _dragShips = true;
-                    _startPos = _mousePos;
                     foreach (GameObject ship in selectedShips.ShipList)
                     {
-                        var controller = ship.GetComponent<ShipLogic>();
-                        controller.positionOffset = (Vector2) ship.transform.position - _projectedMousePos;
+                        if (ship != null)
+                        {
+                            ShipUI shipUI = ship.GetComponent<ShipUI>();
+                            if (shipUI != null)
+                            {
+                                shipUI.RefreshPositionOffset();
+                            }
+                        }
                     }
-                }else if (selectedShips.Count > 0 && shipClicked == null)
-                {
-                    DeSelectShips();
+                    _dragShips = true;
                 }else
                 {
                     _drawSelectionBox = true;
                 }
                 break;
             case InputActionPhase.Canceled:
-                if (_dragShips)
-                {
-                    _dragShips = false;
-                    if(Vector2.Distance(_startPos,_mousePos) > 1)
-                        DeSelectShips();
-                }
+                DeSelectShips();
+                _dragShips = false;
                 if (_drawSelectionBox)
                 {
                     _drawSelectionBox = false;
@@ -233,18 +222,6 @@ public class ShipSelector : MonoBehaviour
     private void StoreRightClick(InputAction.CallbackContext context)
     {
         
-    }
-    
-    private ShipLogic ShipRaycast()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(_projectedMousePos, Vector2.zero, Mathf.Infinity,
-            LayerMask.GetMask("PlayerShips","UI"));
-        if (hit.collider != null)
-        {
-            ShipLogic shipBattle = hit.collider.gameObject.GetComponent<ShipLogic>();
-            return shipBattle;
-        }
-        return null;
     }
 
     private bool UIRaycast()
@@ -263,7 +240,11 @@ public class ShipSelector : MonoBehaviour
         {
             if (ship != null)
             {
-                ship.GetComponent<ShipLogic>().GetComponent<SpriteRenderer>().color = Color.white;
+                ShipUI shipUI = ship.GetComponent<ShipUI>();
+                if (shipUI != null)
+                {
+                    shipUI.DeselectShip();
+                }
             }
         }
         selectedShips.ClearList();
@@ -271,7 +252,15 @@ public class ShipSelector : MonoBehaviour
 
     public void DeselectShip(GameObject ship)
     {
-        selectedShips.RemoveShip(ship);
+        if (ship != null)
+        {
+            ShipUI shipUI = ship.GetComponent<ShipUI>();
+            if (shipUI != null)
+            {
+                shipUI.DeselectShip();
+            }
+
+        }
     }
     public void MoveSelectedShips(Vector2 position)
     {

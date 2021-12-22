@@ -6,9 +6,9 @@ using UnityWeld.Binding;
 [Binding]
 public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
 {
-    private string money;
-    private string repairCost;
-    private string sellValue;
+    private int money = 1000;
+    private int repairCost;
+    private int sellValue;
     private string shipToSpawn;
     [SerializeField] private Transform fleetParent;
     public ShipListScriptableObject selectedShips;
@@ -16,10 +16,9 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     public PlayerInputScriptableObject playerInput;
     public ShipSpawner spawner;
     public ShipDictionary ships;
-    private int playerMoney;
 
     [Binding]
-    public string Money
+    public int Money
     {
         get => money;
         set
@@ -35,7 +34,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     }
 
     [Binding]
-    public string RepairCost
+    public int RepairCost
     {
         get => repairCost;
         set
@@ -50,7 +49,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     }
 
     [Binding]
-    public string SellValue
+    public int SellValue
     {
         get => sellValue;
         set
@@ -106,11 +105,11 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
             foreach (GameObject ship in selectedShips.ShipList)
             {
                 ShipData data = ships.GetShip(ship.GetInstanceID());
-                playerMoney += data.Cost;
+                Money += data.Cost;
                 Destroy(ship);
             }
             selectedShips.ClearList();
-            Money = playerMoney.ToString();
+            UpdateRepairCostAndSellValue();
         }
         Debug.Log("SellShip");
     }
@@ -123,11 +122,11 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
             foreach (GameObject ship in selectedShips.ShipList)
             {
                 ShipData data = ships.GetShip(ship.GetInstanceID());
-                playerMoney -= data.RepairCost;
+                Money -= data.RepairCost;
                 Destroy(ship);
             }
             selectedShips.ClearList();
-            Money = playerMoney.ToString();
+            UpdateRepairCostAndSellValue();
         }
     }
 
@@ -135,12 +134,22 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     public void BuyShip()
     {
         ShipData shipData = shipDB.GetShip(shipToSpawn);
-        if (shipData != null && playerMoney - shipData.Cost >= 0)
+        if (shipData != null && money - shipData.Cost >= 0)
         {
-            playerMoney -= shipData.Cost;
-            Money = playerMoney.ToString();
+            Money -= shipData.Cost;
             Vector2 startingPos = Camera.main.ScreenToWorldPoint(playerInput.PlayerInputActions.Mouse.Point.ReadValue<Vector2>());
             spawner.SpawnShip(shipData, fleetParent, startingPos);
+            UpdateRepairCostAndSellValue();
+        }
+    }
+
+    public void UpdateRepairCostAndSellValue()
+    {
+        foreach (GameObject ship in selectedShips.ShipList)
+        {
+            ShipData data = ships.GetShip(ship.GetInstanceID());
+            RepairCost += data.RepairCost;
+            SellValue += data.SellValue;
         }
     }
 }
