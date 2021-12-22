@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0319b8abee3464c9334cf03b9171426, type: 3}
-  m_Name: ClassM
+  m_Script: {fileID: 11500000, guid: 7e5ab8187e0e4a789728f2a3bcfd75ad, type: 3}
+  m_Name: Map
   m_EditorClassIdentifier: 
-  starClassName: Class M
-  starColor: {r: 0.754717, g: 0.28875822, b: 0.12459949, a: 1}
-  sizeRange:
-    minValue: 1
-    maxValue: 1.4495327
+  StarSystems:
+  - SystemName: System1
+    Coordinates: {x: 0, y: 0}
+  - SystemName: System2
+    Coordinates: {x: 1, y: 1}

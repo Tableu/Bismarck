@@ -359,8 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _starSystemPrefab: {fileID: 922144885848652166, guid: 4d59691dc8474e343ad3bad595f92e75, type: 3}
   _linePrefab: {fileID: 6480449241065563602, guid: 85335e4010303ea40841a39e7d34ec62, type: 3}
-  _texture2D: {fileID: 2800000, guid: 67453e7c64257e5478e8bffb4df04e6e, type: 3}
-  _map: {fileID: 11400000, guid: f943c39b6cf09ce4ca7d2abef3b2dfeb, type: 2}
+  _map: {fileID: 11400000, guid: 825abd00a8d0c734e8fd07be781070e7, type: 2}
 --- !u!4 &1152822287
 Transform:
   m_ObjectHideFlags: 0
