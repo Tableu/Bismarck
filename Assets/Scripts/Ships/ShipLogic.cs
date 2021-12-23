@@ -5,7 +5,7 @@ public class ShipLogic : MonoBehaviour
 {
     protected MovementController _movementController;
     protected List<AttackCommand> _attackCommands;
-    public ShipDictionary ShipDictionary;
+    public ShipSpawner ShipSpawner;
     private List<AttackScriptableObject> attackScriptableObjects;
     private bool blocksMovement;
     [Header("Objects")]
@@ -16,15 +16,10 @@ public class ShipLogic : MonoBehaviour
     protected MoveForwardState _moveForward;
     protected FSM StateMachine;
     public bool BlocksMovement => blocksMovement;
-    public Vector2 positionOffset
-    {
-        set;
-        get;
-    }
 
     protected void Start()
     {
-        var shipData = ShipDictionary.GetShip(gameObject.GetInstanceID());
+        var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
         blocksMovement = shipData.BlocksMovement;
         _movementController = new MovementController(gameObject, shipData.Speed, 0, shipData.LayerMask);
         _moveToTarget = new MoveToTargetState(this, _movementController, target);
@@ -60,7 +55,7 @@ public class ShipLogic : MonoBehaviour
     }
     protected bool HasReachedTarget()
     {
-        var shipData = ShipDictionary.GetShip(GetInstanceID());
+        var shipData = ShipSpawner.ShipDictionary.GetShip(GetInstanceID());
         if (_moveToTarget.Target == null || Vector2.Distance(transform.position, _moveToTarget.Target.transform.position) < shipData.StopDistance)
         {
             return true;
@@ -80,7 +75,7 @@ public class ShipLogic : MonoBehaviour
 
     protected bool DetectEnemy()
     {
-        var shipData = ShipDictionary.GetShip(GetInstanceID());
+        var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
         if (_moveToTarget.Target != null)
         {
             return false;

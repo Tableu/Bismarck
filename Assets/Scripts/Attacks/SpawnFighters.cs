@@ -2,31 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Attack", menuName = "Attacks/SpawnFighters", order = 0)]
-public class SpawnFighters : AttackScriptableObject
+[CreateAssetMenu(fileName = "SpawnUnit", menuName = "SpawnUnit/SpawnFighters", order = 0)]
+public class SpawnFighters : SpawnUnitScriptableObject
 {
-    public GameObject fighterPrefab;
+    public ShipData shipData;
     public float fireDelay;
-    public override AttackCommand MakeAttack()
+    public override SpawnUnitCommand MakeSpawnUnit(ShipSpawner shipSpawner)
     {
-        return new Attack(fighterPrefab, fireDelay);
+        return new SpawnUnit(fireDelay, shipData, shipSpawner);
     }
 
-    private class Attack : AttackCommand
+    private class SpawnUnit : SpawnUnitCommand
     {
-        private GameObject _fighterPrefab;
+        private ShipSpawner _shipSpawner;
+        private ShipData _shipData;
         private GameObject _target;
         private float _fireDelay;
         private int _coroutineCount = 0;
         private bool Stop { get; set; }
 
-        public Attack(GameObject fighterPrefab, float fireDelay)
+        public SpawnUnit(float fireDelay, ShipData shipData, ShipSpawner shipSpawner)
         {
-            _fighterPrefab = fighterPrefab;
             _fireDelay = fireDelay;
+            _shipData = shipData;
+            _shipSpawner = shipSpawner;
         }
 
-        public void StopAttack()
+        public void StopSpawnUnit()
         {
             Stop = true;
         }
@@ -38,7 +40,8 @@ public class SpawnFighters : AttackScriptableObject
                 _target = target;
             }
         }
-        public IEnumerator DoAttack(GameObject attacker)
+        
+        public IEnumerator DoSpawnUnit(GameObject attacker)
         {
             _coroutineCount++;
             int coroutineCount = _coroutineCount;
@@ -56,11 +59,7 @@ public class SpawnFighters : AttackScriptableObject
         }
         private void SpawnFighter(GameObject mothership)
         {
-            GameObject fighter = Instantiate(_fighterPrefab, mothership.transform.position, Quaternion.identity, mothership.transform.parent);
-            FighterShipBattleController battleController = fighter.GetComponent<FighterShipBattleController>();
-            battleController.target = _target;
-            battleController.mothership = mothership;
-            fighter.layer = mothership.layer;
+            _shipSpawner.SpawnShip(_shipData.Copy(), mothership.transform.parent);
         }
     }
 }

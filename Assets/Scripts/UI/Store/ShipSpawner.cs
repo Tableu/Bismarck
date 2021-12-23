@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Transactions;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Spawners", menuName = "Spawners/ShipSpawner", order = 0)][Serializable]
@@ -8,6 +7,7 @@ public class ShipSpawner : SpawnerScriptableObject
 {
     public ShipDictionary ShipDictionary;
     public ShipListScriptableObject ShipList;
+    public string ShipLayer;
 
     public override void SpawnFleet(List<ShipData> shipDatas, Transform parent)
     {
@@ -26,10 +26,30 @@ public class ShipSpawner : SpawnerScriptableObject
         {
             if (startPos != null)
             {
-                ship.transform.position = startPos.Value;
+                ship.transform.localPosition = startPos.Value;
                 data.StartingPos = ship.transform.localPosition;
             }
-            ShipDictionary.AddShip(data,ship.GetInstanceID());
+            else
+            {
+                ship.transform.localPosition = data.StartingPos;
+            }
+
+            ShipLogic shipLogic = ship.GetComponent<ShipLogic>();
+            if (shipLogic != null)
+            {
+                shipLogic.ShipSpawner = this;
+            }
+            ShipHealth shipHealth = ship.GetComponent<ShipHealth>();
+            if (shipHealth != null)
+            {
+                shipHealth.shipDict = ShipDictionary;
+            }
+
+            var scale = ship.transform.localScale;
+            ship.transform.localScale = new Vector3(scale.x*data.ShipDirection, scale.y, scale.z);
+            ship.layer = LayerMask.NameToLayer(ShipLayer);
+            
+            ShipDictionary.AddShip(data.Copy(),ship.GetInstanceID());
             ShipList.AddShip(ship);
         }
     }

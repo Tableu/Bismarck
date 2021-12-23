@@ -248,6 +248,7 @@ public class ShipSelector : MonoBehaviour
             }
         }
         selectedShips.ClearList();
+        SelectedShipsEvent.Invoke();
     }
 
     public void DeselectShip(GameObject ship)

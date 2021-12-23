@@ -33,6 +33,11 @@ public class ShipDictionary : ScriptableObject
         shipDict[id] = shipData;
     }
 
+    public Dictionary<int, ShipData>.Enumerator GetEnumerator()
+    {
+        return shipDict.GetEnumerator();
+    }
+
     private void OnEnable()
     {
         shipDict = new Dictionary<int, ShipData>();

@@ -133,7 +133,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public void BuyShip()
     {
-        ShipData shipData = shipDB.GetShip(shipToSpawn);
+        ShipData shipData = shipDB.GetShip(shipToSpawn).Copy();
         if (shipData != null && money - shipData.Cost >= 0)
         {
             Money -= shipData.Cost;
@@ -145,6 +145,8 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
 
     public void UpdateRepairCostAndSellValue()
     {
+        RepairCost = 0;
+        SellValue = 0;
         foreach (GameObject ship in selectedShips.ShipList)
         {
             ShipData data = ships.GetShip(ship.GetInstanceID());

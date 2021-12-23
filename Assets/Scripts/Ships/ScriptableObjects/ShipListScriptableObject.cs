@@ -23,4 +23,9 @@ public class ShipListScriptableObject : ScriptableObject
     {
         shipList.Clear();
     }
+
+    public void OnEnable()
+    {
+        shipList = new List<GameObject>();
+    }
 }
