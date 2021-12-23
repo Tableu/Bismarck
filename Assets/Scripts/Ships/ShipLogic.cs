@@ -55,7 +55,7 @@ public class ShipLogic : MonoBehaviour
     }
     protected bool HasReachedTarget()
     {
-        var shipData = ShipSpawner.ShipDictionary.GetShip(GetInstanceID());
+        var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
         if (_moveToTarget.Target == null || Vector2.Distance(transform.position, _moveToTarget.Target.transform.position) < shipData.StopDistance)
         {
             return true;

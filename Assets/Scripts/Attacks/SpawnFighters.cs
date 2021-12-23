@@ -3,32 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SpawnUnit", menuName = "SpawnUnit/SpawnFighters", order = 0)]
-public class SpawnFighters : SpawnUnitScriptableObject
+public class SpawnFighters : AttackScriptableObject
 {
     public ShipData shipData;
     public float fireDelay;
-    public override SpawnUnitCommand MakeSpawnUnit(ShipSpawner shipSpawner)
+    public override AttackCommand MakeAttack()
     {
-        return new SpawnUnit(fireDelay, shipData, shipSpawner);
+        return new SpawnUnit(fireDelay, shipData);
     }
 
-    private class SpawnUnit : SpawnUnitCommand
+    private class SpawnUnit : AttackCommand
     {
-        private ShipSpawner _shipSpawner;
         private ShipData _shipData;
         private GameObject _target;
         private float _fireDelay;
         private int _coroutineCount = 0;
         private bool Stop { get; set; }
 
-        public SpawnUnit(float fireDelay, ShipData shipData, ShipSpawner shipSpawner)
+        public SpawnUnit(float fireDelay, ShipData shipData)
         {
             _fireDelay = fireDelay;
             _shipData = shipData;
-            _shipSpawner = shipSpawner;
         }
 
-        public void StopSpawnUnit()
+        public void StopAttack()
         {
             Stop = true;
         }
@@ -41,7 +39,7 @@ public class SpawnFighters : SpawnUnitScriptableObject
             }
         }
         
-        public IEnumerator DoSpawnUnit(GameObject attacker)
+        public IEnumerator DoAttack(GameObject attacker)
         {
             _coroutineCount++;
             int coroutineCount = _coroutineCount;
@@ -59,7 +57,8 @@ public class SpawnFighters : SpawnUnitScriptableObject
         }
         private void SpawnFighter(GameObject mothership)
         {
-            _shipSpawner.SpawnShip(_shipData.Copy(), mothership.transform.parent);
+            ShipSpawner shipSpawner = mothership.GetComponent<ShipLogic>().ShipSpawner;
+            shipSpawner.SpawnShip(_shipData.Copy(), mothership.transform.parent);
         }
     }
 }

@@ -27,7 +27,7 @@ public class FighterShipBattleController : ShipLogic
 
     private new bool HasReachedTarget()
     {
-        var shipData = ShipDictionary.GetShip(GetInstanceID());
+        var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
         if (target == null)
         {
             target = DetectionController.DetectShip(shipData.AggroRange, gameObject);
