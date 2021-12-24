@@ -4,7 +4,6 @@ public class FighterShipBattleController : ShipLogic
 {
     [SerializeField] public GameObject mothership;
     [SerializeField] private bool returning;
-    // Start is called before the first frame update
     private new void Start()
     {
         base.Start();
@@ -14,8 +13,6 @@ public class FighterShipBattleController : ShipLogic
         StateMachine.AddTransition(_moveToTarget, returnToMothership, HasReachedTarget);
         StateMachine.SetState(_moveToTarget);
     }
-
-    // Update is called once per frame
     private new void FixedUpdate()
     {
         StateMachine.Tick();

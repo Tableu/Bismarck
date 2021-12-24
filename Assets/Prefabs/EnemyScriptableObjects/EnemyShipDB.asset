@@ -22,7 +22,7 @@ MonoBehaviour:
     AggroRange: 100
     LayerMask:
       serializedVersion: 2
-      m_Bits: 128
+      m_Bits: 320
     BlocksMovement: 1
     Weapons:
     - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
