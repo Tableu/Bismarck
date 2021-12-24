@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Attack", menuName = "Attacks/SpawnFighters", order = 0)]
+[CreateAssetMenu(fileName = "SpawnUnit", menuName = "SpawnUnit/SpawnFighters", order = 0)]
 public class SpawnFighters : AttackScriptableObject
 {
-    public GameObject fighterPrefab;
+    public ShipData shipData;
     public float fireDelay;
     public override AttackCommand MakeAttack()
     {
-        return new Attack(fighterPrefab, fireDelay);
+        return new SpawnUnit(fireDelay, shipData);
     }
 
-    private class Attack : AttackCommand
+    private class SpawnUnit : AttackCommand
     {
-        private GameObject _fighterPrefab;
+        private ShipData _shipData;
         private GameObject _target;
         private float _fireDelay;
         private int _coroutineCount = 0;
         private bool Stop { get; set; }
 
-        public Attack(GameObject fighterPrefab, float fireDelay)
+        public SpawnUnit(float fireDelay, ShipData shipData)
         {
-            _fighterPrefab = fighterPrefab;
             _fireDelay = fireDelay;
+            _shipData = shipData;
         }
 
         public void StopAttack()
@@ -38,6 +38,7 @@ public class SpawnFighters : AttackScriptableObject
                 _target = target;
             }
         }
+        
         public IEnumerator DoAttack(GameObject attacker)
         {
             _coroutineCount++;
@@ -56,11 +57,8 @@ public class SpawnFighters : AttackScriptableObject
         }
         private void SpawnFighter(GameObject mothership)
         {
-            GameObject fighter = Instantiate(_fighterPrefab, mothership.transform.position, Quaternion.identity, mothership.transform.parent);
-            FighterShipController controller = fighter.GetComponent<FighterShipController>();
-            controller.target = _target;
-            controller.mothership = mothership;
-            fighter.layer = mothership.layer;
+            ShipSpawner shipSpawner = mothership.GetComponent<ShipLogic>().ShipSpawner;
+            shipSpawner.SpawnShip(_shipData.Copy(), mothership.transform.parent);
         }
     }
 }

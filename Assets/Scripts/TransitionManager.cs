@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class TransitionManager : MonoBehaviour
 {
     private static TransitionManager _instance;
+    [SerializeField] private ShipDictionary playerShipDict;
+    [SerializeField] private ShipSpawner playerShipSpawner;
     [SerializeField] private GameObject mapPopup;
     [SerializeField] private GameObject ships;
     private GameObject _fleetScreen;
@@ -20,29 +23,9 @@ public class TransitionManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        _instance = this;
-        DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(mapPopup);
         DontDestroyOnLoad(ships);
-        SceneManager.sceneLoaded += (scene, mode) =>
-        {
-            if (scene.name == "StoreScene")
-            {
-                InputManager.Instance.EnableStoreInput();
-                mapPopup.SetActive(false);
-                ships.SetActive(true);
-                _fleetScreen = GameObject.FindWithTag("FleetScreen");
-                SetShipFleetScreenPositions();
-            }else if (scene.name == "BattleScene")
-            {
-                InputManager.Instance.EnableCombatInput();
-                mapPopup.SetActive(false);
-                ships.SetActive(true);
-                _fleetScreen = null;
-                SaveShipFleetScreenPositions();
-            }
-        };
+        _instance = this;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     public void OpenMap()
@@ -65,24 +48,19 @@ public class TransitionManager : MonoBehaviour
     {
         SceneManager.LoadScene("Scenes/StoreScene");
     }
-    public void SaveShipFleetScreenPositions()
+
+    public void LoadPlayerShips()
     {
-        GameObject shipParent = GameObject.FindWithTag("Ships");
-        ShipController[] shipControllers = shipParent.GetComponentsInChildren<ShipController>();
-        foreach (ShipController controller in shipControllers)
+        Dictionary<int, ShipData>.Enumerator enumerator = playerShipDict.GetEnumerator();
+        while (enumerator.MoveNext())
         {
-            controller.SaveFleetScreenPosition();
-            controller.enabled = true;
+            playerShipSpawner.SpawnShip(enumerator.Current.Value, ships.transform);
+            playerShipDict.RemoveShip(enumerator.Current.Key);
         }
     }
-    public void SetShipFleetScreenPositions()
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        GameObject shipParent = GameObject.FindWithTag("Ships");
-        ShipController[] shipControllers = shipParent.GetComponentsInChildren<ShipController>();
-        foreach (ShipController controller in shipControllers)
-        {
-            controller.SetFleetScreenPosition();
-            controller.enabled = false;
-        }
+        ships.SetActive(true);
     }
 }
