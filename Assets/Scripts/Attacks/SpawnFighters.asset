@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: SpawnFighters
   m_EditorClassIdentifier: 
   shipData:
-    ShipName: FighterShip
+    ShipName: Fighter
     Cost: 10
     Health: 10
     MaxHealth: 10
     Speed: 0.2
-    StopDistance: 0.1
+    StopDistance: 0.01
     AggroRange: 100
-    LayerMask:
-      serializedVersion: 2
-      m_Bits: 320
     BlocksMovement: 0
     Weapons:
     - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
