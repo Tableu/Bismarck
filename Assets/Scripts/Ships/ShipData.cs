@@ -12,7 +12,6 @@ public class ShipData
     public float Speed;
     public float StopDistance;
     public float AggroRange;
-    public LayerMask LayerMask;
     public bool BlocksMovement;
     public List<AttackScriptableObject> Weapons;
     public List<ScriptableObject> Modules;

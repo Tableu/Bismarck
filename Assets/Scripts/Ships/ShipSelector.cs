@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
@@ -285,5 +286,25 @@ public class ShipSelector : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
+    }
+
+    private void OnDestroy()
+    {
+        _playerInputActions.Combat.Pause.started -= Pause;
+        _playerInputActions.Combat.LeftClick.started -= CombatLeftClick;
+        _playerInputActions.Combat.LeftClick.performed -= CombatLeftClick;
+        _playerInputActions.Combat.LeftClick.canceled -= CombatLeftClick;
+
+        _playerInputActions.Combat.RightClick.started -= CombatRightClick;
+        _playerInputActions.Combat.RightClick.performed -= CombatRightClick;
+        _playerInputActions.Combat.RightClick.canceled -= CombatRightClick;
+        
+        _playerInputActions.UI.LeftClick.started -= StoreLeftClick;
+        _playerInputActions.UI.LeftClick.performed -= StoreLeftClick;
+        _playerInputActions.UI.LeftClick.canceled -= StoreLeftClick;
+        
+        _playerInputActions.UI.RightClick.started -= StoreRightClick;
+        _playerInputActions.UI.RightClick.performed -= StoreRightClick;
+        _playerInputActions.UI.RightClick.canceled -= StoreRightClick;
     }
 }

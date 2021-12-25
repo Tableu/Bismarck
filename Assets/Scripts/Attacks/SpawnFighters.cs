@@ -58,7 +58,11 @@ public class SpawnFighters : AttackScriptableObject
         private void SpawnFighter(GameObject mothership)
         {
             ShipSpawner shipSpawner = mothership.GetComponent<ShipLogic>().ShipSpawner;
-            shipSpawner.SpawnShip(_shipData.Copy(), mothership.transform.parent);
+            GameObject ship = shipSpawner.SpawnShip(_shipData.Copy(), mothership.transform.parent, mothership.transform.position);
+            if (ship != null)
+            {
+                ship.GetComponent<FighterShipLogic>().mothership = mothership;
+            }
         }
     }
 }
