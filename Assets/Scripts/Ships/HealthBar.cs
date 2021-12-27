@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,7 @@ public class HealthBar : MonoBehaviour
     {
         if (target != null)
         {
+            
             gameObject.transform.position = Camera.main.WorldToScreenPoint((Vector2)target.position + Vector2.down*barDisplacement);
         }
     }

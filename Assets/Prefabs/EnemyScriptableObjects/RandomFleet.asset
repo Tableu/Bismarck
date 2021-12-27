@@ -14,21 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomFleet:
   - randomShips:
-    - ShipName: Mothership
-      Cost: 10
-      Health: 100
-      MaxHealth: 100
-      Speed: 0.1
-      StopDistance: 0.5
-      AggroRange: 100
-      BlocksMovement: 1
-      Weapons:
-      - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
-      - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
-      Modules: []
-      Buffs: []
-      StartingPos: {x: -10, y: 0}
-      ShipDirection: -1
-      ShipPrefab: {fileID: 4271728520197243408, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+    - {fileID: 11400000, guid: a06b30b53fd25ef43bad58b17671b938, type: 2}
     shipWeights: 0a000000
   fleetVisualsPrefab: {fileID: 0}

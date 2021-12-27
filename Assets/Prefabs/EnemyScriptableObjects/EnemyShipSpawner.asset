@@ -18,3 +18,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 320
   ShipLayer: EnemyShips
+  StartDirection: -1

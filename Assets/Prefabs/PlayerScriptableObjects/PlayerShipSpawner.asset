@@ -18,3 +18,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   ShipLayer: PlayerShips
+  StartDirection: 1

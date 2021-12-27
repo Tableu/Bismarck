@@ -1,4 +1,5 @@
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Attack", menuName = "Attacks/Projectile", order = 0)]

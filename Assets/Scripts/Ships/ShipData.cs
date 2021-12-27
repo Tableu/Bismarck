@@ -17,11 +17,9 @@ public class ShipData
     public List<ScriptableObject> Modules;
     public List<ScriptableObject> Buffs;
     public Vector2 StartingPos;
-    public int ShipDirection;
     public GameObject ShipPrefab;
     public int RepairCost => (MaxHealth - Health) * 100;
     public int SellValue => Mathf.Max(Cost - RepairCost, 0);
-
     public ShipData Copy()
     {
         ShipData clone = MemberwiseClone() as ShipData;

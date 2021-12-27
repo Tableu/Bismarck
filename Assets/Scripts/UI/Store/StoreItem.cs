@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 public class StoreItem : MonoBehaviour, IPointerClickHandler
@@ -27,7 +28,7 @@ public class StoreItem : MonoBehaviour, IPointerClickHandler
     {
         if (holding)
         {
-            transform.position = _playerInputActions.Mouse.Point.ReadValue<Vector2>();
+            transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         }
     }
 

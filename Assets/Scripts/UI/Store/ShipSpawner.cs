@@ -9,6 +9,7 @@ public class ShipSpawner : SpawnerScriptableObject
     public ShipListScriptableObject ShipList;
     public LayerMask LayerMask;
     public string ShipLayer;
+    public int StartDirection;
 
     public override void SpawnFleet(List<ShipData> shipDatas, Transform parent)
     {
@@ -47,10 +48,10 @@ public class ShipSpawner : SpawnerScriptableObject
             }
 
             var scale = ship.transform.localScale;
-            ship.transform.localScale = new Vector3(scale.x*data.ShipDirection, scale.y, scale.z);
+            ship.transform.localScale = new Vector3(scale.x*Math.Sign(StartDirection), scale.y, scale.z);
             ship.layer = LayerMask.NameToLayer(ShipLayer);
             
-            ShipDictionary.AddShip(data.Copy(),ship.GetInstanceID());
+            ShipDictionary.AddShip(data,ship.GetInstanceID());
             ShipList.AddShip(ship);
             return ship;
         }

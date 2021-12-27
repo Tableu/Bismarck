@@ -19,7 +19,6 @@ public class ShipSelector : MonoBehaviour
     [SerializeField] private GraphicRaycaster graphicRaycaster;
     [SerializeField] private bool isStore;
     [SerializeField]private Vector2 _startPos;
-    [SerializeField]private Vector2 _mousePos;
     [SerializeField]private Vector2 _projectedMousePos;
     private bool _drawSelectionBox = false;
     private bool _dragShips = false;
@@ -93,8 +92,7 @@ public class ShipSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _mousePos = Mouse.current.position.ReadValue();
-        _projectedMousePos = Camera.main.ScreenToWorldPoint(_mousePos);
+        _projectedMousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
         if (_dragShips)
         {
@@ -118,8 +116,8 @@ public class ShipSelector : MonoBehaviour
     {
         if(!selectionBox.gameObject.activeInHierarchy)
             selectionBox.gameObject.SetActive(true);
-        float width = _mousePos.x - _startPos.x;
-        float height = _mousePos.y - _startPos.y;
+        float width = _projectedMousePos.x - _startPos.x;
+        float height = _projectedMousePos.y - _startPos.y;
         selectionBox.sizeDelta = new Vector2(Mathf.Abs(width), Mathf.Abs(height));
         selectionBox.position = _startPos + new Vector2(width / 2, height / 2);
     }
@@ -127,8 +125,8 @@ public class ShipSelector : MonoBehaviour
     private void ReleaseSelectionBox()
     {
         selectionBox.gameObject.SetActive(false);
-        Vector3 min = Camera.main.ScreenToWorldPoint(selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2));
-        Vector3 max = Camera.main.ScreenToWorldPoint(selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2));
+        Vector3 min = selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2);
+        Vector3 max = selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2);
         
         foreach(GameObject ship in playerShips.ShipList)
         {
@@ -158,7 +156,7 @@ public class ShipSelector : MonoBehaviour
             case InputActionPhase.Started:
                 DeSelectShips();
                 _drawSelectionBox = true;
-                _startPos = _mousePos;
+                _startPos = _projectedMousePos;
                 break;
             case InputActionPhase.Canceled:
                 if (_drawSelectionBox)
@@ -176,7 +174,7 @@ public class ShipSelector : MonoBehaviour
         {
             case InputActionPhase.Started:
                 if(selectedShips.Count > 0)
-                    MoveSelectedShips(_mousePos);
+                    MoveSelectedShips(_projectedMousePos);
                 break;
         }
     }
@@ -186,7 +184,7 @@ public class ShipSelector : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                _startPos = _mousePos;
+                _startPos = _projectedMousePos;
                 if (UIRaycast())
                     return;
 
@@ -228,7 +226,7 @@ public class ShipSelector : MonoBehaviour
     private bool UIRaycast()
     {
         var eventData = new PointerEventData(EventSystem.current);
-        eventData.position = _mousePos;
+        eventData.position = _projectedMousePos;
         List<RaycastResult> hits = new List<RaycastResult>();
         graphicRaycaster.Raycast(eventData, hits);
         if (hits.Count > 0)
@@ -270,7 +268,7 @@ public class ShipSelector : MonoBehaviour
         {
             if (ship != null)
             {
-                ship.GetComponent<ShipLogic>().MoveToPosition(Camera.main.ScreenToWorldPoint(position));
+                ship.GetComponent<ShipLogic>().MoveToPosition(position);
             }
         }
         _drawSelectionBox = false;
