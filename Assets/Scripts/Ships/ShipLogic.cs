@@ -19,6 +19,7 @@ public class ShipLogic : MonoBehaviour
 
     protected void Start()
     {
+        enabled = false;
         var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
         blocksMovement = shipData.BlocksMovement;
         _movementController = new MovementController(gameObject, shipData.Speed, 0, ShipSpawner.LayerMask);
