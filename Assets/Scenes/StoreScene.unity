@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 126162144}
   - component: {fileID: 126162143}
   - component: {fileID: 126162142}
+  - component: {fileID: 126162145}
   m_Layer: 6
   m_Name: PlayerInput
   m_TagString: Untagged
@@ -203,7 +204,6 @@ MonoBehaviour:
         m_CallState: 2
   selectionBox: {fileID: 1440918100}
   graphicRaycaster: {fileID: 594208356}
-  isStore: 1
   _startPos: {x: 0, y: 0}
   _projectedMousePos: {x: 0, y: 0}
 --- !u!4 &126162144
@@ -220,6 +220,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &126162145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126162141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c11d2dc1277ee6468daa34de08f5ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
+  selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
 --- !u!1 &171290390
 GameObject:
   m_ObjectHideFlags: 0
