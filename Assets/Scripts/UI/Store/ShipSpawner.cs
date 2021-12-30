@@ -41,6 +41,7 @@ public class ShipSpawner : SpawnerScriptableObject
             {
                 shipLogic.ShipSpawner = this;
             }
+            
             ShipHealth shipHealth = ship.GetComponent<ShipHealth>();
             if (shipHealth != null)
             {
@@ -57,4 +58,5 @@ public class ShipSpawner : SpawnerScriptableObject
         }
         return null;
     }
+    
 }

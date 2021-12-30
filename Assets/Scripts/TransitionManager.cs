@@ -62,5 +62,9 @@ public class TransitionManager : MonoBehaviour
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         ships.SetActive(true);
+        foreach (ShipLogic ship in ships.GetComponentsInChildren<ShipLogic>())
+        {
+            ship.enabled = true;
+        }
     }
 }

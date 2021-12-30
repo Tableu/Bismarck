@@ -81,7 +81,13 @@ public class ProjectileAttack : AttackScriptableObject
                     return;
                 }
                 rotation = Vector2.SignedAngle(Vector2.right, _direction);
-                controller.Init(_direction, -direction*rotation, attacker.layer);
+                if (attacker.layer == LayerMask.NameToLayer("EnemyShips"))
+                {
+                    controller.Init(_direction, -direction * rotation, LayerMask.NameToLayer("EnemyProjectiles"), attacker.layer);
+                }else if (attacker.layer == LayerMask.NameToLayer("PlayerShips"))
+                {
+                    controller.Init(_direction, -direction * rotation, LayerMask.NameToLayer("PlayerProjectiles"), attacker.layer);
+                }
             }
         }
     }

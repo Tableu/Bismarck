@@ -20,8 +20,7 @@ public class HealthBar : MonoBehaviour
     {
         if (target != null)
         {
-            
-            gameObject.transform.position = Camera.main.WorldToScreenPoint((Vector2)target.position + Vector2.down*barDisplacement);
+            gameObject.transform.position = (Vector2)target.position + Vector2.down*barDisplacement;
         }
     }
 

@@ -140,7 +140,12 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             Money -= shipData.Cost;
             Vector2 startingPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            spawner.SpawnShip(shipData, fleetParent, startingPos);
+            GameObject ship = spawner.SpawnShip(shipData, fleetParent, startingPos);
+            ShipLogic shipLogic = ship.GetComponent<ShipLogic>();
+            if (shipLogic != null)
+            {
+                shipLogic.enabled = false;
+            }
             UpdateRepairCostAndSellValue();
         }
     }

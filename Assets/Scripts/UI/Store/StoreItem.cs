@@ -4,24 +4,18 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
-using UnityEngine.UI;
 
-public class StoreItem : MonoBehaviour, IPointerClickHandler
+public class StoreItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public UnityEvent StoreItemReleased;
     public UnityEvent UpdateShipName;
     public String shipName;
-    public PlayerInputScriptableObject playerInput;
-    private PlayerInputActions _playerInputActions;
     private Vector2 originalPos;
     private bool holding;
 
     private void Start()
     {
         gameObject.name = shipName;
-        _playerInputActions = playerInput.PlayerInputActions;
-        _playerInputActions.UI.LeftClick.canceled += DropItem;
     }
 
     private void Update()
@@ -32,7 +26,7 @@ public class StoreItem : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
@@ -40,6 +34,16 @@ public class StoreItem : MonoBehaviour, IPointerClickHandler
             gameObject.name = shipName;
             UpdateShipName.Invoke();
             originalPos = transform.position;
+        }
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            StoreItemReleased.Invoke();
+            transform.position = originalPos;
+            holding = false;
         }
     }
 
