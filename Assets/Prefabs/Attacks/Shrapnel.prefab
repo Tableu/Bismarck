@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3493278232137537651}
   - component: {fileID: 6518398653965323916}
   - component: {fileID: 7004375517317726399}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shrapnel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,6 @@ MonoBehaviour:
   speed: 30
   direction: {x: 0, y: 0}
   type: 0
-  timer: 0
 --- !u!1 &5131538940010439015
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1098670131452051575}
   - component: {fileID: 6028621672667472433}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7201170805715880193}
   - component: {fileID: 2057058177968807005}
   - component: {fileID: 8026159820068560182}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Point Laser Orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3938099984581199866}
   - component: {fileID: 7651691373711058364}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}

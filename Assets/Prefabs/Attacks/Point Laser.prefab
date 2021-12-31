@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5145514963096105793}
   - component: {fileID: 2017119267817001223}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 560798983
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 202457696531842851, guid: 913c2e9b2844a284cb588f18ebcf9f29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8659672467078212421}
   - component: {fileID: 1969472639934103876}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Point Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}

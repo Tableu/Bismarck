@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5639134718980365604}
   - component: {fileID: 1356866583539842914}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8144733008931587360}
   - component: {fileID: 1948783779247117279}
   - component: {fileID: 2326658841158557164}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,4 +164,3 @@ MonoBehaviour:
   speed: 30
   direction: {x: 0, y: 0}
   type: 0
-  timer: 0

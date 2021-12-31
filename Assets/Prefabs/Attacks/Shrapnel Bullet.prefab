@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6167125525126334241}
   - component: {fileID: 648714249337480551}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7697737389657546533}
   - component: {fileID: 62844092154022362}
   - component: {fileID: 6675093216062438276}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shrapnel Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,6 @@ MonoBehaviour:
   speed: 20
   direction: {x: 1, y: 0}
   type: 1
-  timer: 0
   maxDistance: 10
   shrapnelCount: 5
   shrapnelPrefab: {fileID: 3493278232137537649, guid: 78f258e646aeeef45a557497a39bf77b, type: 3}

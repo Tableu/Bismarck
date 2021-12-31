@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4110894785859016863}
   - component: {fileID: 4068734266353574668}
   - component: {fileID: 8710635969263158167}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Mothership
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.23, y: 4.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 732283699267796662}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -163,6 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
+  _positionOffset: {x: 0, y: 0}
 --- !u!114 &8710635969263158167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,3 +180,72 @@ MonoBehaviour:
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
   shipDict: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
   healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
+--- !u!1 &6604972879378720363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 732283699267796662}
+  - component: {fileID: 1263098918966774928}
+  - component: {fileID: 5205045888923586089}
+  m_Layer: 0
+  m_Name: PointLaserTurret
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &732283699267796662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6604972879378720363}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4271728520197243410}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1263098918966774928
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6604972879378720363}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.110993385, y: 0}
+  serializedVersion: 2
+  m_Radius: 6.402858
+--- !u!114 &5205045888923586089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6604972879378720363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c4644f1fb38b94ab231676d06c1856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circleCollider2D: {fileID: 1263098918966774928}
+  damage: 10
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1728
+  type: 2
+  pointLaserPrefab: {fileID: 8659672467078212423, guid: b1eac09b76c9c06458f1c3c147968133, type: 3}
+  cooldown: 2
+  maxLasers: 1

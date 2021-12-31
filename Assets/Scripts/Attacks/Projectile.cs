@@ -87,12 +87,12 @@ public class Projectile : MonoBehaviour
             };
             if (enemy != null)
             {
-                //pSoundManager.PlaySound(pSoundManager.Sound.eHit);
                 enemy.TakeDamage(dmg);
                 if(enemy.DestroyProjectile(CollisionType.energy))
                     Destroy(gameObject);
             }
         }
+        return;
     }
 
     private void OnBecameInvisible()

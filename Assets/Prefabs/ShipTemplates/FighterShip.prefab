@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2064462782244728250}
   - component: {fileID: 6245183859499081741}
   - component: {fileID: 129691159520741700}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: FighterShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,13 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dee762f69b5d2c4b952deeec478e6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
-  attackScriptableObjects:
-  - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
-  blocksMovement: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 256
+  ShipSpawner: {fileID: 0}
   target: {fileID: 0}
   mothership: {fileID: 0}
   returning: 0
