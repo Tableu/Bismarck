@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShrapnelProjectile : Projectile
@@ -34,7 +32,8 @@ public class ShrapnelProjectile : Projectile
             {
                 Vector2 randomVector = RandomVector2(Mathf.Deg2Rad * 40, Mathf.Deg2Rad * (angle-20));
                 Vector2 shrapnelDirection = new Vector2(randomVector.x, randomVector.y);
-                projectile.Init(shrapnelDirection, 0, gameObject.layer);
+                
+                projectile.Init(shrapnelDirection, 0, gameObject.layer-1);
             }
         }
         Destroy(gameObject);

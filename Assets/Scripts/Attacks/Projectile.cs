@@ -18,7 +18,7 @@ public class Projectile : MonoBehaviour
     public float speed;
     public Vector2 direction;
     public CollisionType type;
-    public float timer;
+    private float startTime;
     private int _speedSegmentIndex;
     private int _speedSegmentMax;
     private SpeedSegment _currentSegment;
@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour
     {
         if (speedSegments != null && speedSegments.Count != 0)
         {
-            timer = 0;
+            startTime = Time.fixedTime;
             _speedSegmentIndex = 0;
             _speedSegmentMax = speedSegments.Count;
             _stopTimer = false;
@@ -47,24 +47,23 @@ public class Projectile : MonoBehaviour
         transform.Translate(new Vector2(direction.x, direction.y)*speed*Time.fixedDeltaTime);
         if (!_stopTimer)
         {
-            if (timer > _currentSegment.duration)
+            if (Time.fixedTime-startTime > _currentSegment.duration)
             {
-                speed = _currentSegment.speed;
-                timer = 0;
                 _speedSegmentIndex++;
                 if (_speedSegmentIndex >= _speedSegmentMax)
                 {
                     _stopTimer = true;
                     return;
                 }
+                startTime = Time.fixedTime;
                 _currentSegment = speedSegments[_speedSegmentIndex];
+                speed = _currentSegment.speed;
             }
-
-            timer += Time.fixedTime;
+            
         }
     }
 
-    public void Init(Vector2 direction, float zRotation, int projectileLayer)
+    public void Init(Vector2 direction, float zRotation, int shipLayer)
     {
         this.direction = direction;
         Vector3 scale = transform.localScale;
@@ -72,8 +71,8 @@ public class Projectile : MonoBehaviour
         Vector3 rotation = visuals.transform.rotation.eulerAngles;
         visuals.transform.rotation = Quaternion.Euler(rotation.x, rotation.y,
             (rotation.z-zRotation)*Mathf.Sign(direction.x));
-        gameObject.layer = projectileLayer;
-        enemyLayer = enemyLayer & ~LayerMask.GetMask(LayerMask.LayerToName(projectileLayer));
+        gameObject.layer = shipLayer+1;
+        enemyLayer = enemyLayer & ~LayerMask.GetMask(LayerMask.LayerToName(shipLayer+1), LayerMask.LayerToName(shipLayer));
     }
     protected void OnTriggerEnter2D(Collider2D other)
     {
@@ -88,12 +87,12 @@ public class Projectile : MonoBehaviour
             };
             if (enemy != null)
             {
-                //pSoundManager.PlaySound(pSoundManager.Sound.eHit);
                 enemy.TakeDamage(dmg);
                 if(enemy.DestroyProjectile(CollisionType.energy))
                     Destroy(gameObject);
             }
         }
+        return;
     }
 
     private void OnBecameInvisible()

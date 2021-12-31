@@ -12,17 +12,14 @@ public class ShipData
     public float Speed;
     public float StopDistance;
     public float AggroRange;
-    public LayerMask LayerMask;
     public bool BlocksMovement;
     public List<AttackScriptableObject> Weapons;
     public List<ScriptableObject> Modules;
     public List<ScriptableObject> Buffs;
     public Vector2 StartingPos;
-    public int ShipDirection;
     public GameObject ShipPrefab;
     public int RepairCost => (MaxHealth - Health) * 100;
     public int SellValue => Mathf.Max(Cost - RepairCost, 0);
-
     public ShipData Copy()
     {
         ShipData clone = MemberwiseClone() as ShipData;

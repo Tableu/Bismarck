@@ -16,14 +16,14 @@ public static class DetectionController
 
     public static GameObject DetectShip(float aggroRange, GameObject attacker)
     {
-        List<RaycastHit2D> results = new List<RaycastHit2D>();
+        List<Collider2D> results = new List<Collider2D>();
         if (attacker.layer.Equals(LayerMask.NameToLayer("PlayerShips")))
         {
-            Physics2D.CircleCast(attacker.transform.position, aggroRange, Vector2.zero, EnemyFilter, results);
+            Physics2D.OverlapCircle(attacker.transform.position, aggroRange, EnemyFilter, results);
         }
         else if (attacker.layer.Equals(LayerMask.NameToLayer("EnemyShips")))
         {
-            Physics2D.CircleCast(attacker.transform.position, aggroRange, Vector2.zero, PlayerFilter, results);
+            Physics2D.OverlapCircle(attacker.transform.position, aggroRange, PlayerFilter, results);
         }
         else
         {
@@ -32,9 +32,9 @@ public static class DetectionController
 
         float currentMagnitude = aggroRange*aggroRange;
         GameObject target = null;
-        foreach (RaycastHit2D ship in results)
+        foreach (Collider2D ship in results)
         {
-            Vector2 diff = attacker.transform.position - ship.collider.transform.position;
+            Vector2 diff = attacker.transform.position - ship.transform.position;
             if (diff.sqrMagnitude < currentMagnitude)
             {
                 currentMagnitude = diff.sqrMagnitude;

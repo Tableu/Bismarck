@@ -10,7 +10,8 @@ public class ShipLogic : MonoBehaviour
     private bool blocksMovement;
     [Header("Objects")]
     [SerializeField] public GameObject target;
-    
+    public List<Vector2> turretPositions;
+
     protected MoveToTargetState _moveToTarget;
     protected MoveToPositionState _moveToPosition;
     protected MoveForwardState _moveForward;
@@ -21,17 +22,24 @@ public class ShipLogic : MonoBehaviour
     {
         var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
         blocksMovement = shipData.BlocksMovement;
-        _movementController = new MovementController(gameObject, shipData.Speed, 0, shipData.LayerMask);
+        _movementController = new MovementController(gameObject, shipData.Speed, 0, ShipSpawner.LayerMask);
         _moveToTarget = new MoveToTargetState(this, _movementController, target);
         _moveToPosition = new MoveToPositionState(this, _movementController, Vector2.zero);
         _moveForward = new MoveForwardState(this, _movementController);
         StateMachine = new FSM();
         attackScriptableObjects = shipData.Weapons;
         _attackCommands = new List<AttackCommand>();
+        List<Vector2>.Enumerator turretPos = turretPositions.GetEnumerator();
         foreach (AttackScriptableObject attackScriptableObject in attackScriptableObjects)
         {
+            if (!turretPos.MoveNext())
+            {
+                break;
+            }
             AttackCommand attackCommand = attackScriptableObject.MakeAttack();
-            StartCoroutine(attackCommand.DoAttack(gameObject));
+            GameObject turret = Instantiate(attackScriptableObject.Turret, transform, false);
+            turret.transform.localPosition = turretPos.Current;
+            StartCoroutine(attackCommand.DoAttack(gameObject, turret));
             _attackCommands.Add(attackCommand);
         }
     }

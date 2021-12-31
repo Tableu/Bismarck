@@ -14,7 +14,8 @@ public class EnemySpawner : MonoBehaviour
         RandomFleet fleet = randomFleetDB.fleetDB[0];
         foreach (RandomShipList randomShip in fleet.randomFleet)
         {
-            enemyShipSpawner.SpawnShip(randomShip.RandomShip(), fleetParent);
+            ShipData shipData = randomShip.RandomShip();
+            enemyShipSpawner.SpawnShip(shipData, fleetParent);
         }
     }
 

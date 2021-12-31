@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8676442024109712232}
   - component: {fileID: 5087631988250788563}
   - component: {fileID: 907420356352823140}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BomberShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 560798983
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: -2327565863014558472, guid: 13a1c2f67d403ec4297d8230e7b40b3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -145,17 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dee762f69b5d2c4b952deeec478e6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackScriptableObject: {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
-  move: 0
-  health: 2
-  speed: 0.3
-  rotationSpeed: 40
-  moveTarget: {x: 0, y: 0}
-  isPlayer: 1
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 256
+  ShipSpawner: {fileID: 0}
   target: {fileID: 0}
   mothership: {fileID: 0}
   returning: 0
-  aggroRange: 3

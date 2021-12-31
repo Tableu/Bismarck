@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityWeld.Binding;
 
 [Binding]
@@ -133,12 +135,17 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public void BuyShip()
     {
-        ShipData shipData = shipDB.GetShip(shipToSpawn).Copy();
+        ShipData shipData = shipDB.GetShip(shipToSpawn).MakeShipData();
         if (shipData != null && money - shipData.Cost >= 0)
         {
             Money -= shipData.Cost;
-            Vector2 startingPos = Camera.main.ScreenToWorldPoint(playerInput.PlayerInputActions.Mouse.Point.ReadValue<Vector2>());
-            spawner.SpawnShip(shipData, fleetParent, startingPos);
+            Vector2 startingPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            GameObject ship = spawner.SpawnShip(shipData, fleetParent, startingPos);
+            ShipLogic shipLogic = ship.GetComponent<ShipLogic>();
+            if (shipLogic != null)
+            {
+                shipLogic.enabled = false;
+            }
             UpdateRepairCostAndSellValue();
         }
     }

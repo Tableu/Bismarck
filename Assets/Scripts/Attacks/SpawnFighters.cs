@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpawnUnit", menuName = "SpawnUnit/SpawnFighters", order = 0)]
 public class SpawnFighters : AttackScriptableObject
 {
-    public ShipData shipData;
+    public ShipDataScriptableObject shipData;
     public float fireDelay;
     public override AttackCommand MakeAttack()
     {
@@ -14,13 +14,13 @@ public class SpawnFighters : AttackScriptableObject
 
     private class SpawnUnit : AttackCommand
     {
-        private ShipData _shipData;
+        private ShipDataScriptableObject _shipData;
         private GameObject _target;
         private float _fireDelay;
         private int _coroutineCount = 0;
         private bool Stop { get; set; }
 
-        public SpawnUnit(float fireDelay, ShipData shipData)
+        public SpawnUnit(float fireDelay, ShipDataScriptableObject shipData)
         {
             _fireDelay = fireDelay;
             _shipData = shipData;
@@ -39,7 +39,7 @@ public class SpawnFighters : AttackScriptableObject
             }
         }
         
-        public IEnumerator DoAttack(GameObject attacker)
+        public IEnumerator DoAttack(GameObject attacker, GameObject turret)
         {
             _coroutineCount++;
             int coroutineCount = _coroutineCount;
@@ -58,7 +58,11 @@ public class SpawnFighters : AttackScriptableObject
         private void SpawnFighter(GameObject mothership)
         {
             ShipSpawner shipSpawner = mothership.GetComponent<ShipLogic>().ShipSpawner;
-            shipSpawner.SpawnShip(_shipData.Copy(), mothership.transform.parent);
+            GameObject ship = shipSpawner.SpawnShip(_shipData.MakeShipData(), mothership.transform.parent, mothership.transform.position);
+            if (ship != null)
+            {
+                ship.GetComponent<FighterShipLogic>().mothership = mothership;
+            }
         }
     }
 }

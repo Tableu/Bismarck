@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShipDictionary: {fileID: 11400000, guid: a91e5371c4a050a49bb687eeef3fc00b, type: 2}
   ShipList: {fileID: 11400000, guid: 04ad34c52d444e44e8342f29554855a9, type: 2}
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 320
   ShipLayer: EnemyShips
+  StartDirection: -1

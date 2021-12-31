@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FighterShipBattleController : ShipLogic
+public class FighterShipLogic : ShipLogic
 {
     [SerializeField] public GameObject mothership;
     [SerializeField] private bool returning;

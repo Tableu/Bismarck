@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class RandomShipList
 {
-    [SerializeField] private List<ShipData> randomShips;
+    [SerializeField] private List<ShipDataScriptableObject> randomShips;
     [SerializeField] private List<int> shipWeights;
 
     public ShipData RandomShip()
@@ -25,10 +25,10 @@ public class RandomShipList
         {
             if (randomNumber < interval)
             {
-                return randomShips[index];
+                return randomShips[index].MakeShipData();
             }
             index++;
         }
-        return randomShips[0];
+        return randomShips[0].MakeShipData();
     }
 }

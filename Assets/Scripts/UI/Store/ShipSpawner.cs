@@ -7,7 +7,9 @@ public class ShipSpawner : SpawnerScriptableObject
 {
     public ShipDictionary ShipDictionary;
     public ShipListScriptableObject ShipList;
+    public LayerMask LayerMask;
     public string ShipLayer;
+    public int StartDirection;
 
     public override void SpawnFleet(List<ShipData> shipDatas, Transform parent)
     {
@@ -17,16 +19,16 @@ public class ShipSpawner : SpawnerScriptableObject
         }
     }
 
-    public override void SpawnShip(ShipData data, Transform parent, Vector3? startPos = null)
+    public override GameObject SpawnShip(ShipData data, Transform parent, Vector3? startPos = null)
     {
         if (parent == null)
-            return;
+            return null;
         GameObject ship = Instantiate(data.ShipPrefab, parent, false);
         if (ship != null)
         {
             if (startPos != null)
             {
-                ship.transform.localPosition = startPos.Value;
+                ship.transform.position = startPos.Value;
                 data.StartingPos = ship.transform.localPosition;
             }
             else
@@ -39,6 +41,7 @@ public class ShipSpawner : SpawnerScriptableObject
             {
                 shipLogic.ShipSpawner = this;
             }
+            
             ShipHealth shipHealth = ship.GetComponent<ShipHealth>();
             if (shipHealth != null)
             {
@@ -46,11 +49,14 @@ public class ShipSpawner : SpawnerScriptableObject
             }
 
             var scale = ship.transform.localScale;
-            ship.transform.localScale = new Vector3(scale.x*data.ShipDirection, scale.y, scale.z);
+            ship.transform.localScale = new Vector3(scale.x*Math.Sign(StartDirection), scale.y, scale.z);
             ship.layer = LayerMask.NameToLayer(ShipLayer);
             
-            ShipDictionary.AddShip(data.Copy(),ship.GetInstanceID());
+            ShipDictionary.AddShip(data,ship.GetInstanceID());
             ShipList.AddShip(ship);
+            return ship;
         }
+        return null;
     }
+    
 }

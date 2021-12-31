@@ -2,31 +2,25 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class ShipUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ShipUI : MonoBehaviour, IPointerDownHandler, IDragHandler
 {
     public ShipDictionary ShipDictionary;
     public ShipListScriptableObject selectedShips;
-    private Vector2 _positionOffset;
+    [SerializeField] private Vector2 _positionOffset;
     private bool _selected;
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
-        SelectShip();
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        RefreshPositionOffset();
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            SelectShip();
+            RefreshPositionOffset();
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) + _positionOffset;
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        
     }
 
     public void RefreshPositionOffset()
