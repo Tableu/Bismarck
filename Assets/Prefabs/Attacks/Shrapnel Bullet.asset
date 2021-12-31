@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951f35511ed205f4ba6da23b58d57bd5, type: 3}
   m_Name: Shrapnel Bullet
   m_EditorClassIdentifier: 
+  Turret: {fileID: 1261522828786782030, guid: 2682605787b0f9e449d7cbe960e0c5df, type: 3}
   projectilePrefab: {fileID: 7697737389657546535, guid: 86923a00b8c495d48b46c0c063f5289b, type: 3}
   fireDelay: 1

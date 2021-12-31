@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951f35511ed205f4ba6da23b58d57bd5, type: 3}
   m_Name: PointLaserOrb
   m_EditorClassIdentifier: 
+  Turret: {fileID: 1261522828786782030, guid: 2682605787b0f9e449d7cbe960e0c5df, type: 3}
   projectilePrefab: {fileID: 712463402950107132, guid: 45118892dc3318447a90785c8b2ec39e, type: 3}
   fireDelay: 3
-  target: {fileID: 0}

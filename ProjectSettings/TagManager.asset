@@ -15,9 +15,9 @@ TagManager:
   - Water
   - UI
   - PlayerShips
-  - EnemyShips
-  - Boundary
   - PlayerProjectiles
+  - Boundary
+  - EnemyShips
   - EnemyProjectiles
   - 
   - 

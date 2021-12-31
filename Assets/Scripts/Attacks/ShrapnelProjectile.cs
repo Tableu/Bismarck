@@ -32,13 +32,8 @@ public class ShrapnelProjectile : Projectile
             {
                 Vector2 randomVector = RandomVector2(Mathf.Deg2Rad * 40, Mathf.Deg2Rad * (angle-20));
                 Vector2 shrapnelDirection = new Vector2(randomVector.x, randomVector.y);
-                if (gameObject.layer == LayerMask.NameToLayer("EnemyProjectiles"))
-                {
-                    projectile.Init(shrapnelDirection, 0, LayerMask.NameToLayer("EnemyProjectiles"),gameObject.layer);
-                }else if (gameObject.layer == LayerMask.NameToLayer("PlayerProjectiles"))
-                {
-                    projectile.Init(shrapnelDirection, 0, LayerMask.NameToLayer("PlayerProjectiles"),gameObject.layer);
-                }
+                
+                projectile.Init(shrapnelDirection, 0, gameObject.layer-1);
             }
         }
         Destroy(gameObject);

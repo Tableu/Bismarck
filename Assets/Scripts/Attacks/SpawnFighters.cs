@@ -39,7 +39,7 @@ public class SpawnFighters : AttackScriptableObject
             }
         }
         
-        public IEnumerator DoAttack(GameObject attacker)
+        public IEnumerator DoAttack(GameObject attacker, GameObject turret)
         {
             _coroutineCount++;
             int coroutineCount = _coroutineCount;

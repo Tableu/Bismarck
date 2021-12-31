@@ -63,7 +63,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public void Init(Vector2 direction, float zRotation, int projectileLayer, int shipLayer)
+    public void Init(Vector2 direction, float zRotation, int shipLayer)
     {
         this.direction = direction;
         Vector3 scale = transform.localScale;
@@ -71,8 +71,8 @@ public class Projectile : MonoBehaviour
         Vector3 rotation = visuals.transform.rotation.eulerAngles;
         visuals.transform.rotation = Quaternion.Euler(rotation.x, rotation.y,
             (rotation.z-zRotation)*Mathf.Sign(direction.x));
-        gameObject.layer = projectileLayer;
-        enemyLayer = enemyLayer & ~LayerMask.GetMask(LayerMask.LayerToName(projectileLayer), LayerMask.LayerToName(shipLayer));
+        gameObject.layer = shipLayer+1;
+        enemyLayer = enemyLayer & ~LayerMask.GetMask(LayerMask.LayerToName(shipLayer+1), LayerMask.LayerToName(shipLayer));
     }
     protected void OnTriggerEnter2D(Collider2D other)
     {
