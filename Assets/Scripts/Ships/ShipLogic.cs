@@ -10,7 +10,7 @@ public class ShipLogic : MonoBehaviour
     private bool blocksMovement;
     [Header("Objects")]
     [SerializeField] public GameObject target;
-    public List<Vector2> turretPositions;
+    public List<Transform> turretPositions;
 
     protected MoveToTargetState _moveToTarget;
     protected MoveToPositionState _moveToPosition;
@@ -29,7 +29,7 @@ public class ShipLogic : MonoBehaviour
         StateMachine = new FSM();
         attackScriptableObjects = shipData.Weapons;
         _attackCommands = new List<AttackCommand>();
-        List<Vector2>.Enumerator turretPos = turretPositions.GetEnumerator();
+        List<Transform>.Enumerator turretPos = turretPositions.GetEnumerator();
         foreach (AttackScriptableObject attackScriptableObject in attackScriptableObjects)
         {
             if (!turretPos.MoveNext())
@@ -38,7 +38,7 @@ public class ShipLogic : MonoBehaviour
             }
             AttackCommand attackCommand = attackScriptableObject.MakeAttack();
             GameObject turret = Instantiate(attackScriptableObject.Turret, transform, false);
-            turret.transform.localPosition = turretPos.Current;
+            turret.transform.localPosition = turretPos.Current.localPosition;
             StartCoroutine(attackCommand.DoAttack(gameObject, turret));
             _attackCommands.Add(attackCommand);
         }

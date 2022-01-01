@@ -2662,6 +2662,10 @@ PrefabInstance:
       propertyPath: viewAdapterTypeName
       value: UnityWeld.Binding.Adapters.IntToStringAdapter
       objectReference: {fileID: 0}
+    - target: {fileID: 4727292528939536118, guid: 072a5d96e07951b4887300902b4c0d63, type: 3}
+      propertyPath: m_Text
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4727292529429165059, guid: 072a5d96e07951b4887300902b4c0d63, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0

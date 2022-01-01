@@ -86,7 +86,7 @@ public class ProjectileAttack : AttackScriptableObject
                 }
 
                 rotation = Vector2.SignedAngle(Vector2.right, _direction);
-                controller.Init(_direction, -direction * rotation, attacker.layer);
+                controller.Init(_direction, -Mathf.Sign(_direction.x) * rotation, attacker.layer);
             }
         }
     }
