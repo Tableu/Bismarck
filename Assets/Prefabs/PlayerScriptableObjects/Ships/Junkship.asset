@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb3a7adef543f4488c11cea31c320c0, type: 3}
+  m_Name: Junkship
+  m_EditorClassIdentifier: 
+  ShipData:
+    ShipName: Junkship
+    Cost: 100
+    Health: 10
+    MaxHealth: 10
+    Speed: 0.1
+    StopDistance: 0.1
+    AggroRange: 10
+    BlocksMovement: 1
+    Weapons:
+    - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
+    - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
+    Modules: []
+    Buffs: []
+    StartingPos: {x: 0, y: 0}
+    ShipPrefab: {fileID: 7984613099506236774, guid: abd53a0bb0318e54d830d51612193128, type: 3}

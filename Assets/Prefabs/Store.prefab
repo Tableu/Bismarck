@@ -215,7 +215,7 @@ MonoBehaviour:
   fleetParent: {fileID: 0}
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
   shipDB: {fileID: 11400000, guid: 5f58e8f36caa17847889686627cf9e37, type: 2}
-  playerInput: {fileID: 0}
+  playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
   spawner: {fileID: 11400000, guid: 54ea476e58d1b0e4ba45083d418715ca, type: 2}
   ships: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
 --- !u!1 &4727292528145405529
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93707c3df568bc4468a22457287fdfb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewAdapterTypeName: 
+  viewAdapterTypeName: UnityWeld.Binding.Adapters.IntToStringAdapter
   viewAdapterOptions: {fileID: 0}
   viewModelPropertyName: StoreViewModel.SellValue
   viewPropertyName: UnityEngine.UI.Text.text
@@ -487,10 +487,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93707c3df568bc4468a22457287fdfb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewAdapterTypeName: 
+  viewAdapterTypeName: UnityWeld.Binding.Adapters.IntToStringAdapter
   viewAdapterOptions: {fileID: 0}
   viewModelPropertyName: StoreViewModel.Money
-  viewPropertyName: UnityEngine.UI.Text.name
+  viewPropertyName: UnityEngine.UI.Text.text
 --- !u!1 &4727292528410216750
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,7 +648,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1000
+  m_Text: 100
 --- !u!1 &4727292529364823882
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93707c3df568bc4468a22457287fdfb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewAdapterTypeName: 
+  viewAdapterTypeName: UnityWeld.Binding.Adapters.IntToStringAdapter
   viewAdapterOptions: {fileID: 0}
   viewModelPropertyName: StoreViewModel.RepairCost
   viewPropertyName: UnityEngine.UI.Text.text
@@ -894,9 +894,9 @@ GameObject:
   - component: {fileID: 4727292529429165068}
   - component: {fileID: 4727292529429165059}
   - component: {fileID: 990284652}
-  - component: {fileID: 990284653}
   - component: {fileID: 990284654}
   - component: {fileID: 990284655}
+  - component: {fileID: 990284653}
   m_Layer: 5
   m_Name: Mothership
   m_TagString: Untagged
@@ -1004,19 +1004,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4727292529429165068}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: StoreItem, Assembly-CSharp
-        m_MethodName: SpawnShip
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &990284652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,28 +1019,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewModelMethodName: StoreViewModel.BuyShip
   viewEventName: StoreItem.StoreItemReleased
---- !u!114 &990284653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4727292529429165057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57ce4e683e051674ba4fe4678d07fef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewModelPropertyName: StoreViewModel.SpawnPosition
-  viewEventName: StoreItem.StoreItemReleased
-  viewPropertyName: UnityEngine.RectTransform.position
-  viewAdapterTypeName: 
-  viewAdapterOptions: {fileID: 0}
-  viewModelAdapterTypeName: 
-  viewModelAdapterOptions: {fileID: 0}
-  exceptionPropertyName: 
-  exceptionAdapterTypeName: 
-  exceptionAdapterOptions: {fileID: 0}
 --- !u!114 &990284654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,7 +1032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewModelPropertyName: StoreViewModel.ShipToSpawn
-  viewEventName: UnityEngine.UI.Button.onClick
+  viewEventName: StoreItem.UpdateShipName
   viewPropertyName: StoreItem.name
   viewAdapterTypeName: 
   viewAdapterOptions: {fileID: 0}
@@ -1094,7 +1060,32 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   shipName: Mothership
-  playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
+--- !u!61 &990284653
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4727292529429165057}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.01877594, y: 0.056331635}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 23.94484, y: 13.80555}
+  m_EdgeRadius: 0
 --- !u!1 &4727292529529683798
 GameObject:
   m_ObjectHideFlags: 0
