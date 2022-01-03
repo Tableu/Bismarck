@@ -37,7 +37,7 @@ public class DragShips : MonoBehaviour
                 ShipUI shipUI = ship.GetComponent<ShipUI>();
                 if (shipUI != null)
                 {
-                    shipUI.OnDrag(null);
+                    shipUI.OnDrag();
                 }
             }
         }

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 //Selection box code: https://gamedevacademy.org/rts-unity-tutorial/
-public class ShipSelector : MonoBehaviour
+public class ShipBoxSelector : MonoBehaviour
 {
     private PlayerInputActions _playerInputActions;
     public ShipListScriptableObject selectedShips;
@@ -16,8 +16,8 @@ public class ShipSelector : MonoBehaviour
     public UnityEvent SelectedShipsEvent;
     [SerializeField] private RectTransform selectionBox;
     [SerializeField] private GraphicRaycaster graphicRaycaster;
-    [SerializeField]private Vector2 _startPos;
-    [SerializeField]private Vector2 _projectedMousePos;
+    [SerializeField] private Vector2 _startPos;
+    [SerializeField] private Vector2 _projectedMousePos;
     private bool _drawSelectionBox = false;
 
     private void Awake()
@@ -37,7 +37,6 @@ public class ShipSelector : MonoBehaviour
     void Start()
     {
         _playerInputActions.UI.LeftClick.started += LeftClick;
-        _playerInputActions.UI.LeftClick.performed += LeftClick;
         _playerInputActions.UI.LeftClick.canceled += LeftClick;
     }
 
@@ -102,7 +101,6 @@ public class ShipSelector : MonoBehaviour
                 }
                 break;
             case InputActionPhase.Canceled:
-                
                 if (_drawSelectionBox && (_projectedMousePos-_startPos).sqrMagnitude > 0.5)
                 {
                     _drawSelectionBox = false;
@@ -111,32 +109,14 @@ public class ShipSelector : MonoBehaviour
                 else if (!playerInput.ShipRaycast(_projectedMousePos))
                 {
                     _drawSelectionBox = false;
-                    DeSelectShips();
                 }
                 break;
         }
-    }
-    public void DeSelectShips()
-    {
-        foreach(GameObject ship in selectedShips.ShipList)
-        {
-            if (ship != null)
-            {
-                ShipUI shipUI = ship.GetComponent<ShipUI>();
-                if (shipUI != null)
-                {
-                    shipUI.DeselectShip();
-                }
-            }
-        }
-        selectedShips.ClearList();
-        SelectedShipsEvent.Invoke();
     }
 
     private void OnDestroy()
     {
         _playerInputActions.UI.LeftClick.started -= LeftClick;
-        _playerInputActions.UI.LeftClick.performed -= LeftClick;
         _playerInputActions.UI.LeftClick.canceled -= LeftClick;
     }
 }

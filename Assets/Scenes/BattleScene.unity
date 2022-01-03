@@ -170,7 +170,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.3333334, y: 1}
+    m_SensorSize: {x: 1.7772357, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -910,9 +910,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1700890235}
-  - component: {fileID: 1700890234}
   - component: {fileID: 1700890233}
+  - component: {fileID: 1700890234}
   - component: {fileID: 1700890236}
+  - component: {fileID: 1700890238}
+  - component: {fileID: 1700890237}
   m_Layer: 6
   m_Name: PlayerInput
   m_TagString: Untagged
@@ -1002,6 +1004,41 @@ MonoBehaviour:
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
   playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
   _projectedMousePos: {x: 0, y: 0}
+--- !u!114 &1700890237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700890232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b008102adb537846ba4a58eb52b8277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
+  SelectedShipsEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  graphicRaycaster: {fileID: 378271378}
+--- !u!114 &1700890238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700890232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dece5fcbdc76d2b4daae9cab96d47f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
+  playerShips: {fileID: 11400000, guid: cec3350c72ba1364e97ea9e45db1b17c, type: 2}
+  playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
+  SelectedShipsEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1760183928
 GameObject:
   m_ObjectHideFlags: 0
