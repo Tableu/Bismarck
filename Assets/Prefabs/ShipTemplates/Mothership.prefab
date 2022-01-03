@@ -70,11 +70,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4271728520197243410}
   - component: {fileID: 4271728520197243411}
-  - component: {fileID: 4271728520197243500}
   - component: {fileID: 4271728520197243501}
   - component: {fileID: 4110894785859016863}
   - component: {fileID: 4068734266353574668}
   - component: {fileID: 8710635969263158167}
+  - component: {fileID: 8188005127349720553}
+  - component: {fileID: 1214781197754099645}
   m_Layer: 0
   m_Name: Mothership
   m_TagString: Untagged
@@ -94,6 +95,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 510099066390950562}
+  - {fileID: 4920494165862347394}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -149,23 +151,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4271728520197243500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4271728520197243408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8e8f23689749e4295cb36a4bd079f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShipSpawner: {fileID: 0}
-  target: {fileID: 0}
-  turretPositions:
-  - {fileID: 1679618480769273051}
-  - {fileID: 8920321775143973295}
 --- !u!61 &4271728520197243501
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -227,6 +212,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
+  ShipClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  ShipDragged:
+    m_PersistentCalls:
+      m_Calls: []
   _positionOffset: {x: 0, y: 0}
 --- !u!114 &8710635969263158167
 MonoBehaviour:
@@ -243,6 +234,40 @@ MonoBehaviour:
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
   shipDict: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
   healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
+--- !u!114 &8188005127349720553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4271728520197243408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b6f57d2208d8f84aa1f9072ad722737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretPositions:
+  - {fileID: 1679618480769273051}
+  - {fileID: 8920321775143973295}
+  turretParent: {fileID: 4920494165862347394}
+  ShipSpawner: {fileID: 0}
+--- !u!114 &1214781197754099645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4271728520197243408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8e8f23689749e4295cb36a4bd079f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipSpawner: {fileID: 0}
+  target: {fileID: 0}
+  turretPositions:
+  - {fileID: 1679618480769273051}
+  - {fileID: 8920321775143973295}
 --- !u!1 &5251384132347499875
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,4 +299,34 @@ Transform:
   - {fileID: 8920321775143973295}
   m_Father: {fileID: 4271728520197243410}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7401874066268967917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4920494165862347394}
+  m_Layer: 0
+  m_Name: Turrets
+  m_TagString: Turrets
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4920494165862347394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7401874066268967917}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4271728520197243410}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

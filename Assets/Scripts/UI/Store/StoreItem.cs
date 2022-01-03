@@ -1,28 +1,29 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
+
 public class StoreItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public UnityEvent StoreItemSelected;
     public UnityEvent StoreItemReleased;
-    public UnityEvent UpdateShipName;
-    public String shipName;
+    public string ItemName;
+    [SerializeField] private StoreViewModel store;
     private Vector2 originalPos;
     private bool holding;
 
     private void Start()
     {
-        gameObject.name = shipName;
+        
     }
 
     private void Update()
     {
         if (holding)
         {
-            transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Vector2 pos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            transform.position = new Vector3(pos.x, pos.y, 0);
         }
     }
 
@@ -31,9 +32,9 @@ public class StoreItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             holding = true;
-            gameObject.name = shipName;
-            UpdateShipName.Invoke();
+            store.SelectedItem = ItemName;
             originalPos = transform.position;
+            StoreItemSelected.Invoke();
         }
     }
 
@@ -42,7 +43,7 @@ public class StoreItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             StoreItemReleased.Invoke();
-            transform.position = originalPos;
+            transform.position = new Vector3(originalPos.x, originalPos.y, 0);
             holding = false;
         }
     }
@@ -62,7 +63,7 @@ public class StoreItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             StoreItemReleased.Invoke();
         }*/
         StoreItemReleased.Invoke();
-        transform.position = originalPos;
+        transform.position = new Vector3(originalPos.x, originalPos.y, 0);
         holding = false;
     }
 }

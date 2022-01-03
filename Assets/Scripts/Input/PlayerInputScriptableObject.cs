@@ -31,7 +31,7 @@ public class PlayerInputScriptableObject : ScriptableObject
 
     public bool ShipRaycast(Vector2 position)
     {
-        var hit = Physics2D.Raycast(position, Vector2.zero, LayerMask.GetMask("PlayerShips"));
+        var hit = Physics2D.Raycast(position, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("PlayerShips", "UI"));
         if (hit)
         {
             return true;

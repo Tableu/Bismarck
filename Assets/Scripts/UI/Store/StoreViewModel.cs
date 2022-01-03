@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.ComponentModel;
-using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityWeld.Binding;
@@ -11,10 +9,11 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     private int money = 1000;
     private int repairCost;
     private int sellValue;
-    private string shipToSpawn;
+    private string _selectedItem;
     [SerializeField] private Transform fleetParent;
     public ShipListScriptableObject selectedShips;
     public ShipDBScriptableObject shipDB;
+    public AttackDBScriptableObject attackDB;
     public PlayerInputScriptableObject playerInput;
     public ShipSpawner spawner;
     public ShipDictionary ships;
@@ -64,21 +63,13 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
             OnPropertyChanged("SellValue");
         }
     }
-
-    [Binding]
-    public string ShipToSpawn
-    {
-        get => shipToSpawn;
-        set
-        {
-            if (shipToSpawn == value)
-            {
-                return;
-            }
-            shipToSpawn = value;
-        }
-    }
     
+    public string SelectedItem
+    {
+        get => _selectedItem;
+        set => _selectedItem = value;
+    }
+
     public event PropertyChangedEventHandler PropertyChanged;
     void Start()
     {
@@ -135,7 +126,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public void BuyShip()
     {
-        ShipData shipData = shipDB.GetShip(shipToSpawn).MakeShipData();
+        ShipData shipData = shipDB.GetShip(_selectedItem).MakeShipData();
         if (shipData != null && money - shipData.Cost >= 0)
         {
             Money -= shipData.Cost;
@@ -146,6 +137,20 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
             {
                 shipLogic.enabled = false;
             }
+            UpdateRepairCostAndSellValue();
+        }
+    }
+
+    [Binding]
+    public void BuyWeapon()
+    {
+        AttackScriptableObject attack = attackDB.GetAttack(_selectedItem);
+        if (attack != null && money - attack.Cost >= 0)
+        {
+            Money -= attack.Cost;
+            Vector2 pos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
+            
             UpdateRepairCostAndSellValue();
         }
     }

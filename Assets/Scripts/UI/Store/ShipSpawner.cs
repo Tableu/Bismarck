@@ -42,6 +42,12 @@ public class ShipSpawner : SpawnerScriptableObject
                 shipLogic.ShipSpawner = this;
             }
             
+            ShipTurrets shipTurrets = ship.GetComponent<ShipTurrets>();
+            if (shipTurrets != null)
+            {
+                shipTurrets.ShipSpawner = this;
+            }
+            
             ShipHealth shipHealth = ship.GetComponent<ShipHealth>();
             if (shipHealth != null)
             {
@@ -58,5 +64,27 @@ public class ShipSpawner : SpawnerScriptableObject
         }
         return null;
     }
-    
+
+    public GameObject SpawnStoreShip(ShipData data, Transform parent, Vector3? startPos = null)
+    {
+        if (parent == null)
+            return null;
+        GameObject ship = Instantiate(data.ShipPrefab, parent, false);
+        if (ship != null)
+        {
+            if (startPos != null)
+            {
+                ship.transform.position = startPos.Value;
+                data.StartingPos = ship.transform.localPosition;
+            }
+            else
+            {
+                ship.transform.localPosition = data.StartingPos;
+            }
+
+            ShipUI shipUI = ship.AddComponent<ShipUI>();
+            shipUI.ShipDictionary = ShipDictionary;
+        }
+        return null;
+    }
 }

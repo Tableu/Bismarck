@@ -15,7 +15,7 @@ public class ProjectileAttack : AttackScriptableObject
     {
         private GameObject _projectilePrefab;
         private GameObject _target;
-        private GameObject _turret;
+        private Transform _spawnPosition;
         private float _fireDelay;
         private Vector2 _direction;
         private bool _useTarget = true;
@@ -43,12 +43,12 @@ public class ProjectileAttack : AttackScriptableObject
             }
         }
 
-        public IEnumerator DoAttack(GameObject attacker, GameObject turret)
+        public IEnumerator DoAttack(GameObject attacker, Transform spawnPosition)
         {
             _coroutineCount++;
-            if (turret != null)
+            if (spawnPosition != null)
             {
-                _turret = turret;
+                _spawnPosition = spawnPosition;
             }
 
             int coroutineCount = _coroutineCount;
@@ -63,7 +63,7 @@ public class ProjectileAttack : AttackScriptableObject
 
         private void SpawnProjectile(GameObject attacker)
         {
-            GameObject projectile = Instantiate(_projectilePrefab, _turret.transform.position,
+            GameObject projectile = Instantiate(_projectilePrefab, _spawnPosition.position,
                 _projectilePrefab.transform.rotation);
             Projectile controller = projectile.GetComponent<Projectile>();
             if (controller != null)
@@ -76,7 +76,7 @@ public class ProjectileAttack : AttackScriptableObject
                 }
                 else if (_target != null)
                 {
-                    Vector2 diff = _target.transform.position - _turret.transform.position;
+                    Vector2 diff = _target.transform.position - _spawnPosition.position;
                     _direction = diff.normalized;
                 }
                 else

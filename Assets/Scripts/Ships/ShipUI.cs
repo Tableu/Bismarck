@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,8 @@ public class ShipUI : MonoBehaviour, IPointerDownHandler, IDragHandler
 {
     public ShipDictionary ShipDictionary;
     public ShipListScriptableObject selectedShips;
+    public UnityEvent ShipClicked;
+    public UnityEvent ShipDragged;
     [SerializeField] private Vector2 _positionOffset;
     private bool _selected;
 
@@ -15,12 +18,14 @@ public class ShipUI : MonoBehaviour, IPointerDownHandler, IDragHandler
         {
             SelectShip();
             RefreshPositionOffset();
+            ShipClicked.Invoke();
         }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) + _positionOffset;
+        ShipDragged.Invoke();
     }
 
     public void RefreshPositionOffset()

@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &305318286754508982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 835566440334441105}
+  m_Layer: 0
+  m_Name: Turrets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &835566440334441105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305318286754508982}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7691568988032227904}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1936233737221304317
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,11 +132,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7691568988032227904}
   - component: {fileID: 2815236155253094167}
-  - component: {fileID: 1550153334845921428}
   - component: {fileID: 2020224368843460869}
   - component: {fileID: 1156757132139953814}
   - component: {fileID: 8537838075054637325}
   - component: {fileID: 1161008015329893240}
+  - component: {fileID: 207436044997910099}
+  - component: {fileID: 6701727200262700673}
   m_Layer: 0
   m_Name: Junkship
   m_TagString: Untagged
@@ -126,6 +157,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 886138891726400778}
+  - {fileID: 835566440334441105}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -181,23 +213,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1550153334845921428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7984613099506236774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8e8f23689749e4295cb36a4bd079f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShipSpawner: {fileID: 0}
-  target: {fileID: 0}
-  turretPositions:
-  - {fileID: 6910845134256004354}
-  - {fileID: 5822599417466534020}
 --- !u!61 &2020224368843460869
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -259,6 +274,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
+  ShipClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  ShipDragged:
+    m_PersistentCalls:
+      m_Calls: []
   _positionOffset: {x: 0, y: 0}
 --- !u!114 &1161008015329893240
 MonoBehaviour:
@@ -275,3 +296,37 @@ MonoBehaviour:
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
   shipDict: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
   healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
+--- !u!114 &207436044997910099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7984613099506236774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b6f57d2208d8f84aa1f9072ad722737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretPositions:
+  - {fileID: 6910845134256004354}
+  - {fileID: 5822599417466534020}
+  turretParent: {fileID: 835566440334441105}
+  ShipSpawner: {fileID: 0}
+--- !u!114 &6701727200262700673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7984613099506236774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8e8f23689749e4295cb36a4bd079f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipSpawner: {fileID: 0}
+  target: {fileID: 0}
+  turretPositions:
+  - {fileID: 6910845134256004354}
+  - {fileID: 5822599417466534020}

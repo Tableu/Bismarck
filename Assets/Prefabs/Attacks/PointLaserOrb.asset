@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: PointLaserOrb
   m_EditorClassIdentifier: 
   Turret: {fileID: 6350934898225928559, guid: 872a4abffc7da8e4f9429feab7fcb029, type: 3}
+  AttackName: 
+  Cost: 0
   projectilePrefab: {fileID: 712463402950107132, guid: 45118892dc3318447a90785c8b2ec39e, type: 3}
   fireDelay: 3

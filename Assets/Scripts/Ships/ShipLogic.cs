@@ -9,8 +9,8 @@ public class ShipLogic : MonoBehaviour
     private List<AttackScriptableObject> attackScriptableObjects;
     private bool blocksMovement;
     [Header("Objects")]
-    [SerializeField] public GameObject target;
-    public List<Transform> turretPositions;
+    [SerializeField] protected GameObject target;
+    [SerializeField] public List<Transform> turretPositions;
 
     protected MoveToTargetState _moveToTarget;
     protected MoveToPositionState _moveToPosition;
@@ -37,9 +37,7 @@ public class ShipLogic : MonoBehaviour
                 break;
             }
             AttackCommand attackCommand = attackScriptableObject.MakeAttack();
-            GameObject turret = Instantiate(attackScriptableObject.Turret, transform, false);
-            turret.transform.localPosition = turretPos.Current.localPosition;
-            StartCoroutine(attackCommand.DoAttack(gameObject, turret));
+            StartCoroutine(attackCommand.DoAttack(gameObject, turretPos.Current));
             _attackCommands.Add(attackCommand);
         }
     }
