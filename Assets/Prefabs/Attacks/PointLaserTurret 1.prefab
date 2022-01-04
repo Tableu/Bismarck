@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1684700159173751662}
   - component: {fileID: 21292053845920153}
+  - component: {fileID: 1039319245942614213}
   m_Layer: 0
   m_Name: PointLaserTurret 1
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 560798983
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -558274772946000707, guid: 838cc67c0aeb9a349ae59f98d116650c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -83,3 +84,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &1039319245942614213
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6350934898225928559}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.30913973, y: 0.18838215}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.25268823, y: 0.1232357}
+    oldSize: {x: 1.25, y: 0.5}
+    newSize: {x: 1.875, y: 2.875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.25, y: 0.5}
+  m_EdgeRadius: 0

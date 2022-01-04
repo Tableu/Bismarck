@@ -1505,17 +1505,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c2b90b12531bd840abae15d98ad26d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!210 &1097969302
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1097969300}
-  m_Enabled: 1
-  m_SortingLayerID: 649457069
-  m_SortingLayer: 4
-  m_SortingOrder: 1
 --- !u!1 &1133316093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2564,10 +2553,6 @@ PrefabInstance:
       propertyPath: fleetParent
       value: 
       objectReference: {fileID: 2057650540}
-    - target: {fileID: 2287857418034798957, guid: 072a5d96e07951b4887300902b4c0d63, type: 3}
-      propertyPath: playerShips
-      value: 
-      objectReference: {fileID: 11400000, guid: cec3350c72ba1364e97ea9e45db1b17c, type: 2}
     - target: {fileID: 4727292528032753109, guid: 072a5d96e07951b4887300902b4c0d63, type: 3}
       propertyPath: m_Name
       value: Store

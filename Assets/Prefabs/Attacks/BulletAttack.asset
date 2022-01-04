@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BulletAttack
   m_EditorClassIdentifier: 
   Turret: {fileID: 1283657631717619512, guid: 2995b25aa64468e45a6deabd82b539a7, type: 3}
-  AttackName: 
-  Cost: 0
+  AttackName: BulletAttack
+  Cost: 100
   projectilePrefab: {fileID: 8144733008931587362, guid: 00de159b41387fb4483acf352e22a71a, type: 3}
   fireDelay: 0.5

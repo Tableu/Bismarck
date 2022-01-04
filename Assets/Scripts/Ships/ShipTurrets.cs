@@ -23,6 +23,7 @@ public class ShipTurrets : MonoBehaviour
             }
             GameObject turret = Instantiate(attackScriptableObject.Turret, turretParent, false);
             turret.transform.localPosition = turretPos.Current.localPosition;
+            turret.layer = gameObject.layer+1;
         }
     }
 

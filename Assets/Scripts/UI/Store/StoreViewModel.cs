@@ -147,10 +147,18 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         AttackScriptableObject attack = attackDB.GetAttack(_selectedItem);
         if (attack != null && money - attack.Cost >= 0)
         {
-            Money -= attack.Cost;
             Vector2 pos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
-            
+            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("PlayerProjectiles"));
+            if (hit && hit.collider.CompareTag("Turret"))
+            {
+                Money -= attack.Cost;
+                int index = hit.collider.transform.GetSiblingIndex();
+                GameObject ship = hit.transform.gameObject;
+                ShipData shipData = ships.GetShip(ship.GetInstanceID());
+                shipData.Weapons[index] = attack;
+                hit.collider.transform.GetComponent<SpriteRenderer>().sprite =
+                    attack.Turret.GetComponent<SpriteRenderer>().sprite;
+            }
             UpdateRepairCostAndSellValue();
         }
     }

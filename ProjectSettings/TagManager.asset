@@ -7,7 +7,7 @@ TagManager:
   - Projectiles
   - Ships
   - FleetScreen
-  - Turrets
+  - Turret
   layers:
   - Default
   - TransparentFX
