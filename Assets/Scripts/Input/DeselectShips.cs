@@ -11,12 +11,14 @@ public class DeselectShips : MonoBehaviour
     public ShipListScriptableObject playerShips;
     public PlayerInputScriptableObject playerInput;
     public UnityEvent SelectedShipsEvent;
+    private Vector2 _startPos;
     private void Awake()
     {
         _playerInputActions = playerInput.PlayerInputActions;
     }
     void Start()
     {
+        _playerInputActions.UI.LeftClick.started += LeftClick;
         _playerInputActions.UI.LeftClick.canceled += LeftClick;
     }
     
@@ -30,8 +32,11 @@ public class DeselectShips : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         switch (context.phase)
         {
+            case InputActionPhase.Started:
+                _startPos = mousePos;
+                break;
             case InputActionPhase.Canceled:
-                if (!playerInput.ShipRaycast(mousePos))
+                if (!playerInput.ShipRaycast(mousePos) && (mousePos-_startPos).sqrMagnitude < 0.5)
                 {
                     DeSelectShips();
                 }

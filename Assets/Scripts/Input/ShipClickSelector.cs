@@ -7,8 +7,9 @@ public class ShipClickSelector : MonoBehaviour
 {
     private PlayerInputActions _playerInputActions;
     public PlayerInputScriptableObject playerInput;
+    public ShipListScriptableObject selectedShips;
     public UnityEvent SelectedShipsEvent;
-    [SerializeField] private GraphicRaycaster graphicRaycaster;
+    private Vector2 _startPos;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class ShipClickSelector : MonoBehaviour
     void Start()
     {
         _playerInputActions.UI.LeftClick.started += LeftClick;
+        _playerInputActions.UI.LeftClick.canceled += LeftClick;
     }
 
     private void LeftClick(InputAction.CallbackContext context)
@@ -35,12 +37,14 @@ public class ShipClickSelector : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                if (!playerInput.UIRaycast(mousePos, graphicRaycaster) && playerInput.ShipRaycast(mousePos))
+                _startPos = mousePos;
+                if (!playerInput.UIRaycast(mousePos) && playerInput.ShipRaycast(mousePos))
                 {
                     var hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("PlayerShips"));
                     if (hit)
                     {
-                        ShipUI shipUI = hit.collider.gameObject.GetComponent<ShipUI>();
+                        selectedShips.AddShip(hit.transform.gameObject);
+                        ShipUI shipUI = hit.transform.gameObject.GetComponent<ShipUI>();
                         if (shipUI != null)
                         {
                             shipUI.SelectShip();
@@ -50,11 +54,18 @@ public class ShipClickSelector : MonoBehaviour
                     }
                 }
                 break;
+            case InputActionPhase.Canceled:
+                if (!playerInput.ShipRaycast(mousePos) && (mousePos-_startPos).sqrMagnitude < 0.5)
+                {
+                    playerInput.DeSelectShips();
+                }
+                break;
         }
     }
 
     private void OnDestroy()
     {
         _playerInputActions.UI.LeftClick.started -= LeftClick;
+        _playerInputActions.UI.LeftClick.canceled -= LeftClick;
     }
 }

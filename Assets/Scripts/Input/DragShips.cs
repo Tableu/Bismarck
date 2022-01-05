@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class DragShips : MonoBehaviour
 {
     private PlayerInputActions _playerInputActions;
     public PlayerInputScriptableObject playerInput;
     public ShipListScriptableObject selectedShips;
+    public GraphicRaycaster GraphicRaycaster;
     private static ContactFilter2D PlayerFilter;
     private bool _dragShips = false;
     private void Awake()
@@ -47,7 +49,8 @@ public class DragShips : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                if (selectedShips.Count > 0 && playerInput.ShipRaycast(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue())))
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                if (playerInput.ShipRaycast(mousePos))
                 {
                     foreach (GameObject ship in selectedShips.ShipList)
                     {

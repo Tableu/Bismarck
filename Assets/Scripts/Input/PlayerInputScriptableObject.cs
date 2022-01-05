@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerInputScriptableObject : ScriptableObject
 {
     public PlayerInputActions PlayerInputActions;
+    public ShipListScriptableObject SelectedShips;
 
     public ContactFilter2D PlayerFilter; 
     private void OnEnable()
@@ -18,24 +19,43 @@ public class PlayerInputScriptableObject : ScriptableObject
             useLayerMask = true
         };
     }
-    public bool UIRaycast(Vector2 position, GraphicRaycaster graphicRaycaster)
+    public bool UIRaycast(Vector2 position)
     {
-        var eventData = new PointerEventData(EventSystem.current);
-        eventData.position = position;
-        List<RaycastResult> hits = new List<RaycastResult>();
-        graphicRaycaster.Raycast(eventData, hits);
-        if (hits.Count > 0)
-            return true;
-        return false;
-    }
-
-    public bool ShipRaycast(Vector2 position)
-    {
-        var hit = Physics2D.Raycast(position, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("PlayerShips", "UI"));
+        var hit = Physics2D.Raycast(position, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("UI"));
         if (hit)
         {
             return true;
         }
         return false;
+    }
+
+    public bool ShipRaycast(Vector2 position)
+    {
+        var hit = Physics2D.Raycast(position, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("PlayerShips"));
+        if (hit)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public void DeSelectShips()
+    {
+        if (SelectedShips.Count <= 0)
+        {
+            return;
+        }
+        foreach(GameObject ship in SelectedShips.ShipList)
+        {
+            if (ship != null)
+            {
+                ShipUI shipUI = ship.GetComponent<ShipUI>();
+                if (shipUI != null)
+                {
+                    shipUI.DeselectShip();
+                }
+            }
+        }
+        SelectedShips.ClearList();
     }
 }

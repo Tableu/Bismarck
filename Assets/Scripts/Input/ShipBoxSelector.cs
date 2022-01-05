@@ -15,7 +15,6 @@ public class ShipBoxSelector : MonoBehaviour
     public PlayerInputScriptableObject playerInput;
     public UnityEvent SelectedShipsEvent;
     [SerializeField] private RectTransform selectionBox;
-    [SerializeField] private GraphicRaycaster graphicRaycaster;
     [SerializeField] private Vector2 _startPos;
     [SerializeField] private Vector2 _projectedMousePos;
     private bool _drawSelectionBox = false;
@@ -66,7 +65,7 @@ public class ShipBoxSelector : MonoBehaviour
         selectionBox.gameObject.SetActive(false);
         Vector3 min = selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2);
         Vector3 max = selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2);
-        
+        playerInput.DeSelectShips();
         foreach(GameObject ship in playerShips.ShipList)
         {
             if (ship == null)
@@ -75,6 +74,7 @@ public class ShipBoxSelector : MonoBehaviour
             if (position.x < max.x && position.x > min.x && 
                 position.y < max.y && position.y > min.y)
             {
+                selectedShips.AddShip(ship);
                 ShipUI shipUI = ship.GetComponent<ShipUI>();
                 if (shipUI != null)
                 {
@@ -94,14 +94,14 @@ public class ShipBoxSelector : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                if (!playerInput.UIRaycast(_projectedMousePos, graphicRaycaster) && !playerInput.ShipRaycast(_projectedMousePos))
+                if (!playerInput.UIRaycast(_projectedMousePos) && !playerInput.ShipRaycast(_projectedMousePos))
                 {
                     _drawSelectionBox = true;
                     _startPos = _projectedMousePos;
                 }
                 break;
             case InputActionPhase.Canceled:
-                if (_drawSelectionBox && (_projectedMousePos-_startPos).sqrMagnitude > 0.5)
+                if (_drawSelectionBox)
                 {
                     _drawSelectionBox = false;
                     ReleaseSelectionBox();

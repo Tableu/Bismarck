@@ -136,7 +136,6 @@ GameObject:
   - component: {fileID: 126162143}
   - component: {fileID: 126162145}
   - component: {fileID: 126162147}
-  - component: {fileID: 126162146}
   m_Layer: 6
   m_Name: PlayerInput
   m_TagString: Untagged
@@ -236,36 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
---- !u!114 &126162146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 126162141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dece5fcbdc76d2b4daae9cab96d47f36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
-  playerShips: {fileID: 11400000, guid: cec3350c72ba1364e97ea9e45db1b17c, type: 2}
-  playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
-  SelectedShipsEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1097969301}
-        m_TargetAssemblyTypeName: StoreViewModel, Assembly-CSharp
-        m_MethodName: UpdateRepairCostAndSellValue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  GraphicRaycaster: {fileID: 594208356}
 --- !u!114 &126162147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
+  selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
   SelectedShipsEvent:
     m_PersistentCalls:
       m_Calls:

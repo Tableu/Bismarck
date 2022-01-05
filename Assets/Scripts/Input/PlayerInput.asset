@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec0cbc9b1dc46b489ea68be3792f839, type: 3}
   m_Name: PlayerInput
   m_EditorClassIdentifier: 
+  SelectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
   PlayerFilter:
     useTriggers: 0
     useLayerMask: 1

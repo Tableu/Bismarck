@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class ShipUI : MonoBehaviour
 {
-    public ShipListScriptableObject selectedShips;
     [SerializeField] private Vector2 _positionOffset;
 
     public void OnDrag()
@@ -19,19 +18,11 @@ public class ShipUI : MonoBehaviour
     public void SelectShip()
     {
         RefreshPositionOffset();
-        if (!selectedShips.ShipList.Contains(gameObject))
-        {
-            selectedShips.AddShip(gameObject);
-            gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
-        }
+        gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
     }
 
     public void DeselectShip()
     {
-        if (selectedShips.ShipList.Contains(gameObject))
-        {
-            selectedShips.RemoveShip(gameObject);
-            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-        }
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }
