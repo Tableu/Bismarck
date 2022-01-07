@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Ships", menuName = "Ships/ShipDictionary")]
@@ -36,6 +36,11 @@ public class ShipDictionary : ScriptableObject
     public Dictionary<int, ShipData>.Enumerator GetEnumerator()
     {
         return shipDict.GetEnumerator();
+    }
+
+    public List<ShipData> ShipList()
+    {
+        return shipDict.Values.ToList();
     }
 
     private void OnEnable()

@@ -204,7 +204,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   selectionBox: {fileID: 1440918100}
-  graphicRaycaster: {fileID: 594208356}
   _startPos: {x: 0, y: 0}
   _projectedMousePos: {x: 0, y: 0}
 --- !u!4 &126162144
@@ -265,7 +264,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  graphicRaycaster: {fileID: 594208356}
 --- !u!1 &171290390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,8 +1454,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf4d8e5dd4db724eb3e4bc539e91834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerShipDict: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
-  playerShipSpawner: {fileID: 11400000, guid: 54ea476e58d1b0e4ba45083d418715ca, type: 2}
   mapPopup: {fileID: 216878816}
   ships: {fileID: 2057650539}
 --- !u!1 &1097969300 stripped
@@ -1964,7 +1960,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7772357, y: 1}
+    m_SensorSize: {x: 1.7787021, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2263,6 +2259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2057650540}
+  - component: {fileID: 2057650541}
   m_Layer: 6
   m_Name: Ships
   m_TagString: Ships
@@ -2284,6 +2281,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2057650541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057650539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85659f480acdaa4684477d8c8a54a7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipSpawner: {fileID: 11400000, guid: 54ea476e58d1b0e4ba45083d418715ca, type: 2}
+  ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
+  ShipDB: {fileID: 11400000, guid: 5f58e8f36caa17847889686627cf9e37, type: 2}
+  AttackDB: {fileID: 11400000, guid: 6377a1911994e5c4b99b701b85ce2cb2, type: 2}
 --- !u!1 &2080841213
 GameObject:
   m_ObjectHideFlags: 0

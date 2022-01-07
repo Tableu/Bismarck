@@ -24,7 +24,5 @@ MonoBehaviour:
     Weapons:
     - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
     - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
-    Modules: []
-    Buffs: []
     StartingPos: {x: 0, y: 0}
     ShipPrefab: {fileID: 7984613099506236774, guid: abd53a0bb0318e54d830d51612193128, type: 3}

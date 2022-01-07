@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public interface AttackCommand
     public void SetTarget(GameObject target);
 }
 
+[Serializable]
 public abstract class AttackScriptableObject : ScriptableObject
 {
     public GameObject Turret;
