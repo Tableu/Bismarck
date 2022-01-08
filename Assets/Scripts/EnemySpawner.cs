@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -12,10 +13,20 @@ public class EnemySpawner : MonoBehaviour
     {
         enemyShipSpawner.ProjectileParent = projectileParent;
         RandomFleet fleet = randomFleetDB.fleetDB[0];
+        IEnumerator fleetPositions = fleet.fleetVisualsPrefab.GetComponentsInChildren<Transform>().GetEnumerator();
+        
         foreach (RandomShipList randomShip in fleet.randomFleet)
         {
-            ShipData shipData = randomShip.RandomShip();
-            enemyShipSpawner.SpawnShip(shipData, fleetParent);
+            if (fleetPositions.MoveNext())
+            {
+                ShipData shipData = randomShip.RandomShip();
+                GameObject ship = enemyShipSpawner.SpawnShip(shipData, fleetParent);
+                Transform spawnPos = fleetPositions.Current as Transform;
+                if (spawnPos != null)
+                {
+                    ship.transform.localPosition = spawnPos.position;
+                }
+            }
         }
     }
 

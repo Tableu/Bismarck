@@ -8,6 +8,7 @@ TagManager:
   - FleetScreen
   - Turret
   - PlayerProjectiles
+  - Turrets
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Boundary
   - EnemyShips
   - EnemyProjectiles
-  - 
+  - Turrets
   - 
   - 
   - 

@@ -39,9 +39,4 @@ public class TransitionManager : MonoBehaviour
         if(_fleetScreen != null)
             _fleetScreen.SetActive(true);
     }
-
-    public void GoBackToFleetScreen()
-    {
-        SceneManager.LoadScene("Scenes/StoreScene");
-    }
 }

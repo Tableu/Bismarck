@@ -148,7 +148,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         if (attack != null && money - attack.Cost >= 0)
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("PlayerProjectiles"));
+            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Turrets"));
             if (hit && hit.collider.CompareTag("Turret"))
             {
                 Money -= attack.Cost;

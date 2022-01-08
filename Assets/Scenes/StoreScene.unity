@@ -2260,6 +2260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2057650540}
   - component: {fileID: 2057650541}
+  - component: {fileID: 2057650542}
   m_Layer: 6
   m_Name: Ships
   m_TagString: Ships
@@ -2297,6 +2298,21 @@ MonoBehaviour:
   ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
   ShipDB: {fileID: 11400000, guid: 5f58e8f36caa17847889686627cf9e37, type: 2}
   AttackDB: {fileID: 11400000, guid: 6377a1911994e5c4b99b701b85ce2cb2, type: 2}
+  ProjectileParent: {fileID: 0}
+  isStore: 1
+--- !u!114 &2057650542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2057650539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fe68be4d9f2a0c4691ed4c7ae0d050a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
 --- !u!1 &2080841213
 GameObject:
   m_ObjectHideFlags: 0

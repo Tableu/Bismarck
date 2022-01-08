@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ShipLoader : MonoBehaviour
 {
@@ -11,38 +10,28 @@ public class ShipLoader : MonoBehaviour
     public ShipDBScriptableObject ShipDB;
     public AttackDBScriptableObject AttackDB;
     public Transform ProjectileParent;
+    public bool isStore;
 
     public void Start()
     {
-        SceneManager.sceneLoaded += LoadShips;
-        SceneManager.sceneUnloaded += SaveShips;
-        DontDestroyOnLoad(gameObject);
+        LoadShips();
+        if (isStore)
+        {
+            List<GameObject> ships = ShipSpawner.ShipList.ShipList;
+            foreach (GameObject ship in ships)
+            {
+                ShipLogic shipLogic = ship.GetComponent<ShipLogic>();
+                if (shipLogic != null)
+                {
+                    shipLogic.enabled = false;
+                }
+            }
+        }
     }
 
-    public void SaveShips(Scene scene)
+    public void LoadShips()
     {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/shipsave.save");
-        List<ShipSaveData> saveDatas = new List<ShipSaveData>();
-        foreach (ShipData shipData in ShipDictionary.ShipList())
-        {
-            ShipSaveData saveData = new ShipSaveData();
-            saveData.Init(shipData);
-            saveDatas.Add(saveData);
-        }
-        bf.Serialize(file, saveDatas);
-        file.Close();
-        ShipDictionary.ClearDict();
-        foreach (Transform child in transform)
-        {
-            Destroy(child.gameObject);
-        }
-        Debug.Log("Saved Ships");
-    }
-
-    public void LoadShips(Scene scene, LoadSceneMode loadSceneMode)
-    {
-        ShipSpawner.ProjectileParent = GameObject.FindWithTag("PlayerProjectiles").transform;
+        ShipSpawner.ProjectileParent = ProjectileParent;
         
         if (File.Exists(Application.persistentDataPath + "/shipsave.save"))
         {
@@ -60,7 +49,6 @@ public class ShipLoader : MonoBehaviour
             }
             file.Close();
             ShipSpawner.SpawnFleet(shipDatas, transform);
-            gameObject.SetActive(true);
             Debug.Log("Loaded Ships");
         }
         else

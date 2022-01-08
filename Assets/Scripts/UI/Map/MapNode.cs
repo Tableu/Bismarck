@@ -67,6 +67,7 @@ public class MapNode : MonoBehaviour
                     colorBlock.normalColor = colorBlock.highlightedColor;
                     nodeButton.colors = colorBlock;
                     MapManager.Instance.MovePlayer(this);
+                    ShipSaver.Instance.SaveShips();
                     SceneManager.LoadScene("Scenes/BattleScene");
                     return;
                 } 
