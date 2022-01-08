@@ -69,7 +69,12 @@ public class ShipHealth : MonoBehaviour,IDamageable, INotifyPropertyChanged
         {
             Destroy(_healthBar.gameObject);
         }
-        selectedShips.RemoveShip(gameObject);
+
+        if (selectedShips != null)
+        {
+            selectedShips.RemoveShip(gameObject);
+        }
+
         shipDict.RemoveShip(gameObject.GetInstanceID());
     }
     
