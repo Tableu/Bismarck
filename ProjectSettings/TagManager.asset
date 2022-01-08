@@ -4,10 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Projectiles
   - Ships
   - FleetScreen
   - Turret
+  - PlayerProjectiles
   layers:
   - Default
   - TransparentFX

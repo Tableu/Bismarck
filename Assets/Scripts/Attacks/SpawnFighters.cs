@@ -38,6 +38,11 @@ public class SpawnFighters : AttackScriptableObject
                 _target = target;
             }
         }
+
+        public void SetParent(Transform parent)
+        {
+            
+        }
         
         public IEnumerator DoAttack(GameObject attacker, Transform spawnPosition)
         {

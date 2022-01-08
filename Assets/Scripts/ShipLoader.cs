@@ -10,6 +10,7 @@ public class ShipLoader : MonoBehaviour
     public ShipDictionary ShipDictionary;
     public ShipDBScriptableObject ShipDB;
     public AttackDBScriptableObject AttackDB;
+    public Transform ProjectileParent;
 
     public void Start()
     {
@@ -41,6 +42,8 @@ public class ShipLoader : MonoBehaviour
 
     public void LoadShips(Scene scene, LoadSceneMode loadSceneMode)
     {
+        ShipSpawner.ProjectileParent = GameObject.FindWithTag("PlayerProjectiles").transform;
+        
         if (File.Exists(Application.persistentDataPath + "/shipsave.save"))
         {
             BinaryFormatter bf = new BinaryFormatter();

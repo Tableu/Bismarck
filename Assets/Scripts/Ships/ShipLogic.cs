@@ -38,6 +38,7 @@ public class ShipLogic : MonoBehaviour
             }
             AttackCommand attackCommand = attackScriptableObject.MakeAttack();
             StartCoroutine(attackCommand.DoAttack(gameObject, turretPos.Current));
+            attackCommand.SetParent(ShipSpawner.ProjectileParent);
             _attackCommands.Add(attackCommand);
         }
     }

@@ -27,6 +27,7 @@ public class ShrapnelProjectile : Projectile
         for (int index = 0; index < shrapnelCount; index++)
         {
             GameObject shrapnel = Instantiate(shrapnelPrefab,transform.position,Quaternion.identity);
+            shrapnel.transform.parent = transform.parent;
             Projectile projectile = shrapnel.GetComponent<Projectile>();
             if (projectile != null)
             {

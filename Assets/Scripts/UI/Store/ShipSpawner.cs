@@ -10,6 +10,7 @@ public class ShipSpawner : SpawnerScriptableObject
     public LayerMask LayerMask;
     public string ShipLayer;
     public int StartDirection;
+    public Transform ProjectileParent;
 
     public override void SpawnFleet(List<ShipData> shipDatas, Transform parent)
     {

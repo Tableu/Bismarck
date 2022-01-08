@@ -15,6 +15,7 @@ public class ProjectileAttack : AttackScriptableObject
     {
         private GameObject _projectilePrefab;
         private GameObject _target;
+        private Transform _parent;
         private Transform _spawnPosition;
         private float _fireDelay;
         private Vector2 _direction;
@@ -43,6 +44,11 @@ public class ProjectileAttack : AttackScriptableObject
             }
         }
 
+        public void SetParent(Transform parent)
+        {
+            _parent = parent;
+        }
+
         public IEnumerator DoAttack(GameObject attacker, Transform spawnPosition)
         {
             _coroutineCount++;
@@ -65,6 +71,11 @@ public class ProjectileAttack : AttackScriptableObject
         {
             GameObject projectile = Instantiate(_projectilePrefab, _spawnPosition.position,
                 _projectilePrefab.transform.rotation);
+            if (_parent != null)
+            {
+                projectile.transform.parent = _parent;
+            }
+
             Projectile controller = projectile.GetComponent<Projectile>();
             if (controller != null)
             {
