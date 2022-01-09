@@ -97,6 +97,11 @@ MonoBehaviour:
   ShipSpawner: {fileID: 0}
   target: {fileID: 0}
   turretPositions: []
+  transitions:
+  - FromState: 0
+    ToState: 0
+    Predicate: 0
+  startState: 0
   mothership: {fileID: 0}
   returning: 0
 --- !u!212 &129691159520741700

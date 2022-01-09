@@ -15,8 +15,8 @@ MonoBehaviour:
   ShipData:
     ShipName: Fighter
     Cost: 50
-    Health: 10
-    MaxHealth: 10
+    Health: 2
+    MaxHealth: 2
     Speed: 0.15
     StopDistance: 0.1
     AggroRange: 100
