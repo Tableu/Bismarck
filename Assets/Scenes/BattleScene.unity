@@ -945,6 +945,7 @@ GameObject:
   - component: {fileID: 1483203296}
   - component: {fileID: 1483203297}
   - component: {fileID: 1483203298}
+  - component: {fileID: 1483203299}
   m_Layer: 6
   m_Name: PlayerShips
   m_TagString: Untagged
@@ -997,6 +998,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
+--- !u!114 &1483203299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483203295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67ac1d6ab0d90ea46858dea996cfc38e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyShipList: {fileID: 11400000, guid: 04ad34c52d444e44e8342f29554855a9, type: 2}
+  PlayerWinEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1483203299}
+        m_TargetAssemblyTypeName: PlayerWin, Assembly-CSharp
+        m_MethodName: GoToStore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1700890232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,7 +1090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
-  playerShips: {fileID: 11400000, guid: cec3350c72ba1364e97ea9e45db1b17c, type: 2}
+  playerShips: {fileID: 0}
   playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
   SelectedShipsEvent:
     m_PersistentCalls:
@@ -1129,7 +1158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
-  playerShips: {fileID: 11400000, guid: cec3350c72ba1364e97ea9e45db1b17c, type: 2}
+  playerShips: {fileID: 0}
   playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
   SelectedShipsEvent:
     m_PersistentCalls:

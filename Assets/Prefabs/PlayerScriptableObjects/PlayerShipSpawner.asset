@@ -19,3 +19,4 @@ MonoBehaviour:
     m_Bits: 384
   ShipLayer: PlayerShips
   StartDirection: 1
+  ProjectileParent: {fileID: 0}

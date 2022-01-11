@@ -6,7 +6,7 @@ using UnityWeld.Binding;
 public class ShipHealth : MonoBehaviour,IDamageable, INotifyPropertyChanged
 {
     public ShipListScriptableObject selectedShips;
-    public ShipDictionary shipDict;
+    public ShipSpawner ShipSpawner;
     [SerializeField] private GameObject healthBarPrefab;
     private int maxHealth;
     private int health;
@@ -40,7 +40,7 @@ public class ShipHealth : MonoBehaviour,IDamageable, INotifyPropertyChanged
         GameObject healthBars = GameObject.Find("HealthBars");
         GameObject healthBar = Instantiate(healthBarPrefab, healthBars.transform);
         _healthBar = healthBar.GetComponent<HealthBar>();
-        ShipData shipData = shipDict.GetShip(gameObject.GetInstanceID());
+        ShipData shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
         maxHealth = shipData.MaxHealth;
         health = shipData.Health;
         _healthBar.Init(transform, shipData.MaxHealth, shipData.Health, 2f);
@@ -54,9 +54,9 @@ public class ShipHealth : MonoBehaviour,IDamageable, INotifyPropertyChanged
     public void TakeDamage(Damage dmg)
     {
         health -= dmg.RawDamage;
-        ShipData shipData = shipDict.GetShip(gameObject.GetInstanceID());
+        ShipData shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
         shipData.Health = health;
-        shipDict.UpdateShip(gameObject.GetInstanceID(), shipData);
+        ShipSpawner.ShipDictionary.UpdateShip(gameObject.GetInstanceID(), shipData);
         if (health == 0)
         {
             Destroy(gameObject);
@@ -75,7 +75,8 @@ public class ShipHealth : MonoBehaviour,IDamageable, INotifyPropertyChanged
             selectedShips.RemoveShip(gameObject);
         }
 
-        shipDict.RemoveShip(gameObject.GetInstanceID());
+        ShipSpawner.ShipDictionary.RemoveShip(gameObject.GetInstanceID());
+        ShipSpawner.ShipList.RemoveShip(gameObject);
     }
     
     public bool DestroyProjectile(CollisionType type)

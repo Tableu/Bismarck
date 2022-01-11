@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: SpawnFighters
   m_EditorClassIdentifier: 
   Turret: {fileID: 1261522828786782030, guid: 2682605787b0f9e449d7cbe960e0c5df, type: 3}
+  AttackName: SpawnFighters
+  Cost: 100
   shipData: {fileID: 11400000, guid: d43fb925753bbbf46ba918e5b445efa0, type: 2}
   fireDelay: 1

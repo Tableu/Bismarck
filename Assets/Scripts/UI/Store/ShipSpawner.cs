@@ -52,7 +52,7 @@ public class ShipSpawner : SpawnerScriptableObject
             ShipHealth shipHealth = ship.GetComponent<ShipHealth>();
             if (shipHealth != null)
             {
-                shipHealth.shipDict = ShipDictionary;
+                shipHealth.ShipSpawner = this;
             }
 
             var scale = ship.transform.localScale;
