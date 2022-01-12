@@ -17,6 +17,7 @@ public class ShipBoxSelector : MonoBehaviour
     [SerializeField] private RectTransform selectionBox;
     [SerializeField] private Vector2 _startPos;
     [SerializeField] private Vector2 _projectedMousePos;
+    [SerializeField] private GraphicRaycaster graphicRaycaster;
     private bool _drawSelectionBox = false;
 
     private void Awake()
@@ -65,6 +66,7 @@ public class ShipBoxSelector : MonoBehaviour
         selectionBox.gameObject.SetActive(false);
         Vector3 min = selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2);
         Vector3 max = selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2);
+        
         playerInput.DeSelectShips();
         foreach(GameObject ship in playerShips.ShipList)
         {
@@ -82,11 +84,8 @@ public class ShipBoxSelector : MonoBehaviour
                 }
             }
         }
-
-        if (selectedShips.Count > 0)
-        {
-            SelectedShipsEvent.Invoke();
-        }
+        
+        SelectedShipsEvent.Invoke();
     }
     
     private void LeftClick(InputAction.CallbackContext context)
@@ -94,22 +93,18 @@ public class ShipBoxSelector : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                if (!playerInput.UIRaycast(_projectedMousePos) && !playerInput.ShipRaycast(_projectedMousePos))
+                if (!EventSystem.current.IsPointerOverGameObject())
                 {
                     _drawSelectionBox = true;
                     _startPos = _projectedMousePos;
                 }
                 break;
             case InputActionPhase.Canceled:
-                if (_drawSelectionBox)
+                if (_drawSelectionBox && (_projectedMousePos-_startPos).sqrMagnitude >= 0.5)
                 {
-                    _drawSelectionBox = false;
                     ReleaseSelectionBox();
                 }
-                else if (!playerInput.ShipRaycast(_projectedMousePos))
-                {
-                    _drawSelectionBox = false;
-                }
+                _drawSelectionBox = false;
                 break;
         }
     }

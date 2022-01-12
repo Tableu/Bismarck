@@ -11,6 +11,7 @@ public class ShipSpawner : SpawnerScriptableObject
     public string ShipLayer;
     public int StartDirection;
     public Transform ProjectileParent;
+    public ShipListScriptableObject MothershipList;
 
     public override void SpawnFleet(List<ShipData> shipDatas, Transform parent)
     {

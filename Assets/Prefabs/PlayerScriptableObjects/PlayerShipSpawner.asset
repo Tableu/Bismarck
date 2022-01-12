@@ -20,3 +20,4 @@ MonoBehaviour:
   ShipLayer: PlayerShips
   StartDirection: 1
   ProjectileParent: {fileID: 0}
+  MothershipList: {fileID: 11400000, guid: 1dd61554b1679bc4a93a28a40d532053, type: 2}

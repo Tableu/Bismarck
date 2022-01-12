@@ -116,9 +116,8 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
             {
                 ShipData data = ships.GetShip(ship.GetInstanceID());
                 Money -= data.RepairCost;
-                Destroy(ship);
+                data.Health = data.MaxHealth;
             }
-            selectedShips.ClearList();
             UpdateRepairCostAndSellValue();
         }
     }

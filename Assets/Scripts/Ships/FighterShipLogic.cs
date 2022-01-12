@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class FighterShipLogic : ShipLogic
 {
+    public ShipListScriptableObject MothershipList;
     [SerializeField] public GameObject mothership;
     [SerializeField] private bool returning;
     private new void Start()
@@ -12,10 +13,15 @@ public class FighterShipLogic : ShipLogic
         StateMachine = new FSM();
         StateMachine.AddTransition(_moveToTarget, returnToMothership, HasReachedTarget);
         StateMachine.SetState(_moveToTarget);
+        MothershipList = ShipSpawner.MothershipList;
     }
     private new void FixedUpdate()
     {
         StateMachine.Tick();
+        if (mothership == null && MothershipList.ShipList.Count > 0)
+        {
+            mothership = MothershipList.ShipList[0];
+        }
         if (returning && mothership != null && Vector2.Distance(transform.position, mothership.transform.position) < .5f)
         {
             Destroy(gameObject);

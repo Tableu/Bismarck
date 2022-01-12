@@ -206,6 +206,7 @@ MonoBehaviour:
   selectionBox: {fileID: 1440918100}
   _startPos: {x: 0, y: 0}
   _projectedMousePos: {x: 0, y: 0}
+  graphicRaycaster: {fileID: 594208356}
 --- !u!4 &126162144
 Transform:
   m_ObjectHideFlags: 0
@@ -264,6 +265,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  graphicRaycaster: {fileID: 594208356}
 --- !u!1 &171290390
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,7 +767,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!114 &594208357
 MonoBehaviour:
   m_ObjectHideFlags: 0
