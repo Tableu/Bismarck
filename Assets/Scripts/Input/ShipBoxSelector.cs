@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -15,9 +12,9 @@ public class ShipBoxSelector : MonoBehaviour
     public PlayerInputScriptableObject playerInput;
     public UnityEvent SelectedShipsEvent;
     [SerializeField] private RectTransform selectionBox;
-    [SerializeField] private Vector2 _startPos;
-    [SerializeField] private Vector2 _projectedMousePos;
     [SerializeField] private GraphicRaycaster graphicRaycaster;
+    private Vector2 _startPos;
+    private Vector2 _projectedMousePos;
     private bool _drawSelectionBox = false;
 
     private void Awake()
@@ -93,7 +90,7 @@ public class ShipBoxSelector : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                if (!EventSystem.current.IsPointerOverGameObject())
+                if (!playerInput.UIRaycast(graphicRaycaster) && !playerInput.ShipRaycast(_projectedMousePos))
                 {
                     _drawSelectionBox = true;
                     _startPos = _projectedMousePos;

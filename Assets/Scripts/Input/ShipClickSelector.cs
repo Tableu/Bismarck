@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -41,7 +40,7 @@ public class ShipClickSelector : MonoBehaviour
         {
             case InputActionPhase.Started:
                 _startPos = mousePos;
-                if (!playerInput.UIRaycast(mousePos,graphicRaycaster) && playerInput.ShipRaycast(mousePos))
+                if (!playerInput.UIRaycast(graphicRaycaster) && playerInput.ShipRaycast(mousePos))
                 {
                     var hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("PlayerShips"));
                     if (hit)
@@ -58,7 +57,7 @@ public class ShipClickSelector : MonoBehaviour
                 }
                 break;
             case InputActionPhase.Canceled:
-                if (!playerInput.ShipRaycast(mousePos) && !EventSystem.current.IsPointerOverGameObject() && (mousePos-_startPos).sqrMagnitude < 0.5)
+                if ((mousePos-_startPos).sqrMagnitude < 0.5 && !playerInput.ShipRaycast(mousePos) && !playerInput.UIRaycast(graphicRaycaster))
                 {
                     playerInput.DeSelectShips();
                     SelectedShipsEvent.Invoke();

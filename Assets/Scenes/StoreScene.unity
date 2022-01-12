@@ -204,8 +204,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   selectionBox: {fileID: 1440918100}
-  _startPos: {x: 0, y: 0}
-  _projectedMousePos: {x: 0, y: 0}
   graphicRaycaster: {fileID: 594208356}
 --- !u!4 &126162144
 Transform:
@@ -763,7 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2

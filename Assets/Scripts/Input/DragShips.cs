@@ -50,7 +50,7 @@ public class DragShips : MonoBehaviour
         {
             case InputActionPhase.Started:
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                if (playerInput.ShipRaycast(mousePos))
+                if (!playerInput.UIRaycast(GraphicRaycaster) && playerInput.ShipRaycast(mousePos))
                 {
                     foreach (GameObject ship in selectedShips.ShipList)
                     {

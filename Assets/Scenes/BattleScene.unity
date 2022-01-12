@@ -1097,6 +1097,7 @@ MonoBehaviour:
   selectionBox: {fileID: 635881071}
   _startPos: {x: 0, y: 0}
   _projectedMousePos: {x: 0, y: 0}
+  graphicRaycaster: {fileID: 378271378}
 --- !u!4 &1700890235
 Transform:
   m_ObjectHideFlags: 0
@@ -1144,6 +1145,7 @@ MonoBehaviour:
   SelectedShipsEvent:
     m_PersistentCalls:
       m_Calls: []
+  graphicRaycaster: {fileID: 0}
 --- !u!1 &1760183928
 GameObject:
   m_ObjectHideFlags: 0
