@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 20
+    OrthographicSize: 24
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -393,7 +393,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 24
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -657,7 +657,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 436096952}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.9513, y: 0.4913, z: 289.4822}
+  m_LocalPosition: {x: 5.0651, y: 0.5481, z: 289.4822}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 486438532}
@@ -709,7 +709,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 72.82758, y: 41.544765}
+  m_Size: {x: 85.33954, y: 47.800735}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -781,7 +781,7 @@ RectTransform:
   m_GameObject: {fileID: 635881070}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15.125001, y: 15.125001, z: 15.125001}
+  m_LocalScale: {x: 12.520833, y: 12.52083, z: 12.52083}
   m_Children: []
   m_Father: {fileID: 378271377}
   m_RootOrder: 0
@@ -961,7 +961,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1483203295}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.83, y: 1.09, z: 0}
+  m_LocalPosition: {x: -18.7, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 486438532}
@@ -1095,8 +1095,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   selectionBox: {fileID: 635881071}
-  _startPos: {x: 0, y: 0}
-  _projectedMousePos: {x: 0, y: 0}
   graphicRaycaster: {fileID: 378271378}
 --- !u!4 &1700890235
 Transform:
