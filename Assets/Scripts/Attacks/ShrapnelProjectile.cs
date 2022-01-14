@@ -23,7 +23,7 @@ public class ShrapnelProjectile : Projectile
 
     private void SpawnShrapnel()
     {
-        float angle = Vector2.SignedAngle(Vector2.right, direction);
+        float angle = Vector2.SignedAngle(Vector2.right, _direction);
         for (int index = 0; index < shrapnelCount; index++)
         {
             GameObject shrapnel = Instantiate(shrapnelPrefab,transform.position,Quaternion.identity);

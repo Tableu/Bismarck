@@ -93,7 +93,6 @@ public class ProjectileAttack : AttackScriptableObject
                 else
                 {
                     Stop = true;
-                    return;
                 }
 
                 rotation = Vector2.SignedAngle(Vector2.right, _direction);

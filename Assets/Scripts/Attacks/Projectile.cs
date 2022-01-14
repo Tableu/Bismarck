@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
     public int damage;
     public LayerMask enemyLayer;
     public float speed;
-    public Vector2 direction;
+    public Vector2 _direction;
     public CollisionType type;
     private float startTime;
     private int _speedSegmentIndex;
@@ -44,7 +44,8 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     protected void FixedUpdate()
     {
-        transform.Translate(new Vector2(direction.x, direction.y)*speed*Time.fixedDeltaTime);
+        transform.Translate(new Vector2(_direction.x, _direction.y)*speed*Time.fixedDeltaTime);
+        
         if (!_stopTimer)
         {
             if (Time.fixedTime-startTime > _currentSegment.duration)
@@ -65,7 +66,7 @@ public class Projectile : MonoBehaviour
 
     public void Init(Vector2 direction, float zRotation, int shipLayer)
     {
-        this.direction = direction;
+        _direction = direction;
         Vector3 scale = transform.localScale;
         transform.localScale = new Vector3(scale.x*Mathf.Sign(direction.x), scale.y, scale.z);
         Vector3 rotation = visuals.transform.rotation.eulerAngles;
