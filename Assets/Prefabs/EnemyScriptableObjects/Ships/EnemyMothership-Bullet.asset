@@ -17,14 +17,12 @@ MonoBehaviour:
     Cost: 100
     Health: 10
     MaxHealth: 10
-    Speed: 0.1
+    Speed: 0.05
     StopDistance: 0.1
-    AggroRange: 100
+    AggroRange: 50
     BlocksMovement: 1
     Weapons:
     - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
     - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
-    Modules: []
-    Buffs: []
     StartingPos: {x: 0, y: 0}
     ShipPrefab: {fileID: 4271728520197243408, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
