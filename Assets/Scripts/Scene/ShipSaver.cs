@@ -40,7 +40,7 @@ public class ShipSaver : MonoBehaviour
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/shipsave.save");
         List<ShipSaveData> saveDatas = new List<ShipSaveData>();
-        foreach (ShipData shipData in ShipDictionary.ShipList())
+        foreach (ShipData shipData in ShipDictionary.ShipDataList())
         {
             ShipSaveData saveData = new ShipSaveData();
             saveData.Init(shipData);

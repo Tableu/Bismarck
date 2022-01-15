@@ -19,6 +19,11 @@ public class ShipListScriptableObject : ScriptableObject
         shipList.Remove(ship);
     }
 
+    public GameObject GetShip(int id)
+    {
+        return shipList.Find(o => o.GetInstanceID() == id);
+    }
+
     public void ClearList()
     {
         shipList.Clear();

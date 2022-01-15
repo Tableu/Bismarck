@@ -38,7 +38,7 @@ public class ShipDictionary : ScriptableObject
         return shipDict.GetEnumerator();
     }
 
-    public List<ShipData> ShipList()
+    public List<ShipData> ShipDataList()
     {
         return shipDict.Values.ToList();
     }
