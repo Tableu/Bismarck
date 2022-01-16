@@ -24,6 +24,11 @@ public class ShipGridItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private void OnClick()
     {
         ShipItemGrid.SetActive(false);
+        ViewShipPanel viewShipPanel = ShipItemPanel.GetComponent<ViewShipPanel>();
+        if (viewShipPanel != null)
+        {
+            viewShipPanel.Ship = Ship;
+        }
         ShipItemPanel.SetActive(true);
     }
 

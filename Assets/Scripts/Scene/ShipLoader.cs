@@ -6,7 +6,6 @@ using UnityEngine;
 public class ShipLoader : MonoBehaviour
 {
     public ShipSpawner ShipSpawner;
-    public ShipDictionary ShipDictionary;
     public ShipDBScriptableObject ShipDB;
     public AttackDBScriptableObject AttackDB;
     public Transform ProjectileParent;
