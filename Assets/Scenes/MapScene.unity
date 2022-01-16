@@ -354,7 +354,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _starSystemPrefab: {fileID: 922144885848652166, guid: 4d59691dc8474e343ad3bad595f92e75, type: 3}
   _linePrefab: {fileID: 6480449241065563602, guid: 85335e4010303ea40841a39e7d34ec62, type: 3}
-  _map: {fileID: 11400000, guid: 825abd00a8d0c734e8fd07be781070e7, type: 2}
+  _playerIconPrefab: {fileID: 5733703903460528341, guid: 7a67b28abc95099418a8720961154119, type: 3}
+  _mapData: {fileID: 11400000, guid: 825abd00a8d0c734e8fd07be781070e7, type: 2}
+  _context: {fileID: 11400000, guid: 3881cca7baa47e141b80568331dfa35a, type: 2}
 --- !u!4 &1852576045
 Transform:
   m_ObjectHideFlags: 0

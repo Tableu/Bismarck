@@ -12,5 +12,13 @@ namespace StarMap
         public Vector2 Coordinates;
         public StarType MainStar;
         public float StarSize;
+
+        /// <summary>
+        /// Instances all objects needed to load the star system
+        /// </summary>
+        public void LoadSystem()
+        {
+            
+        }
     }
 }

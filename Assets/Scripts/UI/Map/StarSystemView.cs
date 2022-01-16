@@ -8,6 +8,7 @@ namespace UI.Map
     public class StarSystemView : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
     {
         public StarSystem SystemModel { get; set; }
+        public MapView Parent { private get; set; }
 
         public void Start()
         {
@@ -17,7 +18,7 @@ namespace UI.Map
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log($"Mouse click on system: {SystemModel.SystemName}");
+            StartCoroutine(Parent.MoveIcon(SystemModel));
         }
 
         public void OnPointerEnter(PointerEventData eventData)
