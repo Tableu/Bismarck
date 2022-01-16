@@ -3578,7 +3578,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.1731749, y: 1}
+    m_SensorSize: {x: 2.3056028, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4316,7 +4316,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2057650540}
   - component: {fileID: 2057650541}
-  - component: {fileID: 2057650542}
   m_Layer: 6
   m_Name: Ships
   m_TagString: Ships

@@ -64,7 +64,11 @@ namespace UI.Map
         private void OnDisable()
         {
             _playerInput.PlayerInputActions.UI.Cancel.performed -= _hideMap;
-            _mapCamera.enabled = false;
+            // lifetime check for when scene is unloaded/destroyed
+            if (_mapCamera != null)
+            {
+                _mapCamera.enabled = false;
+            }
         }
 
         public IEnumerator MoveIcon(StarSystem destination)

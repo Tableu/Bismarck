@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MapContext
   m_EditorClassIdentifier: 
   StartingSystem: {fileID: 11400000, guid: 31e47ce10828ae74ab43c550f935a63c, type: 2}
-  CurrentSystem: {fileID: 0}
   Data: {fileID: 11400000, guid: 825abd00a8d0c734e8fd07be781070e7, type: 2}
+  Saver: {fileID: 11400000, guid: 6e6a369291159a3468788912b49a4a69, type: 2}

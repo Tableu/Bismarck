@@ -1,51 +1,45 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using StarMap;
 using UnityEngine;
 
-public class ShipSaver : MonoBehaviour
+[CreateAssetMenu(fileName = "ShipSaver", menuName = "Saving/Ship", order = 0)]
+public class ShipSaver : ScriptableObject
 {
     private static ShipSaver _instance;
-    public ShipDictionary ShipDictionary;
 
-    public static ShipSaver Instance
+    [SerializeField] private ShipDictionary _shipDictionary;
+
+    [SerializeField] private MapContext _mapContext;
+
+    private void OnEnable()
     {
-        get { return _instance; }
-    }
-    private void Awake()
-    {
-        if (Instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        _instance = this;
-    }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        _mapContext.OnCurrentSystemChange += MapContextOnOnCurrentSystemChange;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        _mapContext.OnCurrentSystemChange -= MapContextOnOnCurrentSystemChange;
     }
-    
+
+    private void MapContextOnOnCurrentSystemChange(StarSystem arg1, StarSystem arg2)
+    {
+        SaveShips();
+    }
+
     public void SaveShips()
     {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/shipsave.save");
-        List<ShipSaveData> saveDatas = new List<ShipSaveData>();
-        foreach (ShipData shipData in ShipDictionary.ShipDataList())
+        var bf = new BinaryFormatter();
+        var file = File.Create(Application.persistentDataPath + "/shipsave.save");
+        var saveDatas = new List<ShipSaveData>();
+        foreach (var shipData in _shipDictionary.ShipDataList())
         {
-            ShipSaveData saveData = new ShipSaveData();
+            var saveData = new ShipSaveData();
             saveData.Init(shipData);
             saveDatas.Add(saveData);
         }
+
         bf.Serialize(file, saveDatas);
         file.Close();
         Debug.Log("Saved Ships");
