@@ -18,21 +18,19 @@ public class MapView : MonoBehaviour
                 Quaternion.identity, transform);
             systemView.GetComponent<StarSystemView>().SystemModel = system;
             _systemViews.Add(systemView);
+        }
 
-            foreach (var starLane in system.StarLanes)
-            {
-                var destIdx = _map.StarSystems.IndexOf(starLane.Destination);
-                var srcIdx = _map.StarSystems.IndexOf(system);
-                if (srcIdx <= destIdx)
-                {
-                    var startPos = system.Coordinates;
-                    var endPos = starLane.Destination.Coordinates;
-                    var lane = Instantiate(_linePrefab, Vector3.down, Quaternion.identity, transform);
-                    var lr = lane.GetComponent<LineRenderer>();
-                    lr.SetPosition(0, startPos);
-                    lr.SetPosition(1, endPos);
-                }
-            }
+        foreach (var systemPair in _map.SystemPairs)
+        {
+            var srcSystem = systemPair.System1;
+            var dstSystem = systemPair.System2;
+
+            var srcPos = srcSystem.Coordinates;
+            var dstPos =dstSystem.Coordinates;
+            var lane = Instantiate(_linePrefab, Vector3.down, Quaternion.identity, transform);
+            var lr = lane.GetComponent<LineRenderer>();
+            lr.SetPosition(0, srcPos);
+            lr.SetPosition(1, dstPos);
             
         }
     }
