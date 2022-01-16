@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using StarMap;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace UI.Map
 {
@@ -13,13 +15,19 @@ namespace UI.Map
         [SerializeField] private GameObject _playerIconPrefab;
         [SerializeField] private MapData _mapData;
         [SerializeField] private MapContext _context;
+        [SerializeField] private Camera _mapCamera;
+        [SerializeField] private PlayerInputScriptableObject _playerInput;
 
         private readonly List<GameObject> _systemViews = new List<GameObject>();
+
+        private Action<InputAction.CallbackContext> _hideMap;
         private GameObject _icon;
 
+        public Camera MapCamera => _mapCamera;
 
         private void Awake()
         {
+            _hideMap = _ => _context.HideMapView();
             foreach (var system in _mapData.StarSystems)
             {
                 var systemViewGo = Instantiate(_starSystemPrefab, (Vector3) system.Coordinates + Vector3.back,
@@ -47,6 +55,18 @@ namespace UI.Map
                 transform);
         }
 
+        private void OnEnable()
+        {
+            _playerInput.PlayerInputActions.UI.Cancel.performed += _hideMap;
+            _mapCamera.enabled = true;
+        }
+
+        private void OnDisable()
+        {
+            _playerInput.PlayerInputActions.UI.Cancel.performed -= _hideMap;
+            _mapCamera.enabled = false;
+        }
+
         public IEnumerator MoveIcon(StarSystem destination)
         {
             if (!_context.IsAccessible(destination)) yield break;
@@ -61,6 +81,7 @@ namespace UI.Map
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
+
             _context.LoadSystem(destination);
             Debug.Log($"Jumped to {destination.SystemName}");
         }

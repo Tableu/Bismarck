@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using UI.Map;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,9 @@ namespace StarMap
     {
         public StarSystem StartingSystem;
         public MapData Data;
+        private Camera[] _activeCameras;
+
+        private MapView _view;
         public StarSystem CurrentSystem { get; private set; }
 
         private void Awake()
@@ -18,6 +22,33 @@ namespace StarMap
         }
 
         public event Action<StarSystem, StarSystem> OnCurrentSystemChange;
+
+        public void ShowMapView()
+        {
+            // load map scene additively if not loaded
+            if (_view == null)
+            {
+                _view = FindObjectOfType<MapView>();
+                if (_view == null)
+                {
+                    Debug.Log("Loading map");
+                    var status = SceneManager.LoadSceneAsync("Scenes/MapScene", LoadSceneMode.Additive);
+                    status.completed += operation => ActivateMapView();
+                    return;
+                }
+            }
+            ActivateMapView();
+        }
+
+        public void HideMapView()
+        {
+            // Deactivate map cam
+            if (_view == null || !_view.enabled) return;
+            _view.enabled = false;
+            foreach (var camera in _activeCameras) camera.enabled = true;
+
+            _activeCameras = null;
+        }
 
         public bool IsAccessible(StarSystem system)
         {
@@ -41,6 +72,15 @@ namespace StarMap
             OnCurrentSystemChange?.Invoke(CurrentSystem, system);
             CurrentSystem = system;
             CurrentSystem.LoadSystem();
+        }
+
+        private void ActivateMapView()
+        {
+            if (_view == null) _view = FindObjectOfType<MapView>();
+            if (_view.enabled) return;
+            _activeCameras = Camera.allCameras.Where(c => c.enabled).ToArray();
+            _view.enabled = true;
+            foreach (var camera in _activeCameras) camera.enabled = false;
         }
     }
 }
