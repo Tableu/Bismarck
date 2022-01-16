@@ -16,15 +16,6 @@ public class ShipClickSelector : MonoBehaviour
     {
         _playerInputActions = playerInput.PlayerInputActions;
     }
-    private void OnEnable()
-    {
-        _playerInputActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _playerInputActions.Disable();
-    }
     // Start is called before the first frame update
     void Start()
     {

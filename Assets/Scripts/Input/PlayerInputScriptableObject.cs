@@ -14,6 +14,7 @@ public class PlayerInputScriptableObject : ScriptableObject
     private void OnEnable()
     {
         PlayerInputActions = new PlayerInputActions();
+        PlayerInputActions.Enable();
         PlayerFilter = new ContactFilter2D
         {
             layerMask = LayerMask.GetMask("PlayerShips"),
@@ -55,5 +56,10 @@ public class PlayerInputScriptableObject : ScriptableObject
             }
         }
         SelectedShips.ClearList();
+    }
+
+    private void OnDisable()
+    {
+        PlayerInputActions.Disable();
     }
 }
