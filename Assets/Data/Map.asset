@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Map
   m_EditorClassIdentifier: 
   StarSystems:
-  - SystemName: System1
-    Coordinates: {x: 0, y: 0}
-  - SystemName: System2
-    Coordinates: {x: 1, y: 1}
+  - {fileID: 11400000, guid: 31e47ce10828ae74ab43c550f935a63c, type: 2}
+  - {fileID: 11400000, guid: 162d70b4df395fe4299286a543ac0e48, type: 2}
+  SystemPairs:
+  - System1: {fileID: 11400000, guid: 31e47ce10828ae74ab43c550f935a63c, type: 2}
+    System2: {fileID: 11400000, guid: 162d70b4df395fe4299286a543ac0e48, type: 2}

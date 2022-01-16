@@ -1,14 +1,28 @@
-﻿using System;
-using StarMap;
+﻿using StarMap;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class StarSystemView : MonoBehaviour, IPointerEnterHandler
+namespace UI.Map
 {
-    public StarSystem SystemModel  { get; set; }
-
-    public void OnPointerEnter(PointerEventData eventData)
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class StarSystemView : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
     {
-        Debug.Log($"Mouse over system: {SystemModel.SystemName}");
+        public StarSystem SystemModel { get; set; }
+
+        public void Start()
+        {
+            GetComponent<SpriteRenderer>().sprite = SystemModel.MainStar.MapImage;
+            transform.localScale = new Vector3(SystemModel.StarSize, SystemModel.StarSize, 1);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            Debug.Log($"Mouse click on system: {SystemModel.SystemName}");
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            Debug.Log($"Mouse over system: {SystemModel.SystemName}");
+        }
     }
 }
