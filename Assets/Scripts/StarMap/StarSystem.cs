@@ -18,7 +18,7 @@ namespace StarMap
         /// </summary>
         public void LoadSystem()
         {
-            
+            // todo: call system loading code here (ie. fleet generation ect.)
         }
     }
 }

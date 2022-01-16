@@ -67,7 +67,6 @@ namespace StarMap
                 return;
             }
 
-            // todo: update/save state of current system
             SceneManager.LoadScene("Scenes/BattleScene");
             OnCurrentSystemChange?.Invoke(CurrentSystem, system);
             CurrentSystem = system;
