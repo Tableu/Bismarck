@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 namespace UI.Map
 {
     [RequireComponent(typeof(SpriteRenderer))]
-    public class StarSystemView : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
+    public class StarSystemView : MonoBehaviour, IPointerClickHandler
     {
         public StarSystem SystemModel { get; set; }
         public MapView Parent { private get; set; }
@@ -19,11 +19,6 @@ namespace UI.Map
         public void OnPointerClick(PointerEventData eventData)
         {
             StartCoroutine(Parent.MoveIcon(SystemModel));
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            Debug.Log($"Mouse over system: {SystemModel.SystemName}");
         }
     }
 }
