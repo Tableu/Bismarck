@@ -460,7 +460,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171290390}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2, y: -0.1013, z: 0}
+  m_LocalPosition: {x: 0.8031, y: -0.2018, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1043047938}
@@ -512,7 +512,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 85.24995, y: 47.88808}
+  m_Size: {x: 88.667725, y: 50.70272}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -887,7 +887,7 @@ GameObject:
   - component: {fileID: 4727292529366542514}
   m_Layer: 5
   m_Name: Store
-  m_TagString: Untagged
+  m_TagString: Store
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5294,6 +5294,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3319612621232553015, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
   m_PrefabInstance: {fileID: 3319612620883743448}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2077617904 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3319612621232553004, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
+  m_PrefabInstance: {fileID: 3319612620883743448}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077617902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61ec072ee9cfab44aa939dc218bf5196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2080841213
 GameObject:
   m_ObjectHideFlags: 0
@@ -5686,7 +5697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewModelMethodName: StoreViewModel.BuyWeapon
-  viewEventName: StoreItem.StoreItemReleased
+  viewEventName: DraggableItem.ItemReleased
 --- !u!224 &894758640921981826
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5904,29 +5915,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 594208359}
     m_Modifications:
-    - target: {fileID: 3319612620350080645, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612620350080645, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612620350080645, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 265
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612620350080645, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -30
-      objectReference: {fileID: 0}
+    - target: {fileID: 3319612621232553004, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
+      propertyPath: graphicRaycaster
+      value: 
+      objectReference: {fileID: 594208356}
     - target: {fileID: 3319612621232553014, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
       propertyPath: m_Name
       value: ShipInfoPopup
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612621232553014, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3319612621232553015, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
       propertyPath: m_Pivot.x
@@ -6012,54 +6007,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3319612621824669904, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612621824669904, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612621824669904, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 112.895
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612621824669904, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -105
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612621994428710, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612621994428710, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612621994428710, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 265
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612621994428710, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -120
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612622006973752, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612622006973752, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612622006973752, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 112.895
-      objectReference: {fileID: 0}
-    - target: {fileID: 3319612622006973752, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -15
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e2fc17591c2a854387c3a31db6cd82e, type: 3}
 --- !u!114 &3346421093736859026
@@ -6074,38 +6021,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409e5c61d6105714dacc15767c53a965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoreItemSelected:
+  ItemSelected:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6662108477258789506}
-        m_TargetAssemblyTypeName: HighlightTurrets, Assembly-CSharp
-        m_MethodName: Highlight
-        m_Mode: 1
+      - m_Target: {fileID: 4727292529366542513}
+        m_TargetAssemblyTypeName: StoreViewModel, Assembly-CSharp
+        m_MethodName: set_SelectedItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: PointLaserOrbAttack
           m_BoolArgument: 0
         m_CallState: 2
-  StoreItemReleased:
+  ItemReleased:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6662108477258789506}
-        m_TargetAssemblyTypeName: HighlightTurrets, Assembly-CSharp
-        m_MethodName: DeHighlight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ItemName: PointLaserOrbAttack
-  store: {fileID: 4727292529366542513}
 --- !u!224 &3457581298140352198
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6217,7 +6151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewModelMethodName: StoreViewModel.BuyShip
-  viewEventName: StoreItem.StoreItemReleased
+  viewEventName: DraggableItem.ItemReleased
 --- !u!114 &4727292528005620930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6371,14 +6305,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409e5c61d6105714dacc15767c53a965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoreItemSelected:
+  ItemSelected:
     m_PersistentCalls:
-      m_Calls: []
-  StoreItemReleased:
+      m_Calls:
+      - m_Target: {fileID: 4727292529366542513}
+        m_TargetAssemblyTypeName: StoreViewModel, Assembly-CSharp
+        m_MethodName: set_SelectedItem
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Junkship
+          m_BoolArgument: 0
+        m_CallState: 2
+  ItemReleased:
     m_PersistentCalls:
       m_Calls: []
   ItemName: Junkship
-  store: {fileID: 4727292529366542513}
 --- !u!222 &4727292528005620940
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6400,7 +6345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewModelMethodName: StoreViewModel.BuyShip
-  viewEventName: StoreItem.StoreItemReleased
+  viewEventName: DraggableItem.ItemReleased
 --- !u!61 &4727292528392867145
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6439,14 +6384,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409e5c61d6105714dacc15767c53a965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoreItemSelected:
+  ItemSelected:
     m_PersistentCalls:
-      m_Calls: []
-  StoreItemReleased:
+      m_Calls:
+      - m_Target: {fileID: 4727292529366542513}
+        m_TargetAssemblyTypeName: StoreViewModel, Assembly-CSharp
+        m_MethodName: set_SelectedItem
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Mothership
+          m_BoolArgument: 0
+        m_CallState: 2
+  ItemReleased:
     m_PersistentCalls:
       m_Calls: []
   ItemName: Mothership
-  store: {fileID: 4727292529366542513}
 --- !u!222 &4727292528495933096
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6539,12 +6495,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fleetParent: {fileID: 2057650540}
+  graphicRaycaster: {fileID: 594208356}
+  shipInfoPopup: {fileID: 2077617904}
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
   shipDB: {fileID: 11400000, guid: 5f58e8f36caa17847889686627cf9e37, type: 2}
   attackDB: {fileID: 11400000, guid: 6377a1911994e5c4b99b701b85ce2cb2, type: 2}
   playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
-  spawner: {fileID: 11400000, guid: 54ea476e58d1b0e4ba45083d418715ca, type: 2}
-  ships: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
+  ShipSpawner: {fileID: 11400000, guid: 54ea476e58d1b0e4ba45083d418715ca, type: 2}
+  ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
 --- !u!210 &4727292529366542514
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -6671,7 +6629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewModelMethodName: StoreViewModel.BuyWeapon
-  viewEventName: StoreItem.StoreItemReleased
+  viewEventName: DraggableItem.ItemReleased
 --- !u!222 &6308642588955727143
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6759,38 +6717,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409e5c61d6105714dacc15767c53a965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoreItemSelected:
+  ItemSelected:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6681991657744631569}
-        m_TargetAssemblyTypeName: HighlightTurrets, Assembly-CSharp
-        m_MethodName: Highlight
-        m_Mode: 1
+      - m_Target: {fileID: 4727292529366542513}
+        m_TargetAssemblyTypeName: StoreViewModel, Assembly-CSharp
+        m_MethodName: set_SelectedItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: ShrapnelBulletAttack
           m_BoolArgument: 0
         m_CallState: 2
-  StoreItemReleased:
+  ItemReleased:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6681991657744631569}
-        m_TargetAssemblyTypeName: HighlightTurrets, Assembly-CSharp
-        m_MethodName: DeHighlight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ItemName: ShrapnelBulletAttack
-  store: {fileID: 4727292529366542513}
 --- !u!114 &6662108477258789506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6829,38 +6774,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409e5c61d6105714dacc15767c53a965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoreItemSelected:
+  ItemSelected:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6798937563752392521}
-        m_TargetAssemblyTypeName: HighlightTurrets, Assembly-CSharp
-        m_MethodName: Highlight
-        m_Mode: 1
+      - m_Target: {fileID: 4727292529366542513}
+        m_TargetAssemblyTypeName: StoreViewModel, Assembly-CSharp
+        m_MethodName: set_SelectedItem
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: BulletAttack
           m_BoolArgument: 0
         m_CallState: 2
-  StoreItemReleased:
+  ItemReleased:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6798937563752392521}
-        m_TargetAssemblyTypeName: HighlightTurrets, Assembly-CSharp
-        m_MethodName: DeHighlight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ItemName: BulletAttack
-  store: {fileID: 4727292529366542513}
 --- !u!114 &6798937563752392521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6921,7 +6853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewModelMethodName: StoreViewModel.BuyWeapon
-  viewEventName: StoreItem.StoreItemReleased
+  viewEventName: DraggableItem.ItemReleased
 --- !u!61 &7693950785499570211
 BoxCollider2D:
   m_ObjectHideFlags: 0

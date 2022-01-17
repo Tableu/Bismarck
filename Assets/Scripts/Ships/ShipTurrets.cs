@@ -23,7 +23,6 @@ public class ShipTurrets : MonoBehaviour
             }
             GameObject turret = Instantiate(attackScriptableObject.Turret, turretParent, false);
             turret.transform.localPosition = turretPos.Current.localPosition;
-            turret.layer = LayerMask.NameToLayer("Turrets");
         }
     }
 
@@ -31,5 +30,27 @@ public class ShipTurrets : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Refresh()
+    {
+        foreach (Transform child in turretParent)
+        {
+            Destroy(child.gameObject);
+        }
+        
+        var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
+        attackScriptableObjects = shipData.Weapons;
+        
+        List<Transform>.Enumerator turretPos = turretPositions.GetEnumerator();
+        foreach (AttackScriptableObject attackScriptableObject in attackScriptableObjects)
+        {
+            if (!turretPos.MoveNext())
+            {
+                break;
+            }
+            GameObject turret = Instantiate(attackScriptableObject.Turret, turretParent, false);
+            turret.transform.localPosition = turretPos.Current.localPosition;
+        }
     }
 }

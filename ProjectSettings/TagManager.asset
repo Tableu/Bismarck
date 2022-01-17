@@ -6,9 +6,9 @@ TagManager:
   tags:
   - Ships
   - FleetScreen
-  - Turret
   - PlayerProjectiles
-  - Turrets
+  - Weapon
+  - Store
   layers:
   - Default
   - TransparentFX

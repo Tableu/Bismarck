@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ShipInfoPopup : MonoBehaviour
@@ -14,6 +17,7 @@ public class ShipInfoPopup : MonoBehaviour
     [SerializeField] private GameObject modulesGridLayout;
     [SerializeField] private GameObject weaponsLabel;
     [SerializeField] private GameObject modulesLabel;
+    [SerializeField] private GraphicRaycaster graphicRaycaster;
 
     // Start is called before the first frame update
     void Start()
@@ -65,8 +69,37 @@ public class ShipInfoPopup : MonoBehaviour
                 {
                     weaponSlot.GetComponent<Image>().sprite =
                         weapons.Current.Turret.GetComponent<SpriteRenderer>().sprite;
+                    DraggableItem draggableItem = weaponSlot.AddComponent<DraggableItem>();
+                    SerializedObject so = new SerializedObject(draggableItem);
+                    so.Update();
+                    draggableItem.ItemName = weapons.Current.AttackName;
+                    draggableItem.ItemReleased.AddListener(DropItem);
+                }
+                else
+                {
+                    weaponSlot.GetComponent<Image>().color = Color.blue;
                 }
             }
+        }
+    }
+
+    private void DropItem()
+    {
+        var eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Mouse.current.position.ReadValue();
+        List<RaycastResult> hits = new List<RaycastResult>();
+        graphicRaycaster.Raycast(eventData, hits);
+        foreach (RaycastResult hit in hits)
+        {
+            switch (hit.gameObject.tag)
+            {
+                case "Store":
+                    
+                    break;
+                case "WeaponSlot":
+                    break;
+            }
+            
         }
     }
 }

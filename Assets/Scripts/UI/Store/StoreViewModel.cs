@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityWeld.Binding;
 
 [Binding]
@@ -11,12 +14,14 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     private int sellValue;
     private string _selectedItem;
     [SerializeField] private Transform fleetParent;
+    [SerializeField] private GraphicRaycaster graphicRaycaster;
+    [SerializeField] private ShipInfoPopup shipInfoPopup;
     public ShipListScriptableObject selectedShips;
     public ShipDBScriptableObject shipDB;
     public AttackDBScriptableObject attackDB;
     public PlayerInputScriptableObject playerInput;
-    public ShipSpawner spawner;
-    public ShipDictionary ships;
+    public ShipSpawner ShipSpawner;
+    public ShipDictionary ShipDictionary;
 
     [Binding]
     public int Money
@@ -97,7 +102,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             foreach (GameObject ship in selectedShips.ShipList)
             {
-                ShipData data = ships.GetShip(ship.GetInstanceID());
+                ShipData data = ShipDictionary.GetShip(ship.GetInstanceID());
                 Money += data.Cost;
                 Destroy(ship);
             }
@@ -114,7 +119,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             foreach (GameObject ship in selectedShips.ShipList)
             {
-                ShipData data = ships.GetShip(ship.GetInstanceID());
+                ShipData data = ShipDictionary.GetShip(ship.GetInstanceID());
                 Money -= data.RepairCost;
                 data.Health = data.MaxHealth;
             }
@@ -130,7 +135,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             Money -= shipData.Cost;
             Vector2 startingPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            GameObject ship = spawner.SpawnShip(shipData, fleetParent, startingPos);
+            GameObject ship = ShipSpawner.SpawnShip(shipData, fleetParent, startingPos);
             ShipLogic shipLogic = ship.GetComponent<ShipLogic>();
             if (shipLogic != null)
             {
@@ -146,19 +151,33 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         AttackScriptableObject attack = attackDB.GetAttack(_selectedItem);
         if (attack != null && money - attack.Cost >= 0)
         {
-            Vector2 pos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Turrets"));
-            if (hit && hit.collider.CompareTag("Turret"))
+            var eventData = new PointerEventData(EventSystem.current);
+            eventData.position = Mouse.current.position.ReadValue();
+            List<RaycastResult> hits = new List<RaycastResult>();
+            graphicRaycaster.Raycast(eventData, hits);
+
+            foreach (RaycastResult hit in hits)
             {
-                Money -= attack.Cost;
-                int index = hit.collider.transform.GetSiblingIndex();
-                GameObject ship = hit.transform.gameObject;
-                ShipData shipData = ships.GetShip(ship.GetInstanceID());
-                shipData.Weapons[index] = attack;
-                hit.collider.transform.GetComponent<SpriteRenderer>().sprite =
-                    attack.Turret.GetComponent<SpriteRenderer>().sprite;
+                if (hit.gameObject.CompareTag("Weapon"))
+                {
+                    int index = hit.gameObject.transform.GetSiblingIndex();
+                    if (shipInfoPopup.Ship != null)
+                    {
+                        ShipData shipData = ShipDictionary.GetShip(shipInfoPopup.Ship.GetInstanceID());
+                        shipData.Weapons[index] = attack;
+                        Money -= attack.Cost;
+                        ShipTurrets turrets = shipInfoPopup.Ship.GetComponent<ShipTurrets>();
+                        if (turrets != null)
+                        {
+                            turrets.Refresh();
+                        }
+
+                        shipInfoPopup.Refresh(shipInfoPopup.Ship);
+                    }
+                    UpdateRepairCostAndSellValue();
+                    break;
+                }
             }
-            UpdateRepairCostAndSellValue();
         }
     }
 
@@ -168,7 +187,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         SellValue = 0;
         foreach (GameObject ship in selectedShips.ShipList)
         {
-            ShipData data = ships.GetShip(ship.GetInstanceID());
+            ShipData data = ShipDictionary.GetShip(ship.GetInstanceID());
             RepairCost += data.RepairCost;
             SellValue += data.SellValue;
         }
