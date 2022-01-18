@@ -15,6 +15,11 @@ MonoBehaviour:
   StarSystems:
   - {fileID: 11400000, guid: 31e47ce10828ae74ab43c550f935a63c, type: 2}
   - {fileID: 11400000, guid: 162d70b4df395fe4299286a543ac0e48, type: 2}
+  - {fileID: 11400000, guid: 4594f4e136912414d8588f56575cb948, type: 2}
   SystemPairs:
   - System1: {fileID: 11400000, guid: 31e47ce10828ae74ab43c550f935a63c, type: 2}
     System2: {fileID: 11400000, guid: 162d70b4df395fe4299286a543ac0e48, type: 2}
+  - System1: {fileID: 11400000, guid: 31e47ce10828ae74ab43c550f935a63c, type: 2}
+    System2: {fileID: 11400000, guid: 4594f4e136912414d8588f56575cb948, type: 2}
+  - System1: {fileID: 11400000, guid: 162d70b4df395fe4299286a543ac0e48, type: 2}
+    System2: {fileID: 11400000, guid: 4594f4e136912414d8588f56575cb948, type: 2}

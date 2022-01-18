@@ -3578,7 +3578,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.3056028, y: 1}
+    m_SensorSize: {x: 1.7787021, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5281,19 +5281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSelected:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4727292529366542513}
-        m_TargetAssemblyTypeName: StoreViewModel, Assembly-CSharp
-        m_MethodName: set_SelectedItem
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Junkship
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ItemReleased:
     m_PersistentCalls:
       m_Calls: []
@@ -5360,19 +5348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSelected:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4727292529366542513}
-        m_TargetAssemblyTypeName: StoreViewModel, Assembly-CSharp
-        m_MethodName: set_SelectedItem
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Mothership
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ItemReleased:
     m_PersistentCalls:
       m_Calls: []

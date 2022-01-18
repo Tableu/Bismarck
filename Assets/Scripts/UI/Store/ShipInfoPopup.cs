@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -70,9 +71,9 @@ public class ShipInfoPopup : MonoBehaviour
                     weaponSlot.GetComponent<Image>().sprite =
                         weapons.Current.Turret.GetComponent<SpriteRenderer>().sprite;
                     DraggableItem draggableItem = weaponSlot.AddComponent<DraggableItem>();
-                    SerializedObject so = new SerializedObject(draggableItem);
-                    so.Update();
                     draggableItem.ItemName = weapons.Current.AttackName;
+                    draggableItem.ItemReleased = new UnityEvent();
+                    draggableItem.ItemSelected = new UnityEvent();
                     draggableItem.ItemReleased.AddListener(DropItem);
                 }
                 else

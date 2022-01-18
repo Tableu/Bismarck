@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 675d6b7a42d44e5bb516cf0a41849a6e, type: 3}
-  m_Name: Star0
+  m_Name: Star2
   m_EditorClassIdentifier: 
-  SystemName: System A
-  Coordinates: {x: 0, y: 0}
+  SystemName: System C
+  Coordinates: {x: 1, y: 0}
   MainStar: {fileID: 11400000, guid: 1df83af2393b0e346b60f0a4d42766ac, type: 2}
   StarSize: 1
