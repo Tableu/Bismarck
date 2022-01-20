@@ -37,4 +37,9 @@ public class RightClickInspect : MonoBehaviour
             shipInfoPopup.SetActive(false);
         }
     }
+
+    private void Destroy()
+    {
+        _playerInputActions.UI.RightClick.started -= RightClick;
+    }
 }
