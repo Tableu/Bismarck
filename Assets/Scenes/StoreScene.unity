@@ -449,7 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4390fc9bdb3874f9d9dc9a622df4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1796866231}
+  vCamera: {fileID: 1796866231}
   scale: 1
   maxSize: 30
   minSize: 15
