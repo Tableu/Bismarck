@@ -15,17 +15,14 @@ namespace Tests.PlayMode
         public void Init()
         {
             TestModifierData = ScriptableObject.CreateInstance<ModifierData>();
-            TestEffectGroup = ScriptableObject.CreateInstance<EffectGroup>();
             TestMockEffect = ScriptableObject.CreateInstance<MockEffect>();
             TestGameObject = new GameObject();
             TestTarget = TestGameObject.AddComponent<ModifiableTarget>();
 
-            TestEffectGroup.Effects = new List<IEffect> {TestMockEffect};
-            TestModifierData.EffectGroups = new List<EffectGroup> {TestEffectGroup};
+            TestModifierData.Effects = new List<IEffect> {TestMockEffect};
         }
 
         public ModifierData TestModifierData;
-        public EffectGroup TestEffectGroup;
         public MockEffect TestMockEffect;
         public GameObject TestGameObject;
         private ModifiableTarget TestTarget;

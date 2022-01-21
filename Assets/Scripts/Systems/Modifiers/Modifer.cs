@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 namespace Systems.Modifiers
@@ -68,13 +67,13 @@ namespace Systems.Modifiers
 
         private void ActivateEffects()
         {
-            foreach (var effect in _data.EffectGroups.SelectMany(effectGroup => effectGroup.Effects))
+            foreach (var effect in _data.Effects)
                 effect.Apply(_target);
         }
 
         private void DeactivateEffects()
         {
-            foreach (var effect in _data.EffectGroups.SelectMany(effectGroup => effectGroup.Effects))
+            foreach (var effect in _data.Effects)
                 effect.Remove(_target);
         }
 
