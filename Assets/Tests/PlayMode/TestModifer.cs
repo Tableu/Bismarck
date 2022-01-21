@@ -19,7 +19,7 @@ namespace Tests.PlayMode
             TestEffectGroup = ScriptableObject.CreateInstance<EffectGroup>();
             TestMockEffect = ScriptableObject.CreateInstance<MockEffect>();
             TestGameObject = new GameObject();
-            TestTarget = TestGameObject.AddComponent<MockModifiableTarget>();
+            TestTarget = TestGameObject.AddComponent<ModifiableTarget>();
 
             TestEffectGroup.Effects = new List<IEffect> {TestMockEffect};
             TestModifierData.EffectGroups = new List<EffectGroup> {TestEffectGroup};
@@ -29,7 +29,7 @@ namespace Tests.PlayMode
         public EffectGroup TestEffectGroup;
         public MockEffect TestMockEffect;
         public GameObject TestGameObject;
-        private MockModifiableTarget TestTarget;
+        private ModifiableTarget TestTarget;
 
         [UnityTest]
         public IEnumerator TestModiferIsRemovedAfterDuration()

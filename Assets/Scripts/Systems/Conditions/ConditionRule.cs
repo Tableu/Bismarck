@@ -5,6 +5,6 @@ namespace Systems.Conditions
 {
     public abstract class ConditionRule : ScriptableObject
     {
-        public abstract ICondition NewBinding(IModifiableTarget target);
+        public abstract ICondition NewBinding(ModifiableTarget target);
     }
 }

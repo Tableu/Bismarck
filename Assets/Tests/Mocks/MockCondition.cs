@@ -7,7 +7,8 @@ namespace Tests.Mocks
     public class MockConditionRule : ConditionRule
     {
         public readonly MockCondition Condition = new MockCondition();
-        public override ICondition NewBinding(IModifiableTarget target)
+
+        public override ICondition NewBinding(ModifiableTarget target)
         {
             return Condition;
         }

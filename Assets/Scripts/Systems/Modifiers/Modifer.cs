@@ -11,9 +11,9 @@ namespace Systems.Modifiers
         private readonly ModifierData _data;
 
         private bool _enabled;
-        private IModifiableTarget _target;
+        private ModifiableTarget _target;
 
-        public Modifer(ModifierData data, IModifiableTarget target)
+        public Modifer(ModifierData data, ModifiableTarget target)
         {
             _data = data;
             _target = target;

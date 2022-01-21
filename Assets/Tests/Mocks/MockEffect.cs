@@ -1,5 +1,4 @@
-﻿using System;
-using Systems.Effects;
+﻿using Systems.Effects;
 using Systems.Modifiers;
 
 namespace Tests.Mocks
@@ -9,15 +8,14 @@ namespace Tests.Mocks
         public int ApplyCount;
         public int RemoveCount;
 
-        public override void Apply(IModifiableTarget target)
+        public override void Apply(ModifiableTarget target)
         {
             ++ApplyCount;
         }
 
-        public override void Remove(IModifiableTarget target)
+        public override void Remove(ModifiableTarget target)
         {
             ++RemoveCount;
         }
-        
     }
 }

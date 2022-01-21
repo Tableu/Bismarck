@@ -13,7 +13,7 @@ namespace Systems.Modifiers
         public float Duration;
         public bool HasDuration;
 
-        public Modifer AttachNewModifer(IModifiableTarget target)
+        public Modifer AttachNewModifer(ModifiableTarget target)
         {
             var modifer = new Modifer(this, target);
             target.AttachModifer(modifer);
