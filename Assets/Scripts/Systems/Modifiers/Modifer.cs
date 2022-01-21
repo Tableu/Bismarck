@@ -44,24 +44,26 @@ namespace Systems.Modifiers
             }
         }
 
-        public IEnumerator Initialize()
+        public IEnumerator OnAttach()
         {
             Enabled = true;
             if (_data.HasDuration)
             {
                 yield return new WaitForSeconds(_data.Duration);
-                Remove();
+                if (_target != null)
+                {
+                    _target.RemoveModifer(this);
+                }
             }
 
             yield return null;
         }
 
-        public void Remove()
+        public void OnRemove()
         {
             if (_target != null)
             {
                 if (Active) DeactivateEffects();
-                _target.RemoveModifer(this);
                 _target = null;
             }
 

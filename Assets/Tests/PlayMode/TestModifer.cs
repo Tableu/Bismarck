@@ -41,11 +41,13 @@ namespace Tests.PlayMode
 
             Assert.AreEqual(TestMockEffect.ApplyCount, 1);
             Assert.AreEqual(TestMockEffect.RemoveCount, 0);
+            Assert.AreEqual(TestTarget.Modifiers.Count, 1);
 
             yield return new WaitForSeconds(5.1f);
 
             Assert.AreEqual(TestMockEffect.ApplyCount, 1);
             Assert.AreEqual(TestMockEffect.RemoveCount, 1);
+            Assert.AreEqual(TestTarget.Modifiers.Count, 0);
         }
 
         [UnityTest]
@@ -58,18 +60,21 @@ namespace Tests.PlayMode
 
             Assert.AreEqual(TestMockEffect.ApplyCount, 1);
             Assert.AreEqual(TestMockEffect.RemoveCount, 0);
+            Assert.AreEqual(TestTarget.Modifiers.Count, 1);
 
             yield return new WaitForSeconds(4.1f);
-            modifer.Remove();
+            TestTarget.RemoveModifer(modifer);
 
             Assert.AreEqual(TestMockEffect.ApplyCount, 1);
             Assert.AreEqual(TestMockEffect.RemoveCount, 1);
+            Assert.AreEqual(TestTarget.Modifiers.Count, 0);
 
             LogAssert.NoUnexpectedReceived();
             yield return new WaitForSeconds(2f);
 
             Assert.AreEqual(TestMockEffect.ApplyCount, 1);
             Assert.AreEqual(TestMockEffect.RemoveCount, 1);
+            Assert.AreEqual(TestTarget.Modifiers.Count, 0);
         }
 
         [UnityTest]
@@ -82,11 +87,13 @@ namespace Tests.PlayMode
 
             Assert.AreEqual(TestMockEffect.ApplyCount, 1);
             Assert.AreEqual(TestMockEffect.RemoveCount, 0);
+            Assert.AreEqual(TestTarget.Modifiers.Count, 1);
 
             yield return new WaitForSeconds(5.1f);
 
             Assert.AreEqual(TestMockEffect.ApplyCount, 1);
             Assert.AreEqual(TestMockEffect.RemoveCount, 0);
+            Assert.AreEqual(TestTarget.Modifiers.Count, 1);
         }
 
         [UnityTest]
@@ -95,10 +102,12 @@ namespace Tests.PlayMode
             var mod = TestModifierData.AttachNewModifer(TestTarget);
             Assert.AreEqual(TestMockEffect.ApplyCount, 1);
             Assert.AreEqual(TestMockEffect.RemoveCount, 0);
+            Assert.AreEqual(TestTarget.Modifiers.Count, 1);
             yield return null;
             mod.Enabled = false;
             Assert.AreEqual(TestMockEffect.ApplyCount, 1);
             Assert.AreEqual(TestMockEffect.RemoveCount, 1);
+            Assert.AreEqual(TestTarget.Modifiers.Count, 1);
             yield return null;
         }
 
@@ -117,17 +126,21 @@ namespace Tests.PlayMode
 
             Assert.AreEqual(TestMockEffect.ApplyCount, 1);
             Assert.AreEqual(TestMockEffect.RemoveCount, 1);
+            Assert.AreEqual(TestTarget.Modifiers.Count, 1);
 
             condition.IsTrue = true;
             Assert.AreEqual(TestMockEffect.ApplyCount, 2);
             Assert.AreEqual(TestMockEffect.RemoveCount, 1);
+            Assert.AreEqual(TestTarget.Modifiers.Count, 1);
 
             condition.IsTrue = false;
             Assert.AreEqual(TestMockEffect.ApplyCount, 2);
             Assert.AreEqual(TestMockEffect.RemoveCount, 2);
-            mod.Remove();
+            Assert.AreEqual(TestTarget.Modifiers.Count, 1);
+            TestTarget.RemoveModifer(mod);
             Assert.AreEqual(TestMockEffect.ApplyCount, 2);
             Assert.AreEqual(TestMockEffect.RemoveCount, 2);
+            Assert.AreEqual(TestTarget.Modifiers.Count, 0);
             yield return null;
         }
     }
