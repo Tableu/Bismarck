@@ -1,0 +1,16 @@
+{
+    "name": "Mocks",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e9f4ff05987742442a9f065b63d78fc6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
