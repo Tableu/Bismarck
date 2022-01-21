@@ -1,23 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Systems.Modifiers
 {
+    [Serializable]
     public class Modifer
     {
         private readonly ICondition _condition;
-        private readonly ModifierData _data;
+        public readonly ModifierData Data;
 
         private bool _enabled;
         private ModifiableTarget _target;
 
         internal Modifer(ModifierData data, ModifiableTarget target)
         {
-            _data = data;
+            Data = data;
             _target = target;
-            if (_data.Condition != null)
+            if (Data.Condition != null)
             {
-                _condition = _data.Condition.NewBinding(_target);
+                _condition = Data.Condition.NewBinding(_target);
                 _condition.OnChange += OnConditionChanged;
             }
 
@@ -45,9 +47,9 @@ namespace Systems.Modifiers
         internal IEnumerator OnAttach()
         {
             Enabled = true;
-            if (_data.HasDuration)
+            if (Data.HasDuration)
             {
-                yield return new WaitForSeconds(_data.Duration);
+                yield return new WaitForSeconds(Data.Duration);
                 if (_target != null) _target.RemoveModifer(this);
             }
 
@@ -67,13 +69,13 @@ namespace Systems.Modifiers
 
         private void ActivateEffects()
         {
-            foreach (var effect in _data.Effects)
+            foreach (var effect in Data.Effects)
                 effect.Apply(_target);
         }
 
         private void DeactivateEffects()
         {
-            foreach (var effect in _data.Effects)
+            foreach (var effect in Data.Effects)
                 effect.Remove(_target);
         }
 
