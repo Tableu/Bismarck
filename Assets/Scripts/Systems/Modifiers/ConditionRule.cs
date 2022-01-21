@@ -1,7 +1,6 @@
-﻿using Systems.Modifiers;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Systems.Conditions
+namespace Systems.Modifiers
 {
     public abstract class ConditionRule : ScriptableObject
     {

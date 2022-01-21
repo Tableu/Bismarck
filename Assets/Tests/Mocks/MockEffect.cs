@@ -1,5 +1,4 @@
-﻿using Systems.Effects;
-using Systems.Modifiers;
+﻿using Systems.Modifiers;
 
 namespace Tests.Mocks
 {

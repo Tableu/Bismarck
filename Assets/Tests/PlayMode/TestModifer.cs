@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Systems.Effects;
 using Systems.Modifiers;
 using Tests.Mocks;
 using UnityEngine;

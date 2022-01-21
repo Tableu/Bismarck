@@ -1,7 +1,6 @@
-﻿using Systems.Modifiers;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Systems.Effects
+namespace Systems.Modifiers
 {
     public abstract class IEffect : ScriptableObject
     {

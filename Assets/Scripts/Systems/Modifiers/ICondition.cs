@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Systems.Conditions
+namespace Systems.Modifiers
 {
     public interface ICondition
     {

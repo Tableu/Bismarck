@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Linq;
-using Systems.Conditions;
 using UnityEngine;
 
 namespace Systems.Modifiers
@@ -13,7 +12,7 @@ namespace Systems.Modifiers
         private bool _enabled;
         private ModifiableTarget _target;
 
-        public Modifer(ModifierData data, ModifiableTarget target)
+        internal Modifer(ModifierData data, ModifiableTarget target)
         {
             _data = data;
             _target = target;
@@ -44,22 +43,19 @@ namespace Systems.Modifiers
             }
         }
 
-        public IEnumerator OnAttach()
+        internal IEnumerator OnAttach()
         {
             Enabled = true;
             if (_data.HasDuration)
             {
                 yield return new WaitForSeconds(_data.Duration);
-                if (_target != null)
-                {
-                    _target.RemoveModifer(this);
-                }
+                if (_target != null) _target.RemoveModifer(this);
             }
 
             yield return null;
         }
 
-        public void OnRemove()
+        internal void OnRemove()
         {
             if (_target != null)
             {

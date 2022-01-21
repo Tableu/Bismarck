@@ -2,10 +2,11 @@
     "name": "PlayMode",
     "rootNamespace": "",
     "references": [
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "Scripts",
-        "Mocks"
+      "UnityEngine.TestRunner",
+      "UnityEditor.TestRunner",
+      "Scripts",
+      "Mocks",
+      "Modifiers"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
