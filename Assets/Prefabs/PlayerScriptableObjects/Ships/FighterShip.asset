@@ -17,7 +17,7 @@ MonoBehaviour:
     Cost: 50
     Health: 2
     MaxHealth: 2
-    Speed: 0.1
+    Speed: 0.4
     StopDistance: 0.1
     AggroRange: 50
     BlocksMovement: 0

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Cinemachine;
 using UI.Map;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,7 +46,18 @@ namespace StarMap
             // Deactivate map cam
             if (_view == null || !_view.enabled) return;
             _view.enabled = false;
-            foreach (var camera in _activeCameras) camera.enabled = true;
+
+            foreach (var camera in _activeCameras)
+            {
+                if (camera != null)
+                {
+                    camera.enabled = true;
+                    CameraMove cm = camera.GetComponent<CameraMove>();
+                    if (cm != null) cm.enabled = true;
+                    CameraZoom cz = camera.GetComponent<CameraZoom>();
+                    if (cz != null) cz.enabled = true;
+                }
+            }
 
             _activeCameras = null;
         }
@@ -79,7 +91,13 @@ namespace StarMap
             if (_view.enabled) return;
             _activeCameras = Camera.allCameras.Where(c => c.enabled).ToArray();
             _view.enabled = true;
-            foreach (var camera in _activeCameras) camera.enabled = false;
+            foreach (var camera in _activeCameras)
+            {
+                if (camera != null)
+                {
+                    camera.enabled = false;
+                }    
+            }
         }
     }
 }

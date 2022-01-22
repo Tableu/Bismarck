@@ -293,8 +293,6 @@ GameObject:
   - component: {fileID: 126162145}
   - component: {fileID: 126162147}
   - component: {fileID: 126162146}
-  - component: {fileID: 126162148}
-  - component: {fileID: 126162149}
   m_Layer: 6
   m_Name: PlayerInput
   m_TagString: Untagged
@@ -437,36 +435,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   graphicRaycaster: {fileID: 594208356}
---- !u!114 &126162148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 126162141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff4390fc9bdb3874f9d9dc9a622df4de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vCamera: {fileID: 1796866231}
-  scale: 1
-  maxSize: 30
-  minSize: 15
---- !u!114 &126162149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 126162141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b42b769326e6060478e473197ed5be01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boundary: 50
-  scale: {x: 1, y: 1}
 --- !u!1 &171290390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,6 +1090,8 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
+  - component: {fileID: 519420035}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1137,6 +1107,23 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff4390fc9bdb3874f9d9dc9a622df4de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vCamera: {fileID: 1796866231}
+  camera: {fileID: 519420031}
+  scale: 1
+  maxSize: 30
+  minSize: 15
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1245,6 +1232,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294965448
   m_MaxRayIntersections: 0
+--- !u!114 &519420035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42b769326e6060478e473197ed5be01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundary: 50
+  camera: {fileID: 519420031}
+  scale: {x: 0.5, y: 0.5}
 --- !u!1 &575321702
 GameObject:
   m_ObjectHideFlags: 0
@@ -5445,7 +5447,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSelected:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4727292529366542513}
+        m_TargetAssemblyTypeName: StoreViewModel, Assembly-CSharp
+        m_MethodName: set_SelectedItem
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Junkship
+          m_BoolArgument: 0
+        m_CallState: 2
   ItemReleased:
     m_PersistentCalls:
       m_Calls: []
@@ -5512,7 +5526,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSelected:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4727292529366542513}
+        m_TargetAssemblyTypeName: StoreViewModel, Assembly-CSharp
+        m_MethodName: set_SelectedItem
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Mothership
+          m_BoolArgument: 0
+        m_CallState: 2
   ItemReleased:
     m_PersistentCalls:
       m_Calls: []

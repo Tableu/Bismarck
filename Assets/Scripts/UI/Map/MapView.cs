@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using StarMap;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,7 @@ namespace UI.Map
         [SerializeField] private MapData _mapData;
         [SerializeField] private MapContext _context;
         [SerializeField] private Camera _mapCamera;
+        [SerializeField] private CinemachineVirtualCamera _virtualCamera;
         [SerializeField] private PlayerInputScriptableObject _playerInput;
 
         private readonly List<GameObject> _systemViews = new List<GameObject>();
@@ -59,6 +61,7 @@ namespace UI.Map
         {
             _playerInput.PlayerInputActions.UI.Cancel.performed += _hideMap;
             _mapCamera.enabled = true;
+            _virtualCamera.enabled = true;
         }
 
         private void OnDisable()
@@ -68,6 +71,11 @@ namespace UI.Map
             if (_mapCamera != null)
             {
                 _mapCamera.enabled = false;
+            }
+
+            if (_virtualCamera != null)
+            {
+                _virtualCamera.enabled = false;
             }
         }
 

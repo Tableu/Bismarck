@@ -5,12 +5,15 @@ using UnityEngine.InputSystem;
 public class CameraZoom : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera vCamera;
+    [SerializeField] private Camera camera;
     [SerializeField] private float scale;
     [SerializeField] private int maxSize;
     [SerializeField] private int minSize;
     
     void Update()
     {
+        if (!camera.enabled)
+            return;
         float size = vCamera.m_Lens.OrthographicSize;
         if (Mouse.current.scroll.ReadValue().y > 0 && size < maxSize)
         {
