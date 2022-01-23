@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ships.Components;
 using Ships.DataManagment;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,16 +21,6 @@ public class ShipInfoPopup : MonoBehaviour
     [SerializeField] private GameObject modulesLabel;
     [SerializeField] private GraphicRaycaster graphicRaycaster;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     public void Refresh(GameObject ship)
     {
         foreach (Transform child in weaponsGridLayout.transform)
@@ -43,7 +34,7 @@ public class ShipInfoPopup : MonoBehaviour
         }
 
         Ship = ship;
-        // _shipData = ShipDictionary.GetShip(Ship.GetInstanceID());
+        _shipData = ship.GetComponent<ShipStats>().Data;
         SpawnWeapons();
         bool weapons = weaponsGridLayout.transform.childCount != 0;
         bool modules = modulesGridLayout.transform.childCount != 0;

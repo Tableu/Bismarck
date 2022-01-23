@@ -38,6 +38,7 @@ public class ShipHealth : MonoBehaviour, IDamageable, IInitializableComponent, I
     public void TakeDamage(Damage dmg)
     {
         PercentHealth -= dmg.RawDamage / _stats.MaxHealth;
+        PercentHealth = Mathf.Clamp(PercentHealth, 0, 1);
         _healthDirty = true;
         if (PercentHealth <= 0) Destroy(gameObject);
     }
@@ -61,6 +62,13 @@ public class ShipHealth : MonoBehaviour, IDamageable, IInitializableComponent, I
     public void TestDamage()
     {
         TakeDamage(new Damage(Vector2.down, 1, CollisionType.energy));
+    }
+
+    [ContextMenu("Repair")]
+    public void Repair()
+    {
+        PercentHealth = 1;
+        OnHealthChanged?.Invoke();
     }
 
     public event Action OnHealthChanged;
