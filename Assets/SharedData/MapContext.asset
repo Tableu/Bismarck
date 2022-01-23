@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3217cf176c954a77a62eab9a691d5156, type: 3}
   m_Name: MapContext
   m_EditorClassIdentifier: 
+  saveManager: {fileID: 11400000, guid: 1e7b7c52725d42dfa71e389cc8f57d98, type: 2}
   StartingSystem: {fileID: 11400000, guid: 31e47ce10828ae74ab43c550f935a63c, type: 2}
   Data: {fileID: 11400000, guid: 825abd00a8d0c734e8fd07be781070e7, type: 2}

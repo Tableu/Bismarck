@@ -2,6 +2,12 @@
 
 namespace Systems.Save
 {
+    /// <summary>
+    /// Simple class that automatically calls saveManager.Load() on Start.
+    /// </summary>
+    /// <remarks>
+    /// Just a temporary solution until we create a method for saving & loading the whole game state.
+    /// </remarks>
     public class ShipLoader : MonoBehaviour
     {
         [SerializeField] private SaveManager saveManager;

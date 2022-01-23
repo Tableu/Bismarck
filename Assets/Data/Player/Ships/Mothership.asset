@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Mothership
   m_EditorClassIdentifier: 
   uuid: Q6LA
+  parentList: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}
   shipName: Mothership
   prefab: {fileID: 4271728520197243408, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
   Cost: 100
@@ -20,8 +21,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
   - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
   blocksMovement: 1
-  health: 10
+  health: 20
   speedMultiplier: 1
   damageMultiplier: 1
   sensorRange: 50
-  targetRange: 0
+  targetRange: 10

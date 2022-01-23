@@ -25,6 +25,7 @@ public class PlayerWin : MonoBehaviour
 
     public void GoToStore()
     {
+        GameContext.Instance.CurrentState = GameContext.GameState.StoreMode;
         SceneManager.LoadScene("Scenes/StoreScene");
     }
 }

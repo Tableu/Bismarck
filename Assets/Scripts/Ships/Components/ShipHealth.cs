@@ -38,7 +38,7 @@ public class ShipHealth : MonoBehaviour, IDamageable, IInitializableComponent, I
     public void TakeDamage(Damage dmg)
     {
         PercentHealth -= dmg.RawDamage / _stats.MaxHealth;
-        PercentHealth = Mathf.Clamp(PercentHealth, 0, 1);
+        PercentHealth = Mathf.Min(PercentHealth, 1);
         _healthDirty = true;
         if (PercentHealth <= 0) Destroy(gameObject);
     }

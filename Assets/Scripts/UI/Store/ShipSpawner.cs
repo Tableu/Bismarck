@@ -1,5 +1,4 @@
 ﻿using System;
-using DefaultNamespace;
 using Ships.Components;
 using Ships.DataManagement;
 using UnityEngine;

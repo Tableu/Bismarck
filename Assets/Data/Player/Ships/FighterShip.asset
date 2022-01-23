@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: FighterShip
   m_EditorClassIdentifier: 
   uuid: FC8L
+  parentList: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}
   shipName: Fighter
   prefab: {fileID: 2473740277407861765, guid: 7b028babbc85d8649b7782681850be9c, type: 3}
   Cost: 0
   Weapons:
   - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
   blocksMovement: 0
-  health: 50
+  health: 2
   speedMultiplier: 10
   damageMultiplier: 1
   sensorRange: 50

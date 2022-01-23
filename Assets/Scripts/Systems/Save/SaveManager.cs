@@ -1,34 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using DefaultNamespace;
 using Ships.Components;
 using Ships.DataManagement;
+using StarMap;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Save
 {
+    /// <summary>
+    ///     The class responsible for saving and loading the game.
+    /// </summary>
     [CreateAssetMenu(fileName = "SaveManager", menuName = "SaveManager")]
     public class SaveManager : ScriptableObject
     {
+        /// <summary>
+        ///     A list containing all the ships to save
+        /// </summary>
         [SerializeField] private ShipList shipsToSave;
+
+        /// <summary>
+        ///     The ship spawner to use to spawn the ships on loading
+        /// </summary>
         [SerializeField] private ShipSpawner shipSpawner;
+
+        /// <summary>
+        ///     The list of UUIDs for the ship data scriptable objects
+        /// </summary>
         [SerializeField] private UUIDList shipUuids;
 
+        /// <summary>
+        ///     The path to save and load to. Automatically set if not manually specified.
+        /// </summary>
         [NonSerialized] public string savePath;
 
-        public static SaveManager Instance { get; private set; }
         public static string DefaultSavePath => Application.persistentDataPath + "/savedata.save";
 
-        private void Awake()
-        {
-            Debug.Assert(Instance == null, "Multiple save manager created!");
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(this);
-        }
 
+        /// <summary>
+        /// Saves the game to a json file. Can be called by right clicking the SaveManager object in the inspector.
+        /// </summary>
         [ContextMenu("Save Game")]
         public void Save()
         {
@@ -41,6 +53,10 @@ namespace Systems.Save
             File.WriteAllText(savePath, saveString);
         }
 
+        /// <summary>
+        /// Tries to load a save game using the current savePath.
+        /// </summary>
+        /// <returns>True if loading succeeded, false otherwise</returns>
         [ContextMenu("Load Game")]
         public bool Load()
         {
@@ -75,6 +91,9 @@ namespace Systems.Save
             return true;
         }
 
+        /// <summary>
+        /// A class that defines the structure of the game save file
+        /// </summary>
         [Serializable]
         private class GameSaveData
         {
