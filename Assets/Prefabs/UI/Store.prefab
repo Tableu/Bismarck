@@ -149,14 +149,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409e5c61d6105714dacc15767c53a965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoreItemSelected:
+  ItemSelected:
     m_PersistentCalls:
       m_Calls: []
-  StoreItemReleased:
+  ItemReleased:
     m_PersistentCalls:
       m_Calls: []
   ItemName: Junkship
-  store: {fileID: 1097969301}
 --- !u!61 &303276770
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -412,38 +411,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409e5c61d6105714dacc15767c53a965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoreItemSelected:
+  ItemSelected:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2099103489607041333}
-        m_TargetAssemblyTypeName: HighlightTurrets, Assembly-CSharp
-        m_MethodName: Highlight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  StoreItemReleased:
+      m_Calls: []
+  ItemReleased:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2099103489607041333}
-        m_TargetAssemblyTypeName: HighlightTurrets, Assembly-CSharp
-        m_MethodName: DeHighlight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ItemName: ShrapnelBulletAttack
-  store: {fileID: 1097969301}
 --- !u!61 &3124602021068121607
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -712,38 +686,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409e5c61d6105714dacc15767c53a965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoreItemSelected:
+  ItemSelected:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2156705109232415910}
-        m_TargetAssemblyTypeName: HighlightTurrets, Assembly-CSharp
-        m_MethodName: Highlight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  StoreItemReleased:
+      m_Calls: []
+  ItemReleased:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2156705109232415910}
-        m_TargetAssemblyTypeName: HighlightTurrets, Assembly-CSharp
-        m_MethodName: DeHighlight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ItemName: PointLaserOrbAttack
-  store: {fileID: 1097969301}
 --- !u!61 &904132292560496722
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1008,38 +957,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409e5c61d6105714dacc15767c53a965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoreItemSelected:
+  ItemSelected:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2287857418034798957}
-        m_TargetAssemblyTypeName: HighlightTurrets, Assembly-CSharp
-        m_MethodName: Highlight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  StoreItemReleased:
+      m_Calls: []
+  ItemReleased:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2287857418034798957}
-        m_TargetAssemblyTypeName: HighlightTurrets, Assembly-CSharp
-        m_MethodName: DeHighlight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   ItemName: BulletAttack
-  store: {fileID: 1097969301}
 --- !u!61 &4387753161529452047
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1345,13 +1269,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c2b90b12531bd840abae15d98ad26d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipSpawner: {fileID: 11400000, guid: 61617ea500ab96343bfa31caddbb221c, type: 2}
   fleetParent: {fileID: 0}
+  graphicRaycaster: {fileID: 0}
+  shipInfoPopup: {fileID: 0}
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
   shipDB: {fileID: 11400000, guid: 5f58e8f36caa17847889686627cf9e37, type: 2}
   attackDB: {fileID: 11400000, guid: 6377a1911994e5c4b99b701b85ce2cb2, type: 2}
   playerInput: {fileID: 11400000, guid: a67d8e5a7e4b94a4e8cb22b93090677c, type: 2}
-  spawner: {fileID: 11400000, guid: 54ea476e58d1b0e4ba45083d418715ca, type: 2}
-  ships: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
 --- !u!210 &1097969302
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -2175,14 +2100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409e5c61d6105714dacc15767c53a965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StoreItemSelected:
+  ItemSelected:
     m_PersistentCalls:
       m_Calls: []
-  StoreItemReleased:
+  ItemReleased:
     m_PersistentCalls:
       m_Calls: []
   ItemName: Mothership
-  store: {fileID: 1097969301}
 --- !u!61 &990284653
 BoxCollider2D:
   m_ObjectHideFlags: 0

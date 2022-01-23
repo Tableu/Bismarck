@@ -4,12 +4,13 @@ using UnityEngine.UI;
 
 public class DragShips : MonoBehaviour
 {
-    private PlayerInputActions _playerInputActions;
-    public PlayerInputScriptableObject playerInput;
-    public ShipListScriptableObject selectedShips;
-    public GraphicRaycaster GraphicRaycaster;
     private static ContactFilter2D PlayerFilter;
+    public PlayerInputScriptableObject playerInput;
+    public ShipList selectedShips;
+    public GraphicRaycaster GraphicRaycaster;
     private bool _dragShips = false;
+    private PlayerInputActions _playerInputActions;
+
     private void Awake()
     {
         _playerInputActions = playerInput.PlayerInputActions;
@@ -19,6 +20,7 @@ public class DragShips : MonoBehaviour
             useLayerMask = true
         };
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +34,7 @@ public class DragShips : MonoBehaviour
     {
         if (_dragShips)
         {
-            foreach (GameObject ship in selectedShips.ShipList)
+            foreach (GameObject ship in selectedShips.Ships)
             {
                 if (ship == null)
                     continue;
@@ -44,6 +46,14 @@ public class DragShips : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        _playerInputActions.UI.LeftClick.started -= LeftClick;
+        _playerInputActions.UI.LeftClick.performed -= LeftClick;
+        _playerInputActions.UI.LeftClick.canceled -= LeftClick;
+    }
+
     private void LeftClick(InputAction.CallbackContext context)
     {
         switch (context.phase)
@@ -52,7 +62,7 @@ public class DragShips : MonoBehaviour
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 if (!playerInput.UIRaycast(GraphicRaycaster) && playerInput.ShipRaycast(mousePos))
                 {
-                    foreach (GameObject ship in selectedShips.ShipList)
+                    foreach (GameObject ship in selectedShips.Ships)
                     {
                         if (ship != null)
                         {
@@ -63,19 +73,14 @@ public class DragShips : MonoBehaviour
                             }
                         }
                     }
+
                     _dragShips = true;
                 }
+
                 break;
             case InputActionPhase.Canceled:
                 _dragShips = false;
                 break;
         }
-    }
-
-    private void OnDestroy()
-    {
-        _playerInputActions.UI.LeftClick.started -= LeftClick;
-        _playerInputActions.UI.LeftClick.performed -= LeftClick;
-        _playerInputActions.UI.LeftClick.canceled -= LeftClick;
     }
 }

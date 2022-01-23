@@ -1,54 +1,62 @@
 using System.Collections.Generic;
+using Ships.Components;
+using Ships.DataManagement;
 using UnityEngine;
 
-public class ShipLogic : MonoBehaviour
+public class ShipLogic : MonoBehaviour, IInitializableComponent
 {
-    public ShipSpawner ShipSpawner;
-
     [Header("Objects")] [SerializeField] protected GameObject target;
 
     [SerializeField] public List<Transform> turretPositions;
     protected List<AttackCommand> _attackCommands;
+    protected ShipData _data;
     protected MoveForwardState _moveForward;
     protected MovementController _movementController;
     protected MoveToPositionState _moveToPosition;
 
     protected MoveToTargetState _moveToTarget;
+    protected ShipSpawner _shipSpawner;
     private List<AttackScriptableObject> attackScriptableObjects;
-    private bool blocksMovement;
     protected FSM StateMachine;
-    public bool BlocksMovement => blocksMovement;
-
-    protected void Start()
-    {
-        var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
-        blocksMovement = shipData.BlocksMovement;
-        _movementController = new MovementController(gameObject, shipData.Speed, 0, ShipSpawner.LayerMask);
-        _moveToTarget = new MoveToTargetState(this, _movementController, target);
-        _moveToPosition = new MoveToPositionState(this, _movementController, Vector2.zero);
-        _moveForward = new MoveForwardState(this, _movementController);
-        StateMachine = new FSM();
-        attackScriptableObjects = shipData.Weapons;
-        _attackCommands = new List<AttackCommand>();
-        List<Transform>.Enumerator turretPos = turretPositions.GetEnumerator();
-        foreach (AttackScriptableObject attackScriptableObject in attackScriptableObjects)
-        {
-            if (!turretPos.MoveNext())
-            {
-                break;
-            }
-
-            AttackCommand attackCommand = attackScriptableObject.MakeAttack();
-            StartCoroutine(attackCommand.DoAttack(gameObject, turretPos.Current));
-            attackCommand.SetParent(ShipSpawner.ProjectileParent);
-            _attackCommands.Add(attackCommand);
-        }
-    }
+    public bool BlocksMovement { get; private set; }
 
     // Update is called once per frame
     protected void FixedUpdate()
     {
         StateMachine.Tick();
+    }
+
+    public void Initialize(ShipData data, ShipSpawner spawner)
+    {
+        _shipSpawner = spawner;
+        _data = data;
+        BlocksMovement = data.BlocksMovement;
+        var stats = GetComponent<ShipStats>();
+        Debug.Assert(stats != null, "Ship missing stats component");
+        _movementController = new MovementController(gameObject, stats.SpeedMultiplier, 0, spawner.LayerMask);
+        _moveToTarget = new MoveToTargetState(this, _movementController, target);
+        _moveToPosition = new MoveToPositionState(this, _movementController, Vector2.zero);
+        _moveForward = new MoveForwardState(this, _movementController);
+        StateMachine = new FSM();
+        attackScriptableObjects = data.Weapons;
+        _attackCommands = new List<AttackCommand>();
+        if (!enabled) return;
+        var turretPos = turretPositions.GetEnumerator();
+
+        var parent = GameObject.FindWithTag(spawner.ProjectileParentTag) ?? new GameObject
+        {
+            tag = spawner.ProjectileParentTag
+        };
+
+        foreach (var attackScriptableObject in attackScriptableObjects)
+        {
+            if (!turretPos.MoveNext()) break;
+
+            var attackCommand = attackScriptableObject.MakeAttack();
+            StartCoroutine(attackCommand.DoAttack(gameObject, turretPos.Current));
+            attackCommand.SetParent(parent.transform);
+            _attackCommands.Add(attackCommand);
+        }
     }
 
     public void MoveToPosition(Vector2 position)
@@ -65,12 +73,9 @@ public class ShipLogic : MonoBehaviour
 
     protected bool HasReachedTarget()
     {
-        var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
         if (_moveToTarget.Target == null ||
-            Vector2.Distance(transform.position, _moveToTarget.Target.transform.position) < shipData.StopDistance)
-        {
+            Vector2.Distance(transform.position, _moveToTarget.Target.transform.position) < _data.TargetRange)
             return true;
-        }
 
         return false;
     }
@@ -78,27 +83,20 @@ public class ShipLogic : MonoBehaviour
     protected bool HasReachedPosition()
     {
         DetectEnemy();
-        if (Vector2.Distance(transform.position, _moveToPosition.Position) < .5f)
-        {
-            return true;
-        }
+        if (Vector2.Distance(transform.position, _moveToPosition.Position) < .5f) return true;
 
         return false;
     }
 
     protected bool DetectEnemy()
     {
-        var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
-        if (_moveToTarget.Target != null)
-        {
-            return false;
-        }
+        if (_moveToTarget.Target != null) return false;
 
-        GameObject enemy = DetectionController.DetectShip(shipData.AggroRange, gameObject);
+        var enemy = DetectionController.DetectShip(_data.SensorRange, gameObject);
         if (enemy != null)
         {
             _moveToTarget.Target = enemy;
-            foreach (AttackCommand command in _attackCommands)
+            foreach (var command in _attackCommands)
             {
                 command.SetTarget(enemy);
                 StartCoroutine(command.DoAttack(gameObject));

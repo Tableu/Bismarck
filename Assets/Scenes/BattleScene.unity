@@ -171,7 +171,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7787021, y: 1}
+    m_SensorSize: {x: 2.3050847, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1038,10 +1038,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac2f99d4182e464a92c6d8cd2a04a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyShipSpawner: {fileID: 11400000, guid: 85bc1e1c3448fd2458f7461165830df2, type: 2}
   mapContext: {fileID: 11400000, guid: 3881cca7baa47e141b80568331dfa35a, type: 2}
   fleetParent: {fileID: 657645082}
-  projectileParent: {fileID: 314777254}
+  shipSpawner: {fileID: 11400000, guid: affbd94b68215664fabadd7a26912786, type: 2}
 --- !u!1 &777196442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,11 +1107,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1483203296}
-  - component: {fileID: 1483203297}
   - component: {fileID: 1483203299}
+  - component: {fileID: 1483203297}
   m_Layer: 6
   m_Name: PlayerShips
-  m_TagString: Untagged
+  m_TagString: Ships
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1140,14 +1139,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1483203295}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c85659f480acdaa4684477d8c8a54a7b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ca8ded52d2047d9be2f8fb8ca7db916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipSpawner: {fileID: 11400000, guid: 54ea476e58d1b0e4ba45083d418715ca, type: 2}
-  ShipDB: {fileID: 11400000, guid: 5f58e8f36caa17847889686627cf9e37, type: 2}
-  AttackDB: {fileID: 11400000, guid: 6377a1911994e5c4b99b701b85ce2cb2, type: 2}
-  ProjectileParent: {fileID: 41716115}
-  isStore: 0
+  saveManager: {fileID: 11400000, guid: 1e7b7c52725d42dfa71e389cc8f57d98, type: 2}
 --- !u!114 &1483203299
 MonoBehaviour:
   m_ObjectHideFlags: 0

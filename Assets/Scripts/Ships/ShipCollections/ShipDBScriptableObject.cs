@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
+using Ships.DataManagement;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Ships", menuName = "Ships/ShipDB")]
 [Serializable]
 public class ShipDBScriptableObject : ScriptableObject
 {
-    [SerializeField] private List<ShipDataScriptableObject> shipDB;
+    [SerializeField] private List<ShipData> shipDB;
 
-    public ShipDataScriptableObject GetShip(string shipName)
+    public ShipData GetShip(string shipName)
     {
-        return shipDB.Find(x => x.ShipData.ShipName == shipName);
+        return shipDB.Find(x => x.shipName == shipName);
     }
 }

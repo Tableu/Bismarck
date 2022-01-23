@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,28 +7,13 @@ public class ShipGridItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public GameObject Ship;
     public Button Button;
     public GameObject ShipItemGrid;
+
     public GameObject ShipItemPanel;
+
     // Start is called before the first frame update
     void Start()
     {
         Button.onClick.AddListener(OnClick);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnClick()
-    {
-        ShipItemGrid.SetActive(false);
-        ViewShipPanel viewShipPanel = ShipItemPanel.GetComponent<ViewShipPanel>();
-        if (viewShipPanel != null)
-        {
-            viewShipPanel.Ship = Ship;
-        }
-        ShipItemPanel.SetActive(true);
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
@@ -52,5 +36,17 @@ public class ShipGridItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             shipUI.DeselectShip();
         }
+    }
+
+    private void OnClick()
+    {
+        ShipItemGrid.SetActive(false);
+        ViewShipPanel viewShipPanel = ShipItemPanel.GetComponent<ViewShipPanel>();
+        if (viewShipPanel != null)
+        {
+            viewShipPanel.Ship = Ship;
+        }
+
+        ShipItemPanel.SetActive(true);
     }
 }

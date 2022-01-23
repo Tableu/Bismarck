@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class MoveShips : MonoBehaviour
 {
-    private PlayerInputActions _playerInputActions;
-    public ShipListScriptableObject selectedShips;
+    public ShipList selectedShips;
     public PlayerInputScriptableObject playerInput;
-    [SerializeField]private Vector2 _projectedMousePos;
+    [SerializeField] private Vector2 _projectedMousePos;
+    private PlayerInputActions _playerInputActions;
+
     private void Awake()
     {
         _playerInputActions = playerInput.PlayerInputActions;
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,19 +26,21 @@ public class MoveShips : MonoBehaviour
     {
         _projectedMousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
     }
+
     private void RightClick(InputAction.CallbackContext context)
     {
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                if(selectedShips.Count > 0)
+                if (selectedShips.Count > 0)
                     MoveSelectedShips(_projectedMousePos);
                 break;
         }
     }
+
     public void MoveSelectedShips(Vector2 position)
     {
-        foreach(GameObject ship in selectedShips.ShipList)
+        foreach (GameObject ship in selectedShips.Ships)
         {
             if (ship != null)
             {

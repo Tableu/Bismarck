@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using Ships.Components;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -9,19 +10,17 @@ using UnityWeld.Binding;
 [Binding]
 public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
 {
-    private int money = 1000;
-    private int repairCost;
-    private int sellValue;
-    private string _selectedItem;
+    [SerializeField] private ShipSpawner shipSpawner;
     [SerializeField] private Transform fleetParent;
     [SerializeField] private GraphicRaycaster graphicRaycaster;
     [SerializeField] private ShipInfoPopup shipInfoPopup;
-    public ShipListScriptableObject selectedShips;
+    public ShipList selectedShips;
     public ShipDBScriptableObject shipDB;
     public AttackDBScriptableObject attackDB;
     public PlayerInputScriptableObject playerInput;
-    public ShipSpawner ShipSpawner;
-    public ShipDictionary ShipDictionary;
+    private int money = 1000;
+    private int repairCost;
+    private int sellValue;
 
     [Binding]
     public int Money
@@ -29,10 +28,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         get => money;
         set
         {
-            if (money == value)
-            {
-                return;
-            }
+            if (money == value) return;
 
             money = value;
             OnPropertyChanged("Money");
@@ -45,10 +41,8 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         get => repairCost;
         set
         {
-            if (repairCost == value)
-            {
-                return;
-            }
+            if (repairCost == value) return;
+
             repairCost = value;
             OnPropertyChanged("RepairCost");
         }
@@ -60,39 +54,20 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         get => sellValue;
         set
         {
-            if (sellValue == value)
-            {
-                return;
-            }
+            if (sellValue == value) return;
+
             sellValue = value;
             OnPropertyChanged("SellValue");
         }
     }
-    
-    public string SelectedItem
-    {
-        get => _selectedItem;
-        set => _selectedItem = value;
-    }
+
+    public string SelectedItem { get; set; }
 
     public event PropertyChangedEventHandler PropertyChanged;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnPropertyChanged(string propertyName)
     {
-        if (PropertyChanged != null)
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
+        if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
     }
 
     [Binding]
@@ -100,15 +75,17 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         if (selectedShips.Count > 0)
         {
-            foreach (GameObject ship in selectedShips.ShipList)
+            foreach (var ship in selectedShips.Ships)
             {
-                ShipData data = ShipDictionary.GetShip(ship.GetInstanceID());
+                var data = ship.GetComponent<ShipStats>().Data;
                 Money += data.Cost;
                 Destroy(ship);
             }
+
             selectedShips.ClearList();
             UpdateRepairCostAndSellValue();
         }
+
         Debug.Log("SellShip");
     }
 
@@ -117,12 +94,13 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         if (selectedShips.Count > 0)
         {
-            foreach (GameObject ship in selectedShips.ShipList)
+            foreach (var ship in selectedShips.Ships)
             {
-                ShipData data = ShipDictionary.GetShip(ship.GetInstanceID());
-                Money -= data.RepairCost;
-                data.Health = data.MaxHealth;
+                Money -= ComputeRepairCost(ship);
+                var health = ship.GetComponent<ShipHealth>();
+                health.Repair();
             }
+
             UpdateRepairCostAndSellValue();
         }
     }
@@ -130,17 +108,16 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public void BuyShip()
     {
-        ShipData shipData = shipDB.GetShip(_selectedItem).MakeShipData();
+        var shipData = shipDB.GetShip(SelectedItem);
+        Debug.Assert(shipData != null, "Failed to find ship in database");
         if (shipData != null && money - shipData.Cost >= 0)
         {
             Money -= shipData.Cost;
             Vector2 startingPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            GameObject ship = ShipSpawner.SpawnShip(shipData, fleetParent, startingPos);
-            ShipLogic shipLogic = ship.GetComponent<ShipLogic>();
-            if (shipLogic != null)
-            {
-                shipLogic.enabled = false;
-            }
+            var ship = shipSpawner.SpawnShip(shipData, fleetParent, startingPos);
+            var shipLogic = ship.GetComponent<ShipLogic>();
+            if (shipLogic != null) shipLogic.enabled = false;
+
             UpdateRepairCostAndSellValue();
         }
     }
@@ -148,36 +125,32 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public void BuyWeapon()
     {
-        AttackScriptableObject attack = attackDB.GetAttack(_selectedItem);
+        var attack = attackDB.GetAttack(SelectedItem);
         if (attack != null && money - attack.Cost >= 0)
         {
             var eventData = new PointerEventData(EventSystem.current);
             eventData.position = Mouse.current.position.ReadValue();
-            List<RaycastResult> hits = new List<RaycastResult>();
+            var hits = new List<RaycastResult>();
             graphicRaycaster.Raycast(eventData, hits);
 
-            foreach (RaycastResult hit in hits)
-            {
+            foreach (var hit in hits)
                 if (hit.gameObject.CompareTag("Weapon"))
                 {
-                    int index = hit.gameObject.transform.GetSiblingIndex();
+                    var index = hit.gameObject.transform.GetSiblingIndex();
                     if (shipInfoPopup.Ship != null)
                     {
-                        ShipData shipData = ShipDictionary.GetShip(shipInfoPopup.Ship.GetInstanceID());
+                        var shipData = shipInfoPopup.Ship.GetComponent<ShipStats>().Data;
                         shipData.Weapons[index] = attack;
                         Money -= attack.Cost;
-                        ShipTurrets turrets = shipInfoPopup.Ship.GetComponent<ShipTurrets>();
-                        if (turrets != null)
-                        {
-                            turrets.Refresh();
-                        }
+                        var turrets = shipInfoPopup.Ship.GetComponent<ShipTurrets>();
+                        if (turrets != null) turrets.Refresh();
 
                         shipInfoPopup.Refresh(shipInfoPopup.Ship);
                     }
+
                     UpdateRepairCostAndSellValue();
                     break;
                 }
-            }
         }
     }
 
@@ -185,11 +158,24 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         RepairCost = 0;
         SellValue = 0;
-        foreach (GameObject ship in selectedShips.ShipList)
+        foreach (var ship in selectedShips.Ships)
         {
-            ShipData data = ShipDictionary.GetShip(ship.GetInstanceID());
-            RepairCost += data.RepairCost;
-            SellValue += data.SellValue;
+            RepairCost += ComputeRepairCost(ship);
+            SellValue += ComputeSellValue(ship);
         }
+    }
+
+    private static int ComputeRepairCost(GameObject ship)
+    {
+        var data = ship.GetComponent<ShipStats>().Data;
+        var health = ship.GetComponent<ShipHealth>();
+        return (int) (data.Cost * (1 - health.PercentHealth));
+    }
+
+    private static int ComputeSellValue(GameObject ship)
+    {
+        var data = ship.GetComponent<ShipStats>().Data;
+        var health = ship.GetComponent<ShipHealth>();
+        return (int) (data.Cost * health.PercentHealth);
     }
 }

@@ -16,13 +16,13 @@ public class MoveForwardState : IState
     {
         if (_movement.DirectionClear(_shipBattle.transform.forward, 1))
         {
-            _movement.Move(_shipBattle.transform.position + (Vector3.right * 10 * _movement.GetDirection()), _speed);
+            _movement.Move(_shipBattle.transform.position + (Vector3.right * 10 * _movement.GetDirection()));
         }
     }
 
     public void OnEnter()
     {
-        _speed = _movement.BaseSpeed;
+        _speed = _movement.Speed;
     }
 
     public void OnExit()
@@ -52,7 +52,7 @@ public class MoveToTargetState : IState
             return;
         if (_movement.DirectionClear(Target.transform.position - _shipBattle.transform.position, 1))
         {
-            _movement.Move(Target.transform.position, _speed);
+            _movement.Move(Target.transform.position);
         }
         //_movement.RotateTowards(_target.transform,_rotationSpeed);
     }
@@ -61,7 +61,7 @@ public class MoveToTargetState : IState
     {
         if (Target == null)
             return;
-        _speed = _movement.BaseSpeed;
+        _speed = _movement.Speed;
         Vector3 diff = Target.transform.position - _shipBattle.transform.position;
         _movement.SetDirection((int) Mathf.Sign(diff.x));
         //_rotationSpeed = _movement.RotationSpeed;
@@ -92,7 +92,7 @@ public class MoveToPositionState : IState
     {
         if (_movement.DirectionClear(Position - (Vector2) _shipBattle.transform.position, 1))
         {
-            _movement.Move(Position, _speed);
+            _movement.Move(Position);
         }
         //_movement.RotateTowards(_target.transform,_rotationSpeed);
     }
@@ -101,7 +101,7 @@ public class MoveToPositionState : IState
     {
         if (Position == null)
             return;
-        _speed = _movement.BaseSpeed;
+        _speed = _movement.Speed;
         Vector3 diff = Position - (Vector2) _shipBattle.transform.position;
         _movement.SetDirection((int) Mathf.Sign(diff.x));
         //_rotationSpeed = _movement.RotationSpeed;
