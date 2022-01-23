@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Systems;
 using UnityEngine;
 
 namespace Ships.DataManagment
 {
     [CreateAssetMenu(fileName = "Ships", menuName = "Ships/ShipData")]
     [Serializable]
-    public class ShipData : ScriptableObject
+    public class ShipData : UuidScriptableObject
     {
         public string shipName;
         public GameObject prefab;

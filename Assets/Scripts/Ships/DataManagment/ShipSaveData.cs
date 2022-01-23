@@ -9,7 +9,7 @@ namespace Ships.DataManagment
     {
         public float healthPercentage;
         public Vector2 position;
-        public ShipData shipData;
+        public string shipDataId;
 
         public ShipSaveData(GameObject ship)
         {
@@ -22,7 +22,7 @@ namespace Ships.DataManagment
             }
 
             position = ship.transform.position;
-            shipData = ship.GetComponent<ShipStats>().Data;
+            shipDataId = ship.GetComponent<ShipStats>().Data.uuid;
         }
     }
 }

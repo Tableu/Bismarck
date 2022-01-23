@@ -13,6 +13,7 @@ namespace Systems.Save
     {
         [SerializeField] private ShipList shipsToSave;
         [SerializeField] private ShipSpawner shipSpawner;
+        [SerializeField] private UUIDList shipUuids;
 
         [NonSerialized] public string savePath;
 
@@ -56,7 +57,15 @@ namespace Systems.Save
             };
             foreach (var shipSaveData in saveData.ships)
             {
-                var ship = shipSpawner.SpawnShip(shipSaveData.shipData, parent.transform, shipSaveData.position);
+                var shipData = shipUuids.FindByUUID(shipSaveData.shipDataId) as ShipData;
+                var ship = shipSpawner.SpawnShip(shipData, parent.transform, shipSaveData.position);
+                if (ship is null)
+                {
+                    Debug.LogWarning("Failed to load a ship");
+                    continue;
+                    ;
+                }
+
                 foreach (var loadableComponent in ship.GetComponents<ILoadableComponent>())
                 {
                     loadableComponent.Load(shipSaveData);

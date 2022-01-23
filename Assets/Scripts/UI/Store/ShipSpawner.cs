@@ -19,6 +19,11 @@ public class ShipSpawner : ScriptableObject
 
     public GameObject SpawnShip(ShipData data, Transform parent, Vector2 position)
     {
+        if (data is null)
+        {
+            return null;
+        }
+
         var ship = Instantiate(data.prefab, position, Quaternion.identity, parent);
         ship.AddComponent<ShipStats>();
         var tags = ship.AddComponent<ShipTags>();
