@@ -14,26 +14,7 @@ public class PlayerShipGrid : MonoBehaviour
     private void Start()
     {
         playerShipList.OnListChanged += Redraw;
-        foreach (var ship in playerShipList.Ships)
-        {
-            var shipData = ship.GetComponent<ShipStats>()?.Data;
-            Debug.Assert(shipData != null, "Ship missing Stats Component");
-            if (shipData != null)
-            {
-                var shipItem = Instantiate(shipItemPrefab, gameObject.transform, false);
-                var image = shipItem.GetComponent<Image>();
-                var spriteRenderer = shipData.prefab.GetComponent<SpriteRenderer>();
-                if (image != null && spriteRenderer != null) image.sprite = spriteRenderer.sprite;
-
-                var shipItemScript = shipItem.GetComponent<ShipGridItem>();
-                if (shipItemScript != null)
-                {
-                    shipItemScript.Ship = ship;
-                    shipItemScript.ShipItemGrid = shipItemGrid;
-                    shipItemScript.ShipItemPanel = shipItemPanel;
-                }
-            }
-        }
+        Redraw();
     }
 
     private void OnDestroy()
