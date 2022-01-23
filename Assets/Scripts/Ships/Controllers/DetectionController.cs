@@ -8,6 +8,7 @@ public static class DetectionController
         layerMask = LayerMask.GetMask("PlayerShips"),
         useLayerMask = true
     };
+
     private static readonly ContactFilter2D EnemyFilter = new ContactFilter2D
     {
         layerMask = LayerMask.GetMask("EnemyShips"),
@@ -30,7 +31,7 @@ public static class DetectionController
             return null;
         }
 
-        float currentMagnitude = aggroRange*aggroRange;
+        float currentMagnitude = aggroRange * aggroRange;
         GameObject target = null;
         foreach (Collider2D ship in results)
         {
@@ -41,6 +42,7 @@ public static class DetectionController
                 target = ship.transform.gameObject;
             }
         }
+
         return target;
     }
 }

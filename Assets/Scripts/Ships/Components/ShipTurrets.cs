@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class ShipTurrets : MonoBehaviour
 {
-    private List<AttackScriptableObject> attackScriptableObjects;
     public List<Transform> turretPositions;
     public Transform turretParent;
     public ShipSpawner ShipSpawner;
+    private List<AttackScriptableObject> attackScriptableObjects;
 
     // Start is called before the first frame update
     void Start()
     {
         var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
         attackScriptableObjects = shipData.Weapons;
-        
+
         List<Transform>.Enumerator turretPos = turretPositions.GetEnumerator();
         foreach (AttackScriptableObject attackScriptableObject in attackScriptableObjects)
         {
@@ -21,6 +21,7 @@ public class ShipTurrets : MonoBehaviour
             {
                 break;
             }
+
             GameObject turret = Instantiate(attackScriptableObject.Turret, turretParent, false);
             turret.transform.localPosition = turretPos.Current.localPosition;
             turret.layer = gameObject.layer;
@@ -30,7 +31,6 @@ public class ShipTurrets : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void Refresh()
@@ -39,10 +39,10 @@ public class ShipTurrets : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        
+
         var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
         attackScriptableObjects = shipData.Weapons;
-        
+
         List<Transform>.Enumerator turretPos = turretPositions.GetEnumerator();
         foreach (AttackScriptableObject attackScriptableObject in attackScriptableObjects)
         {
@@ -50,6 +50,7 @@ public class ShipTurrets : MonoBehaviour
             {
                 break;
             }
+
             GameObject turret = Instantiate(attackScriptableObject.Turret, turretParent, false);
             turret.transform.localPosition = turretPos.Current.localPosition;
             turret.layer = gameObject.layer;

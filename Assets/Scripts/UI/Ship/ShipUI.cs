@@ -7,7 +7,8 @@ public class ShipUI : MonoBehaviour
 
     public void OnDrag()
     {
-        transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) + _positionOffset;
+        transform.position = (Vector2) Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) +
+                             _positionOffset;
     }
 
     public void RefreshPositionOffset()

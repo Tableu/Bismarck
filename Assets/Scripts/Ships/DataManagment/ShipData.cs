@@ -19,6 +19,7 @@ public class ShipData
     public GameObject ShipPrefab;
     public int RepairCost => (MaxHealth - Health) * 100;
     public int SellValue => Mathf.Max(Cost - RepairCost, 0);
+
     public ShipData Copy()
     {
         ShipData clone = MemberwiseClone() as ShipData;
@@ -68,7 +69,7 @@ public class ShipSaveData
         shipData.StopDistance = StopDistance;
         shipData.AggroRange = AggroRange;
         shipData.BlocksMovement = BlocksMovement;
-        
+
         shipData.Weapons = new List<AttackScriptableObject>();
         foreach (string weapon in Weapons)
         {

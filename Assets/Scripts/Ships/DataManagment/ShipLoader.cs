@@ -31,12 +31,12 @@ public class ShipLoader : MonoBehaviour
     public void LoadShips()
     {
         ShipSpawner.ProjectileParent = ProjectileParent;
-        
+
         if (File.Exists(Application.persistentDataPath + "/shipsave.save"))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/shipsave.save", FileMode.Open);
-            List<ShipSaveData> saveDatas = (List<ShipSaveData>)bf.Deserialize(file);
+            List<ShipSaveData> saveDatas = (List<ShipSaveData>) bf.Deserialize(file);
             List<ShipData> shipDatas = new List<ShipData>();
             foreach (ShipSaveData saveData in saveDatas)
             {
@@ -46,6 +46,7 @@ public class ShipLoader : MonoBehaviour
                     shipDatas.Add(shipData);
                 }
             }
+
             file.Close();
             ShipSpawner.SpawnFleet(shipDatas, transform);
             Debug.Log("Loaded Ships");
