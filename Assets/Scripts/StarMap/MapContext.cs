@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Cinemachine;
+using DefaultNamespace;
 using UI.Map;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -38,6 +38,7 @@ namespace StarMap
                     return;
                 }
             }
+
             ActivateMapView();
         }
 
@@ -75,6 +76,7 @@ namespace StarMap
                 return;
             }
 
+            GameContext.Instance.CurrentState = GameContext.GameState.BattleMode;
             SceneManager.LoadScene("Scenes/BattleScene");
             OnCurrentSystemChange?.Invoke(CurrentSystem, system);
             CurrentSystem = system;
@@ -92,7 +94,7 @@ namespace StarMap
                 if (camera != null)
                 {
                     camera.enabled = false;
-                }    
+                }
             }
         }
     }

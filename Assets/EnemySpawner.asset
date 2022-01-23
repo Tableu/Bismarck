@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d928435bfa263af4bb199d1d1e84741c, type: 3}
-  m_Name: EnemyShipSpawner
+  m_Script: {fileID: 11500000, guid: fc7664a391724afa8781c815b5c7e6ce, type: 3}
+  m_Name: EnemySpawner
   m_EditorClassIdentifier: 
-  ShipDictionary: {fileID: 11400000, guid: a91e5371c4a050a49bb687eeef3fc00b, type: 2}
-  ShipList: {fileID: 11400000, guid: 04ad34c52d444e44e8342f29554855a9, type: 2}
+  FactionShipList: {fileID: 11400000, guid: 04ad34c52d444e44e8342f29554855a9, type: 2}
   LayerMask:
     serializedVersion: 2
     m_Bits: 320
   ShipLayer: EnemyShips
   StartDirection: -1
-  ProjectileParent: {fileID: 0}
-  MothershipList: {fileID: 11400000, guid: db7d474998996f04a88828a7e5cf13fc, type: 2}
+  projectileParentTag: {fileID: 11400000, guid: d24d6b30c57d16347a1b4b1bbe2c326c, type: 2}

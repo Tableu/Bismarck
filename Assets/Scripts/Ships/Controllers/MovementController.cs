@@ -1,3 +1,4 @@
+using Ships;
 using UnityEngine;
 
 public class MovementController
@@ -7,26 +8,27 @@ public class MovementController
 
     private bool _inputLocked;
     private LayerMask _layerMask;
+    private ModifiableStat _speedMultiplier;
     private int _spriteForward = 1;
 
-    public MovementController(GameObject go, float baseSpeed, float rotationSpeed, LayerMask layerMask)
+    public MovementController(GameObject go, ModifiableStat baseSpeed, float rotationSpeed, LayerMask layerMask)
     {
         _transform = go.transform;
         _boxCollider = go.GetComponent<BoxCollider2D>();
-        BaseSpeed = baseSpeed;
+        _speedMultiplier = baseSpeed;
         RotationSpeed = rotationSpeed;
         _layerMask = layerMask;
     }
 
     public Vector2 Position => _transform.position;
-    public float BaseSpeed { get; }
+    public float Speed => _speedMultiplier * 0.02f;
     public float RotationSpeed { get; }
 
-    public bool Move(Vector2 target, float speed)
+    public bool Move(Vector2 target)
     {
         if (Vector2.Distance(_transform.position, target) > 0.1f)
         {
-            _transform.position = Vector2.MoveTowards(_transform.position, target, speed);
+            _transform.position = Vector2.MoveTowards(_transform.position, target, Speed);
             return true;
         }
 

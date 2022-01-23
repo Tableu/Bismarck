@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HighlightTurrets : MonoBehaviour
 {
-    public ShipListScriptableObject playerShips;
+    public ShipList playerShips;
     private List<SpriteRenderer> _highlightedTurrets = new List<SpriteRenderer>();
 
     public void Highlight()
@@ -12,12 +12,14 @@ public class HighlightTurrets : MonoBehaviour
         {
             return;
         }
-        foreach (GameObject ship in playerShips.ShipList)
+
+        foreach (GameObject ship in playerShips.Ships)
         {
             if (ship == null)
             {
                 continue;
             }
+
             Transform turrets = ship.transform.Find("Turrets");
             foreach (SpriteRenderer turret in turrets.GetComponentsInChildren<SpriteRenderer>())
             {
@@ -36,6 +38,7 @@ public class HighlightTurrets : MonoBehaviour
         {
             return;
         }
+
         foreach (SpriteRenderer turret in _highlightedTurrets)
         {
             if (turret != null)
@@ -43,6 +46,7 @@ public class HighlightTurrets : MonoBehaviour
                 turret.color = Color.white;
             }
         }
+
         _highlightedTurrets.Clear();
     }
 }

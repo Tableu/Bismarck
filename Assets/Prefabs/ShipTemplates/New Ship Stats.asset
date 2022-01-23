@@ -9,6 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cfc0f457e58b224e8367d558094c907, type: 3}
-  m_Name: PlayerShipDictionary
+  m_Script: {fileID: 11500000, guid: fd678240bbab43c4a790ebdbd7561187, type: 3}
+  m_Name: New Ship Stats
   m_EditorClassIdentifier: 
+  baseHealth: 10
+  baseSpeedMultiplier: 1
+  baseDamageMultiplier: 1

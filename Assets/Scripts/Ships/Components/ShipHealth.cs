@@ -1,75 +1,45 @@
-using System.ComponentModel;
+using System;
+using Ships.Components;
+using Ships.DataManagment;
 using UnityEngine;
-using UnityWeld.Binding;
 
-[Binding]
-public class ShipHealth : MonoBehaviour, IDamageable, INotifyPropertyChanged
+public class ShipHealth : MonoBehaviour, IDamageable, IInitializableComponent
 {
-    public ShipListScriptableObject selectedShips;
-    public ShipSpawner ShipSpawner;
+    public ShipList selectedShips;
     [SerializeField] private GameObject healthBarPrefab;
-    private HealthBar _healthBar;
-    private int health;
-    private int maxHealth;
+    private bool _healthDirty;
+    private ShipStats _stats;
 
-    [Binding]
-    public int Health
-    {
-        get => health;
-        set
-        {
-            if (health == value)
-            {
-                return;
-            }
-
-            health = value;
-            OnPropertyChanged("Health");
-        }
-    }
+    public float Health => PercentHealth * _stats.MaxHealth;
+    public float PercentHealth { get; private set; } = 1f;
 
     private void Start()
     {
-        GameObject healthBars = GameObject.Find("HealthBars");
-        GameObject healthBar = Instantiate(healthBarPrefab, healthBars.transform);
-        _healthBar = healthBar.GetComponent<HealthBar>();
-        ShipData shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
-        maxHealth = shipData.MaxHealth;
-        health = shipData.Health;
-        _healthBar.Init(transform, shipData.MaxHealth, shipData.Health, 2f);
+        var healthBars = GameObject.Find("HealthBars");
+        var healthBarGo = Instantiate(healthBarPrefab, healthBars.transform);
+        var healthBar = healthBarGo.GetComponent<HealthBar>();
+        healthBar.Bind(this);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        _healthBar.SetHealth(health);
+        if (_healthDirty)
+        {
+            _healthDirty = false;
+            OnHealthChanged?.Invoke();
+        }
     }
 
     private void OnDestroy()
     {
-        if (_healthBar != null && _healthBar.gameObject != null)
-        {
-            Destroy(_healthBar.gameObject);
-        }
-
-        if (selectedShips != null)
-        {
-            selectedShips.RemoveShip(gameObject);
-        }
-
-        ShipSpawner.ShipDictionary.RemoveShip(gameObject.GetInstanceID());
-        ShipSpawner.ShipList.RemoveShip(gameObject);
+        if (selectedShips != null) selectedShips.RemoveShip(gameObject);
     }
 
     public void TakeDamage(Damage dmg)
     {
-        health -= dmg.RawDamage;
-        ShipData shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
-        shipData.Health = health;
-        ShipSpawner.ShipDictionary.UpdateShip(gameObject.GetInstanceID(), shipData);
-        if (health == 0)
-        {
-            Destroy(gameObject);
-        }
+        PercentHealth -= dmg.RawDamage / _stats.MaxHealth;
+        _healthDirty = true;
+        if (PercentHealth <= 0) Destroy(gameObject);
     }
 
     public bool DestroyProjectile(CollisionType type)
@@ -77,13 +47,10 @@ public class ShipHealth : MonoBehaviour, IDamageable, INotifyPropertyChanged
         return true;
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    private void OnPropertyChanged(string propertyName)
+    public void Initialize(ShipData data, ShipSpawner spawner)
     {
-        if (PropertyChanged != null)
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
+        _stats = GetComponent<ShipStats>();
     }
+
+    public event Action OnHealthChanged;
 }

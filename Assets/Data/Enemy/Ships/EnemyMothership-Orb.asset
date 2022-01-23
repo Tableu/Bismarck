@@ -12,17 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb3a7adef543f4488c11cea31c320c0, type: 3}
   m_Name: EnemyMothership-Orb
   m_EditorClassIdentifier: 
-  ShipData:
-    ShipName: Mothership
-    Cost: 100
-    Health: 10
-    MaxHealth: 10
-    Speed: 0.05
-    StopDistance: 0.1
-    AggroRange: 50
-    BlocksMovement: 1
-    Weapons:
-    - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
-    - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
-    StartingPos: {x: 0, y: 0}
-    ShipPrefab: {fileID: 4271728520197243408, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+  shipName: Mothership-Enemy
+  prefab: {fileID: 4271728520197243408, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+  Cost: 100
+  Weapons:
+  - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
+  - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
+  blocksMovement: 1
+  health: 10
+  speedMultiplier: 1
+  damageMultiplier: 1
+  sensorRange: 50
+  targetRange: 0
+  shipLists:
+  - {fileID: 11400000, guid: db7d474998996f04a88828a7e5cf13fc, type: 2}
+  - {fileID: 11400000, guid: 04ad34c52d444e44e8342f29554855a9, type: 2}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  projectileParentTag: {fileID: 11400000, guid: d24d6b30c57d16347a1b4b1bbe2c326c, type: 2}
+  Tags: 2147483647

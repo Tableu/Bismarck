@@ -1,58 +1,34 @@
+using System;
 using System.Collections.Generic;
+using Ships.Components;
+using Ships.DataManagment;
 using UnityEngine;
 
-public class ShipTurrets : MonoBehaviour
+public class ShipTurrets : MonoBehaviour, IInitializableComponent
 {
-    public List<Transform> turretPositions;
-    public Transform turretParent;
-    public ShipSpawner ShipSpawner;
-    private List<AttackScriptableObject> attackScriptableObjects;
+    [SerializeField] private List<Transform> turretPositions;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Transform turretParent;
+
+    private List<AttackScriptableObject> _weapons;
+
+    public IReadOnlyCollection<Transform> TurretPositions => turretPositions;
+
+    public void Initialize(ShipData data, ShipSpawner spawner)
     {
-        var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
-        attackScriptableObjects = shipData.Weapons;
-
-        List<Transform>.Enumerator turretPos = turretPositions.GetEnumerator();
-        foreach (AttackScriptableObject attackScriptableObject in attackScriptableObjects)
-        {
-            if (!turretPos.MoveNext())
-            {
-                break;
-            }
-
-            GameObject turret = Instantiate(attackScriptableObject.Turret, turretParent, false);
-            turret.transform.localPosition = turretPos.Current.localPosition;
-            turret.layer = gameObject.layer;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        _weapons = data.Weapons;
+        Refresh();
     }
 
     public void Refresh()
     {
-        foreach (Transform child in turretParent)
+        foreach (Transform child in turretParent) Destroy(child.gameObject);
+
+        var len = Math.Min(turretPositions.Count, _weapons.Count);
+        for (var i = 0; i < len; i++)
         {
-            Destroy(child.gameObject);
-        }
-
-        var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
-        attackScriptableObjects = shipData.Weapons;
-
-        List<Transform>.Enumerator turretPos = turretPositions.GetEnumerator();
-        foreach (AttackScriptableObject attackScriptableObject in attackScriptableObjects)
-        {
-            if (!turretPos.MoveNext())
-            {
-                break;
-            }
-
-            GameObject turret = Instantiate(attackScriptableObject.Turret, turretParent, false);
-            turret.transform.localPosition = turretPos.Current.localPosition;
+            var turret = Instantiate(_weapons[i].Turret, turretParent, false);
+            turret.transform.localPosition = turretPositions[i].localPosition;
             turret.layer = gameObject.layer;
         }
     }

@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cfc0f457e58b224e8367d558094c907, type: 3}
-  m_Name: EnemyShipDictionary
+  m_Script: {fileID: 11500000, guid: b81c786cae2e41809f37c8bab408e16c, type: 3}
+  m_Name: EnemyProjectiles
   m_EditorClassIdentifier: 
+  Tag: EnemyProjectiles

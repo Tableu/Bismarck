@@ -1,14 +1,14 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Ships", menuName = "Ships/ShipList")]
-public class ShipListScriptableObject : ScriptableObject
+public class ShipList : ScriptableObject
 {
     private List<GameObject> shipList;
 
     public int Count => shipList.Count;
-    public List<GameObject> ShipList => shipList.ToList();
+    public IReadOnlyList<GameObject> Ships => shipList;
 
     public void OnEnable()
     {
@@ -18,11 +18,13 @@ public class ShipListScriptableObject : ScriptableObject
     public void AddShip(GameObject ship)
     {
         shipList.Add(ship);
+        OnListChanged?.Invoke();
     }
 
     public void RemoveShip(GameObject ship)
     {
         shipList.Remove(ship);
+        OnListChanged?.Invoke();
     }
 
     public GameObject GetShip(int id)
@@ -33,5 +35,8 @@ public class ShipListScriptableObject : ScriptableObject
     public void ClearList()
     {
         shipList.Clear();
+        OnListChanged?.Invoke();
     }
+
+    public event Action OnListChanged;
 }

@@ -9,32 +9,40 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private int playerHealth;
 
     [SerializeField] private float barDisplacement;
+    private ShipHealth _shipHealth;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         healthBar = GetComponent<Slider>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (target != null)
-        {
             gameObject.transform.position = (Vector2) target.position + Vector2.down * barDisplacement;
-        }
+        else
+            Destroy(gameObject);
     }
 
-    public void Init(Transform target, int maxHealth, int health, float displacement)
+    private void OnDestroy()
     {
-        healthBar.maxValue = maxHealth;
-        healthBar.value = health;
-        barDisplacement = displacement;
-        this.target = target;
+        if (_shipHealth != null) _shipHealth.OnHealthChanged -= Redraw;
     }
 
-    public void SetHealth(int health)
+    public void Bind(ShipHealth bindingTarget)
     {
-        healthBar.value = health;
+        healthBar.maxValue = 1f;
+        healthBar.value = bindingTarget.PercentHealth;
+        target = bindingTarget.transform;
+        _shipHealth = bindingTarget;
+        _shipHealth.OnHealthChanged += Redraw;
+        transform.localPosition = Vector2.down * barDisplacement;
+    }
+
+    private void Redraw()
+    {
+        healthBar.value = _shipHealth.PercentHealth;
     }
 }
