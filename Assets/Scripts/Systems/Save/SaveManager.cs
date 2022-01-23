@@ -13,7 +13,9 @@ namespace Systems.Save
     {
         [SerializeField] private ShipList shipsToSave;
         [SerializeField] private ShipSpawner shipSpawner;
-        public string savePath;
+
+        [NonSerialized] public string savePath;
+
         public static SaveManager Instance { get; private set; }
         public static string DefaultSavePath => Application.persistentDataPath + "/savedata.save";
 
@@ -41,6 +43,7 @@ namespace Systems.Save
         [ContextMenu("Load Game")]
         public bool Load()
         {
+            if (savePath is null || savePath == "") savePath = DefaultSavePath;
             if (!File.Exists(savePath)) return false;
 
             // todo: catch exceptions
