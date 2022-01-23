@@ -3,14 +3,14 @@ using UnityEngine;
 using UnityWeld.Binding;
 
 [Binding]
-public class ShipHealth : MonoBehaviour,IDamageable, INotifyPropertyChanged
+public class ShipHealth : MonoBehaviour, IDamageable, INotifyPropertyChanged
 {
     public ShipListScriptableObject selectedShips;
     public ShipSpawner ShipSpawner;
     [SerializeField] private GameObject healthBarPrefab;
-    private int maxHealth;
-    private int health;
     private HealthBar _healthBar;
+    private int health;
+    private int maxHealth;
 
     [Binding]
     public int Health
@@ -22,19 +22,12 @@ public class ShipHealth : MonoBehaviour,IDamageable, INotifyPropertyChanged
             {
                 return;
             }
+
             health = value;
             OnPropertyChanged("Health");
         }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
-    private void OnPropertyChanged(string propertyName)
-    {
-        if (PropertyChanged != null)
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
     private void Start()
     {
         GameObject healthBars = GameObject.Find("HealthBars");
@@ -50,22 +43,10 @@ public class ShipHealth : MonoBehaviour,IDamageable, INotifyPropertyChanged
     {
         _healthBar.SetHealth(health);
     }
-    
-    public void TakeDamage(Damage dmg)
-    {
-        health -= dmg.RawDamage;
-        ShipData shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
-        shipData.Health = health;
-        ShipSpawner.ShipDictionary.UpdateShip(gameObject.GetInstanceID(), shipData);
-        if (health == 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-    
+
     private void OnDestroy()
     {
-        if(_healthBar != null && _healthBar.gameObject != null)
+        if (_healthBar != null && _healthBar.gameObject != null)
         {
             Destroy(_healthBar.gameObject);
         }
@@ -78,9 +59,31 @@ public class ShipHealth : MonoBehaviour,IDamageable, INotifyPropertyChanged
         ShipSpawner.ShipDictionary.RemoveShip(gameObject.GetInstanceID());
         ShipSpawner.ShipList.RemoveShip(gameObject);
     }
-    
+
+    public void TakeDamage(Damage dmg)
+    {
+        health -= dmg.RawDamage;
+        ShipData shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
+        shipData.Health = health;
+        ShipSpawner.ShipDictionary.UpdateShip(gameObject.GetInstanceID(), shipData);
+        if (health == 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public bool DestroyProjectile(CollisionType type)
     {
         return true;
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    private void OnPropertyChanged(string propertyName)
+    {
+        if (PropertyChanged != null)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

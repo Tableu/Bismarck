@@ -5,6 +5,7 @@ public class FighterShipLogic : ShipLogic
     public ShipListScriptableObject MothershipList;
     [SerializeField] public GameObject mothership;
     [SerializeField] private bool returning;
+
     private new void Start()
     {
         base.Start();
@@ -15,6 +16,7 @@ public class FighterShipLogic : ShipLogic
         StateMachine.SetState(_moveToTarget);
         MothershipList = ShipSpawner.MothershipList;
     }
+
     private new void FixedUpdate()
     {
         StateMachine.Tick();
@@ -22,7 +24,9 @@ public class FighterShipLogic : ShipLogic
         {
             mothership = MothershipList.ShipList[0];
         }
-        if (returning && mothership != null && Vector2.Distance(transform.position, mothership.transform.position) < .5f)
+
+        if (returning && mothership != null &&
+            Vector2.Distance(transform.position, mothership.transform.position) < .5f)
         {
             Destroy(gameObject);
         }
@@ -40,6 +44,7 @@ public class FighterShipLogic : ShipLogic
                 _moveToTarget.OnEnter();
             }
         }
+
         if (target == null || Vector2.Distance(transform.position, target.transform.position) < .5f)
         {
             returning = true;
@@ -47,8 +52,10 @@ public class FighterShipLogic : ShipLogic
             {
                 command.StopAttack();
             }
+
             return true;
         }
+
         return false;
     }
 }

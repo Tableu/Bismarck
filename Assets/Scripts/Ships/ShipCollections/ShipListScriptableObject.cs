@@ -9,6 +9,12 @@ public class ShipListScriptableObject : ScriptableObject
 
     public int Count => shipList.Count;
     public List<GameObject> ShipList => shipList.ToList();
+
+    public void OnEnable()
+    {
+        shipList = new List<GameObject>();
+    }
+
     public void AddShip(GameObject ship)
     {
         shipList.Add(ship);
@@ -27,10 +33,5 @@ public class ShipListScriptableObject : ScriptableObject
     public void ClearList()
     {
         shipList.Clear();
-    }
-
-    public void OnEnable()
-    {
-        shipList = new List<GameObject>();
     }
 }
