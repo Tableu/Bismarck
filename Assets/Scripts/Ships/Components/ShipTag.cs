@@ -1,4 +1,4 @@
-﻿using Ships.DataManagment;
+﻿using Ships.DataManagement;
 using UnityEngine;
 
 namespace Ships.Components

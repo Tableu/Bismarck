@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Ships.DataManagment;
+using Ships.DataManagement;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Ships", menuName = "Ships/ShipDB")]

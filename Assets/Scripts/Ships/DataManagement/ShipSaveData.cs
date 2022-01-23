@@ -2,7 +2,7 @@
 using Ships.Components;
 using UnityEngine;
 
-namespace Ships.DataManagment
+namespace Ships.DataManagement
 {
     [Serializable]
     public struct ShipSaveData

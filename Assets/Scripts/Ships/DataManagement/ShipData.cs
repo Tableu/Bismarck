@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Systems;
 using UnityEngine;
 
-namespace Ships.DataManagment
+namespace Ships.DataManagement
 {
     [CreateAssetMenu(fileName = "Ships", menuName = "Ships/ShipData")]
     [Serializable]

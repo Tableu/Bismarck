@@ -1,7 +1,7 @@
 ﻿using System;
 using DefaultNamespace;
 using Ships.Components;
-using Ships.DataManagment;
+using Ships.DataManagement;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Spawners", menuName = "Spawners/ShipSpawner", order = 0)]

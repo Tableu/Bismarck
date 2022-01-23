@@ -1,4 +1,4 @@
-﻿using Ships.DataManagment;
+﻿using Ships.DataManagement;
 
 namespace Ships.Components
 {

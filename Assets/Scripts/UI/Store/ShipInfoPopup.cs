@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Ships.Components;
-using Ships.DataManagment;
+using Ships.DataManagement;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;

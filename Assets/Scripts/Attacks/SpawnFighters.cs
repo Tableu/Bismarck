@@ -1,6 +1,6 @@
 using System.Collections;
 using Ships.Components;
-using Ships.DataManagment;
+using Ships.DataManagement;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SpawnUnit", menuName = "SpawnUnit/SpawnFighters", order = 0)]

@@ -1,6 +1,6 @@
 using System;
 using Ships.Components;
-using Ships.DataManagment;
+using Ships.DataManagement;
 using UnityEngine;
 
 public class ShipHealth : MonoBehaviour, IDamageable, IInitializableComponent, ILoadableComponent
