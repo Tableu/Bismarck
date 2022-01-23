@@ -1,7 +1,6 @@
-﻿using Systems.Modifiers;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Demo
+namespace Systems.Modifiers
 {
     public class ModiferAdder : MonoBehaviour
     {

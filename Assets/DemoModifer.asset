@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96afdcbcf3d4c68a60996a0d9ed0b04, type: 3}
+  m_Name: DemoModifer
+  m_EditorClassIdentifier: 
+  ModiferName: DoT Speed
+  Effects:
+  - {fileID: 11400000, guid: e040517feb7d00641aa899dbec747b93, type: 2}
+  - {fileID: 11400000, guid: fcc9cf367560b5d4aa4040c62e4ebb61, type: 2}
+  Condition: {fileID: 0}
+  Duration: 10
+  HasDuration: 1

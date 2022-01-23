@@ -5,6 +5,7 @@ namespace Systems.Modifiers
 {
     public class ModifiableTarget : MonoBehaviour
     {
+        private readonly List<Coroutine> _effectRoutines = new List<Coroutine>();
         private readonly List<Modifer> _modifiers = new List<Modifer>();
         public IReadOnlyList<Modifer> Modifiers => _modifiers;
 

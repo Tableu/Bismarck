@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Ships
+namespace Systems.Modifiers
 {
     /// <summary>
     /// A class that provides a uniform interface for modifying statistics.
@@ -27,7 +27,7 @@ namespace Ships
         /// <remarks>
         /// A value of 0 indicates no scaling.
         /// </remarks>
-        public float BaseModifier { get; set; }
+        public float BaseModifier { get; internal set; }
 
         /// <summary>
         /// A percent multiplicative modifer used to scale the base stat. Intended to be used for difficulty scaling.
@@ -35,7 +35,7 @@ namespace Ships
         /// <remarks>
         /// A value of 0 indicates no scaling.
         /// </remarks>
-        public float ScalingModifer { get; set; }
+        public float ScalingModifer { get; internal set; }
 
         /// <summary>
         /// A percent multiplicative modifer used to scale the base stat.
@@ -43,7 +43,7 @@ namespace Ships
         /// <remarks>
         /// A value of 0 indicates no scaling.
         /// </remarks>
-        public float MultiplicativeModifer { get; set; }
+        public float MultiplicativeModifer { get; internal set; }
 
         /// <summary>
         /// The current value of this stat with all modifiers applied.
@@ -52,7 +52,7 @@ namespace Ships
         /// Constraints the current value to be non-negative to prevent potential bugs like dealing negative damage.
         /// </remarks>
         public float CurrentValue =>
-            Mathf.Max((BaseValue + BaseModifier) * (1 + ScalingModifer) + (1 + MultiplicativeModifer), 0);
+            Mathf.Max((BaseValue + BaseModifier) * (1 + ScalingModifer) * (1 + MultiplicativeModifer), 0);
 
         public void UpdateBaseValue(float value)
         {

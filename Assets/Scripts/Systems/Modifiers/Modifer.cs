@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Systems.Modifiers
@@ -11,6 +12,7 @@ namespace Systems.Modifiers
         public readonly ModifierData Data;
 
         private bool _enabled;
+        private List<PeriodicEffect.PeriodicEffectInstance> _periodicEffects = new List<PeriodicEffect.PeriodicEffectInstance>();
         private ModifiableTarget _target;
 
         internal Modifer(ModifierData data, ModifiableTarget target)
@@ -61,6 +63,7 @@ namespace Systems.Modifiers
             if (_target != null)
             {
                 if (Active) DeactivateEffects();
+                _target.StartCoroutine(OnAttach());
                 _target = null;
             }
 
@@ -70,13 +73,28 @@ namespace Systems.Modifiers
         private void ActivateEffects()
         {
             foreach (var effect in Data.Effects)
+            {
                 effect.Apply(_target);
+                if (effect is PeriodicEffect periodicEffect)
+                {
+                    var inst = periodicEffect.CreateInstance(_target);
+                    _periodicEffects.Add(inst);
+                    _target.StartCoroutine(inst.Start());
+                }
+            }
         }
 
         private void DeactivateEffects()
         {
             foreach (var effect in Data.Effects)
+            {
                 effect.Remove(_target);
+            }
+            foreach (var periodicEffect in _periodicEffects)
+            {
+                periodicEffect.Stop();
+            }
+            _periodicEffects.Clear();
         }
 
         private void OnConditionChanged(bool newValue)

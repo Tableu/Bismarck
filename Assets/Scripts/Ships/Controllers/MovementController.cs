@@ -1,4 +1,4 @@
-using Ships;
+using Systems.Modifiers;
 using UnityEngine;
 
 public class MovementController
@@ -63,7 +63,7 @@ public class MovementController
 
     public int GetDirection()
     {
-        return (int) Mathf.Sign(_transform.localScale.x * _spriteForward);
+        return (int)Mathf.Sign(_transform.localScale.x * _spriteForward);
     }
 
     public void SetDirection(int dir)
