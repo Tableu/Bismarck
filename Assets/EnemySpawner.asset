@@ -18,4 +18,4 @@ MonoBehaviour:
     m_Bits: 320
   ShipLayer: EnemyShips
   StartDirection: -1
-  projectileParentTag: {fileID: 11400000, guid: d24d6b30c57d16347a1b4b1bbe2c326c, type: 2}
+  projectileParentTag: EnemyProjectiles

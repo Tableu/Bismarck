@@ -1,6 +1,5 @@
 ﻿using System;
 using DefaultNamespace;
-using DefaultNamespace.Systems;
 using Ships.Components;
 using Ships.DataManagment;
 using UnityEngine;
@@ -13,9 +12,9 @@ public class ShipSpawner : ScriptableObject
     public LayerMask LayerMask;
     public string ShipLayer;
     public int StartDirection;
-    [SerializeField] private TagReference projectileParentTag;
+    [SerializeField] private string projectileParentTag;
 
-    public string ProjectileParentTag => projectileParentTag.Tag;
+    public string ProjectileParentTag => projectileParentTag;
 
     public GameObject SpawnShip(ShipData data, Transform parent, Vector2 position)
     {
