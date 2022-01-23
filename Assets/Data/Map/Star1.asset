@@ -16,3 +16,5 @@ MonoBehaviour:
   Coordinates: {x: 1, y: 1}
   MainStar: {fileID: 11400000, guid: 1df83af2393b0e346b60f0a4d42766ac, type: 2}
   StarSize: 1
+  EnemyShipSpawner: {fileID: 11400000, guid: 85bc1e1c3448fd2458f7461165830df2, type: 2}
+  RandomFleetDB: {fileID: 11400000, guid: 86f19fedf2acb594ebaef13b61212778, type: 2}

@@ -52,10 +52,6 @@ namespace StarMap
                 if (camera != null)
                 {
                     camera.enabled = true;
-                    CameraMove cm = camera.GetComponent<CameraMove>();
-                    if (cm != null) cm.enabled = true;
-                    CameraZoom cz = camera.GetComponent<CameraZoom>();
-                    if (cz != null) cz.enabled = true;
                 }
             }
 

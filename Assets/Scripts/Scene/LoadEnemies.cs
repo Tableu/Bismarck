@@ -1,18 +1,19 @@
 using System.Collections;
+using StarMap;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class LoadEnemies : MonoBehaviour
 {
-    [SerializeField] private ShipDictionary enemyShipDict;
     [SerializeField] private ShipSpawner enemyShipSpawner;
-    [SerializeField] private FleetDBScriptableObject randomFleetDB;
+    [SerializeField] private MapContext mapContext;
     [SerializeField] private Transform fleetParent;
     [SerializeField] private Transform projectileParent;
     // Start is called before the first frame update
     void Start()
     {
+        FleetDBScriptableObject randomFleetDB = mapContext.CurrentSystem.RandomFleetDB;
         enemyShipSpawner.ProjectileParent = projectileParent;
-        RandomFleet fleet = randomFleetDB.fleetDB[0];
+        RandomFleet fleet = randomFleetDB.fleetDB[Random.Range(0, randomFleetDB.fleetDB.Count)];
         IEnumerator fleetPositions = fleet.fleetVisualsPrefab.GetComponentsInChildren<Transform>().GetEnumerator();
         
         foreach (RandomShipList randomShip in fleet.randomFleet)

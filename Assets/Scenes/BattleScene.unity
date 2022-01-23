@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 314777254}
   m_Layer: 10
   m_Name: EnemyProjectiles
-  m_TagString: Untagged
+  m_TagString: EnemyProjectiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 657645083}
   m_Layer: 9
   m_Name: EnemyShips
-  m_TagString: Untagged
+  m_TagString: EnemyShips
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1038,9 +1038,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac2f99d4182e464a92c6d8cd2a04a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyShipDict: {fileID: 11400000, guid: a91e5371c4a050a49bb687eeef3fc00b, type: 2}
   enemyShipSpawner: {fileID: 11400000, guid: 85bc1e1c3448fd2458f7461165830df2, type: 2}
-  randomFleetDB: {fileID: 11400000, guid: 86f19fedf2acb594ebaef13b61212778, type: 2}
+  mapContext: {fileID: 11400000, guid: 3881cca7baa47e141b80568331dfa35a, type: 2}
   fleetParent: {fileID: 657645082}
   projectileParent: {fileID: 314777254}
 --- !u!1 &777196442

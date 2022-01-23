@@ -9,6 +9,8 @@ TagManager:
   - PlayerProjectiles
   - Weapon
   - Store
+  - EnemyProjectiles
+  - EnemyShips
   layers:
   - Default
   - TransparentFX
