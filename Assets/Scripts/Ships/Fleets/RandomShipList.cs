@@ -27,8 +27,10 @@ public class RandomShipList
             {
                 return randomShips[index].MakeShipData();
             }
+
             index++;
         }
+
         return randomShips[0].MakeShipData();
     }
 }

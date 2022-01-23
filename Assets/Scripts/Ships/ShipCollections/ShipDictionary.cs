@@ -7,7 +7,12 @@ public class ShipDictionary : ScriptableObject
 {
     private Dictionary<int, ShipData> shipDict;
     public int Count => shipDict.Count;
-    
+
+    private void OnEnable()
+    {
+        shipDict = new Dictionary<int, ShipData>();
+    }
+
     public void AddShip(ShipData ship, int id)
     {
         shipDict.Add(id, ship);
@@ -41,10 +46,5 @@ public class ShipDictionary : ScriptableObject
     public List<ShipData> ShipDataList()
     {
         return shipDict.Values.ToList();
-    }
-
-    private void OnEnable()
-    {
-        shipDict = new Dictionary<int, ShipData>();
     }
 }

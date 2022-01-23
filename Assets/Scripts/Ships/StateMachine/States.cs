@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveForwardState : IState
 {
-    private readonly ShipLogic _shipBattle;
     private readonly MovementController _movement;
+    private readonly ShipLogic _shipBattle;
     private float _speed;
 
     public MoveForwardState(ShipLogic shipBattle, MovementController movement)
@@ -13,11 +11,12 @@ public class MoveForwardState : IState
         _shipBattle = shipBattle;
         _movement = movement;
     }
+
     public void Tick()
     {
-        if (_movement.DirectionClear(_shipBattle.transform.forward,1))
+        if (_movement.DirectionClear(_shipBattle.transform.forward, 1))
         {
-            _movement.Move(_shipBattle.transform.position+(Vector3.right*10*_movement.GetDirection()),_speed);
+            _movement.Move(_shipBattle.transform.position + (Vector3.right * 10 * _movement.GetDirection()), _speed);
         }
     }
 
@@ -28,17 +27,15 @@ public class MoveForwardState : IState
 
     public void OnExit()
     {
-        
     }
 }
 
 public class MoveToTargetState : IState
 {
-    private readonly ShipLogic _shipBattle;
     private readonly MovementController _movement;
-    public GameObject Target { get; set; }
-    private float _speed;
+    private readonly ShipLogic _shipBattle;
     private float _rotationSpeed;
+    private float _speed;
 
     public MoveToTargetState(ShipLogic shipBattle, MovementController movement, GameObject target)
     {
@@ -46,13 +43,16 @@ public class MoveToTargetState : IState
         _movement = movement;
         Target = target;
     }
+
+    public GameObject Target { get; set; }
+
     public void Tick()
     {
         if (Target == null)
             return;
-        if (_movement.DirectionClear(Target.transform.position - _shipBattle.transform.position,1))
+        if (_movement.DirectionClear(Target.transform.position - _shipBattle.transform.position, 1))
         {
-            _movement.Move(Target.transform.position,_speed);
+            _movement.Move(Target.transform.position, _speed);
         }
         //_movement.RotateTowards(_target.transform,_rotationSpeed);
     }
@@ -63,22 +63,21 @@ public class MoveToTargetState : IState
             return;
         _speed = _movement.BaseSpeed;
         Vector3 diff = Target.transform.position - _shipBattle.transform.position;
-        _movement.SetDirection((int)Mathf.Sign(diff.x));
+        _movement.SetDirection((int) Mathf.Sign(diff.x));
         //_rotationSpeed = _movement.RotationSpeed;
     }
 
     public void OnExit()
     {
-        
     }
 }
+
 public class MoveToPositionState : IState
 {
-    private readonly ShipLogic _shipBattle;
     private readonly MovementController _movement;
-    public Vector2 Position { get; set; }
-    private float _speed;
+    private readonly ShipLogic _shipBattle;
     private float _rotationSpeed;
+    private float _speed;
 
     public MoveToPositionState(ShipLogic shipBattle, MovementController movement, Vector2 position)
     {
@@ -86,11 +85,14 @@ public class MoveToPositionState : IState
         _movement = movement;
         Position = position;
     }
+
+    public Vector2 Position { get; set; }
+
     public void Tick()
     {
-        if (_movement.DirectionClear(Position - (Vector2)_shipBattle.transform.position,1))
+        if (_movement.DirectionClear(Position - (Vector2) _shipBattle.transform.position, 1))
         {
-            _movement.Move(Position,_speed);
+            _movement.Move(Position, _speed);
         }
         //_movement.RotateTowards(_target.transform,_rotationSpeed);
     }
@@ -100,13 +102,12 @@ public class MoveToPositionState : IState
         if (Position == null)
             return;
         _speed = _movement.BaseSpeed;
-        Vector3 diff = Position - (Vector2)_shipBattle.transform.position;
-        _movement.SetDirection((int)Mathf.Sign(diff.x));
+        Vector3 diff = Position - (Vector2) _shipBattle.transform.position;
+        _movement.SetDirection((int) Mathf.Sign(diff.x));
         //_rotationSpeed = _movement.RotationSpeed;
     }
 
     public void OnExit()
     {
-        
     }
 }

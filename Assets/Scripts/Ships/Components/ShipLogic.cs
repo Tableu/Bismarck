@@ -3,18 +3,19 @@ using UnityEngine;
 
 public class ShipLogic : MonoBehaviour
 {
-    protected MovementController _movementController;
-    protected List<AttackCommand> _attackCommands;
     public ShipSpawner ShipSpawner;
-    private List<AttackScriptableObject> attackScriptableObjects;
-    private bool blocksMovement;
-    [Header("Objects")]
-    [SerializeField] protected GameObject target;
+
+    [Header("Objects")] [SerializeField] protected GameObject target;
+
     [SerializeField] public List<Transform> turretPositions;
+    protected List<AttackCommand> _attackCommands;
+    protected MoveForwardState _moveForward;
+    protected MovementController _movementController;
+    protected MoveToPositionState _moveToPosition;
 
     protected MoveToTargetState _moveToTarget;
-    protected MoveToPositionState _moveToPosition;
-    protected MoveForwardState _moveForward;
+    private List<AttackScriptableObject> attackScriptableObjects;
+    private bool blocksMovement;
     protected FSM StateMachine;
     public bool BlocksMovement => blocksMovement;
 
@@ -36,6 +37,7 @@ public class ShipLogic : MonoBehaviour
             {
                 break;
             }
+
             AttackCommand attackCommand = attackScriptableObject.MakeAttack();
             StartCoroutine(attackCommand.DoAttack(gameObject, turretPos.Current));
             attackCommand.SetParent(ShipSpawner.ProjectileParent);
@@ -60,13 +62,16 @@ public class ShipLogic : MonoBehaviour
         _moveToTarget.Target = target;
         StateMachine.SetState(_moveToTarget);
     }
+
     protected bool HasReachedTarget()
     {
         var shipData = ShipSpawner.ShipDictionary.GetShip(gameObject.GetInstanceID());
-        if (_moveToTarget.Target == null || Vector2.Distance(transform.position, _moveToTarget.Target.transform.position) < shipData.StopDistance)
+        if (_moveToTarget.Target == null ||
+            Vector2.Distance(transform.position, _moveToTarget.Target.transform.position) < shipData.StopDistance)
         {
             return true;
         }
+
         return false;
     }
 
@@ -77,6 +82,7 @@ public class ShipLogic : MonoBehaviour
         {
             return true;
         }
+
         return false;
     }
 
@@ -87,6 +93,7 @@ public class ShipLogic : MonoBehaviour
         {
             return false;
         }
+
         GameObject enemy = DetectionController.DetectShip(shipData.AggroRange, gameObject);
         if (enemy != null)
         {
@@ -96,8 +103,10 @@ public class ShipLogic : MonoBehaviour
                 command.SetTarget(enemy);
                 StartCoroutine(command.DoAttack(gameObject));
             }
+
             return true;
         }
+
         return false;
     }
 }
