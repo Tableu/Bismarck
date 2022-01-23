@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using DefaultNamespace;
+using Ships.Components;
 using Ships.DataManagment;
 using UnityEngine;
 
@@ -50,8 +51,15 @@ namespace Systems.Save
                 name = "Ships",
                 tag = "Ships"
             };
-            foreach (var saveDataShip in saveData.ships)
-                shipSpawner.SpawnShip(saveDataShip.shipData, parent.transform, saveDataShip.position);
+            foreach (var shipSaveData in saveData.ships)
+            {
+                var ship = shipSpawner.SpawnShip(shipSaveData.shipData, parent.transform, shipSaveData.position);
+                foreach (var loadableComponent in ship.GetComponents<ILoadableComponent>())
+                {
+                    loadableComponent.Load(shipSaveData);
+                }
+            }
+
             return true;
         }
 

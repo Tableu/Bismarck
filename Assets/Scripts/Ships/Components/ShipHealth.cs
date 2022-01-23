@@ -3,7 +3,7 @@ using Ships.Components;
 using Ships.DataManagment;
 using UnityEngine;
 
-public class ShipHealth : MonoBehaviour, IDamageable, IInitializableComponent
+public class ShipHealth : MonoBehaviour, IDamageable, IInitializableComponent, ILoadableComponent
 {
     public ShipList selectedShips;
     [SerializeField] private GameObject healthBarPrefab;
@@ -50,6 +50,17 @@ public class ShipHealth : MonoBehaviour, IDamageable, IInitializableComponent
     public void Initialize(ShipData data, ShipSpawner spawner)
     {
         _stats = GetComponent<ShipStats>();
+    }
+
+    public void Load(ShipSaveData saveData)
+    {
+        PercentHealth = saveData.healthPercentage;
+    }
+
+    [ContextMenu("Test Damage")]
+    public void TestDamage()
+    {
+        TakeDamage(new Damage(Vector2.down, 1, CollisionType.energy));
     }
 
     public event Action OnHealthChanged;
