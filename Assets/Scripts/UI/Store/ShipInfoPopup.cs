@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using UnityEditor;
+using Ships.Components;
+using Ships.DataManagement;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -8,10 +9,10 @@ using UnityEngine.UI;
 
 public class ShipInfoPopup : MonoBehaviour
 {
-    public ShipDictionary ShipDictionary;
+    // public ShipDictionary ShipDictionary;
     public GameObject Ship;
     public ShipData _shipData;
-    
+
     [SerializeField] private GameObject weaponSlotPrefab;
     [SerializeField] private GameObject moduleSlotPrefab;
     [SerializeField] private GameObject weaponsGridLayout;
@@ -20,31 +21,20 @@ public class ShipInfoPopup : MonoBehaviour
     [SerializeField] private GameObject modulesLabel;
     [SerializeField] private GraphicRaycaster graphicRaycaster;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Refresh(GameObject ship)
     {
         foreach (Transform child in weaponsGridLayout.transform)
         {
             Destroy(child.gameObject);
         }
+
         foreach (Transform child in modulesGridLayout.transform)
         {
             Destroy(child.gameObject);
         }
 
         Ship = ship;
-        _shipData = ShipDictionary.GetShip(Ship.GetInstanceID());
+        _shipData = ship.GetComponent<ShipStats>().Data;
         SpawnWeapons();
         bool weapons = weaponsGridLayout.transform.childCount != 0;
         bool modules = modulesGridLayout.transform.childCount != 0;
@@ -56,9 +46,9 @@ public class ShipInfoPopup : MonoBehaviour
 
     private void SpawnWeapons()
     {
-        ShipTurrets turrets = _shipData.ShipPrefab.GetComponent<ShipTurrets>(); 
+        ShipTurrets turrets = _shipData.prefab.GetComponent<ShipTurrets>();
         List<AttackScriptableObject>.Enumerator weapons = _shipData.Weapons.GetEnumerator();
-        int weaponSlotCount = turrets != null ? turrets.turretPositions.Count : _shipData.Weapons.Count;
+        int weaponSlotCount = turrets != null ? turrets.TurretPositions.Count : _shipData.Weapons.Count;
 
         while (weaponSlotCount != 0)
         {
@@ -95,12 +85,11 @@ public class ShipInfoPopup : MonoBehaviour
             switch (hit.gameObject.tag)
             {
                 case "Store":
-                    
+
                     break;
                 case "WeaponSlot":
                     break;
             }
-            
         }
     }
 }

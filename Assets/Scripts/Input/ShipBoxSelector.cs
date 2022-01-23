@@ -6,30 +6,22 @@ using UnityEngine.UI;
 //Selection box code: https://gamedevacademy.org/rts-unity-tutorial/
 public class ShipBoxSelector : MonoBehaviour
 {
-    private PlayerInputActions _playerInputActions;
-    public ShipListScriptableObject selectedShips;
-    public ShipListScriptableObject playerShips;
+    public ShipList selectedShips;
+    public ShipList playerShips;
     public PlayerInputScriptableObject playerInput;
     public UnityEvent SelectedShipsEvent;
     [SerializeField] private RectTransform selectionBox;
     [SerializeField] private GraphicRaycaster graphicRaycaster;
-    private Vector2 _startPos;
-    private Vector2 _projectedMousePos;
     private bool _drawSelectionBox = false;
+    private PlayerInputActions _playerInputActions;
+    private Vector2 _projectedMousePos;
+    private Vector2 _startPos;
 
     private void Awake()
     {
         _playerInputActions = playerInput.PlayerInputActions;
     }
-    private void OnEnable()
-    {
-        _playerInputActions.Enable();
-    }
 
-    private void OnDisable()
-    {
-        _playerInputActions.Disable();
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -48,9 +40,25 @@ public class ShipBoxSelector : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        _playerInputActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _playerInputActions.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        _playerInputActions.UI.LeftClick.started -= LeftClick;
+        _playerInputActions.UI.LeftClick.canceled -= LeftClick;
+    }
+
     private void UpdateSelectionBox()
     {
-        if(!selectionBox.gameObject.activeInHierarchy)
+        if (!selectionBox.gameObject.activeInHierarchy)
             selectionBox.gameObject.SetActive(true);
         float width = _projectedMousePos.x - _startPos.x;
         float height = _projectedMousePos.y - _startPos.y;
@@ -61,16 +69,16 @@ public class ShipBoxSelector : MonoBehaviour
     private void ReleaseSelectionBox()
     {
         selectionBox.gameObject.SetActive(false);
-        Vector3 min = selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2);
-        Vector3 max = selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2);
-        
+        Vector3 min = selectionBox.position - (Vector3) (selectionBox.sizeDelta / 2);
+        Vector3 max = selectionBox.position + (Vector3) (selectionBox.sizeDelta / 2);
+
         playerInput.DeSelectShips();
-        foreach(GameObject ship in playerShips.ShipList)
+        foreach (GameObject ship in playerShips.Ships)
         {
             if (ship == null)
                 continue;
             Vector3 position = ship.transform.position;
-            if (position.x < max.x && position.x > min.x && 
+            if (position.x < max.x && position.x > min.x &&
                 position.y < max.y && position.y > min.y)
             {
                 selectedShips.AddShip(ship);
@@ -81,10 +89,10 @@ public class ShipBoxSelector : MonoBehaviour
                 }
             }
         }
-        
+
         SelectedShipsEvent.Invoke();
     }
-    
+
     private void LeftClick(InputAction.CallbackContext context)
     {
         switch (context.phase)
@@ -95,20 +103,16 @@ public class ShipBoxSelector : MonoBehaviour
                     _drawSelectionBox = true;
                     _startPos = _projectedMousePos;
                 }
+
                 break;
             case InputActionPhase.Canceled:
-                if (_drawSelectionBox && (_projectedMousePos-_startPos).sqrMagnitude >= 0.5)
+                if (_drawSelectionBox && (_projectedMousePos - _startPos).sqrMagnitude >= 0.5)
                 {
                     ReleaseSelectionBox();
                 }
+
                 _drawSelectionBox = false;
                 break;
         }
-    }
-
-    private void OnDestroy()
-    {
-        _playerInputActions.UI.LeftClick.started -= LeftClick;
-        _playerInputActions.UI.LeftClick.canceled -= LeftClick;
     }
 }

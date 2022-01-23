@@ -3,23 +3,30 @@ using UnityEngine.InputSystem;
 
 public class RightClickInspect : MonoBehaviour
 {
-    private PlayerInputActions _playerInputActions;
     public PlayerInputScriptableObject playerInput;
     [SerializeField] private GameObject shipInfoPopup;
+    private PlayerInputActions _playerInputActions;
+
     private void Awake()
     {
         _playerInputActions = playerInput.PlayerInputActions;
     }
+
     // Start is called before the first frame update
     void Start()
     {
         _playerInputActions.UI.RightClick.started += RightClick;
     }
 
+    private void OnDestroy()
+    {
+        _playerInputActions.UI.RightClick.started -= RightClick;
+    }
+
     private void RightClick(InputAction.CallbackContext context)
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        
+
         var hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("PlayerShips"));
         if (hit)
         {
@@ -36,10 +43,5 @@ public class RightClickInspect : MonoBehaviour
         {
             shipInfoPopup.SetActive(false);
         }
-    }
-
-    private void Destroy()
-    {
-        _playerInputActions.UI.RightClick.started -= RightClick;
     }
 }

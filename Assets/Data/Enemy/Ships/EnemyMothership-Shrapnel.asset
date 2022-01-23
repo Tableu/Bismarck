@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb3a7adef543f4488c11cea31c320c0, type: 3}
   m_Name: EnemyMothership-Shrapnel
   m_EditorClassIdentifier: 
-  ShipData:
-    ShipName: Mothership
-    Cost: 100
-    Health: 10
-    MaxHealth: 10
-    Speed: 0.05
-    StopDistance: 0.1
-    AggroRange: 50
-    BlocksMovement: 1
-    Weapons:
-    - {fileID: 11400000, guid: ce731468473b58b4988a683c822d85a6, type: 2}
-    - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
-    StartingPos: {x: 0, y: 0}
-    ShipPrefab: {fileID: 4271728520197243408, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+  uuid: URBQ
+  parentList: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}
+  shipName: Mothership-Enemy
+  prefab: {fileID: 4271728520197243408, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
+  Cost: 100
+  Weapons:
+  - {fileID: 11400000, guid: ce731468473b58b4988a683c822d85a6, type: 2}
+  - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
+  blocksMovement: 1
+  health: 10
+  speedMultiplier: 1
+  damageMultiplier: 1
+  sensorRange: 50
+  targetRange: 10

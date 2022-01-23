@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb3a7adef543f4488c11cea31c320c0, type: 3}
   m_Name: Junkship
   m_EditorClassIdentifier: 
-  ShipData:
-    ShipName: Junkship
-    Cost: 100
-    Health: 10
-    MaxHealth: 10
-    Speed: 0.05
-    StopDistance: 0.1
-    AggroRange: 50
-    BlocksMovement: 1
-    Weapons:
-    - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
-    - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
-    StartingPos: {x: 0, y: 0}
-    ShipPrefab: {fileID: 7984613099506236774, guid: abd53a0bb0318e54d830d51612193128, type: 3}
+  uuid: J2FM
+  parentList: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}
+  shipName: Junkship
+  prefab: {fileID: 7984613099506236774, guid: abd53a0bb0318e54d830d51612193128, type: 3}
+  Cost: 100
+  Weapons:
+  - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
+  - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
+  blocksMovement: 1
+  health: 10
+  speedMultiplier: 1
+  damageMultiplier: 1
+  sensorRange: 50
+  targetRange: 10

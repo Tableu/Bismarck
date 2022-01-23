@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Linq;
-using Cinemachine;
+using Systems.Save;
 using UI.Map;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace StarMap
 {
     [CreateAssetMenu(fileName = "Context", menuName = "Map/Context", order = 0)]
     public class MapContext : ScriptableObject
     {
+        [SerializeField] private SaveManager saveManager;
         public StarSystem StartingSystem;
         public MapData Data;
         private Camera[] _activeCameras;
@@ -38,6 +40,7 @@ namespace StarMap
                     return;
                 }
             }
+
             ActivateMapView();
         }
 
@@ -75,6 +78,8 @@ namespace StarMap
                 return;
             }
 
+            GameContext.Instance.CurrentState = GameContext.GameState.BattleMode;
+            saveManager.Save();
             SceneManager.LoadScene("Scenes/BattleScene");
             OnCurrentSystemChange?.Invoke(CurrentSystem, system);
             CurrentSystem = system;
@@ -92,7 +97,7 @@ namespace StarMap
                 if (camera != null)
                 {
                     camera.enabled = false;
-                }    
+                }
             }
         }
     }

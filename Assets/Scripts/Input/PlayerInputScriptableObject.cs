@@ -7,10 +7,11 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "PlayerInput", menuName = "PlayerInput/PlayerInput")]
 public class PlayerInputScriptableObject : ScriptableObject
 {
-    public PlayerInputActions PlayerInputActions;
-    public ShipListScriptableObject SelectedShips;
+    public ShipList SelectedShips;
 
-    public ContactFilter2D PlayerFilter; 
+    public ContactFilter2D PlayerFilter;
+    public PlayerInputActions PlayerInputActions;
+
     private void OnEnable()
     {
         PlayerInputActions = new PlayerInputActions();
@@ -21,6 +22,12 @@ public class PlayerInputScriptableObject : ScriptableObject
             useLayerMask = true
         };
     }
+
+    private void OnDisable()
+    {
+        PlayerInputActions.Disable();
+    }
+
     public bool UIRaycast(GraphicRaycaster graphicRaycaster)
     {
         var eventData = new PointerEventData(EventSystem.current);
@@ -37,14 +44,15 @@ public class PlayerInputScriptableObject : ScriptableObject
         var hit = Physics2D.Raycast(position, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("PlayerShips"));
         return hit;
     }
-    
+
     public void DeSelectShips()
     {
         if (SelectedShips.Count <= 0)
         {
             return;
         }
-        foreach(GameObject ship in SelectedShips.ShipList)
+
+        foreach (GameObject ship in SelectedShips.Ships)
         {
             if (ship != null)
             {
@@ -55,11 +63,7 @@ public class PlayerInputScriptableObject : ScriptableObject
                 }
             }
         }
-        SelectedShips.ClearList();
-    }
 
-    private void OnDisable()
-    {
-        PlayerInputActions.Disable();
+        SelectedShips.ClearList();
     }
 }
