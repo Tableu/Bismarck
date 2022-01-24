@@ -1,9 +1,8 @@
-
 using UnityEngine;
 
 public struct Damage
 {
-    public Damage(Vector2 source, int rawDamage, CollisionType type)
+    public Damage(Vector2 source, float rawDamage, CollisionType type)
     {
         Source = source;
         RawDamage = rawDamage;
@@ -11,8 +10,14 @@ public struct Damage
     }
 
     public Vector2 Source;
-    public int RawDamage;
+    public float RawDamage;
     public CollisionType Type;
 }
 
-public enum CollisionType{energy,kinetic,pointlaser,ship}
+public enum CollisionType
+{
+    energy,
+    kinetic,
+    pointlaser,
+    ship
+}
