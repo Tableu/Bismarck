@@ -1,6 +1,9 @@
+using System;
 using StarMap;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace StarMapEditor
 {
@@ -9,6 +12,7 @@ namespace StarMapEditor
     [ExecuteInEditMode]
     public class StarSystem : MonoBehaviour
     {
+        [Header("Data")]
         public string SystemName;
         public StarType MainStar;
         public float StarSize;
