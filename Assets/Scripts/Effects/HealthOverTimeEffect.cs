@@ -6,7 +6,6 @@ namespace Effects
     [CreateAssetMenu(fileName = "New Health Over Time Effect", menuName = "Effects/Health Over Time", order = 0)]
     public class HealthOverTimeEffect : PeriodicEffect
     {
-        public float tickPeriod;
         public float baseDamage;
         public override void Apply(ModifiableTarget target)
         {
