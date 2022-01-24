@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675d6b7a42d44e5bb516cf0a41849a6e, type: 3}
+  m_Name: System-D
+  m_EditorClassIdentifier: 
+  SystemName: System D
+  Coordinates: {x: 1.74, y: 4.75}
+  MainStar: {fileID: 11400000, guid: 1df83af2393b0e346b60f0a4d42766ac, type: 2}
+  StarSize: 1
+  RandomFleetDB: {fileID: 11400000, guid: 86f19fedf2acb594ebaef13b61212778, type: 2}

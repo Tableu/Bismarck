@@ -7,6 +7,8 @@ using UnityEngine.Rendering;
 
 namespace StarMapEditor
 {
+    //Script for Unity Editor to save systempairs and starsystem information to MapData
+    //Star system gameObject names should have no spaces
     public class Map : MonoBehaviour
     {
         public GameObject StarSystems;

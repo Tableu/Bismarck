@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace StarMapEditor
 {
+    //Unity Editor version of StarSystem. Meant to be used in a Unity Scene to create/update MapData
+    //Star system gameObject names should have no spaces
     [ExecuteInEditMode]
     public class StarSystem : MonoBehaviour
     {
@@ -12,9 +14,10 @@ namespace StarMapEditor
         public float StarSize;
         public FleetDBScriptableObject RandomFleetDB;
 
+        //Looks for an asset matching the system name, updating it if found, otherwise creates a new asset.
         public StarMap.StarSystem Save(string MapDataPath)
         {
-            string[] results = AssetDatabase.FindAssets(SystemName, new []{MapDataPath});
+            string[] results = AssetDatabase.FindAssets(gameObject.name, new []{MapDataPath});
             StarMap.StarSystem starSystem;
             if (results.Length > 0)
             {
@@ -34,7 +37,7 @@ namespace StarMapEditor
                 starSystem.StarSize = StarSize;
                 starSystem.RandomFleetDB = RandomFleetDB;
                 starSystem.Coordinates = transform.position;
-                string path = MapDataPath + starSystem.SystemName + ".asset";
+                string path = MapDataPath + gameObject.name + ".asset";
                 AssetDatabase.CreateAsset(starSystem,path);
             }
 

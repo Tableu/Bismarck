@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 675d6b7a42d44e5bb516cf0a41849a6e, type: 3}
-  m_Name: System A
+  m_Name: System-E
   m_EditorClassIdentifier: 
-  SystemName: System A
+  SystemName: System E
   Coordinates: {x: 0, y: 0}
-  MainStar: {fileID: 11400000, guid: 1df83af2393b0e346b60f0a4d42766ac, type: 2}
-  StarSize: 1
-  EnemyShipSpawner: {fileID: 11400000, guid: 85bc1e1c3448fd2458f7461165830df2, type: 2}
-  RandomFleetDB: {fileID: 11400000, guid: 86f19fedf2acb594ebaef13b61212778, type: 2}
+  MainStar: {fileID: 0}
+  StarSize: 0
+  RandomFleetDB: {fileID: 0}
