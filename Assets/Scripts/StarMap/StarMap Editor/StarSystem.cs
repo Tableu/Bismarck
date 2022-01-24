@@ -15,6 +15,7 @@ namespace StarMapEditor
         public FleetDBScriptableObject RandomFleetDB;
 
         //Looks for an asset matching the system name, updating it if found, otherwise creates a new asset.
+        //Called from StarMapEditor/Map
         public StarMap.StarSystem Save(string MapDataPath)
         {
             string[] results = AssetDatabase.FindAssets(gameObject.name, new []{MapDataPath});

@@ -13,7 +13,7 @@ namespace StarMapEditor
         public StarSystemPairs StarSystemPairs;
         public string MapName;
         public string MapDataPath;
-
+        
         public void Save()
         {
             StarSystem[] editorSystems = StarSystems.GetComponentsInChildren<StarSystem>();
