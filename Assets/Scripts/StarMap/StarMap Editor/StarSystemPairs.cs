@@ -6,25 +6,14 @@ using UnityEngine;
 
 namespace StarMapEditor
 {
+    //Draws hyperlanes between systems from a list of system pairs
     [ExecuteInEditMode]
     public class StarSystemPairs : MonoBehaviour
     {
         public List<SystemPair> SystemPairs;
         public GameObject LinePrefab;
         private List<GameObject> _hyperlanes;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            SystemPairs = new List<SystemPair>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
+        //Destroys all hyperlanes and creates new ones from the SystemPairs list
         public void RefreshHyperlanes()
         {
             if (_hyperlanes != null)

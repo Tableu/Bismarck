@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using StarMap;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace StarMapEditor
 {
@@ -15,17 +13,6 @@ namespace StarMapEditor
         public StarSystemPairs StarSystemPairs;
         public string MapName;
         public string MapDataPath;
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         public void Save()
         {
