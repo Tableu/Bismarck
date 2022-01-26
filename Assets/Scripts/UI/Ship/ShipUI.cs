@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class ShipUI : MonoBehaviour
 {
     [SerializeField] private Vector2 _positionOffset;
+    [SerializeField] private SpriteRenderer _shipSprite;
 
     public void OnDrag()
     {
@@ -19,11 +20,11 @@ public class ShipUI : MonoBehaviour
     public void SelectShip()
     {
         RefreshPositionOffset();
-        gameObject.GetComponent<SpriteRenderer>().color = Color.cyan;
+        _shipSprite.color = Color.cyan;
     }
 
     public void DeselectShip()
     {
-        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        _shipSprite.color = Color.white;
     }
 }

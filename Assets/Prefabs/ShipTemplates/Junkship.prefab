@@ -200,7 +200,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 560798983
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 4602104816689675227, guid: 838cc67c0aeb9a349ae59f98d116650c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -272,15 +272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8efca4d101e4534f9ac43a45e4dfab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipDictionary: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
-  selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
-  ShipClicked:
-    m_PersistentCalls:
-      m_Calls: []
-  ShipDragged:
-    m_PersistentCalls:
-      m_Calls: []
   _positionOffset: {x: 0, y: 0}
+  _shipSprite: {fileID: 2815236155253094167}
 --- !u!114 &1161008015329893240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +287,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
-  shipDict: {fileID: 11400000, guid: 597010d51108db343aa059f34ddb82f0, type: 2}
   healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
 --- !u!114 &207436044997910099
 MonoBehaviour:
@@ -312,7 +304,6 @@ MonoBehaviour:
   - {fileID: 6910845134256004354}
   - {fileID: 5822599417466534020}
   turretParent: {fileID: 835566440334441105}
-  ShipSpawner: {fileID: 0}
 --- !u!114 &6701727200262700673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8e8f23689749e4295cb36a4bd079f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipSpawner: {fileID: 0}
   target: {fileID: 0}
   turretPositions:
   - {fileID: 6910845134256004354}
