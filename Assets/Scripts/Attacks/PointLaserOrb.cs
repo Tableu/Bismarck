@@ -24,12 +24,18 @@ public class PointLaserOrb : Projectile, IDamageable
 
     private new void OnTriggerEnter2D(Collider2D other)
     {
-        FirePointLaser(other);
+        if (((1 << other.gameObject.layer) & enemyLayer) != 0)
+        {
+            FirePointLaser(other);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        FirePointLaser(other);
+        if (((1 << other.gameObject.layer) & enemyLayer) != 0)
+        {
+            FirePointLaser(other);
+        }
     }
 
     private void FirePointLaser(Collider2D other)
