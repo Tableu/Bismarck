@@ -13,6 +13,7 @@ namespace Ships.DataManagement
         public GameObject prefab;
         public int Cost;
         public List<AttackScriptableObject> Weapons;
+        public string[,] ModuleGrid; //Store UUIDs of modules (from ModuleData)
         [SerializeField] private bool blocksMovement = true;
 
         [Header("Base Stats")] [SerializeField]
