@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Systems;
 using Systems.Modifiers;
 using UnityEngine;
@@ -9,8 +10,16 @@ namespace Modules
     [Serializable]
     public class ModuleData : UuidScriptableObject
     {
-        [SerializeField] public ModifierData modifierData;
-        public Vector2 Pivot;
+        public ModifierData modifierData;
+        public List<Coordinates> GridPositions;
+        public Coordinates PivotPosition;
         public GameObject GridSprite;
+    }
+
+    [Serializable]
+    public struct Coordinates
+    {
+        public int x;
+        public int y;
     }
 }
