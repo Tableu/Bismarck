@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Modules;
 using Systems;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Ships.DataManagement
         public GameObject prefab;
         public int Cost;
         public List<AttackScriptableObject> Weapons;
-        public string[,] ModuleGrid; //Store UUIDs of modules (from ModuleData)
+        public ModuleGridData ModuleGrid; 
         [SerializeField] private bool blocksMovement = true;
 
         [Header("Base Stats")] [SerializeField]
