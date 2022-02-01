@@ -1,24 +1,20 @@
 using System;
+using Newtonsoft.Json.Linq;
 using Ships.Components;
-using Ships.DataManagement;
+using Systems.Save;
 using UnityEngine;
 
-public class ShipHealth : MonoBehaviour, IDamageable, ILoadableComponent
+public class ShipHealth : MonoBehaviour, IDamageable, ISavable
 {
-    public ShipList selectedShips;
-    [SerializeField] private GameObject healthBarPrefab;
     private bool _healthDirty;
     private ShipInfo _info;
 
     public float Health => PercentHealth * _info.MaxHealth;
     public float PercentHealth { get; private set; } = 1f;
 
-    private void Start()
+    private void Awake()
     {
-        var healthBars = GameObject.Find("HealthBars");
-        var healthBarGo = Instantiate(healthBarPrefab, healthBars.transform);
-        var healthBar = healthBarGo.GetComponent<HealthBar>();
-        healthBar.Bind(this);
+        _info = GetComponent<ShipInfo>();
     }
 
     private void Update()
@@ -28,11 +24,6 @@ public class ShipHealth : MonoBehaviour, IDamageable, ILoadableComponent
             _healthDirty = false;
             OnHealthChanged?.Invoke();
         }
-    }
-
-    private void OnDestroy()
-    {
-        if (selectedShips != null) selectedShips.RemoveShip(gameObject);
     }
 
     public void TakeDamage(Damage dmg)
@@ -47,10 +38,18 @@ public class ShipHealth : MonoBehaviour, IDamageable, ILoadableComponent
     {
         return true;
     }
-
-    public void Load(ShipSaveData saveData)
+    public string id => "health";
+    public object SaveState()
     {
-        PercentHealth = saveData.healthPercentage;
+        return new SaveData
+        {
+            CurrentHealth = PercentHealth
+        };
+    }
+    public void LoadState(JObject state)
+    {
+        var saveData = state.ToObject<SaveData>();
+        PercentHealth = saveData.CurrentHealth;
     }
 
     [ContextMenu("Test Damage")]
@@ -67,4 +66,10 @@ public class ShipHealth : MonoBehaviour, IDamageable, ILoadableComponent
     }
 
     public event Action OnHealthChanged;
+
+    [Serializable]
+    private struct SaveData
+    {
+        public float CurrentHealth;
+    }
 }

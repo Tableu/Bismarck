@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Ships.Components;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Ships.DataManagement;
-using Ships.Fleets;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -15,15 +15,6 @@ namespace Systems.Save
     [CreateAssetMenu(fileName = "SaveManager", menuName = "SaveManager")]
     public class SaveManager : ScriptableObject
     {
-        /// <summary>
-        ///     A list containing all the ships to save
-        /// </summary>
-        [SerializeField] private ShipList shipsToSave;
-
-        /// <summary>
-        ///     The ship spawner to use to spawn the ships on loading
-        /// </summary>
-        [SerializeField] private FleetManager shipSpawner;
 
         /// <summary>
         ///     The list of UUIDs for the ship data scriptable objects
@@ -46,12 +37,25 @@ namespace Systems.Save
         public void Save()
         {
             if (savePath is null || savePath == "") savePath = DefaultSavePath;
-            var saveData = new GameSaveData();
-            foreach (var ship in shipsToSave.Ships) saveData.ships.Add(new ShipSaveData(ship));
-            saveData.state = GameContext.Instance.CurrentState;
+            var saveData = new JObject();
+            if (File.Exists(savePath))
+            {
+                saveData = JObject.Parse(File.ReadAllText(savePath));
+            }
 
-            var saveString = JsonUtility.ToJson(saveData, true);
-            File.WriteAllText(savePath, saveString);
+            var savableObjects = FindObjectsOfType<SavableEntity>();
+            var saveDict = new Dictionary<string, object>();
+            foreach (var entity in savableObjects)
+            {
+                saveDict[entity.Id] = entity.Save();
+            }
+
+            saveData.Merge(JObject.FromObject(saveDict), new JsonMergeSettings
+            {
+                MergeArrayHandling = MergeArrayHandling.Replace
+            });
+
+            File.WriteAllText(savePath, saveData.ToString(Formatting.Indented));
         }
 
         /// <summary>
@@ -63,32 +67,19 @@ namespace Systems.Save
         {
             if (savePath is null || savePath == "") savePath = DefaultSavePath;
             if (!File.Exists(savePath)) return false;
-
-            // todo: catch exceptions
-            var saveData = JsonUtility.FromJson<GameSaveData>(File.ReadAllText(savePath));
-
-            var parent = GameObject.FindWithTag("Ships") ?? new GameObject
+            var saveData = JsonConvert.DeserializeObject<Dictionary<string, JObject>>(File.ReadAllText(savePath));
+            var savableObjects = FindObjectsOfType<SavableEntity>();
+            if (saveData is null)
             {
-                name = "Ships",
-                tag = "Ships"
-            };
-            foreach (var shipSaveData in saveData.ships)
+                return false;
+            }
+            foreach (var entity in savableObjects)
             {
-                var shipData = shipIds.FindById(shipSaveData.shipDataId) as ShipData;
-                var ship = shipSpawner.SpawnShip(shipData, shipSaveData.position);
-                if (ship is null)
+                if (saveData.ContainsKey(entity.Id))
                 {
-                    Debug.LogWarning("Failed to load a ship");
-                    continue;
-                    ;
-                }
-
-                foreach (var loadableComponent in ship.GetComponents<ILoadableComponent>())
-                {
-                    loadableComponent.Load(shipSaveData);
+                    entity.Load(saveData[entity.Id].ToObject<Dictionary<string, JObject>>());
                 }
             }
-
             return true;
         }
 
