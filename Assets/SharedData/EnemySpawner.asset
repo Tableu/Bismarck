@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7664a391724afa8781c815b5c7e6ce, type: 3}
   m_Name: EnemySpawner
   m_EditorClassIdentifier: 
+  shipBasePrefab: {fileID: 8042072276642015896, guid: bcb2f974c677bab46a30aa5a98e7dcf8, type: 3}
   FactionShipList: {fileID: 11400000, guid: 04ad34c52d444e44e8342f29554855a9, type: 2}
   LayerMask:
     serializedVersion: 2

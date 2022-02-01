@@ -1,21 +1,23 @@
 using System.Collections.Generic;
 using Ships.Components;
 using Ships.DataManagement;
+using Ships.Fleets;
 using UnityEngine;
 
-public class ShipLogic : MonoBehaviour, IInitializableComponent
+public class ShipLogic : MonoBehaviour
 {
     [Header("Objects")] [SerializeField] protected GameObject target;
 
     [SerializeField] public List<Transform> turretPositions;
+
+    [SerializeField] private string tag;
     protected List<AttackCommand> _attackCommands;
     protected ShipData _data;
     protected MoveForwardState _moveForward;
     protected MovementController _movementController;
     protected MoveToPositionState _moveToPosition;
-
     protected MoveToTargetState _moveToTarget;
-    protected ShipSpawner _shipSpawner;
+    protected FleetManager _shipSpawner;
     private List<AttackScriptableObject> attackScriptableObjects;
     protected FSM StateMachine;
     public bool BlocksMovement { get; private set; }
@@ -26,14 +28,14 @@ public class ShipLogic : MonoBehaviour, IInitializableComponent
         StateMachine.Tick();
     }
 
-    public void Initialize(ShipData data, ShipSpawner spawner)
+    public void Initialize(ShipData data, FleetManager spawner)
     {
         _shipSpawner = spawner;
         _data = data;
         BlocksMovement = data.BlocksMovement;
-        var stats = GetComponent<ShipStats>();
+        var stats = GetComponent<ShipInfo>();
         Debug.Assert(stats != null, "Ship missing stats component");
-        _movementController = new MovementController(gameObject, stats.SpeedMultiplier, 0, spawner.LayerMask);
+        _movementController = new MovementController(gameObject, stats.SpeedMultiplier, 0, LayerMask.GetMask("EnemyShips"));
         _moveToTarget = new MoveToTargetState(this, _movementController, target);
         _moveToPosition = new MoveToPositionState(this, _movementController, Vector2.zero);
         _moveForward = new MoveForwardState(this, _movementController);
@@ -43,9 +45,9 @@ public class ShipLogic : MonoBehaviour, IInitializableComponent
         if (!enabled) return;
         var turretPos = turretPositions.GetEnumerator();
 
-        var parent = GameObject.FindWithTag(spawner.ProjectileParentTag) ?? new GameObject
+        var parent = GameObject.FindWithTag(tag) ?? new GameObject
         {
-            tag = spawner.ProjectileParentTag
+            tag = tag
         };
 
         foreach (var attackScriptableObject in attackScriptableObjects)

@@ -11,6 +11,6 @@ public class ShipDBScriptableObject : ScriptableObject
 
     public ShipData GetShip(string shipName)
     {
-        return shipDB.Find(x => x.shipName == shipName);
+        return shipDB.Find(x => x.DisplayName == shipName);
     }
 }

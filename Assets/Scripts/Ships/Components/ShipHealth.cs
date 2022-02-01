@@ -3,14 +3,14 @@ using Ships.Components;
 using Ships.DataManagement;
 using UnityEngine;
 
-public class ShipHealth : MonoBehaviour, IDamageable, IInitializableComponent, ILoadableComponent
+public class ShipHealth : MonoBehaviour, IDamageable, ILoadableComponent
 {
     public ShipList selectedShips;
     [SerializeField] private GameObject healthBarPrefab;
     private bool _healthDirty;
-    private ShipStats _stats;
+    private ShipInfo _info;
 
-    public float Health => PercentHealth * _stats.MaxHealth;
+    public float Health => PercentHealth * _info.MaxHealth;
     public float PercentHealth { get; private set; } = 1f;
 
     private void Start()
@@ -37,7 +37,7 @@ public class ShipHealth : MonoBehaviour, IDamageable, IInitializableComponent, I
 
     public void TakeDamage(Damage dmg)
     {
-        PercentHealth -= dmg.RawDamage / _stats.MaxHealth;
+        PercentHealth -= dmg.RawDamage / _info.MaxHealth;
         PercentHealth = Mathf.Min(PercentHealth, 1);
         _healthDirty = true;
         if (PercentHealth <= 0) Destroy(gameObject);
@@ -46,11 +46,6 @@ public class ShipHealth : MonoBehaviour, IDamageable, IInitializableComponent, I
     public bool DestroyProjectile(CollisionType type)
     {
         return true;
-    }
-
-    public void Initialize(ShipData data, ShipSpawner spawner)
-    {
-        _stats = GetComponent<ShipStats>();
     }
 
     public void Load(ShipSaveData saveData)

@@ -48,12 +48,12 @@ namespace StarMapEditor
         public StarSystem System2;
     }
     [CustomEditor(typeof(StarSystemPairs))]
-    public class StarSystemPairsEditor : Editor
+    public class StarSystemPairsEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-            StarSystemPairs map = (StarSystemPairs) target;
+            StarSystemPairs map = (StarSystemPairs)target;
             if (GUILayout.Button("Draw Hyperlanes"))
             {
                 map.RefreshHyperlanes();

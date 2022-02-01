@@ -5,29 +5,38 @@ using UnityEngine;
 
 namespace Ships.DataManagement
 {
+    /// <summary>
+    ///     Stores the data that is different between separate ship types (ex. base stats and visuals).
+    ///     Also stores a unique ID associated with the ship type to use for saving and loading.
+    /// </summary>
     [CreateAssetMenu(fileName = "Ships", menuName = "Ships/ShipData")]
     [Serializable]
-    public class ShipData : UuidScriptableObject
+    public class ShipData : UniqueId
     {
-        public string shipName;
-        public GameObject prefab;
-        public int Cost;
-        public List<AttackScriptableObject> Weapons;
+        [Header("Info")]
+        [SerializeField] private string displayName;
+        [SerializeField] private GameObject visuals;
+        [SerializeField] private int cost;
+        [SerializeField] private List<AttackScriptableObject> weapons;
         [SerializeField] private bool blocksMovement = true;
 
-        [Header("Base Stats")] [SerializeField]
-        private float health = 10;
-
+        [Header("Base Stats")]
+        [SerializeField] private float health = 10;
         [SerializeField] private float speedMultiplier = 1;
         [SerializeField] private float damageMultiplier = 1;
         [SerializeField] private float sensorRange = 50;
 
-        [Header("Config")] [SerializeField] private float targetRange;
+        [Header("Config")]
+        [SerializeField] private float targetRange;
         public float BaseHealth => health;
         public float BaseSpeedMultiplier => speedMultiplier;
         public float BaseDamageMultiplier => damageMultiplier;
         public float TargetRange => targetRange;
         public bool BlocksMovement => blocksMovement;
         public float SensorRange => sensorRange;
+        public string DisplayName => displayName;
+        public GameObject Visuals => visuals;
+        public int Cost => cost;
+        public List<AttackScriptableObject> Weapons => weapons;
     }
 }

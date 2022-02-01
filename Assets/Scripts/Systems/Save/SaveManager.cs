@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Ships.Components;
 using Ships.DataManagement;
-using StarMap;
+using Ships.Fleets;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -23,12 +23,13 @@ namespace Systems.Save
         /// <summary>
         ///     The ship spawner to use to spawn the ships on loading
         /// </summary>
-        [SerializeField] private ShipSpawner shipSpawner;
+        [SerializeField] private FleetManager shipSpawner;
 
         /// <summary>
         ///     The list of UUIDs for the ship data scriptable objects
         /// </summary>
-        [SerializeField] private UUIDList shipUuids;
+        [FormerlySerializedAs("shipUuids")] [SerializeField]
+        private IdList shipIds;
 
         /// <summary>
         ///     The path to save and load to. Automatically set if not manually specified.
@@ -73,8 +74,8 @@ namespace Systems.Save
             };
             foreach (var shipSaveData in saveData.ships)
             {
-                var shipData = shipUuids.FindByUUID(shipSaveData.shipDataId) as ShipData;
-                var ship = shipSpawner.SpawnShip(shipData, parent.transform, shipSaveData.position);
+                var shipData = shipIds.FindById(shipSaveData.shipDataId) as ShipData;
+                var ship = shipSpawner.SpawnShip(shipData, shipSaveData.position);
                 if (ship is null)
                 {
                     Debug.LogWarning("Failed to load a ship");

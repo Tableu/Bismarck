@@ -12,14 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb3a7adef543f4488c11cea31c320c0, type: 3}
   m_Name: Mothership
   m_EditorClassIdentifier: 
-  uuid: Q6LA
+  id: id_player_ship
   parentList: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}
-  shipName: Mothership
-  prefab: {fileID: 4271728520197243408, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
-  Cost: 100
-  Weapons:
-  - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
-  - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
+  displayName: Mothership
+  visuals: {fileID: 8178566776061135549, guid: a191fb943a00e394e8e0504dc7c673ab, type: 3}
+  cost: 0
+  weapons: []
   blocksMovement: 1
   health: 20
   speedMultiplier: 1

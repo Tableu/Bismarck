@@ -12,14 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb3a7adef543f4488c11cea31c320c0, type: 3}
   m_Name: EnemyMothership-Bullet
   m_EditorClassIdentifier: 
-  uuid: QOEI
+  id: id_bullet_ship
   parentList: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}
-  shipName: Mothership-Enemy
-  prefab: {fileID: 4271728520197243408, guid: 33fbc513a6d90784cad0427918c1d263, type: 3}
-  Cost: 100
-  Weapons:
-  - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
-  - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
+  displayName: MothershipEnemy
+  prefab: {fileID: 8178566776061135549, guid: a191fb943a00e394e8e0504dc7c673ab, type: 3}
+  cost: 0
+  weapons: []
   blocksMovement: 1
   health: 10
   speedMultiplier: 1

@@ -1,5 +1,4 @@
 using System.Collections;
-using Ships.Components;
 using Ships.DataManagement;
 using UnityEngine;
 
@@ -59,13 +58,13 @@ public class SpawnFighters : AttackScriptableObject
 
         private void SpawnFighter(GameObject mothership)
         {
-            var spawner = mothership.GetComponent<ShipTags>().ShipSpawner;
-            var ship = spawner.SpawnShip(_shipData, mothership.transform.parent, mothership.transform.position);
-            if (ship != null)
-            {
-                var shipLogic = ship.GetComponent<FighterShipLogic>();
-                if (shipLogic != null) shipLogic.mothership = mothership;
-            }
+            // var spawner = mothership.GetComponent<ShipTags>().ShipSpawner;
+            // var ship = spawner.SpawnShip(_shipData, mothership.transform.parent, mothership.transform.position);
+            // if (ship != null)
+            // {
+            //     var shipLogic = ship.GetComponent<FighterShipLogic>();
+            //     if (shipLogic != null) shipLogic.mothership = mothership;
+            // }
         }
     }
 }
