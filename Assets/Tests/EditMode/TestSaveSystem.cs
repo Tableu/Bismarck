@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -43,7 +44,7 @@ namespace Tests.EditMode
             var saveData = saver.Save();
 
             var saveString = JsonConvert.SerializeObject(saveData);
-            var loadedData = JsonConvert.DeserializeObject<SerializableDictionary<string, JObject>>(saveString);
+            var loadedData = JsonConvert.DeserializeObject<Dictionary<string, JObject>>(saveString);
 
             var loadGo = new GameObject();
             loadGo.AddComponent<BasicSaveable>();

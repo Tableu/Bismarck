@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Ships.Components
 {
     /// <summary>
-    /// Stores basic ship information, such as stats and data.
+    ///     Stores basic ship information, such as stats and data.
     /// </summary>
     public class ShipInfo : MonoBehaviour
     {
@@ -29,8 +29,8 @@ namespace Ships.Components
 
 
         /// <summary>
-        /// Used to initialize the data field when a ship is instantiated at runtime.
-        /// Must be called immediately after instantiation if the data field is not set in the inspector.
+        ///     Used to initialize the data field when a ship is instantiated at runtime.
+        ///     Must be called immediately after instantiation if the data field is not set in the inspector.
         /// </summary>
         /// <param name="shipData">The data to initialize the ship with</param>
         public void Initialize(ShipData shipData)

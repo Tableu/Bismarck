@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Ships.DataManagement;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -31,12 +30,15 @@ namespace Systems.Save
 
 
         /// <summary>
-        /// Saves the game to a json file. Can be called by right clicking the SaveManager object in the inspector.
+        ///     Saves the game to a json file. Can be called by right clicking the SaveManager object in the inspector.
         /// </summary>
         [ContextMenu("Save Game")]
         public void Save()
         {
-            if (savePath is null || savePath == "") savePath = DefaultSavePath;
+            if (savePath is null || savePath == "")
+            {
+                savePath = DefaultSavePath;
+            }
             var saveData = new JObject();
             if (File.Exists(savePath))
             {
@@ -59,14 +61,20 @@ namespace Systems.Save
         }
 
         /// <summary>
-        /// Tries to load a save game using the current savePath.
+        ///     Tries to load a save game using the current savePath.
         /// </summary>
         /// <returns>True if loading succeeded, false otherwise</returns>
         [ContextMenu("Load Game")]
         public bool Load()
         {
-            if (savePath is null || savePath == "") savePath = DefaultSavePath;
-            if (!File.Exists(savePath)) return false;
+            if (savePath is null || savePath == "")
+            {
+                savePath = DefaultSavePath;
+            }
+            if (!File.Exists(savePath))
+            {
+                return false;
+            }
             var saveData = JsonConvert.DeserializeObject<Dictionary<string, JObject>>(File.ReadAllText(savePath));
             var savableObjects = FindObjectsOfType<SavableEntity>();
             if (saveData is null)
@@ -81,16 +89,6 @@ namespace Systems.Save
                 }
             }
             return true;
-        }
-
-        /// <summary>
-        /// A class that defines the structure of the game save file
-        /// </summary>
-        [Serializable]
-        private class GameSaveData
-        {
-            public List<ShipSaveData> ships = new List<ShipSaveData>();
-            public GameContext.GameState state;
         }
     }
 }
