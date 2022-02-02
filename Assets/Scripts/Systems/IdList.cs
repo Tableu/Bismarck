@@ -8,7 +8,7 @@ namespace Systems
     ///     A scriptable object used store lists of ID objects. Automatically sets the parentList property of the UUID object
     ///     to the list when it is added to the list via the inspector.
     /// </summary>
-    [CreateAssetMenu(fileName = "New UUID List", menuName = "UUID List", order = 0)]
+    [CreateAssetMenu(fileName = "New ID List", menuName = "ID List", order = 0)]
     public class IdList : ScriptableObject
     {
         public List<UniqueId> uniqueObjects;
