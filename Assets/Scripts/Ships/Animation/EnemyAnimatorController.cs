@@ -14,7 +14,7 @@ public abstract class EnemyAnimatorController : AnimationControllerBase
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(EnemyAnimatorController), true)]
-class EnemyAnimatorEditor : Editor
+internal class EnemyAnimatorEditor : UnityEditor.Editor
 {
     EnemyAnimatorController anim
     {

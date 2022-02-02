@@ -1,3 +1,4 @@
+using Ships.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +22,7 @@ public class HealthBar : MonoBehaviour
     private void Update()
     {
         if (target != null)
-            gameObject.transform.position = (Vector2) target.position + Vector2.down * barDisplacement;
+            gameObject.transform.position = (Vector2)target.position + Vector2.down * barDisplacement;
         else
             Destroy(gameObject);
     }

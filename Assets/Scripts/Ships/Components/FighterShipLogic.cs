@@ -17,11 +17,6 @@ public class FighterShipLogic : ShipLogic
     private new void FixedUpdate()
     {
         StateMachine.Tick();
-        if (mothership == null)
-            foreach (var ship in _shipSpawner.FactionShipList.Ships)
-                if (ship.GetComponent<MotherShipLogic>())
-                    mothership = ship;
-
         if (mothership == null ||
             returning && Vector2.Distance(transform.position, mothership.transform.position) < .5f)
             Destroy(gameObject);

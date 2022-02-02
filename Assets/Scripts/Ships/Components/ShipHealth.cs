@@ -1,75 +1,87 @@
 using System;
-using Ships.Components;
-using Ships.DataManagement;
+using Newtonsoft.Json.Linq;
+using Systems.Save;
 using UnityEngine;
 
-public class ShipHealth : MonoBehaviour, IDamageable, IInitializableComponent, ILoadableComponent
+namespace Ships.Components
 {
-    public ShipList selectedShips;
-    [SerializeField] private GameObject healthBarPrefab;
-    private bool _healthDirty;
-    private ShipStats _stats;
-
-    public float Health => PercentHealth * _stats.MaxHealth;
-    public float PercentHealth { get; private set; } = 1f;
-
-    private void Start()
+    /// <summary>
+    ///     Stores ship health and manages receiving damage.
+    /// </summary>
+    public class ShipHealth : MonoBehaviour, IDamageable, ISavable
     {
-        var healthBars = GameObject.Find("HealthBars");
-        var healthBarGo = Instantiate(healthBarPrefab, healthBars.transform);
-        var healthBar = healthBarGo.GetComponent<HealthBar>();
-        healthBar.Bind(this);
-    }
+        /// <summary>
+        ///     Keeps track of if health has changed this frame.
+        ///     Used so that OnHealthChanged is only invoked once per frame.
+        /// </summary>
+        private bool _healthDirty;
+        private ShipInfo _info;
 
-    private void Update()
-    {
-        if (_healthDirty)
+        public float Health => PercentHealth * _info.MaxHealth;
+        public float PercentHealth { get; private set; } = 1f;
+
+        private void Awake()
         {
-            _healthDirty = false;
+            _info = GetComponent<ShipInfo>();
+        }
+
+        private void Update()
+        {
+            if (_healthDirty)
+            {
+                _healthDirty = false;
+                OnHealthChanged?.Invoke();
+            }
+        }
+
+        public void TakeDamage(Damage dmg)
+        {
+            PercentHealth -= dmg.RawDamage / _info.MaxHealth;
+            PercentHealth = Mathf.Min(PercentHealth, 1);
+            _healthDirty = true;
+            if (PercentHealth <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        public bool DestroyProjectile(CollisionType type)
+        {
+            return true;
+        }
+        public string id => "health";
+        public object SaveState()
+        {
+            return new SaveData
+            {
+                CurrentHealth = PercentHealth
+            };
+        }
+        public void LoadState(JObject state)
+        {
+            var saveData = state.ToObject<SaveData>();
+            PercentHealth = saveData.CurrentHealth;
+        }
+
+        [ContextMenu("Test Damage")]
+        public void TestDamage()
+        {
+            TakeDamage(new Damage(Vector2.down, 1, CollisionType.energy));
+        }
+
+        [ContextMenu("Repair")]
+        public void Repair()
+        {
+            PercentHealth = 1;
             OnHealthChanged?.Invoke();
         }
-    }
 
-    private void OnDestroy()
-    {
-        if (selectedShips != null) selectedShips.RemoveShip(gameObject);
-    }
+        public event Action OnHealthChanged;
 
-    public void TakeDamage(Damage dmg)
-    {
-        PercentHealth -= dmg.RawDamage / _stats.MaxHealth;
-        PercentHealth = Mathf.Min(PercentHealth, 1);
-        _healthDirty = true;
-        if (PercentHealth <= 0) Destroy(gameObject);
+        [Serializable]
+        private struct SaveData
+        {
+            public float CurrentHealth;
+        }
     }
-
-    public bool DestroyProjectile(CollisionType type)
-    {
-        return true;
-    }
-
-    public void Initialize(ShipData data, ShipSpawner spawner)
-    {
-        _stats = GetComponent<ShipStats>();
-    }
-
-    public void Load(ShipSaveData saveData)
-    {
-        PercentHealth = saveData.healthPercentage;
-    }
-
-    [ContextMenu("Test Damage")]
-    public void TestDamage()
-    {
-        TakeDamage(new Damage(Vector2.down, 1, CollisionType.energy));
-    }
-
-    [ContextMenu("Repair")]
-    public void Repair()
-    {
-        PercentHealth = 1;
-        OnHealthChanged?.Invoke();
-    }
-
-    public event Action OnHealthChanged;
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Ships.Components;
+using Ships.Fleets;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -10,7 +11,7 @@ using UnityWeld.Binding;
 [Binding]
 public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
 {
-    [SerializeField] private ShipSpawner shipSpawner;
+    [SerializeField] private FleetManager shipSpawner;
     [SerializeField] private Transform fleetParent;
     [SerializeField] private GraphicRaycaster graphicRaycaster;
     [SerializeField] private ShipInfoPopup shipInfoPopup;
@@ -77,7 +78,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             foreach (var ship in selectedShips.Ships)
             {
-                var data = ship.GetComponent<ShipStats>().Data;
+                var data = ship.GetComponent<ShipInfo>().Data;
                 Money += data.Cost;
                 Destroy(ship);
             }
@@ -114,7 +115,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             Money -= shipData.Cost;
             Vector2 startingPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            var ship = shipSpawner.SpawnShip(shipData, fleetParent, startingPos);
+            var ship = shipSpawner.SpawnShip(shipData, startingPos);
             var shipLogic = ship.GetComponent<ShipLogic>();
             if (shipLogic != null) shipLogic.enabled = false;
 
@@ -139,7 +140,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
                     var index = hit.gameObject.transform.GetSiblingIndex();
                     if (shipInfoPopup.Ship != null)
                     {
-                        var shipData = shipInfoPopup.Ship.GetComponent<ShipStats>().Data;
+                        var shipData = shipInfoPopup.Ship.GetComponent<ShipInfo>().Data;
                         shipData.Weapons[index] = attack;
                         Money -= attack.Cost;
                         var turrets = shipInfoPopup.Ship.GetComponent<ShipTurrets>();
@@ -167,15 +168,15 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
 
     private static int ComputeRepairCost(GameObject ship)
     {
-        var data = ship.GetComponent<ShipStats>().Data;
+        var data = ship.GetComponent<ShipInfo>().Data;
         var health = ship.GetComponent<ShipHealth>();
-        return (int) (data.Cost * (1 - health.PercentHealth));
+        return (int)(data.Cost * (1 - health.PercentHealth));
     }
 
     private static int ComputeSellValue(GameObject ship)
     {
-        var data = ship.GetComponent<ShipStats>().Data;
+        var data = ship.GetComponent<ShipInfo>().Data;
         var health = ship.GetComponent<ShipHealth>();
-        return (int) (data.Cost * health.PercentHealth);
+        return (int)(data.Cost * health.PercentHealth);
     }
 }

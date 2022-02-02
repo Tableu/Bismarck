@@ -34,7 +34,7 @@ public class ShipInfoPopup : MonoBehaviour
         }
 
         Ship = ship;
-        _shipData = ship.GetComponent<ShipStats>().Data;
+        _shipData = ship.GetComponent<ShipInfo>().Data;
         SpawnWeapons();
         bool weapons = weaponsGridLayout.transform.childCount != 0;
         bool modules = modulesGridLayout.transform.childCount != 0;
@@ -46,9 +46,9 @@ public class ShipInfoPopup : MonoBehaviour
 
     private void SpawnWeapons()
     {
-        ShipTurrets turrets = _shipData.prefab.GetComponent<ShipTurrets>();
-        List<AttackScriptableObject>.Enumerator weapons = _shipData.Weapons.GetEnumerator();
-        int weaponSlotCount = turrets != null ? turrets.TurretPositions.Count : _shipData.Weapons.Count;
+        ShipTurrets turrets = _shipData.Visuals.GetComponent<ShipTurrets>();
+        var weapons = _shipData.Weapons.GetEnumerator();
+        var weaponSlotCount = turrets != null ? turrets.TurretPositions.Count : _shipData.Weapons.Count;
 
         while (weaponSlotCount != 0)
         {

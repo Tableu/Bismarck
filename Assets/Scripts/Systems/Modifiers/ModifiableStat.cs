@@ -11,7 +11,7 @@ namespace Systems.Modifiers
     /// </remarks>
     public class ModifiableStat
     {
-        public ModifiableStat(float baseValue = 0)
+        public ModifiableStat(float baseValue)
         {
             BaseValue = baseValue;
         }
@@ -54,11 +54,20 @@ namespace Systems.Modifiers
         public float CurrentValue =>
             Mathf.Max((BaseValue + BaseModifier) * (1 + ScalingModifer) * (1 + MultiplicativeModifer), 0);
 
+        /// <summary>
+        /// Used to set the base value of a stat after construction.
+        /// </summary>
+        /// <param name="value"></param>
         public void UpdateBaseValue(float value)
         {
             BaseValue = value;
         }
 
+        /// <summary>
+        /// Implicitly convert to a float for convenience
+        /// </summary>
+        /// <param name="stat">The modifiable stat to convert</param>
+        /// <returns>The CurrentValue of stat</returns>
         public static implicit operator float(ModifiableStat stat) => stat.CurrentValue;
     }
 }

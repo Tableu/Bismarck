@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Ships.Components;
-using Ships.DataManagement;
 using UnityEngine;
 
-public class ShipTurrets : MonoBehaviour, IInitializableComponent
+public class ShipTurrets : MonoBehaviour
 {
     [SerializeField] private List<Transform> turretPositions;
 
@@ -13,12 +11,6 @@ public class ShipTurrets : MonoBehaviour, IInitializableComponent
     private List<AttackScriptableObject> _weapons;
 
     public IReadOnlyCollection<Transform> TurretPositions => turretPositions;
-
-    public void Initialize(ShipData data, ShipSpawner spawner)
-    {
-        _weapons = data.Weapons;
-        Refresh();
-    }
 
     public void Refresh()
     {

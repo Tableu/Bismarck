@@ -1,4 +1,5 @@
 using System.Collections;
+using Ships.Fleets;
 using UnityEngine;
 
 public interface SpawnUnitCommand
@@ -10,5 +11,5 @@ public interface SpawnUnitCommand
 
 public abstract class SpawnUnitScriptableObject : ScriptableObject
 {
-    public abstract SpawnUnitCommand MakeSpawnUnit(ShipSpawner shipSpawner);
+    public abstract SpawnUnitCommand MakeSpawnUnit(FleetManager shipSpawner);
 }

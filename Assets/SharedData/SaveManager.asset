@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944d99878bb84608b2b827cc71de3ab0, type: 3}
   m_Name: SaveManager
   m_EditorClassIdentifier: 
-  shipsToSave: {fileID: 11400000, guid: cec3350c72ba1364e97ea9e45db1b17c, type: 2}
-  shipSpawner: {fileID: 11400000, guid: 61617ea500ab96343bfa31caddbb221c, type: 2}
-  shipUuids: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}
+  shipIds: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}

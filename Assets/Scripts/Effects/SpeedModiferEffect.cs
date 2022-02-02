@@ -1,5 +1,4 @@
-﻿using Ships;
-using Ships.Components;
+﻿using Ships.Components;
 using Systems.Modifiers;
 using UnityEngine;
 
@@ -11,7 +10,7 @@ namespace Effects
 
         protected override ModifiableStat GetStat(ModifiableTarget ship)
         {
-            var stats = ship.GetComponent<ShipStats>();
+            var stats = ship.GetComponent<ShipInfo>();
             return stats.SpeedMultiplier;
         }
     }

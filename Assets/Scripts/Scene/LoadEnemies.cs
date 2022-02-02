@@ -1,3 +1,4 @@
+using Ships.Fleets;
 using StarMap;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class LoadEnemies : MonoBehaviour
     // [SerializeField] private ShipSpawner enemyShipSpawner;
     [SerializeField] private MapContext mapContext;
     [SerializeField] private Transform fleetParent;
-    [SerializeField] private ShipSpawner shipSpawner;
+    [SerializeField] private FleetManager shipSpawner;
 
     // Start is called before the first frame update
     private void Start()
@@ -20,7 +21,7 @@ public class LoadEnemies : MonoBehaviour
             if (fleetPositions.MoveNext())
             {
                 var shipData = randomShip.RandomShip();
-                var ship = shipSpawner.SpawnShip(shipData, fleetParent, Vector2.zero);
+                var ship = shipSpawner.SpawnShip(shipData, Vector2.zero);
                 var spawnPos = fleetPositions.Current as Transform;
                 if (spawnPos != null) ship.transform.localPosition = spawnPos.position;
             }

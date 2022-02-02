@@ -1,4 +1,5 @@
-﻿using Systems.Modifiers;
+﻿using Ships.Components;
+using Systems.Modifiers;
 using UnityEngine;
 
 namespace Effects
