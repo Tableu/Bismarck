@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Systems;
 using Systems.Modifiers;
 using UnityEngine;
 
-namespace Modules
+namespace Systems.Modules
 {
     [CreateAssetMenu(fileName = "Modules", menuName = "Modules/ShipData")]
     [Serializable]
@@ -12,14 +11,12 @@ namespace Modules
     {
         public ModifierData modifierData;
         public List<Coordinates> GridPositions;
-        public Coordinates PivotPosition;
-        public GameObject GridSprite;
-    }
+        public Sprite GridSprite;
 
-    [Serializable]
-    public struct Coordinates
-    {
-        public int x;
-        public int y;
+        public Module MakeModule()
+        {
+            Module module = new Module(this);
+            return module;
+        }
     }
 }

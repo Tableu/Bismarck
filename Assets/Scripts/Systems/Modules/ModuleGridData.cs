@@ -1,47 +1,63 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using Modules;
-using Systems;
-using UnityEngine;
+using System.Linq;
 
-namespace Modules
+namespace Systems.Modules
 {
-    public class ModuleGridData : UuidScriptableObject
+    [Serializable]
+    public class ModuleGridData
     {
-        public ModuleData[,] Grid;
-        public List<ModuleData> ModuleDatas;
+        public Module[,] Grid;
+        public List<Module> Modules;
         public int RowHeight;
         public int ColumnLength;
 
-        public void AddModule(ModuleData moduleData, int row, int column)
+        public void Initialize()
         {
-            foreach(Coordinates coords in moduleData.GridPositions)
+            if (Modules != null && RowHeight > 0 && ColumnLength > 0)
             {
-                if (column + coords.x > 0 && column + coords.x < ColumnLength &&
-                    row + coords.y > 0 && row + coords.y < RowHeight)
+                Grid = new Module[RowHeight, ColumnLength];
+                foreach (Module module in Modules.ToList())
                 {
-                    Grid[row + coords.y, column + coords.x] = moduleData;
+                    var pivot = module.PivotPosition;
+                    AddModule(module, pivot.y, pivot.x);
                 }
             }
-            ModuleDatas.Add(moduleData);
+        }
+        
+        public void AddModule(Module module, int row, int column)
+        {
+            foreach(Coordinates coords in module.Data.GridPositions)
+            {
+                if (column + coords.x >= 0 && column + coords.x < ColumnLength &&
+                    row + coords.y >= 0 && row + coords.y < RowHeight)
+                {
+                    Grid[row + coords.y, column + coords.x] = module;
+                }
+            }
 
-            moduleData.PivotPosition = new Coordinates
+            if (!Modules.Contains(module))
+            {
+                Modules.Add(module);
+            }
+
+            module.PivotPosition = new Coordinates
             {
                 x = column,
                 y = row
             };
         }
 
-        public void RemoveModule(ModuleData moduleToRemove)
+        public void RemoveModule(Module moduleToRemove)
         {
-            foreach (ModuleData moduleData in ModuleDatas)
+            foreach (Module module in Modules)
             {
-                if (moduleData == moduleToRemove)
+                if (module == moduleToRemove)
                 {
-                    int row = moduleData.PivotPosition.y;
-                    int column = moduleData.PivotPosition.x;
+                    int row = module.PivotPosition.y;
+                    int column = module.PivotPosition.x;
                     
-                    foreach (Coordinates coords in moduleData.GridPositions)
+                    foreach (Coordinates coords in module.Data.GridPositions)
                     {
                         if (column + coords.x > 0 && column + coords.x < ColumnLength &&
                             row + coords.y > 0 && row + coords.y < RowHeight)
@@ -52,7 +68,7 @@ namespace Modules
                 }
             }
 
-            ModuleDatas.Remove(moduleToRemove);
+            Modules.Remove(moduleToRemove);
         }
     }
 }

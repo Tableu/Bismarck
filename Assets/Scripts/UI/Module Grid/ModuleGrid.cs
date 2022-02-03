@@ -1,34 +1,46 @@
-using Modules;
+using Systems.Modules;
 using Ships.DataManagement;
 using UnityEngine;
 
 public class ModuleGrid : MonoBehaviour
 {
-    public int ColumnLength;
-    public int RowHeight;
+    private int _columnLength;
+    private int _rowHeight;
+    public int UnitSize;
     public ShipData ShipData;
-    public GameObject[,] Grid;
-    public GameObject Element;
-    public RectTransform RectTransform;
+    private Module[,] _grid;
+    public GameObject GridItem;
+    public GameObject EmptyGridSpace;
     // Start is called before the first frame update
     void Start()
     {
-        ModuleData[,] moduleGrid = ShipData.ModuleGrid.Grid;
-        ColumnLength = moduleGrid.GetLength(0);
-        RowHeight = moduleGrid.GetLength(1);
-        Grid = new GameObject[RowHeight, ColumnLength];
-        for(int r = 0; r < RowHeight; r++)
+        _grid = ShipData.ModuleGrid.Grid;
+        _columnLength = _grid.GetLength(0);
+        _rowHeight = _grid.GetLength(1);
+        for(int r = 0; r < _rowHeight; r++)
         {
-            for(int c = 0; c < ColumnLength; c++)
+            for(int c = 0; c < _columnLength; c++)
             {
-                if (moduleGrid[r, c] != null)
+                var module = _grid[r, c];
+                if (module != null)
                 {
-                    GameObject e = Instantiate(moduleGrid[r, c].GridSprite, transform, false);
-                    e.GetComponent<RectTransform>().anchoredPosition = new Vector3(c * 100, r * 100, 0);
-                    foreach (Coordinates coords in moduleGrid[r, c].GridPositions)
+                    if (module.PivotPosition.x == c && module.PivotPosition.y == r)
                     {
-                        Grid[coords.y, coords.x] = e;
+                        GameObject e = Instantiate(GridItem, transform, false);
+                        e.GetComponent<ModuleGridItem>().Module = module;
+                        e.GetComponent<RectTransform>().anchoredPosition = new Vector3(c, r, 0)*UnitSize;
                     }
+                }
+                else
+                {
+                    GameObject empty = Instantiate(EmptyGridSpace, transform, false);
+                    empty.GetComponent<RectTransform>().anchoredPosition = new Vector3(c, r, 0)*UnitSize;
+                    empty.GetComponent<ModuleGridSlot>().ModuleGrid = this;
+                    empty.GetComponent<ModuleGridSlot>().SlotPosition = new Coordinates()
+                    {
+                        x = c,
+                        y = r
+                    };
                 }
             }
         }
@@ -38,5 +50,22 @@ public class ModuleGrid : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void AddModule(Module module, Coordinates coords)
+    {
+        foreach (Coordinates gridPos in module.Data.GridPositions)
+        {
+            if (_grid[gridPos.y+coords.y, gridPos.x+coords.x] != null)
+            {
+                return;
+            }
+        }
+        ShipData.ModuleGrid.AddModule(module, coords.y, coords.x);
+    }
+
+    public void RemoveModule(Module module)
+    {
+        ShipData.ModuleGrid.RemoveModule(module);
     }
 }
