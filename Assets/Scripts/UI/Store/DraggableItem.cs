@@ -39,7 +39,7 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             ItemReleased.Invoke();
-            transform.position = new Vector3(originalPos.x, originalPos.y, 0);
+            //transform.position = new Vector3(originalPos.x, originalPos.y, 0);
             holding = false;
         }
     }

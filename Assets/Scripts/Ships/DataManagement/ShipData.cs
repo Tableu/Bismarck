@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Modules;
 using Systems;
+using Systems.Modules;
 using UnityEngine;
 
 namespace Ships.DataManagement
@@ -14,7 +14,7 @@ namespace Ships.DataManagement
         public GameObject prefab;
         public int Cost;
         public List<AttackScriptableObject> Weapons;
-        public ModuleGridData ModuleGrid; 
+        public ModuleGridData ModuleGrid;
         [SerializeField] private bool blocksMovement = true;
 
         [Header("Base Stats")] [SerializeField]
@@ -31,5 +31,11 @@ namespace Ships.DataManagement
         public float TargetRange => targetRange;
         public bool BlocksMovement => blocksMovement;
         public float SensorRange => sensorRange;
+
+        private void OnEnable()
+        {
+            if(ModuleGrid != null)
+                ModuleGrid.Initialize();
+        }
     }
 }

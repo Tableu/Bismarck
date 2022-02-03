@@ -20,6 +20,18 @@ MonoBehaviour:
   Weapons:
   - {fileID: 11400000, guid: 0ef3ca281b2b8aa4289b8f24c83865e7, type: 2}
   - {fileID: 11400000, guid: 9ba436c7f169f704892d5151a8f12f31, type: 2}
+  ModuleGrid:
+    Modules:
+    - Data: {fileID: 11400000, guid: df2342c5fea8061469731e0a4d216e38, type: 2}
+      PivotPosition:
+        x: 1
+        y: 0
+    - Data: {fileID: 11400000, guid: df2342c5fea8061469731e0a4d216e38, type: 2}
+      PivotPosition:
+        x: 0
+        y: 0
+    RowHeight: 2
+    ColumnLength: 2
   blocksMovement: 1
   health: 20
   speedMultiplier: 1
