@@ -7,7 +7,6 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "PlayerInput", menuName = "PlayerInput/PlayerInput")]
 public class PlayerInputScriptableObject : ScriptableObject
 {
-    public ShipList SelectedShips;
 
     public ContactFilter2D PlayerFilter;
     public PlayerInputActions PlayerInputActions;
@@ -16,11 +15,6 @@ public class PlayerInputScriptableObject : ScriptableObject
     {
         PlayerInputActions = new PlayerInputActions();
         PlayerInputActions.Enable();
-        PlayerFilter = new ContactFilter2D
-        {
-            layerMask = LayerMask.GetMask("PlayerShips"),
-            useLayerMask = true
-        };
     }
 
     private void OnDisable()
@@ -49,23 +43,6 @@ public class PlayerInputScriptableObject : ScriptableObject
 
     public void DeSelectShips()
     {
-        if (SelectedShips.Count <= 0)
-        {
-            return;
-        }
 
-        foreach (GameObject ship in SelectedShips.Ships)
-        {
-            if (ship != null)
-            {
-                ShipUI shipUI = ship.GetComponent<ShipUI>();
-                if (shipUI != null)
-                {
-                    shipUI.DeselectShip();
-                }
-            }
-        }
-
-        SelectedShips.ClearList();
     }
 }
