@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
@@ -15,14 +13,14 @@ public class Turret : MonoBehaviour
         gameObject.layer = transform.parent.gameObject.layer;
         if (gameObject.layer == LayerMask.NameToLayer("EnemyShips"))
         {
-            enemyLayer = enemyLayer & ~LayerMask.GetMask("EnemyShips","EnemyProjectiles");
+            enemyLayer = enemyLayer & ~LayerMask.GetMask("EnemyShips", "EnemyProjectiles");
         }
         else if (gameObject.layer == LayerMask.NameToLayer("PlayerShips"))
         {
-            enemyLayer = enemyLayer & ~LayerMask.GetMask("PlayerShips","PlayerProjectiles");
+            enemyLayer = enemyLayer & ~LayerMask.GetMask("PlayerShips", "PlayerProjectiles");
         }
     }
-    
+
     protected void OnTriggerEnter2D(Collider2D other)
     {
         if (((1 << other.gameObject.layer) & enemyLayer) != 0)
@@ -37,8 +35,10 @@ public class Turret : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(dmg);
-                if(enemy.DestroyProjectile(CollisionType.energy))
+                if (enemy.DestroyProjectile(CollisionType.energy))
+                {
                     Destroy(gameObject);
+                }
             }
         }
     }

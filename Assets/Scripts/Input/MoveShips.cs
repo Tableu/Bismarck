@@ -33,7 +33,9 @@ public class MoveShips : MonoBehaviour
         {
             case InputActionPhase.Started:
                 if (selectedShips.Count > 0)
+                {
                     MoveSelectedShips(_projectedMousePos);
+                }
                 break;
         }
     }

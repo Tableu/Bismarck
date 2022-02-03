@@ -8,7 +8,7 @@ public class MeshDetector : MonoBehaviour
     {
         addPhysicsRaycaster();
     }
- 
+
     void addPhysicsRaycaster()
     {
         PhysicsRaycaster physicsRaycaster = FindObjectOfType<PhysicsRaycaster>();

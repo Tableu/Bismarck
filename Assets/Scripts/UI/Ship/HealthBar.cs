@@ -22,14 +22,21 @@ public class HealthBar : MonoBehaviour
     private void Update()
     {
         if (target != null)
+        {
             gameObject.transform.position = (Vector2)target.position + Vector2.down * barDisplacement;
+        }
         else
+        {
             Destroy(gameObject);
+        }
     }
 
     private void OnDestroy()
     {
-        if (_shipHealth != null) _shipHealth.OnHealthChanged -= Redraw;
+        if (_shipHealth != null)
+        {
+            _shipHealth.OnHealthChanged -= Redraw;
+        }
     }
 
     public void Bind(ShipHealth bindingTarget)

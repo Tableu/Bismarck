@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TransitionManager : MonoBehaviour
 {
@@ -28,15 +26,19 @@ public class TransitionManager : MonoBehaviour
     {
         mapPopup.SetActive(true);
         ships.SetActive(false);
-        if(_fleetScreen != null)
+        if (_fleetScreen != null)
+        {
             _fleetScreen.SetActive(false);
+        }
     }
 
     public void CloseMap()
     {
         mapPopup.SetActive(false);
         ships.SetActive(true);
-        if(_fleetScreen != null)
+        if (_fleetScreen != null)
+        {
             _fleetScreen.SetActive(true);
+        }
     }
 }

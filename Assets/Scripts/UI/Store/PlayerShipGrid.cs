@@ -24,7 +24,10 @@ public class PlayerShipGrid : MonoBehaviour
 
     private void Redraw()
     {
-        foreach (Transform child in transform) Destroy(child.gameObject);
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
 
         foreach (var ship in playerShipList.Ships)
         {
@@ -35,7 +38,10 @@ public class PlayerShipGrid : MonoBehaviour
                 var shipItem = Instantiate(shipItemPrefab, gameObject.transform, false);
                 var image = shipItem.GetComponent<Image>();
                 var spriteRenderer = shipData.Visuals.GetComponent<SpriteRenderer>();
-                if (image != null && spriteRenderer != null) image.sprite = spriteRenderer.sprite;
+                if (image != null && spriteRenderer != null)
+                {
+                    image.sprite = spriteRenderer.sprite;
+                }
 
                 var shipItemScript = shipItem.GetComponent<ShipGridItem>();
                 if (shipItemScript != null)

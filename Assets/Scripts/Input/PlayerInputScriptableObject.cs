@@ -35,7 +35,9 @@ public class PlayerInputScriptableObject : ScriptableObject
         List<RaycastResult> hits = new List<RaycastResult>();
         graphicRaycaster.Raycast(eventData, hits);
         if (hits.Count > 0)
+        {
             return true;
+        }
         return false;
     }
 

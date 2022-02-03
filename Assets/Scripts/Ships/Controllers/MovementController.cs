@@ -54,7 +54,9 @@ public class MovementController
             if (shipController != null)
             {
                 if (shipController.BlocksMovement)
+                {
                     return false;
+                }
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 
 /// <summary>
-/// Used to provide global access t game context information, such as if the game is in the store or battle scene.
+///     Used to provide global access t game context information, such as if the game is in the store or battle scene.
 /// </summary>
 public class GameContext
 {

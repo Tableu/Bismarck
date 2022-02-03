@@ -59,7 +59,9 @@ public class ShipBoxSelector : MonoBehaviour
     private void UpdateSelectionBox()
     {
         if (!selectionBox.gameObject.activeInHierarchy)
+        {
             selectionBox.gameObject.SetActive(true);
+        }
         float width = _projectedMousePos.x - _startPos.x;
         float height = _projectedMousePos.y - _startPos.y;
         selectionBox.sizeDelta = new Vector2(Mathf.Abs(width), Mathf.Abs(height));
@@ -69,14 +71,16 @@ public class ShipBoxSelector : MonoBehaviour
     private void ReleaseSelectionBox()
     {
         selectionBox.gameObject.SetActive(false);
-        Vector3 min = selectionBox.position - (Vector3) (selectionBox.sizeDelta / 2);
-        Vector3 max = selectionBox.position + (Vector3) (selectionBox.sizeDelta / 2);
+        Vector3 min = selectionBox.position - (Vector3)(selectionBox.sizeDelta / 2);
+        Vector3 max = selectionBox.position + (Vector3)(selectionBox.sizeDelta / 2);
 
         playerInput.DeSelectShips();
         foreach (GameObject ship in playerShips.Ships)
         {
             if (ship == null)
+            {
                 continue;
+            }
             Vector3 position = ship.transform.position;
             if (position.x < max.x && position.x > min.x &&
                 position.y < max.y && position.y > min.y)

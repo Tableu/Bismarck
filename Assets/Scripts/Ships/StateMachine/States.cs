@@ -49,7 +49,9 @@ public class MoveToTargetState : IState
     public void Tick()
     {
         if (Target == null)
+        {
             return;
+        }
         if (_movement.DirectionClear(Target.transform.position - _shipBattle.transform.position, 1))
         {
             _movement.Move(Target.transform.position);
@@ -60,10 +62,12 @@ public class MoveToTargetState : IState
     public void OnEnter()
     {
         if (Target == null)
+        {
             return;
+        }
         _speed = _movement.Speed;
         Vector3 diff = Target.transform.position - _shipBattle.transform.position;
-        _movement.SetDirection((int) Mathf.Sign(diff.x));
+        _movement.SetDirection((int)Mathf.Sign(diff.x));
         //_rotationSpeed = _movement.RotationSpeed;
     }
 
@@ -90,7 +94,7 @@ public class MoveToPositionState : IState
 
     public void Tick()
     {
-        if (_movement.DirectionClear(Position - (Vector2) _shipBattle.transform.position, 1))
+        if (_movement.DirectionClear(Position - (Vector2)_shipBattle.transform.position, 1))
         {
             _movement.Move(Position);
         }
@@ -100,10 +104,12 @@ public class MoveToPositionState : IState
     public void OnEnter()
     {
         if (Position == null)
+        {
             return;
+        }
         _speed = _movement.Speed;
-        Vector3 diff = Position - (Vector2) _shipBattle.transform.position;
-        _movement.SetDirection((int) Mathf.Sign(diff.x));
+        Vector3 diff = Position - (Vector2)_shipBattle.transform.position;
+        _movement.SetDirection((int)Mathf.Sign(diff.x));
         //_rotationSpeed = _movement.RotationSpeed;
     }
 

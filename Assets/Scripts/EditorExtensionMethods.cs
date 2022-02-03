@@ -1,17 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine;
 
 /// <summary>
-/// General extension methods used for custom editor stuff
+///     General extension methods used for custom editor stuff
 /// </summary>
 public static class EditorExtensionMethods
 {
     /// <summary>
-    /// Draws a horizontal line on the editor when called on OnInspectorGUI() on custom editors
+    ///     Draws a horizontal line on the editor when called on OnInspectorGUI() on custom editors
     /// </summary>
     /// <param name="color">Color of separator line</param>
     /// <param name="thickness">Thickness of line (defaults to 2)</param>

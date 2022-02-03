@@ -4,7 +4,6 @@ using Systems.Save;
 using UI.Map;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace StarMap
 {
@@ -47,7 +46,10 @@ namespace StarMap
         public void HideMapView()
         {
             // Deactivate map cam
-            if (_view == null || !_view.enabled) return;
+            if (_view == null || !_view.enabled)
+            {
+                return;
+            }
             _view.enabled = false;
 
             foreach (var camera in _activeCameras)
@@ -88,8 +90,14 @@ namespace StarMap
 
         private void ActivateMapView()
         {
-            if (_view == null) _view = FindObjectOfType<MapView>();
-            if (_view.enabled) return;
+            if (_view == null)
+            {
+                _view = FindObjectOfType<MapView>();
+            }
+            if (_view.enabled)
+            {
+                return;
+            }
             _activeCameras = Camera.allCameras.Where(c => c.enabled).ToArray();
             _view.enabled = true;
             foreach (var camera in _activeCameras)

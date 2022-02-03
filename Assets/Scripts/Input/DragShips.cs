@@ -37,7 +37,9 @@ public class DragShips : MonoBehaviour
             foreach (GameObject ship in selectedShips.Ships)
             {
                 if (ship == null)
+                {
                     continue;
+                }
                 ShipUI shipUI = ship.GetComponent<ShipUI>();
                 if (shipUI != null)
                 {

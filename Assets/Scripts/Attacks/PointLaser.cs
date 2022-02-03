@@ -8,7 +8,7 @@ public class PointLaser : MonoBehaviour
     {
         _timer = 0;
     }
-    
+
     void FixedUpdate()
     {
         if (_timer > lifetime)

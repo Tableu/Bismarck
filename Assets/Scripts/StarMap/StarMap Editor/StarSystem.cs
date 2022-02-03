@@ -1,9 +1,6 @@
-using System;
 using StarMap;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace StarMapEditor
 {
@@ -22,7 +19,7 @@ namespace StarMapEditor
         //Called from StarMapEditor/Map
         public StarMap.StarSystem Save(string MapDataPath)
         {
-            string[] results = AssetDatabase.FindAssets(gameObject.name, new []{MapDataPath});
+            string[] results = AssetDatabase.FindAssets(gameObject.name, new[] { MapDataPath });
             StarMap.StarSystem starSystem;
             if (results.Length > 0)
             {
@@ -43,7 +40,7 @@ namespace StarMapEditor
                 starSystem.RandomFleetDB = RandomFleetDB;
                 starSystem.Coordinates = transform.position;
                 string path = MapDataPath + gameObject.name + ".asset";
-                AssetDatabase.CreateAsset(starSystem,path);
+                AssetDatabase.CreateAsset(starSystem, path);
             }
 
             return starSystem;

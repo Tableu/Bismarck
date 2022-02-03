@@ -14,7 +14,10 @@ public class ShipTurrets : MonoBehaviour
 
     public void Refresh()
     {
-        foreach (Transform child in turretParent) Destroy(child.gameObject);
+        foreach (Transform child in turretParent)
+        {
+            Destroy(child.gameObject);
+        }
 
         var len = Math.Min(turretPositions.Count, _weapons.Count);
         for (var i = 0; i < len; i++)

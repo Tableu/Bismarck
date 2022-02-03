@@ -13,15 +13,14 @@ public class ProjectileAttack : AttackScriptableObject
 
     private class Attack : AttackCommand
     {
-        private GameObject _projectilePrefab;
-        private GameObject _target;
-        private Transform _parent;
-        private Transform _spawnPosition;
-        private float _fireDelay;
-        private Vector2 _direction;
-        private bool _useTarget = true;
         private int _coroutineCount = 0;
-        private bool Stop { get; set; }
+        private Vector2 _direction;
+        private float _fireDelay;
+        private Transform _parent;
+        private GameObject _projectilePrefab;
+        private Transform _spawnPosition;
+        private GameObject _target;
+        private bool _useTarget = true;
 
         public Attack(GameObject projectilePrefab, float fireDelay)
         {
@@ -29,6 +28,7 @@ public class ProjectileAttack : AttackScriptableObject
             _fireDelay = fireDelay;
             _useTarget = false;
         }
+        private bool Stop { get; set; }
 
         public void StopAttack()
         {

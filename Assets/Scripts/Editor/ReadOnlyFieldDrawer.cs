@@ -5,14 +5,14 @@ namespace Editor
 {
 
     /// <summary>
-    /// Attribute  used to make a field readonly in the inspector
+    ///     Attribute  used to make a field readonly in the inspector
     /// </summary>
     public class ReadOnlyField : PropertyAttribute
     {
     }
 
     /// <summary>
-    /// Custom drawer for read only attribute
+    ///     Custom drawer for read only attribute
     /// </summary>
     [CustomPropertyDrawer(typeof(ReadOnlyField))]
     public class ReadOnlyFieldDrawer : PropertyDrawer

@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class SpeedSegment
 {
     public float speed;
@@ -18,11 +19,11 @@ public class Projectile : MonoBehaviour
     public float speed;
     public Vector2 _direction;
     public CollisionType type;
-    private float startTime;
+    private SpeedSegment _currentSegment;
     private int _speedSegmentIndex;
     private int _speedSegmentMax;
-    private SpeedSegment _currentSegment;
     private bool _stopTimer;
+    private float startTime;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -44,11 +45,11 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     protected void FixedUpdate()
     {
-        transform.Translate(new Vector2(_direction.x, _direction.y)*speed*Time.fixedDeltaTime);
-        
+        transform.Translate(new Vector2(_direction.x, _direction.y) * speed * Time.fixedDeltaTime);
+
         if (!_stopTimer)
         {
-            if (Time.fixedTime-startTime > _currentSegment.duration)
+            if (Time.fixedTime - startTime > _currentSegment.duration)
             {
                 _speedSegmentIndex++;
                 if (_speedSegmentIndex >= _speedSegmentMax)
@@ -60,20 +61,13 @@ public class Projectile : MonoBehaviour
                 _currentSegment = speedSegments[_speedSegmentIndex];
                 speed = _currentSegment.speed;
             }
-            
+
         }
     }
 
-    public void Init(Vector2 direction, float zRotation, int shipLayer)
+    private void OnBecameInvisible()
     {
-        _direction = direction;
-        Vector3 scale = transform.localScale;
-        transform.localScale = new Vector3(scale.x*Mathf.Sign(direction.x), scale.y, scale.z);
-        Vector3 rotation = visuals.transform.rotation.eulerAngles;
-        visuals.transform.rotation = Quaternion.Euler(rotation.x, rotation.y,
-            (rotation.z-zRotation)*Mathf.Sign(direction.x));
-        gameObject.layer = shipLayer+1;
-        enemyLayer = enemyLayer & ~LayerMask.GetMask(LayerMask.LayerToName(shipLayer+1), LayerMask.LayerToName(shipLayer));
+        Destroy(gameObject);
     }
     protected void OnTriggerEnter2D(Collider2D other)
     {
@@ -89,15 +83,24 @@ public class Projectile : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(dmg);
-                if(enemy.DestroyProjectile(CollisionType.energy))
+                if (enemy.DestroyProjectile(CollisionType.energy))
+                {
                     Destroy(gameObject);
+                }
             }
         }
         return;
     }
 
-    private void OnBecameInvisible()
+    public void Init(Vector2 direction, float zRotation, int shipLayer)
     {
-        Destroy(gameObject);
+        _direction = direction;
+        Vector3 scale = transform.localScale;
+        transform.localScale = new Vector3(scale.x * Mathf.Sign(direction.x), scale.y, scale.z);
+        Vector3 rotation = visuals.transform.rotation.eulerAngles;
+        visuals.transform.rotation = Quaternion.Euler(rotation.x, rotation.y,
+            (rotation.z - zRotation) * Mathf.Sign(direction.x));
+        gameObject.layer = shipLayer + 1;
+        enemyLayer = enemyLayer & ~LayerMask.GetMask(LayerMask.LayerToName(shipLayer + 1), LayerMask.LayerToName(shipLayer));
     }
 }

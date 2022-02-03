@@ -80,7 +80,7 @@ namespace Ships.Fleets
         }
 
         /// <summary>
-        /// Changes this fleets aggressiveness towards another fleet
+        ///     Changes this fleets aggressiveness towards another fleet
         /// </summary>
         /// <param name="targetFleet">The fleet to change aggressiveness towards. Must not be its self.</param>
         /// <param name="newStatus">The new aggressiveness status</param>

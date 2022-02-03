@@ -19,7 +19,9 @@ public class ShipGridItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         if (Ship == null)
+        {
             return;
+        }
         ShipUI shipUI = Ship.GetComponent<ShipUI>();
         if (shipUI != null)
         {
@@ -30,7 +32,9 @@ public class ShipGridItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         if (Ship == null)
+        {
             return;
+        }
         ShipUI shipUI = Ship.GetComponent<ShipUI>();
         if (shipUI != null)
         {

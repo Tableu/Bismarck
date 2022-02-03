@@ -29,7 +29,10 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         get => money;
         set
         {
-            if (money == value) return;
+            if (money == value)
+            {
+                return;
+            }
 
             money = value;
             OnPropertyChanged("Money");
@@ -42,7 +45,10 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         get => repairCost;
         set
         {
-            if (repairCost == value) return;
+            if (repairCost == value)
+            {
+                return;
+            }
 
             repairCost = value;
             OnPropertyChanged("RepairCost");
@@ -55,7 +61,10 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         get => sellValue;
         set
         {
-            if (sellValue == value) return;
+            if (sellValue == value)
+            {
+                return;
+            }
 
             sellValue = value;
             OnPropertyChanged("SellValue");
@@ -68,7 +77,10 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
 
     private void OnPropertyChanged(string propertyName)
     {
-        if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        if (PropertyChanged != null)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
     [Binding]
@@ -117,7 +129,10 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
             Vector2 startingPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             var ship = shipSpawner.SpawnShip(shipData, startingPos);
             var shipLogic = ship.GetComponent<ShipLogic>();
-            if (shipLogic != null) shipLogic.enabled = false;
+            if (shipLogic != null)
+            {
+                shipLogic.enabled = false;
+            }
 
             UpdateRepairCostAndSellValue();
         }
@@ -135,6 +150,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
             graphicRaycaster.Raycast(eventData, hits);
 
             foreach (var hit in hits)
+            {
                 if (hit.gameObject.CompareTag("Weapon"))
                 {
                     var index = hit.gameObject.transform.GetSiblingIndex();
@@ -144,7 +160,10 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
                         shipData.Weapons[index] = attack;
                         Money -= attack.Cost;
                         var turrets = shipInfoPopup.Ship.GetComponent<ShipTurrets>();
-                        if (turrets != null) turrets.Refresh();
+                        if (turrets != null)
+                        {
+                            turrets.Refresh();
+                        }
 
                         shipInfoPopup.Refresh(shipInfoPopup.Ship);
                     }
@@ -152,6 +171,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
                     UpdateRepairCostAndSellValue();
                     break;
                 }
+            }
         }
     }
 

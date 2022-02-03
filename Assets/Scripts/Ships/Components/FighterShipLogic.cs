@@ -19,7 +19,9 @@ public class FighterShipLogic : ShipLogic
         StateMachine.Tick();
         if (mothership == null ||
             returning && Vector2.Distance(transform.position, mothership.transform.position) < .5f)
+        {
             Destroy(gameObject);
+        }
     }
 
     private new bool HasReachedTarget()
@@ -37,7 +39,10 @@ public class FighterShipLogic : ShipLogic
         if (target == null || Vector2.Distance(transform.position, target.transform.position) < .5f)
         {
             returning = true;
-            foreach (var command in _attackCommands) command.StopAttack();
+            foreach (var command in _attackCommands)
+            {
+                command.StopAttack();
+            }
 
             return true;
         }

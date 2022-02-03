@@ -14,8 +14,8 @@ namespace Systems
         public List<UniqueId> uniqueObjects;
 
         /// <summary>
-        /// Called when values are changed in the inspector, also called by UniqueId on validate function.
-        /// Verifies that all IDs are unique and prints an error if they are not.
+        ///     Called when values are changed in the inspector, also called by UniqueId on validate function.
+        ///     Verifies that all IDs are unique and prints an error if they are not.
         /// </summary>
         [ContextMenu("Validate IDs")]
         public void OnValidate()
@@ -38,13 +38,16 @@ namespace Systems
         }
 
         /// <summary>
-        /// Gets a scriptable object from is id.
+        ///     Gets a scriptable object from is id.
         /// </summary>
         /// <param name="id">The scriptable object uuid</param>
         /// <returns>A scriptable object with the given id or null if no such object could be found</returns>
         public UniqueId FindById(string id)
         {
-            if (id is null) return null;
+            if (id is null)
+            {
+                return null;
+            }
             return uniqueObjects.FirstOrDefault(scriptableObject => scriptableObject.id == id);
         }
     }

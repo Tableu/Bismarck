@@ -35,7 +35,10 @@ public class SpawnFighters : AttackScriptableObject
 
         public void SetTarget(GameObject target)
         {
-            if (target != null) _target = target;
+            if (target != null)
+            {
+                _target = target;
+            }
         }
 
         public void SetParent(Transform parent)
@@ -49,7 +52,10 @@ public class SpawnFighters : AttackScriptableObject
             Stop = false;
             while (!Stop && coroutineCount.Equals(_coroutineCount))
             {
-                if (_target == null) break;
+                if (_target == null)
+                {
+                    break;
+                }
 
                 SpawnFighter(attacker);
                 yield return new WaitForSeconds(_fireDelay);

@@ -32,7 +32,7 @@ namespace UI.Map
             _hideMap = _ => _context.HideMapView();
             foreach (var system in _mapData.StarSystems)
             {
-                var systemViewGo = Instantiate(_starSystemPrefab, (Vector3) system.Coordinates + Vector3.back,
+                var systemViewGo = Instantiate(_starSystemPrefab, (Vector3)system.Coordinates + Vector3.back,
                     Quaternion.identity, transform);
                 var systemView = systemViewGo.GetComponent<StarSystemView>();
                 systemView.SystemModel = system;
@@ -81,7 +81,10 @@ namespace UI.Map
 
         public IEnumerator MoveIcon(StarSystem destination)
         {
-            if (!_context.IsAccessible(destination)) yield break;
+            if (!_context.IsAccessible(destination))
+            {
+                yield break;
+            }
 
             var srcPos = _icon.transform.position;
             var dstPos = new Vector3(destination.Coordinates.x, destination.Coordinates.y, srcPos.z);

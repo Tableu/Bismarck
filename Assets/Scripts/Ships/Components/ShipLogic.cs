@@ -42,7 +42,10 @@ public class ShipLogic : MonoBehaviour
         StateMachine = new FSM();
         attackScriptableObjects = data.Weapons;
         _attackCommands = new List<AttackCommand>();
-        if (!enabled) return;
+        if (!enabled)
+        {
+            return;
+        }
         var turretPos = turretPositions.GetEnumerator();
 
         var parent = GameObject.FindWithTag(tag) ?? new GameObject
@@ -52,7 +55,10 @@ public class ShipLogic : MonoBehaviour
 
         foreach (var attackScriptableObject in attackScriptableObjects)
         {
-            if (!turretPos.MoveNext()) break;
+            if (!turretPos.MoveNext())
+            {
+                break;
+            }
 
             var attackCommand = attackScriptableObject.MakeAttack();
             StartCoroutine(attackCommand.DoAttack(gameObject, turretPos.Current));
@@ -77,7 +83,9 @@ public class ShipLogic : MonoBehaviour
     {
         if (_moveToTarget.Target == null ||
             Vector2.Distance(transform.position, _moveToTarget.Target.transform.position) < _data.TargetRange)
+        {
             return true;
+        }
 
         return false;
     }
@@ -85,14 +93,20 @@ public class ShipLogic : MonoBehaviour
     protected bool HasReachedPosition()
     {
         DetectEnemy();
-        if (Vector2.Distance(transform.position, _moveToPosition.Position) < .5f) return true;
+        if (Vector2.Distance(transform.position, _moveToPosition.Position) < .5f)
+        {
+            return true;
+        }
 
         return false;
     }
 
     protected bool DetectEnemy()
     {
-        if (_moveToTarget.Target != null) return false;
+        if (_moveToTarget.Target != null)
+        {
+            return false;
+        }
 
         var enemy = DetectionController.DetectShip(_data.SensorRange, gameObject);
         if (enemy != null)

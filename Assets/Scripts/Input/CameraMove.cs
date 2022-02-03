@@ -1,4 +1,3 @@
-using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,14 +9,16 @@ public class CameraMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!camera.enabled)
+        {
             return;
+        }
         if (Mouse.current.position.ReadValue().x > Screen.width - boundary)
         {
             camera.transform.position += new Vector3(scale.x, 0, 0);
@@ -26,7 +27,7 @@ public class CameraMove : MonoBehaviour
         {
             camera.transform.position -= new Vector3(scale.x, 0, 0);
         }
-        
+
         if (Mouse.current.position.ReadValue().y > Screen.height - boundary)
         {
             camera.transform.position += new Vector3(0, scale.y, 0);

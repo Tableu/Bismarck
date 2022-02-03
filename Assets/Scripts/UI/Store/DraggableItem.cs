@@ -3,18 +3,17 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-
 public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public UnityEvent ItemSelected;
     public UnityEvent ItemReleased;
     public string ItemName;
-    private Vector2 originalPos;
     private bool holding;
+    private Vector2 originalPos;
 
     private void Start()
     {
-        
+
     }
 
     private void Update()

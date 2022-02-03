@@ -18,12 +18,17 @@ public class LoadEnemies : MonoBehaviour
         var fleetPositions = fleet.fleetVisualsPrefab.GetComponentsInChildren<Transform>().GetEnumerator();
 
         foreach (var randomShip in fleet.randomFleet)
+        {
             if (fleetPositions.MoveNext())
             {
                 var shipData = randomShip.RandomShip();
                 var ship = shipSpawner.SpawnShip(shipData, Vector2.zero);
                 var spawnPos = fleetPositions.Current as Transform;
-                if (spawnPos != null) ship.transform.localPosition = spawnPos.position;
+                if (spawnPos != null)
+                {
+                    ship.transform.localPosition = spawnPos.position;
+                }
             }
+        }
     }
 }
