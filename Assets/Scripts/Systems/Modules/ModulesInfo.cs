@@ -1,30 +1,36 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Newtonsoft.Json.Linq;
+using Ships.Components;
+using Systems.Save;
+using UnityEngine;
 
 namespace Systems.Modules
 {
     [Serializable]
-    public class ModuleGridData
+    public class ModulesInfo : MonoBehaviour, ISavable
     {
         public Module[,] Grid;
         public List<Module> Modules;
         public int RowHeight;
         public int ColumnLength;
 
-        public void Initialize()
+        private ShipInfo _info;
+
+        private void Awake()
         {
-            if (Modules != null && RowHeight > 0 && ColumnLength > 0)
+            _info = GetComponent<ShipInfo>();
+            if (Grid == null)
             {
-                Grid = new Module[RowHeight, ColumnLength];
-                foreach (Module module in Modules.ToList())
-                {
-                    var pivot = module.PivotPosition;
-                    AddModule(module, pivot.y, pivot.x);
-                }
+                Grid = ModuleList.ListsToGrid(_info.Data.ModuleGrid);
+            }
+
+            if (Modules == null)
+            {
+                Modules = new List<Module>();
             }
         }
-        
+
         public void AddModule(Module module, int row, int column)
         {
             foreach(Coordinates coords in module.Data.GridPositions)
@@ -69,6 +75,29 @@ namespace Systems.Modules
             }
 
             Modules.Remove(moduleToRemove);
+        }
+        public string id => "module_grid";
+        public object SaveState()
+        {
+            return new SaveData
+            {
+                ModuleGrid = ModuleList.GridToLists(Grid),
+                Modules = Modules
+            };
+        }
+
+        public void LoadState(JObject state)
+        {
+            var saveData = state.ToObject<SaveData>();
+            Grid = ModuleList.ListsToGrid(saveData.ModuleGrid);
+            Modules = saveData.Modules;
+        }
+
+        [Serializable]
+        private struct SaveData
+        {
+            public List<ModuleList> ModuleGrid;
+            public List<Module> Modules;
         }
     }
 }

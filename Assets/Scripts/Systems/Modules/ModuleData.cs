@@ -7,7 +7,7 @@ namespace Systems.Modules
 {
     [CreateAssetMenu(fileName = "Modules", menuName = "Modules/ShipData")]
     [Serializable]
-    public class ModuleData : UuidScriptableObject
+    public class ModuleData : UniqueId
     {
         public ModifierData modifierData;
         public List<Coordinates> GridPositions;

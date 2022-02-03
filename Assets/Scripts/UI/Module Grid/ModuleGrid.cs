@@ -7,14 +7,14 @@ public class ModuleGrid : MonoBehaviour
     private int _columnLength;
     private int _rowHeight;
     public int UnitSize;
-    public ShipData ShipData;
+    public ModulesInfo modulesInfo;
     private Module[,] _grid;
     public GameObject GridItem;
     public GameObject EmptyGridSpace;
     // Start is called before the first frame update
     void Start()
     {
-        _grid = ShipData.ModuleGrid.Grid;
+        _grid = modulesInfo.Grid;
         _columnLength = _grid.GetLength(0);
         _rowHeight = _grid.GetLength(1);
         for(int r = 0; r < _rowHeight; r++)
@@ -61,11 +61,11 @@ public class ModuleGrid : MonoBehaviour
                 return;
             }
         }
-        ShipData.ModuleGrid.AddModule(module, coords.y, coords.x);
+        modulesInfo.AddModule(module, coords.y, coords.x);
     }
 
     public void RemoveModule(Module module)
     {
-        ShipData.ModuleGrid.RemoveModule(module);
+        modulesInfo.RemoveModule(module);
     }
 }
