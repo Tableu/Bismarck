@@ -11,9 +11,9 @@ namespace Systems.Modules
     public class ModulesInfo : MonoBehaviour, ISavable
     {
         public Module[,] Grid;
-        public List<Module> Modules;
-        public int RowHeight;
-        public int ColumnLength;
+        private List<Module> Modules;
+        private int RowHeight;
+        private int ColumnLength;
 
         private ShipInfo _info;
 
@@ -22,58 +22,63 @@ namespace Systems.Modules
             _info = GetComponent<ShipInfo>();
             if (Grid == null)
             {
-                Grid = ModuleList.ListsToGrid(_info.Data.ModuleGrid);
-            }
-
-            if (Modules == null)
-            {
-                Modules = new List<Module>();
+                RowHeight = _info.Data.ModuleGridHeight;
+                ColumnLength = _info.Data.ModuleGridWidth;
+                Grid = new Module[RowHeight, ColumnLength];
+                Modules = _info.Data.ModuleList;
+                foreach (Module module in Modules)
+                {
+                    AddModule(module);
+                }
             }
         }
 
-        public void AddModule(Module module, int row, int column)
+        public Module GetModule(Coordinates modulePos)
         {
+            return Grid[modulePos.y, modulePos.x];
+        }
+
+        public void AddModule(ModuleData moduleData, Coordinates modulePos)
+        {
+            Module module = moduleData.MakeModule(modulePos);
+            foreach(Coordinates gridPos in moduleData.GridPositions)
+            {
+                if (modulePos.x + gridPos.x >= 0 && modulePos.x + gridPos.x < ColumnLength &&
+                    modulePos.y + gridPos.y >= 0 && modulePos.y + gridPos.y < RowHeight)
+                {
+                    Grid[modulePos.y + gridPos.y, modulePos.x + gridPos.x] = module;
+                }
+            }
+        }
+        
+        private void AddModule(Module module)
+        {
+            Coordinates rootPos = module.RootPosition;
             foreach(Coordinates coords in module.Data.GridPositions)
             {
-                if (column + coords.x >= 0 && column + coords.x < ColumnLength &&
-                    row + coords.y >= 0 && row + coords.y < RowHeight)
+                if (rootPos.x + coords.x >= 0 && rootPos.x + coords.x < ColumnLength &&
+                    rootPos.y + coords.y >= 0 && rootPos.y + coords.y < RowHeight)
                 {
-                    Grid[row + coords.y, column + coords.x] = module;
+                    Grid[rootPos.y + coords.y, rootPos.x + coords.x] = module;
                 }
             }
-
-            if (!Modules.Contains(module))
-            {
-                Modules.Add(module);
-            }
-
-            module.PivotPosition = new Coordinates
-            {
-                x = column,
-                y = row
-            };
+            
+            Modules.Add(module);
         }
 
-        public void RemoveModule(Module moduleToRemove)
+        public void RemoveModule(Coordinates modulePos)
         {
-            foreach (Module module in Modules)
+            Module moduleToRemove = Grid[modulePos.y, modulePos.x];
+            Coordinates rootPos = moduleToRemove.RootPosition;
+            foreach (Coordinates coords in moduleToRemove.Data.GridPositions)
             {
-                if (module == moduleToRemove)
+                if (rootPos.x + coords.x > 0 && rootPos.x + coords.x < ColumnLength &&
+                    rootPos.y + coords.y > 0 && rootPos.y + coords.y < RowHeight)
                 {
-                    int row = module.PivotPosition.y;
-                    int column = module.PivotPosition.x;
-                    
-                    foreach (Coordinates coords in module.Data.GridPositions)
-                    {
-                        if (column + coords.x > 0 && column + coords.x < ColumnLength &&
-                            row + coords.y > 0 && row + coords.y < RowHeight)
-                        {
-                            Grid[row + coords.y, column + coords.x] = null;
-                        }
-                    }
+                    Grid[rootPos.y + coords.y, rootPos.x + coords.x] = null;
                 }
             }
-
+            
             Modules.Remove(moduleToRemove);
         }
         public string id => "module_grid";
@@ -81,7 +86,8 @@ namespace Systems.Modules
         {
             return new SaveData
             {
-                ModuleGrid = ModuleList.GridToLists(Grid),
+                GridHeight = RowHeight,
+                GridWidth = ColumnLength,
                 Modules = Modules
             };
         }
@@ -89,14 +95,21 @@ namespace Systems.Modules
         public void LoadState(JObject state)
         {
             var saveData = state.ToObject<SaveData>();
-            Grid = ModuleList.ListsToGrid(saveData.ModuleGrid);
+            RowHeight = saveData.GridHeight;
+            ColumnLength = saveData.GridWidth;
+            Grid = new Module[RowHeight, ColumnLength];
             Modules = saveData.Modules;
+            foreach (Module module in Modules)
+            {
+                AddModule(module);
+            }
         }
 
         [Serializable]
         private struct SaveData
         {
-            public List<ModuleList> ModuleGrid;
+            public int GridHeight;
+            public int GridWidth;
             public List<Module> Modules;
         }
     }

@@ -8,16 +8,16 @@ using UnityEngine.UI;
 
 public class ModuleGridItem : MonoBehaviour
 {
-    public Module Module;
+    public ModuleData ModuleData;
     [SerializeField] private Image _image;
     [SerializeField] private DraggableItem _draggableItem;
     [SerializeField] private GraphicRaycaster _graphicRaycaster;
     
     void Start()
     {
-        if (Module != null)
+        if (ModuleData != null)
         {
-            _image.sprite = Module.Data.GridSprite;
+            _image.sprite = ModuleData.GridSprite;
         }
     }
 
@@ -32,11 +32,12 @@ public class ModuleGridItem : MonoBehaviour
             ModuleGridSlot moduleGridSlot = hits[1].gameObject.GetComponentInParent<ModuleGridSlot>();
             if (moduleGridSlot != null)
             {
-                moduleGridSlot.ModuleGrid.AddModule(Module, moduleGridSlot.SlotPosition);
+                moduleGridSlot.ModuleGrid.modulesInfo.AddModule(ModuleData, moduleGridSlot.SlotPosition);
+                Module module = moduleGridSlot.ModuleGrid.modulesInfo.GetModule(moduleGridSlot.SlotPosition);
                 transform.SetParent(moduleGridSlot.transform.parent);
                 GetComponent<RectTransform>().anchoredPosition = new Vector2(
-                    Module.PivotPosition.x * moduleGridSlot.ModuleGrid.UnitSize,
-                Module.PivotPosition.y * moduleGridSlot.ModuleGrid.UnitSize);
+                    module.RootPosition.x * moduleGridSlot.ModuleGrid.UnitSize,
+                    module.RootPosition.y * moduleGridSlot.ModuleGrid.UnitSize);
             }
         }
     }

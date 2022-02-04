@@ -12,10 +12,12 @@ namespace Systems.Modules
         public ModifierData modifierData;
         public List<Coordinates> GridPositions;
         public Sprite GridSprite;
+        public string DisplayName;
 
-        public Module MakeModule()
+        public Module MakeModule(Coordinates rootPosition)
         {
             Module module = new Module(this);
+            module.RootPosition = rootPosition;
             return module;
         }
     }

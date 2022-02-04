@@ -24,10 +24,10 @@ public class ModuleGrid : MonoBehaviour
                 var module = _grid[r, c];
                 if (module != null)
                 {
-                    if (module.PivotPosition.x == c && module.PivotPosition.y == r)
+                    if (module.RootPosition.x == c && module.RootPosition.y == r)
                     {
                         GameObject e = Instantiate(GridItem, transform, false);
-                        e.GetComponent<ModuleGridItem>().Module = module;
+                        e.GetComponent<ModuleGridItem>().ModuleData = module.Data;
                         e.GetComponent<RectTransform>().anchoredPosition = new Vector3(c, r, 0)*UnitSize;
                     }
                 }
@@ -44,28 +44,5 @@ public class ModuleGrid : MonoBehaviour
                 }
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void AddModule(Module module, Coordinates coords)
-    {
-        foreach (Coordinates gridPos in module.Data.GridPositions)
-        {
-            if (_grid[gridPos.y+coords.y, gridPos.x+coords.x] != null)
-            {
-                return;
-            }
-        }
-        modulesInfo.AddModule(module, coords.y, coords.x);
-    }
-
-    public void RemoveModule(Module module)
-    {
-        modulesInfo.RemoveModule(module);
     }
 }
