@@ -1,4 +1,4 @@
-﻿using Editor;
+﻿using System;
 using UnityEngine;
 
 namespace Systems
@@ -14,13 +14,44 @@ namespace Systems
     {
         [Header("Object ID")]
         public string id;
-        [ReadOnlyField] public IdList parentList;
+        public IdList parentList;
 
-        private void OnValidate()
+        [NonSerialized] private IdList _oldParentList;
+        // OnValidate is called before OnEnable, meaning the Id can be added to the list twice
+        // resulting in an error
+        [NonSerialized] private bool _enabled = false;
+
+        private void OnEnable()
         {
             if (parentList != null)
             {
-                parentList.OnValidate();
+                parentList.Add(this);
+            }
+            _enabled = true;
+            _oldParentList = parentList;
+        }
+        private void OnDisable()
+        {
+            if (parentList != null)
+            {
+                parentList.Remove(this);
+            }
+            _enabled = false;
+        }
+
+        [ContextMenu("Update List")]
+        private void OnValidate()
+        {
+            if (parentList != _oldParentList && _enabled)
+            {
+                if (_oldParentList != null)
+                {
+                    _oldParentList.Remove(this);
+                }
+                if (parentList != null)
+                {
+                    parentList.Add(this);
+                }
             }
         }
     }
