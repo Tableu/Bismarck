@@ -9,7 +9,7 @@ public class ModuleGridView : MonoBehaviour
     public ModulesInfo ModulesInfo;
     public GameObject ModuleView;
     public GameObject EmptyGridSpace;
-    // Start is called before the first frame update
+    
     void Start()
     {
         _columnLength = ModulesInfo.ColumnLength;

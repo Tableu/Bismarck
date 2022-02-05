@@ -11,11 +11,6 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     private bool holding;
     private Vector2 originalPos;
 
-    private void Start()
-    {
-
-    }
-
     private void Update()
     {
         if (holding)

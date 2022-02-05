@@ -7,26 +7,35 @@ using UnityEngine;
 
 namespace Systems.Modules
 {
+    /// <summary>
+    ///     Stores runtime information on Modules and Module Grid.
+    ///     Saves and Loads Modules and Module Grid.
+    ///     Will init with default values from ShipData if there is no save data.
+    /// </summary>
     [Serializable]
     public class ModulesInfo : MonoBehaviour, ISavable
     {
-        public Module[,] Grid;
-        private List<Module> Modules;
-        private int RowHeight;
-        private int ColumnLength;
+        private Module[,] _grid;
+        private List<Module> _modules;
+        private int _rowHeight;
+        private int _columnLength;
 
         private ShipInfo _info;
+
+        public string id => "module_grid";
+        public int RowHeight => _rowHeight;
+        public int ColumnLength => _columnLength;
 
         private void Awake()
         {
             _info = GetComponent<ShipInfo>();
-            if (Grid == null)
+            if (_grid == null)
             {
-                RowHeight = _info.Data.ModuleGridHeight;
-                ColumnLength = _info.Data.ModuleGridWidth;
-                Grid = new Module[RowHeight, ColumnLength];
-                Modules = _info.Data.ModuleList;
-                foreach (Module module in Modules)
+                _rowHeight = _info.Data.ModuleGridHeight;
+                _columnLength = _info.Data.ModuleGridWidth;
+                _grid = new Module[_rowHeight, _columnLength];
+                _modules = _info.Data.ModuleList;
+                foreach (Module module in _modules)
                 {
                     AddModule(module);
                 }
@@ -35,71 +44,99 @@ namespace Systems.Modules
 
         public Module GetModule(Coordinates modulePos)
         {
-            return Grid[modulePos.y, modulePos.x];
+            return _grid[modulePos.y, modulePos.x];
         }
 
-        public void AddModule(ModuleData moduleData, Coordinates modulePos)
+        public bool AddModule(ModuleData moduleData, Coordinates modulePos)
         {
-            Module module = moduleData.MakeModule(modulePos);
-            foreach(Coordinates gridPos in moduleData.GridPositions)
+            foreach (Coordinates gridPos in moduleData.GridPositions)
             {
-                if (modulePos.x + gridPos.x >= 0 && modulePos.x + gridPos.x < ColumnLength &&
-                    modulePos.y + gridPos.y >= 0 && modulePos.y + gridPos.y < RowHeight)
+                if (modulePos.x + gridPos.x >= 0 && modulePos.x + gridPos.x < _columnLength &&
+                    modulePos.y + gridPos.y >= 0 && modulePos.y + gridPos.y < _rowHeight)
                 {
-                    Grid[modulePos.y + gridPos.y, modulePos.x + gridPos.x] = module;
-                }
-            }
-        }
-        
-        private void AddModule(Module module)
-        {
-            Coordinates rootPos = module.RootPosition;
-            foreach(Coordinates coords in module.Data.GridPositions)
-            {
-                if (rootPos.x + coords.x >= 0 && rootPos.x + coords.x < ColumnLength &&
-                    rootPos.y + coords.y >= 0 && rootPos.y + coords.y < RowHeight)
-                {
-                    Grid[rootPos.y + coords.y, rootPos.x + coords.x] = module;
+                    if (_grid[modulePos.y + gridPos.y, modulePos.x + gridPos.x] != null)
+                    {
+                        return false;
+                    }
                 }
             }
             
-            Modules.Add(module);
+            Module module = moduleData.MakeModule(modulePos);
+            foreach(Coordinates gridPos in moduleData.GridPositions)
+            {
+                if (modulePos.x + gridPos.x >= 0 && modulePos.x + gridPos.x < _columnLength &&
+                    modulePos.y + gridPos.y >= 0 && modulePos.y + gridPos.y < _rowHeight)
+                {
+                    _grid[modulePos.y + gridPos.y, modulePos.x + gridPos.x] = module;
+                }
+            }
+
+            _modules.Add(module);
+            return true;
+        }
+
+        private bool AddModule(Module module)
+        {
+            Coordinates rootPos = module.RootPosition;
+
+            foreach (Coordinates gridPos in module.Data.GridPositions)
+            {
+                if (rootPos.x + gridPos.x >= 0 && rootPos.x + gridPos.x < _columnLength &&
+                    rootPos.y + gridPos.y >= 0 && rootPos.y + gridPos.y < _rowHeight)
+                {
+                    if (_grid[rootPos.y + gridPos.y, rootPos.x + gridPos.x] != null)
+                    {
+                        return false;
+                    }
+                }
+            }
+            
+            foreach(Coordinates coords in module.Data.GridPositions)
+            {
+                if (rootPos.x + coords.x >= 0 && rootPos.x + coords.x < _columnLength &&
+                    rootPos.y + coords.y >= 0 && rootPos.y + coords.y < _rowHeight)
+                {
+                    _grid[rootPos.y + coords.y, rootPos.x + coords.x] = module;
+                }
+            }
+
+            _modules.Add(module);
+            return true;
         }
 
         public void RemoveModule(Coordinates modulePos)
         {
-            Module moduleToRemove = Grid[modulePos.y, modulePos.x];
+            Module moduleToRemove = _grid[modulePos.y, modulePos.x];
             Coordinates rootPos = moduleToRemove.RootPosition;
             foreach (Coordinates coords in moduleToRemove.Data.GridPositions)
             {
-                if (rootPos.x + coords.x > 0 && rootPos.x + coords.x < ColumnLength &&
-                    rootPos.y + coords.y > 0 && rootPos.y + coords.y < RowHeight)
+                if (rootPos.x + coords.x > 0 && rootPos.x + coords.x < _columnLength &&
+                    rootPos.y + coords.y > 0 && rootPos.y + coords.y < _rowHeight)
                 {
-                    Grid[rootPos.y + coords.y, rootPos.x + coords.x] = null;
+                    _grid[rootPos.y + coords.y, rootPos.x + coords.x] = null;
                 }
             }
-            
-            Modules.Remove(moduleToRemove);
+
+            _modules.Remove(moduleToRemove);
         }
-        public string id => "module_grid";
         public object SaveState()
         {
             return new SaveData
             {
-                GridHeight = RowHeight,
-                GridWidth = ColumnLength,
-                Modules = Modules
+                GridHeight = _rowHeight,
+                GridWidth = _columnLength,
+                Modules = _modules
             };
         }
 
         public void LoadState(JObject state)
         {
             var saveData = state.ToObject<SaveData>();
-            RowHeight = saveData.GridHeight;
-            ColumnLength = saveData.GridWidth;
-            Grid = new Module[RowHeight, ColumnLength];
-            Modules = saveData.Modules;
-            foreach (Module module in Modules)
+            _rowHeight = saveData.GridHeight;
+            _columnLength = saveData.GridWidth;
+            _grid = new Module[_rowHeight, _columnLength];
+            _modules = saveData.Modules;
+            foreach (Module module in _modules)
             {
                 AddModule(module);
             }

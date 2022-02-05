@@ -2,6 +2,9 @@ using System;
 
 namespace Systems.Modules
 {
+    /// <summary>
+    ///     Holds data and root position of the module
+    /// </summary>
     [Serializable]
     public class Module
     {
@@ -13,7 +16,10 @@ namespace Systems.Modules
             Data = moduleData;
         }
     }
-    
+
+    /// <summary>
+    ///     int substitute for vectors
+    /// </summary>
     [Serializable]
     public struct Coordinates
     {

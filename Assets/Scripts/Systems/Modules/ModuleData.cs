@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Systems.Modules
 {
+    /// <summary>
+    ///     Stores default values for a Module
+    /// </summary>
     [CreateAssetMenu(fileName = "Modules", menuName = "Modules/ShipData")]
     [Serializable]
     public class ModuleData : UniqueId
