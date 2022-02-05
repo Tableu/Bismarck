@@ -31,8 +31,8 @@ public class ModuleView : MonoBehaviour
             ModuleGridSlot moduleGridSlot = hits[1].gameObject.GetComponentInParent<ModuleGridSlot>();
             if (moduleGridSlot != null)
             {
-                moduleGridSlot.moduleGridView.ModulesInfo.AddModule(ModuleData, moduleGridSlot.SlotPosition);
-                Module module = moduleGridSlot.moduleGridView.ModulesInfo.GetModule(moduleGridSlot.SlotPosition);
+                Module module = ModuleData.MakeModule(moduleGridSlot.SlotPosition);
+                moduleGridSlot.moduleGridView.ModulesInfo.AddModule(module);
                 transform.SetParent(moduleGridSlot.transform.parent);
                 GetComponent<RectTransform>().anchoredPosition = new Vector2(
                     module.RootPosition.x * moduleGridSlot.moduleGridView.UnitSize,
