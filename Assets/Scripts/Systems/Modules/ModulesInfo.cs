@@ -50,10 +50,9 @@ namespace Systems.Modules
 
         public bool AddModule(Module module)
         {
-            Coordinates rootPos = module.RootPosition;
-
-            if (ModulePositionValid(module, rootPos))
+            if (ModulePositionValid(module))
             {
+                Coordinates rootPos = module.RootPosition;
                 foreach (Coordinates coords in module.Data.GridPositions)
                 {
                     if (rootPos.x + coords.x >= 0 && rootPos.x + coords.x < _columnLength &&
@@ -74,20 +73,25 @@ namespace Systems.Modules
         {
             Module moduleToRemove = _grid[modulePos.y, modulePos.x];
             Coordinates rootPos = moduleToRemove.RootPosition;
+            
             foreach (Coordinates coords in moduleToRemove.Data.GridPositions)
             {
                 if (rootPos.x + coords.x > 0 && rootPos.x + coords.x < _columnLength &&
                     rootPos.y + coords.y > 0 && rootPos.y + coords.y < _rowHeight)
                 {
-                    _grid[rootPos.y + coords.y, rootPos.x + coords.x] = null;
+                    if (_grid[rootPos.y + coords.y, rootPos.x + coords.x] == moduleToRemove)
+                    {
+                        _grid[rootPos.y + coords.y, rootPos.x + coords.x] = null;
+                    }
                 }
             }
 
             _modules.Remove(moduleToRemove);
         }
 
-        public bool ModulePositionValid(Module module, Coordinates rootPos)
+        public bool ModulePositionValid(Module module)
         {
+            Coordinates rootPos = module.RootPosition;
             foreach (Coordinates gridPos in module.Data.GridPositions)
             {
                 if (rootPos.x + gridPos.x >= 0 && rootPos.x + gridPos.x < _columnLength &&

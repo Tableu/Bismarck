@@ -16,7 +16,7 @@ public class ModuleGridView : MonoBehaviour
         _rowHeight = ModulesInfo.RowHeight;
         foreach (Module module in ModulesInfo.Modules)
         {
-            if (module != null)
+            if (module != null && ModulesInfo.ModulePositionValid(module))
             {
                 GameObject e = Instantiate(ModuleView, transform, false);
                 e.GetComponent<ModuleView>().ModuleData = module.Data;
