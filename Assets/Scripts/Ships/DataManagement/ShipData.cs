@@ -22,6 +22,7 @@ namespace Ships.DataManagement
         [SerializeField] private int moduleGridHeight;
         [SerializeField] private int moduleGridWidth;
         [SerializeField] private List<Module> moduleList;
+        [SerializeField] private List<ModuleSlot> moduleSlotList;
         [SerializeField] private bool blocksMovement = true;
 
         [Header("Base Stats")]
@@ -45,5 +46,6 @@ namespace Ships.DataManagement
         public int ModuleGridHeight => moduleGridHeight;
         public int ModuleGridWidth => moduleGridWidth;
         public List<Module> ModuleList => moduleList;
+        public List<ModuleSlot> ModuleSlots => moduleSlotList;
     }
 }

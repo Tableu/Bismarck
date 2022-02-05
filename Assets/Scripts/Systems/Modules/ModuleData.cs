@@ -15,6 +15,7 @@ namespace Systems.Modules
         public ModifierData modifierData;
         public List<Coordinates> GridPositions;
         public Sprite GridSprite;
+        public ModuleType Type;
         public string DisplayName;
 
         public Module MakeModule(Coordinates rootPosition)

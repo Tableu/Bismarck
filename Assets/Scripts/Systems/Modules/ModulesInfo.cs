@@ -16,7 +16,9 @@ namespace Systems.Modules
     public class ModulesInfo : MonoBehaviour, ISavable
     {
         private Module[,] _grid;
+        private ModuleSlot[,] _slotGrid;
         private List<Module> _modules;
+        private List<ModuleSlot> _moduleSlots;
         private int _rowHeight;
         private int _columnLength;
 
@@ -36,9 +38,15 @@ namespace Systems.Modules
                 _columnLength = _info.Data.ModuleGridWidth;
                 _grid = new Module[_rowHeight, _columnLength];
                 _modules = _info.Data.ModuleList;
+                _moduleSlots = _info.Data.ModuleSlots;
                 foreach (Module module in _modules)
                 {
                     AddModule(module);
+                }
+
+                foreach (ModuleSlot moduleSlot in _moduleSlots)
+                {
+                    AddModuleSlot(moduleSlot);
                 }
             }
         }
@@ -89,6 +97,20 @@ namespace Systems.Modules
             _modules.Remove(moduleToRemove);
         }
 
+        public bool AddModuleSlot(ModuleSlot moduleSlot)
+        {
+            Coordinates pos = moduleSlot.Position;
+            if (pos.x > 0 && pos.x < _columnLength &&
+                pos.y > 0 && pos.y < _rowHeight &&
+                _slotGrid[pos.y, pos.x] == null)
+            {
+                _slotGrid[pos.y, pos.x] = moduleSlot;
+                return true;
+            }
+
+            return false;
+        }
+
         public bool ModulePositionValid(Module module)
         {
             Coordinates rootPos = module.RootPosition;
@@ -97,7 +119,10 @@ namespace Systems.Modules
                 if (rootPos.x + gridPos.x >= 0 && rootPos.x + gridPos.x < _columnLength &&
                     rootPos.y + gridPos.y >= 0 && rootPos.y + gridPos.y < _rowHeight)
                 {
-                    if (_grid[rootPos.y + gridPos.y, rootPos.x + gridPos.x] != null)
+                    if (_grid[rootPos.y + gridPos.y, rootPos.x + gridPos.x] != null ||
+                        _slotGrid[rootPos.y + gridPos.y, rootPos.x + gridPos.x] == null ||
+                        (_slotGrid[rootPos.y + gridPos.y, rootPos.x + gridPos.x].ValidTypes & module.Data.Type) ==
+                        ModuleType.None)
                     {
                         return false;
                     }
@@ -113,7 +138,8 @@ namespace Systems.Modules
             {
                 GridHeight = _rowHeight,
                 GridWidth = _columnLength,
-                Modules = _modules
+                Modules = _modules,
+                ModuleSlots = _moduleSlots
             };
         }
 
@@ -124,9 +150,16 @@ namespace Systems.Modules
             _columnLength = saveData.GridWidth;
             _grid = new Module[_rowHeight, _columnLength];
             _modules = saveData.Modules;
+            _moduleSlots = saveData.ModuleSlots;
+            
             foreach (Module module in _modules)
             {
                 AddModule(module);
+            }
+
+            foreach (ModuleSlot moduleSlot in _moduleSlots)
+            {
+                AddModuleSlot(moduleSlot);
             }
         }
 
@@ -136,6 +169,7 @@ namespace Systems.Modules
             public int GridHeight;
             public int GridWidth;
             public List<Module> Modules;
+            public List<ModuleSlot> ModuleSlots;
         }
     }
 }
