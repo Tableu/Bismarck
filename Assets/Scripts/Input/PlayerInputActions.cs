@@ -982,6 +982,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             {
                 m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard&Mouse");
             }
+
             return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
         }
     }
@@ -994,6 +995,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             {
                 m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
             }
+
             return asset.controlSchemes[m_GamepadSchemeIndex];
         }
     }
@@ -1006,6 +1008,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             {
                 m_TouchSchemeIndex = asset.FindControlSchemeIndex("Touch");
             }
+
             return asset.controlSchemes[m_TouchSchemeIndex];
         }
     }
@@ -1018,6 +1021,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             {
                 m_JoystickSchemeIndex = asset.FindControlSchemeIndex("Joystick");
             }
+
             return asset.controlSchemes[m_JoystickSchemeIndex];
         }
     }
@@ -1030,6 +1034,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             {
                 m_XRSchemeIndex = asset.FindControlSchemeIndex("XR");
             }
+
             return asset.controlSchemes[m_XRSchemeIndex];
         }
     }

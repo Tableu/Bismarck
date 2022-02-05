@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Systems.Modules;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class ModuleGridItem : MonoBehaviour
+public class ModuleView : MonoBehaviour
 {
     public ModuleData ModuleData;
     [SerializeField] private Image _image;
@@ -32,12 +31,12 @@ public class ModuleGridItem : MonoBehaviour
             ModuleGridSlot moduleGridSlot = hits[1].gameObject.GetComponentInParent<ModuleGridSlot>();
             if (moduleGridSlot != null)
             {
-                moduleGridSlot.ModuleGrid.modulesInfo.AddModule(ModuleData, moduleGridSlot.SlotPosition);
-                Module module = moduleGridSlot.ModuleGrid.modulesInfo.GetModule(moduleGridSlot.SlotPosition);
+                moduleGridSlot.moduleGridView.ModulesInfo.AddModule(ModuleData, moduleGridSlot.SlotPosition);
+                Module module = moduleGridSlot.moduleGridView.ModulesInfo.GetModule(moduleGridSlot.SlotPosition);
                 transform.SetParent(moduleGridSlot.transform.parent);
                 GetComponent<RectTransform>().anchoredPosition = new Vector2(
-                    module.RootPosition.x * moduleGridSlot.ModuleGrid.UnitSize,
-                    module.RootPosition.y * moduleGridSlot.ModuleGrid.UnitSize);
+                    module.RootPosition.x * moduleGridSlot.moduleGridView.UnitSize,
+                    module.RootPosition.y * moduleGridSlot.moduleGridView.UnitSize);
             }
         }
     }

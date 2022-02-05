@@ -6,7 +6,8 @@ using UnityEngine;
 public class ModuleGridSlot : MonoBehaviour
 {
     public Coordinates SlotPosition;
-    public ModuleGrid ModuleGrid;
+
+    public ModuleGridView moduleGridView;
     // Start is called before the first frame update
     void Start()
     {
