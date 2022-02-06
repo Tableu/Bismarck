@@ -15,6 +15,7 @@ namespace Systems.Modules
     [Serializable]
     public class ModulesInfo : MonoBehaviour, ISavable
     {
+        [SerializeField] private IdList _moduleIdList;
         private ModuleSlot[,] _slotGrid;
         private List<Module> _modules;
         private List<ModuleSlot> _moduleSlots;
@@ -156,7 +157,11 @@ namespace Systems.Modules
             
             foreach (Module module in _modules)
             {
-                AddModule(module);
+                module.Data = _moduleIdList.IDMap[module.ModuleId] as ModuleData;
+                if (module.Data != null)
+                {
+                    AddModule(module);
+                }
             }
 
             foreach (ModuleSlot moduleSlot in _moduleSlots)

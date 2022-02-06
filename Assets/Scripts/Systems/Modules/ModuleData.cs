@@ -20,8 +20,10 @@ namespace Systems.Modules
 
         public Module MakeModule(Vector2Int rootPosition)
         {
-            Module module = new Module(this);
-            module.RootPosition = rootPosition;
+            Module module = new Module(this)
+            {
+                RootPosition = rootPosition
+            };
             return module;
         }
     }
