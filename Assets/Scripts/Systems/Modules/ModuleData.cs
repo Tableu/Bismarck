@@ -5,6 +5,14 @@ using UnityEngine;
 
 namespace Systems.Modules
 {
+    [Flags]
+    [Serializable]
+    public enum ModuleType
+    {
+        None = 0,
+        Weapon = 1 << 0,
+        Engine = 1 << 1
+    }
     /// <summary>
     ///     Stores default values for a Module
     /// </summary>

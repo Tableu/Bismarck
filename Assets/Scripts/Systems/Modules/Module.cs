@@ -10,13 +10,13 @@ namespace Systems.Modules
     public class Module
     {
         [NonSerialized] public ModuleData Data;
-        public string ModuleId;
+        public string Id;
         public Vector2Int RootPosition;
         
         internal Module(ModuleData moduleData)
         {
             Data = moduleData;
-            ModuleId = moduleData.id;
+            Id = moduleData.id;
         }
     }
 }

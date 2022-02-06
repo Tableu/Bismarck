@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2261e05bd1a9240488adabbcd1934508, type: 3}
   m_Name: ModuleData
   m_EditorClassIdentifier: 
-  uuid: 
-  parentList: {fileID: 0}
+  id: TestModule
+  parentList: {fileID: 11400000, guid: eb5c7cfc9ed5ba741beb217ae7830a16, type: 2}
   modifierData: {fileID: 11400000, guid: 71441f7413ebdcd43bb1aecdd431dfd1, type: 2}
   GridPositions:
-  - x: 0
-    y: 0
+  - {x: 0, y: 0}
   GridSprite: {fileID: 7348919111250482520, guid: 2315d664fa784ef4ebe58e8e09d3ce26, type: 3}
+  Type: 0
+  DisplayName: 

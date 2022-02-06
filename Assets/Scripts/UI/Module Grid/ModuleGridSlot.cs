@@ -1,4 +1,3 @@
-using Systems.Modules;
 using UnityEngine;
 
 public class ModuleGridSlot : MonoBehaviour
