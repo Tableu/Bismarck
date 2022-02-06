@@ -40,10 +40,6 @@ public class ModuleView : DraggableItem
             {
                 if (moduleGridSlot.moduleGridView.ModulesInfo.AddModule(Module, moduleGridSlot.Position))
                 {
-                    transform.SetParent(moduleGridSlot.transform.parent);
-                    GetComponent<RectTransform>().anchoredPosition = new Vector2(
-                        Module.RootPosition.x * moduleGridSlot.moduleGridView.UnitSize,
-                        Module.RootPosition.y * moduleGridSlot.moduleGridView.UnitSize);
                     return;
                 }
             }

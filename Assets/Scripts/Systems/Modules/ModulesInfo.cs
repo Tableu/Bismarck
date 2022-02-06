@@ -16,9 +16,8 @@ namespace Systems.Modules
     [Serializable]
     public class ModulesInfo : MonoBehaviour, ISavable
     {
-        public event EventHandler ModulesInfoInitialized;
+        public event EventHandler ModuleGridChanged;
         [SerializeField] private IdList _moduleIdList;
-        [SerializeField] private SaveManager _saveManager;
         private Module[,] _grid;
         private List<Module> _modules;
         private int _rowHeight;
@@ -31,9 +30,9 @@ namespace Systems.Modules
         public int ColumnLength => _columnLength;
         public List<Module> Modules => _modules;
 
-        protected virtual void OnInitialized(EventArgs e)
+        protected virtual void OnGridChange(EventArgs e)
         {
-            EventHandler handler = ModulesInfoInitialized;
+            EventHandler handler = ModuleGridChanged;
             handler?.Invoke(this, e);
         }
         
@@ -51,13 +50,16 @@ namespace Systems.Modules
                 {
                     if (module != null)
                     {
-                        Module copy = new Module(_moduleIdList.IDMap[module.Id] as ModuleData);
-                        copy.RootPosition = module.RootPosition;
+                        Module copy = new Module
+                        {
+                            Data = _moduleIdList.IDMap[module.Id] as ModuleData,
+                            RootPosition = module.RootPosition
+                        };
                         AddModule(copy);
                     }
                 }
 
-                OnInitialized(EventArgs.Empty);
+                OnGridChange(EventArgs.Empty);
             }
         }
 
@@ -89,13 +91,16 @@ namespace Systems.Modules
                         }
                     }
                 }
-                
+
+                Modules.Remove(module);
+
                 foreach (Vector2Int coords in module.Data.GridPositions)
                 {
                     _grid[newPos.y + coords.y, newPos.x + coords.x] = module;
                 }
 
                 Modules.Add(module);
+                OnGridChange(EventArgs.Empty);
                 return true;
             }
 
@@ -135,8 +140,9 @@ namespace Systems.Modules
                     }
                 }
             }
-
+            
             Modules.Remove(moduleToRemove);
+            OnGridChange(EventArgs.Empty);
             return true;
         }
 
@@ -186,7 +192,7 @@ namespace Systems.Modules
                 }
             }
 
-            OnInitialized(EventArgs.Empty);
+            OnGridChange(EventArgs.Empty);
         }
 
         [Serializable]

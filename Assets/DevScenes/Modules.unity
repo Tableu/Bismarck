@@ -464,6 +464,7 @@ GameObject:
   - component: {fileID: 1498225565}
   - component: {fileID: 1498225567}
   - component: {fileID: 1498225568}
+  - component: {fileID: 1498225569}
   m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
@@ -572,6 +573,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: b06386917a921804680d014d2b97a79a, type: 2}
+--- !u!114 &1498225569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498225562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aa36473307d4a3eae0949cfdf156e63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: Modules
 --- !u!1 &1586004231
 GameObject:
   m_ObjectHideFlags: 0

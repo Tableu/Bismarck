@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Systems.Modules;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,25 +10,33 @@ using UnityEngine.UI;
 /// </summary>
 public class ModuleGridView : MonoBehaviour
 {
-    private int _columnLength;
-    private int _rowHeight;
     public int UnitSize;
     public ModulesInfo ModulesInfo;
     public GameObject ModuleView;
     public GameObject ModuleSlot;
     public GraphicRaycaster GraphicRaycaster;
+    private int _columnLength;
+    private int _rowHeight;
+    private bool _initialized;
+    private List<GameObject> _moduleViews;
 
     private void Awake()
     {
-        ModulesInfo.ModulesInfoInitialized += ModuleInfoInitialized;
+        ModulesInfo.ModuleGridChanged += ModuleGridChanged;
+        _moduleViews = new List<GameObject>();
     }
 
-    private void ModuleInfoInitialized(object sender, EventArgs e)
+    private void ModuleGridChanged(object sender, EventArgs e)
     {
-        DrawModuleGrid();
+        if (!_initialized)
+        {
+            DrawSlots();
+        }
+
+        RefreshGrid();
     }
 
-    private void DrawModuleGrid()
+    private void DrawSlots()
     {
         _columnLength = ModulesInfo.ColumnLength;
         _rowHeight = ModulesInfo.RowHeight;
@@ -43,11 +52,21 @@ public class ModuleGridView : MonoBehaviour
             }
         }
 
+        _initialized = true;
+    }
+
+    private void RefreshGrid()
+    {
+        foreach (GameObject moduleView in _moduleViews)
+        {
+            Destroy(moduleView);
+        }
         foreach (Module module in ModulesInfo.Modules)
         {
             if (module != null)
             {
                 GameObject e = Instantiate(ModuleView, transform, false);
+                _moduleViews.Add(e);
                 ModuleView moduleView = e.GetComponent<ModuleView>();
                 moduleView.Module = module;
                 moduleView.GraphicRaycaster = GraphicRaycaster;

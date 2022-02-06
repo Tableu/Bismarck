@@ -12,11 +12,5 @@ namespace Systems.Modules
         [NonSerialized] public ModuleData Data;
         public string Id;
         public Vector2Int RootPosition;
-        
-        internal Module(ModuleData moduleData)
-        {
-            Data = moduleData;
-            Id = moduleData.id;
-        }
     }
 }
