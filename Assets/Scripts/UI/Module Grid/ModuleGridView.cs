@@ -28,21 +28,13 @@ public class ModuleGridView : MonoBehaviour
         {
             for(int c = 0; c < _columnLength; c++)
             {
-                Coordinates pos = new Coordinates
-                {
-                    x = c,
-                    y = r
-                };
+                Vector2Int pos = new Vector2Int(c, r);
                 if (ModulesInfo.GetModule(pos) == null)
                 {
                     GameObject empty = Instantiate(ModuleSlot, transform, false);
                     empty.GetComponent<RectTransform>().anchoredPosition = new Vector3(c, r, 0)*UnitSize;
                     empty.GetComponent<ModuleGridSlot>().moduleGridView = this;
-                    empty.GetComponent<ModuleGridSlot>().SlotPosition = new Coordinates
-                    {
-                        x = c,
-                        y = r
-                    };
+                    empty.GetComponent<ModuleGridSlot>().SlotPosition = new Vector2Int(c, r);
                 }
                 
             }

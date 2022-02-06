@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ModuleGridSlot : MonoBehaviour
 {
-    public Coordinates SlotPosition;
+    public Vector2Int SlotPosition;
 
     public ModuleGridView moduleGridView;
 }

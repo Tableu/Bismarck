@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Systems.Modules
 {
@@ -9,9 +10,9 @@ namespace Systems.Modules
     [Serializable]
     public enum ModuleType
     {
-        None,
-        Weapon,
-        Engine
+        None = 0,
+        Weapon = 1 << 0,
+        Engine = 1 << 1
     }
 
     /// <summary>
@@ -20,7 +21,8 @@ namespace Systems.Modules
     [Serializable]
     public class ModuleSlot
     {
-        public Coordinates Position;
+        public Vector2Int Position;
+        public Module module;
         public ModuleType ValidTypes;
     }
 }

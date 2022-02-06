@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Systems.Modules
 {
@@ -9,21 +10,11 @@ namespace Systems.Modules
     public class Module
     {
         public ModuleData Data;
-        public Coordinates RootPosition;
+        public Vector2Int RootPosition;
 
         internal Module(ModuleData moduleData)
         {
             Data = moduleData;
         }
-    }
-
-    /// <summary>
-    ///     int substitute for vectors
-    /// </summary>
-    [Serializable]
-    public struct Coordinates
-    {
-        public int x;
-        public int y;
     }
 }

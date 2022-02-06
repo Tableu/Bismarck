@@ -13,12 +13,12 @@ namespace Systems.Modules
     public class ModuleData : UniqueId
     {
         public ModifierData modifierData;
-        public List<Coordinates> GridPositions;
+        public List<Vector2Int> GridPositions;
         public Sprite GridSprite;
         public ModuleType Type;
         public string DisplayName;
 
-        public Module MakeModule(Coordinates rootPosition)
+        public Module MakeModule(Vector2Int rootPosition)
         {
             Module module = new Module(this);
             module.RootPosition = rootPosition;

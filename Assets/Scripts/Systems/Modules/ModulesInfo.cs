@@ -15,7 +15,6 @@ namespace Systems.Modules
     [Serializable]
     public class ModulesInfo : MonoBehaviour, ISavable
     {
-        private Module[,] _grid;
         private ModuleSlot[,] _slotGrid;
         private List<Module> _modules;
         private List<ModuleSlot> _moduleSlots;
@@ -24,19 +23,19 @@ namespace Systems.Modules
 
         private ShipInfo _info;
 
-        public string id => "module_grid";
+        public string id => "ModulesInfo";
         public int RowHeight => _rowHeight;
         public int ColumnLength => _columnLength;
         public List<Module> Modules => _modules;
 
-        private void Awake()
+        private void Start()
         {
             _info = GetComponent<ShipInfo>();
-            if (_grid == null)
+            if (_slotGrid == null)
             {
                 _rowHeight = _info.Data.ModuleGridHeight;
                 _columnLength = _info.Data.ModuleGridWidth;
-                _grid = new Module[_rowHeight, _columnLength];
+                _slotGrid = new ModuleSlot[_rowHeight, _columnLength];
                 _modules = _info.Data.ModuleList;
                 _moduleSlots = _info.Data.ModuleSlots;
                 foreach (Module module in _modules)
@@ -51,23 +50,24 @@ namespace Systems.Modules
             }
         }
 
-        public Module GetModule(Coordinates modulePos)
+        public Module GetModule(Vector2Int modulePos)
         {
-            return _grid[modulePos.y, modulePos.x];
+            if (_slotGrid[modulePos.y, modulePos.x] != null)
+            {
+                return _slotGrid[modulePos.y, modulePos.x].module;
+            }
+
+            return null;
         }
 
         public bool AddModule(Module module)
         {
             if (ModulePositionValid(module))
             {
-                Coordinates rootPos = module.RootPosition;
-                foreach (Coordinates coords in module.Data.GridPositions)
+                Vector2Int rootPos = module.RootPosition;
+                foreach (Vector2Int coords in module.Data.GridPositions)
                 {
-                    if (rootPos.x + coords.x >= 0 && rootPos.x + coords.x < _columnLength &&
-                        rootPos.y + coords.y >= 0 && rootPos.y + coords.y < _rowHeight)
-                    {
-                        _grid[rootPos.y + coords.y, rootPos.x + coords.x] = module;
-                    }
+                    _slotGrid[rootPos.y + coords.y, rootPos.x + coords.x].module = module;
                 }
 
                 _modules.Add(module);
@@ -77,19 +77,20 @@ namespace Systems.Modules
             return false;
         }
 
-        public void RemoveModule(Coordinates modulePos)
+        public void RemoveModule(Vector2Int modulePos)
         {
-            Module moduleToRemove = _grid[modulePos.y, modulePos.x];
-            Coordinates rootPos = moduleToRemove.RootPosition;
-            
-            foreach (Coordinates coords in moduleToRemove.Data.GridPositions)
+            Module moduleToRemove = _slotGrid[modulePos.y, modulePos.x].module;
+            Vector2Int rootPos = moduleToRemove.RootPosition;
+
+            foreach (Vector2Int coords in moduleToRemove.Data.GridPositions)
             {
-                if (rootPos.x + coords.x > 0 && rootPos.x + coords.x < _columnLength &&
-                    rootPos.y + coords.y > 0 && rootPos.y + coords.y < _rowHeight)
+                Vector2Int pos = new Vector2Int(rootPos.x + coords.x, rootPos.y + coords.y);
+                if (pos.x >= 0 && pos.x < _columnLength &&
+                    pos.y >= 0 && pos.y < _rowHeight)
                 {
-                    if (_grid[rootPos.y + coords.y, rootPos.x + coords.x] == moduleToRemove)
+                    if (_slotGrid[pos.y, pos.x].module == moduleToRemove)
                     {
-                        _grid[rootPos.y + coords.y, rootPos.x + coords.x] = null;
+                        _slotGrid[pos.y, pos.x].module = null;
                     }
                 }
             }
@@ -99,9 +100,9 @@ namespace Systems.Modules
 
         public bool AddModuleSlot(ModuleSlot moduleSlot)
         {
-            Coordinates pos = moduleSlot.Position;
-            if (pos.x > 0 && pos.x < _columnLength &&
-                pos.y > 0 && pos.y < _rowHeight &&
+            Vector2Int pos = moduleSlot.Position;
+            if (pos.x >= 0 && pos.x < _columnLength &&
+                pos.y >= 0 && pos.y < _rowHeight &&
                 _slotGrid[pos.y, pos.x] == null)
             {
                 _slotGrid[pos.y, pos.x] = moduleSlot;
@@ -113,19 +114,24 @@ namespace Systems.Modules
 
         public bool ModulePositionValid(Module module)
         {
-            Coordinates rootPos = module.RootPosition;
-            foreach (Coordinates gridPos in module.Data.GridPositions)
+            Vector2Int rootPos = module.RootPosition;
+            foreach (Vector2Int gridPos in module.Data.GridPositions)
             {
-                if (rootPos.x + gridPos.x >= 0 && rootPos.x + gridPos.x < _columnLength &&
-                    rootPos.y + gridPos.y >= 0 && rootPos.y + gridPos.y < _rowHeight)
+                Vector2Int pos = new Vector2Int(rootPos.x + gridPos.x, rootPos.y + gridPos.y);
+
+                if (pos.x < 0 || pos.x >= _columnLength &&
+                    pos.y < 0 || pos.y >= _rowHeight)
                 {
-                    if (_grid[rootPos.y + gridPos.y, rootPos.x + gridPos.x] != null ||
-                        _slotGrid[rootPos.y + gridPos.y, rootPos.x + gridPos.x] == null ||
-                        (_slotGrid[rootPos.y + gridPos.y, rootPos.x + gridPos.x].ValidTypes & module.Data.Type) ==
-                        ModuleType.None)
-                    {
-                        return false;
-                    }
+                    Debug.Log("ModulesInfo: position out of bounds");
+                    return false;
+                }
+
+                if (_slotGrid[pos.y, pos.x] == null ||
+                    (_slotGrid[pos.y, pos.x].ValidTypes & module.Data.Type) == ModuleType.None ||
+                    _slotGrid[pos.y, pos.x].module != null)
+                {
+                    Debug.Log("ModulesInfo: position invalid");
+                    return false;
                 }
             }
 
@@ -136,8 +142,6 @@ namespace Systems.Modules
         {
             return new SaveData
             {
-                GridHeight = _rowHeight,
-                GridWidth = _columnLength,
                 Modules = _modules,
                 ModuleSlots = _moduleSlots
             };
@@ -146,9 +150,7 @@ namespace Systems.Modules
         public void LoadState(JObject state)
         {
             var saveData = state.ToObject<SaveData>();
-            _rowHeight = saveData.GridHeight;
-            _columnLength = saveData.GridWidth;
-            _grid = new Module[_rowHeight, _columnLength];
+            _slotGrid = new ModuleSlot[_rowHeight, _columnLength];
             _modules = saveData.Modules;
             _moduleSlots = saveData.ModuleSlots;
             
@@ -166,8 +168,6 @@ namespace Systems.Modules
         [Serializable]
         private struct SaveData
         {
-            public int GridHeight;
-            public int GridWidth;
             public List<Module> Modules;
             public List<ModuleSlot> ModuleSlots;
         }
