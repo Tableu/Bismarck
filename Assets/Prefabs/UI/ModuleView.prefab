@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1684586058420749746, guid: 913c2e9b2844a284cb588f18ebcf9f29, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -108,6 +108,8 @@ MonoBehaviour:
         m_CallState: 2
   RectTransform: {fileID: 921674291273001646}
   ItemName: 
-  ModuleData: {fileID: 0}
+  Module:
+    Id: 
+    RootPosition: {x: 0, y: 0}
+  GraphicRaycaster: {fileID: 0}
   _image: {fileID: 921674291273001632}
-  _graphicRaycaster: {fileID: 0}
