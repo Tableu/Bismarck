@@ -18,13 +18,17 @@ MonoBehaviour:
   visuals: {fileID: 8178566776061135549, guid: a191fb943a00e394e8e0504dc7c673ab, type: 3}
   cost: 0
   weapons: []
-  moduleGridHeight: 2
-  moduleGridWidth: 2
+  moduleGridHeight: 5
+  moduleGridWidth: 5
   moduleList:
   - Id: TestModule
     RootPosition: {x: 0, y: 0}
   - Id: TestModule
     RootPosition: {x: 1, y: 0}
+  - Id: TestModule
+    RootPosition: {x: 4, y: 0}
+  - Id: TestModule
+    RootPosition: {x: 4, y: 4}
   blocksMovement: 1
   health: 20
   speedMultiplier: 1

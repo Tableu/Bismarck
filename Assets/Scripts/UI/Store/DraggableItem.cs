@@ -3,20 +3,25 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
+/// <summary>
+///     A Canvas UI item that can be dragged (after clicking and holding)
+/// </summary>
 public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public UnityEvent ItemSelected;
     public UnityEvent ItemReleased;
+    public RectTransform RectTransform;
     public string ItemName;
     private bool holding;
     private Vector2 originalPos;
+    private Vector2 offset;
 
     private void Update()
     {
         if (holding)
         {
-            Vector2 pos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            transform.position = new Vector3(pos.x, pos.y, 0);
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            RectTransform.position = mousePos + offset;
         }
     }
 
@@ -25,7 +30,8 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             holding = true;
-            originalPos = transform.position;
+            originalPos = RectTransform.position;
+            offset = originalPos - (Vector2) Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             ItemSelected.Invoke();
         }
     }
@@ -35,8 +41,12 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             ItemReleased.Invoke();
-            //transform.position = new Vector3(originalPos.x, originalPos.y, 0);
             holding = false;
         }
+    }
+
+    public void ReturnToOriginalPosition()
+    {
+        RectTransform.position = originalPos;
     }
 }

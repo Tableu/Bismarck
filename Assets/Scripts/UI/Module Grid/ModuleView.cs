@@ -5,39 +5,50 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class ModuleView : MonoBehaviour
+/// <summary>
+///     A drag-and-drop UI representation of a Module in a Canvas Grid.
+///     Attempts to insert itself into the grid when dropped. If this fails it will snap back
+///     to the previous position.
+/// </summary>
+public class ModuleView : DraggableItem
 {
-    public ModuleData ModuleData;
+    public Module Module;
+    public GraphicRaycaster GraphicRaycaster;
     [SerializeField] private Image _image;
-    [SerializeField] private DraggableItem _draggableItem;
-    [SerializeField] private GraphicRaycaster _graphicRaycaster;
-    
+
     void Start()
     {
-        if (ModuleData != null)
+        if (Module != null)
         {
-            _image.sprite = ModuleData.GridSprite;
+            _image.sprite = Module.Data.GridSprite;
         }
     }
 
     public void AddModule()
     {
-        var eventData = new PointerEventData(EventSystem.current);
-        eventData.position = Mouse.current.position.ReadValue();
+        var eventData = new PointerEventData(EventSystem.current)
+        {
+            position = Mouse.current.position.ReadValue()
+        };
+        
         List<RaycastResult> hits = new List<RaycastResult>();
-        _graphicRaycaster.Raycast(eventData, hits);
+        GraphicRaycaster.Raycast(eventData, hits);
         if (hits[1].gameObject.CompareTag("EmptyModuleSlot"))
         {
             ModuleGridSlot moduleGridSlot = hits[1].gameObject.GetComponentInParent<ModuleGridSlot>();
             if (moduleGridSlot != null)
             {
-                Module module = ModuleData.MakeModule(moduleGridSlot.SlotPosition);
-                moduleGridSlot.moduleGridView.ModulesInfo.AddModule(module);
-                transform.SetParent(moduleGridSlot.transform.parent);
-                GetComponent<RectTransform>().anchoredPosition = new Vector2(
-                    module.RootPosition.x * moduleGridSlot.moduleGridView.UnitSize,
-                    module.RootPosition.y * moduleGridSlot.moduleGridView.UnitSize);
+                if (moduleGridSlot.moduleGridView.ModulesInfo.AddModule(Module, moduleGridSlot.Position))
+                {
+                    transform.SetParent(moduleGridSlot.transform.parent);
+                    GetComponent<RectTransform>().anchoredPosition = new Vector2(
+                        Module.RootPosition.x * moduleGridSlot.moduleGridView.UnitSize,
+                        Module.RootPosition.y * moduleGridSlot.moduleGridView.UnitSize);
+                    return;
+                }
             }
         }
+
+        ReturnToOriginalPosition();
     }
 }

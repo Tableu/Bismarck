@@ -60,26 +60,56 @@ namespace Systems.Modules
             return null;
         }
 
-        public bool AddModule(Module module)
+        public bool AddModule(Module module, Vector2Int newPos)
         {
+            Vector2Int oldPos = module.RootPosition;
+            module.RootPosition = newPos;
             if (ModulePositionValid(module))
             {
-                Vector2Int rootPos = module.RootPosition;
                 foreach (Vector2Int coords in module.Data.GridPositions)
                 {
-                    _grid[rootPos.y + coords.y, rootPos.x + coords.x] = module;
+                    Vector2Int pos = new Vector2Int(oldPos.x + coords.x, oldPos.y + coords.y);
+                    if (pos.x >= 0 && pos.x < _columnLength &&
+                        pos.y >= 0 && pos.y < _rowHeight)
+                    {
+                        if (_grid[pos.y, pos.x] == module)
+                        {
+                            _grid[pos.y, pos.x] = null;
+                        }
+                    }
+                }
+                
+                foreach (Vector2Int coords in module.Data.GridPositions)
+                {
+                    _grid[newPos.y + coords.y, newPos.x + coords.x] = module;
                 }
 
                 Modules.Add(module);
                 return true;
             }
 
+            module.RootPosition = oldPos;
             return false;
         }
 
-        public void RemoveModule(Vector2Int modulePos)
+        //For init
+        private void AddModule(Module module)
+        {
+            foreach (Vector2Int coords in module.Data.GridPositions)
+            {
+                _grid[module.RootPosition.y + coords.y, module.RootPosition.x + coords.x] = module;
+            }
+
+            Modules.Add(module);
+        }
+
+        public bool RemoveModule(Vector2Int modulePos)
         {
             Module moduleToRemove = _grid[modulePos.y, modulePos.x];
+            if (moduleToRemove == null)
+            {
+                return false;
+            }
             Vector2Int rootPos = moduleToRemove.RootPosition;
 
             foreach (Vector2Int coords in moduleToRemove.Data.GridPositions)
@@ -96,6 +126,7 @@ namespace Systems.Modules
             }
 
             Modules.Remove(moduleToRemove);
+            return true;
         }
 
         public bool ModulePositionValid(Module module)

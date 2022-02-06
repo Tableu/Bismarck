@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 921674291273001646}
   - component: {fileID: 921674291273001633}
   - component: {fileID: 921674291273001632}
-  - component: {fileID: 921674291273001647}
   - component: {fileID: 540312151}
   m_Layer: 5
   m_Name: ModuleView
@@ -77,25 +76,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &921674291273001647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921674291273001635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409e5c61d6105714dacc15767c53a965, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemSelected:
-    m_PersistentCalls:
-      m_Calls: []
-  ItemReleased:
-    m_PersistentCalls:
-      m_Calls: []
-  ItemName: 
 --- !u!114 &540312151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,11 +88,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac5708edeef9854baac35d1c4f57f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Module:
-    Data: {fileID: 11400000, guid: df2342c5fea8061469731e0a4d216e38, type: 2}
-    PivotPosition:
-      x: 0
-      y: 0
+  ItemSelected:
+    m_PersistentCalls:
+      m_Calls: []
+  ItemReleased:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 540312151}
+        m_TargetAssemblyTypeName: ModuleView, Scripts
+        m_MethodName: AddModule
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  RectTransform: {fileID: 921674291273001646}
+  ItemName: 
+  ModuleData: {fileID: 0}
   _image: {fileID: 921674291273001632}
-  _draggableItem: {fileID: 921674291273001647}
   _graphicRaycaster: {fileID: 0}

@@ -1,16 +1,20 @@
 using Systems.Modules;
-using Systems.Save;
 using UnityEngine;
+using UnityEngine.UI;
 
+/// <summary>
+///     UI representation of the grid in ModulesInfo. Instantiates Module Slots and ModuleViews
+///     in a Canvas Grid.
+/// </summary>
 public class ModuleGridView : MonoBehaviour
 {
     private int _columnLength;
     private int _rowHeight;
     public int UnitSize;
-    public SaveManager SaveManager;
     public ModulesInfo ModulesInfo;
     public GameObject ModuleView;
     public GameObject ModuleSlot;
+    public GraphicRaycaster GraphicRaycaster;
     
     void Start()
     {
@@ -24,7 +28,7 @@ public class ModuleGridView : MonoBehaviour
                 GameObject slot = Instantiate(ModuleSlot, transform, false);
                 slot.GetComponent<RectTransform>().anchoredPosition = new Vector3(c, r, 0) * UnitSize;
                 slot.GetComponent<ModuleGridSlot>().moduleGridView = this;
-                slot.GetComponent<ModuleGridSlot>().SlotPosition = new Vector2Int(c, r);
+                slot.GetComponent<ModuleGridSlot>().Position = new Vector2Int(c, r);
             }
         }
 
@@ -33,7 +37,9 @@ public class ModuleGridView : MonoBehaviour
             if (module != null)
             {
                 GameObject e = Instantiate(ModuleView, transform, false);
-                e.GetComponent<ModuleView>().ModuleData = module.Data;
+                ModuleView moduleView = e.GetComponent<ModuleView>();
+                moduleView.Module = module;
+                moduleView.GraphicRaycaster = GraphicRaycaster;
                 e.GetComponent<RectTransform>().anchoredPosition =
                     new Vector3(module.RootPosition.x, module.RootPosition.y, 0) * UnitSize;
             }
