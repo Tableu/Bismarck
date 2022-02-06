@@ -558,6 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moduleIdList: {fileID: 11400000, guid: eb5c7cfc9ed5ba741beb217ae7830a16, type: 2}
+  _saveManager: {fileID: 11400000, guid: 1e7b7c52725d42dfa71e389cc8f57d98, type: 2}
 --- !u!114 &1498225568
 MonoBehaviour:
   m_ObjectHideFlags: 0
