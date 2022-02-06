@@ -16,6 +16,7 @@ namespace Systems.Modules
     [Serializable]
     public class ModulesInfo : MonoBehaviour, ISavable
     {
+        public event EventHandler ModulesInfoInitialized;
         [SerializeField] private IdList _moduleIdList;
         private Module[,] _grid;
         private List<Module> _modules;
@@ -29,6 +30,12 @@ namespace Systems.Modules
         public int ColumnLength => _columnLength;
         public List<Module> Modules => _modules;
 
+        protected virtual void OnInitialized(EventArgs e)
+        {
+            EventHandler handler = ModulesInfoInitialized;
+            handler?.Invoke(this, e);
+        }
+        
         private void Start()
         {
             _info = GetComponent<ShipInfo>();
@@ -48,6 +55,8 @@ namespace Systems.Modules
                     }
                 }
             }
+
+            OnInitialized(EventArgs.Empty);
         }
 
         public Module GetModule(Vector2Int modulePos)

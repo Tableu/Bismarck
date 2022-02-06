@@ -1,3 +1,4 @@
+using System;
 using Systems.Modules;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,8 +16,18 @@ public class ModuleGridView : MonoBehaviour
     public GameObject ModuleView;
     public GameObject ModuleSlot;
     public GraphicRaycaster GraphicRaycaster;
-    
-    void Start()
+
+    private void Awake()
+    {
+        ModulesInfo.ModulesInfoInitialized += ModuleInfoInitialized;
+    }
+
+    private void ModuleInfoInitialized(object sender, EventArgs e)
+    {
+        DrawModuleGrid();
+    }
+
+    private void DrawModuleGrid()
     {
         _columnLength = ModulesInfo.ColumnLength;
         _rowHeight = ModulesInfo.RowHeight;
