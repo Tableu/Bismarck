@@ -18,6 +18,7 @@ namespace Systems.Modules
     {
         public event EventHandler ModulesInfoInitialized;
         [SerializeField] private IdList _moduleIdList;
+        [SerializeField] private SaveManager _saveManager;
         private Module[,] _grid;
         private List<Module> _modules;
         private int _rowHeight;
@@ -50,13 +51,14 @@ namespace Systems.Modules
                 {
                     if (module != null)
                     {
-                        module.Data = _moduleIdList.IDMap[module.Id] as ModuleData;
-                        AddModule(module);
+                        Module copy = new Module(_moduleIdList.IDMap[module.Id] as ModuleData);
+                        copy.RootPosition = module.RootPosition;
+                        AddModule(copy);
                     }
                 }
-            }
 
-            OnInitialized(EventArgs.Empty);
+                OnInitialized(EventArgs.Empty);
+            }
         }
 
         public Module GetModule(Vector2Int modulePos)
@@ -183,6 +185,8 @@ namespace Systems.Modules
                     module.Data = _moduleIdList.IDMap[module.Id] as ModuleData;
                 }
             }
+
+            OnInitialized(EventArgs.Empty);
         }
 
         [Serializable]
