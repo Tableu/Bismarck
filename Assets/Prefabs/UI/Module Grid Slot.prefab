@@ -90,3 +90,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Position: {x: 0, y: 0}
   moduleGridView: {fileID: 0}
+  HoverColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
+  _image: {fileID: 2745958153814218098}

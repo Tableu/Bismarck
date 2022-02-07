@@ -10,13 +10,13 @@ using UnityEngine.UI;
 ///     Attempts to insert itself into the grid when dropped. If this fails it will snap back
 ///     to the previous position.
 /// </summary>
-public class ModuleView : DraggableItem
+public class ModuleView : DraggableItem, IGridItem
 {
     public Module Module;
     public GraphicRaycaster GraphicRaycaster;
     [SerializeField] private Image _image;
 
-    void Start()
+    private void Start()
     {
         if (Module != null)
         {
@@ -33,12 +33,12 @@ public class ModuleView : DraggableItem
         
         List<RaycastResult> hits = new List<RaycastResult>();
         GraphicRaycaster.Raycast(eventData, hits);
-        if (hits[1].gameObject.CompareTag("EmptyModuleSlot"))
+        if (hits.Count > 1 && hits[1].gameObject.CompareTag("EmptyModuleSlot"))
         {
             ModuleGridSlot moduleGridSlot = hits[1].gameObject.GetComponentInParent<ModuleGridSlot>();
             if (moduleGridSlot != null)
             {
-                if (moduleGridSlot.moduleGridView.ModulesInfo.AddModule(Module, moduleGridSlot.Position))
+                if (moduleGridSlot.ModuleGridView.ModulesInfo.AddModule(Module, moduleGridSlot.Position))
                 {
                     return;
                 }
@@ -46,5 +46,10 @@ public class ModuleView : DraggableItem
         }
 
         ReturnToOriginalPosition();
+    }
+
+    public List<Vector2Int> GetItemPositions()
+    {
+        return Module.Data.GridPositions;
     }
 }

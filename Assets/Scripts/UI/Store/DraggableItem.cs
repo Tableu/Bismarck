@@ -12,7 +12,10 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     public UnityEvent ItemReleased;
     public RectTransform RectTransform;
     public string ItemName;
+    public float minimumDistanceForDrag;
+    public bool UseOffset;
     private bool holding;
+    private bool dragging;
     private Vector2 originalPos;
     private Vector2 offset;
 
@@ -21,7 +24,12 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (holding)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            RectTransform.position = mousePos + offset;
+            var dist = Vector2.Distance(originalPos, mousePos + offset);
+            if (dragging || dist >= minimumDistanceForDrag)
+            {
+                RectTransform.position = mousePos + offset;
+                dragging = true;
+            }
         }
     }
 
@@ -30,8 +38,13 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             holding = true;
+            dragging = false;
             originalPos = RectTransform.position;
-            offset = originalPos - (Vector2) Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            if (UseOffset)
+            {
+                offset = originalPos - (Vector2) Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            }
+
             ItemSelected.Invoke();
         }
     }
@@ -41,6 +54,7 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             ItemReleased.Invoke();
+            dragging = false;
             holding = false;
         }
     }

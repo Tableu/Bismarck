@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Systems.Modules;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>
@@ -19,11 +21,24 @@ public class ModuleGridView : MonoBehaviour
     private int _rowHeight;
     private bool _initialized;
     private List<GameObject> _moduleViews;
+    private List<ModuleGridSlot> _currentGridSlots;
+    private ModuleGridSlot[,] _slotGrid;
 
     private void Awake()
     {
         ModulesInfo.ModuleGridChanged += ModuleGridChanged;
         _moduleViews = new List<GameObject>();
+    }
+
+    public ModuleGridSlot GetGridSlot(int row, int column)
+    {
+        if (row >= 0 && row < _rowHeight &&
+            column >= 0 && column < _columnLength)
+        {
+            return _slotGrid[row, column];
+        }
+
+        return null;
     }
 
     private void ModuleGridChanged(object sender, EventArgs e)
@@ -40,6 +55,7 @@ public class ModuleGridView : MonoBehaviour
     {
         _columnLength = ModulesInfo.ColumnLength;
         _rowHeight = ModulesInfo.RowHeight;
+        _slotGrid = new ModuleGridSlot[_rowHeight, _columnLength];
 
         for (int r = 0; r < _rowHeight; r++)
         {
@@ -47,8 +63,10 @@ public class ModuleGridView : MonoBehaviour
             {
                 GameObject slot = Instantiate(ModuleSlot, transform, false);
                 slot.GetComponent<RectTransform>().anchoredPosition = new Vector3(c, r, 0) * UnitSize;
-                slot.GetComponent<ModuleGridSlot>().moduleGridView = this;
-                slot.GetComponent<ModuleGridSlot>().Position = new Vector2Int(c, r);
+                ModuleGridSlot gridSlot = slot.GetComponent<ModuleGridSlot>();
+                gridSlot.ModuleGridView = this;
+                gridSlot.Position = new Vector2Int(c, r);
+                _slotGrid[r, c] = gridSlot;
             }
         }
 
