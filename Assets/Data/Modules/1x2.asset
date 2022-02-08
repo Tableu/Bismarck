@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2261e05bd1a9240488adabbcd1934508, type: 3}
   m_Name: 1x2
   m_EditorClassIdentifier: 
-  id: 
-  parentList: {fileID: 0}
-  modifierData: {fileID: 0}
-  GridPositions: []
-  GridSprite: {fileID: 0}
+  id: 1x2
+  parentList: {fileID: 11400000, guid: eb5c7cfc9ed5ba741beb217ae7830a16, type: 2}
+  modifierData: {fileID: 11400000, guid: 71441f7413ebdcd43bb1aecdd431dfd1, type: 2}
+  GridPositions:
+  - {x: 0, y: 0}
+  - {x: 0, y: 1}
+  GridSprite: {fileID: 8897148762185810136, guid: 7e43c2584801dcf44be91bb8ca0303c3, type: 3}
   Type: 0
-  DisplayName: 
+  DisplayName: 1x2

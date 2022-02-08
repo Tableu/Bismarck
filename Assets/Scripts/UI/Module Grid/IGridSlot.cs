@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public interface IGridSlot
 {
+    public Vector2Int GetPosition();
     public void SetColor(Color color);
     public void Enter(List<Vector2Int> gridPositions);
     public void Exit();

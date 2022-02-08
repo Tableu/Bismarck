@@ -6,5 +6,5 @@ using UnityEngine;
 /// </summary>
 public interface IGridItem
 {
-    public List<Vector2Int> GetItemPositions();
+    public List<Vector2Int> GetItemPositions(Vector2Int clickPosition);
 }

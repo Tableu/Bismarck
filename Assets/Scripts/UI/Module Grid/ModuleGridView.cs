@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using Systems.Modules;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>
@@ -88,6 +86,7 @@ public class ModuleGridView : MonoBehaviour
                 ModuleView moduleView = e.GetComponent<ModuleView>();
                 moduleView.Module = module;
                 moduleView.GraphicRaycaster = GraphicRaycaster;
+                moduleView.ModuleGridView = this;
                 e.GetComponent<RectTransform>().anchoredPosition =
                     new Vector3(module.RootPosition.x, module.RootPosition.y, 0) * UnitSize;
             }

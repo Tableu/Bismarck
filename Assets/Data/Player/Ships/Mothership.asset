@@ -22,13 +22,13 @@ MonoBehaviour:
   moduleGridWidth: 5
   moduleList:
   - Id: TestModule
-    RootPosition: {x: 0, y: 0}
+    RootPosition: {x: 2, y: 3}
   - Id: TestModule
+    RootPosition: {x: 1, y: 4}
+  - Id: TestModule
+    RootPosition: {x: 2, y: 4}
+  - Id: 1x2
     RootPosition: {x: 1, y: 0}
-  - Id: TestModule
-    RootPosition: {x: 4, y: 0}
-  - Id: TestModule
-    RootPosition: {x: 4, y: 4}
   blocksMovement: 1
   health: 20
   speedMultiplier: 1

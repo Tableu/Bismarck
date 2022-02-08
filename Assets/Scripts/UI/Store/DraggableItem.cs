@@ -18,6 +18,7 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     private bool dragging;
     private Vector2 originalPos;
     private Vector2 offset;
+    private Vector2 oldPivot;
 
     private void Update()
     {

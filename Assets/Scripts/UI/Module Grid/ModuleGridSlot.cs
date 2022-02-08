@@ -13,6 +13,10 @@ public class ModuleGridSlot : MonoBehaviour, IGridSlot
     [SerializeField] private Image _image;
     private List<Vector2Int> _currentGridPositions;
 
+    public Vector2Int GetPosition()
+    {
+        return Position;
+    }
     public void SetColor(Color color)
     {
         _image.color = color;

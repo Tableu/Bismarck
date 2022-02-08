@@ -113,5 +113,6 @@ MonoBehaviour:
   Module:
     Id: 
     RootPosition: {x: 0, y: 0}
+  ModuleGridView: {fileID: 0}
   GraphicRaycaster: {fileID: 0}
   _image: {fileID: 921674291273001632}

@@ -22,6 +22,7 @@ namespace Systems.Modules
     {
         public ModifierData modifierData;
         public List<Vector2Int> GridPositions;
+        public Vector2Int Dimensions;
         public Sprite GridSprite;
         public ModuleType Type;
         public string DisplayName;

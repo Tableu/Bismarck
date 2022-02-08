@@ -12,13 +12,8 @@ public class HighlightGrid : MonoBehaviour
     public GraphicRaycaster GraphicRaycaster;
 
     private IGridSlot _currentSlot;
+    private List<Vector2Int> _positions;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
     private void Update()
     {
         var eventData = new PointerEventData(EventSystem.current)
@@ -33,12 +28,7 @@ public class HighlightGrid : MonoBehaviour
             return;
         }
 
-        IGridItem item = hits[0].gameObject.GetComponent<IGridItem>();
-        List<Vector2Int> positions = null;
-        if (item != null)
-        {
-            positions = item.GetItemPositions();
-        }
+        IGridItem item = !Mouse.current.leftButton.isPressed ? hits[0].gameObject.GetComponent<IGridItem>() : null;
 
         foreach (RaycastResult hit in hits)
         {
@@ -47,12 +37,17 @@ public class HighlightGrid : MonoBehaviour
                 IGridSlot gridSlot = hit.gameObject.GetComponent<IGridSlot>();
                 if (gridSlot != null)
                 {
-                    if (_currentSlot != null)
+                    if (item != null)
+                    {
+                        _positions = item.GetItemPositions(gridSlot.GetPosition());
+                    }
+
+                    if (_currentSlot != null && gridSlot != _currentSlot)
                     {
                         _currentSlot.Exit();
                     }
 
-                    gridSlot.Enter(positions);
+                    gridSlot.Enter(_positions);
                     _currentSlot = gridSlot;
                     return;
                 }

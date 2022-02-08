@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Systems.Modules;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,14 +14,17 @@ using UnityEngine.UI;
 public class ModuleView : DraggableItem, IGridItem
 {
     public Module Module;
+    public ModuleGridView ModuleGridView;
     public GraphicRaycaster GraphicRaycaster;
     [SerializeField] private Image _image;
+    private Vector2Int _offset;
 
     private void Start()
     {
-        if (Module != null)
+        if (Module != null && Module.Data != null)
         {
             _image.sprite = Module.Data.GridSprite;
+            RectTransform.sizeDelta = ModuleGridView.UnitSize * Module.Data.Dimensions;
         }
     }
 
@@ -38,7 +42,7 @@ public class ModuleView : DraggableItem, IGridItem
             ModuleGridSlot moduleGridSlot = hits[1].gameObject.GetComponentInParent<ModuleGridSlot>();
             if (moduleGridSlot != null)
             {
-                if (moduleGridSlot.ModuleGridView.ModulesInfo.AddModule(Module, moduleGridSlot.Position))
+                if (moduleGridSlot.ModuleGridView.ModulesInfo.AddModule(Module, moduleGridSlot.Position + _offset))
                 {
                     return;
                 }
@@ -48,8 +52,15 @@ public class ModuleView : DraggableItem, IGridItem
         ReturnToOriginalPosition();
     }
 
-    public List<Vector2Int> GetItemPositions()
+    public List<Vector2Int> GetItemPositions(Vector2Int clickPosition)
     {
-        return Module.Data.GridPositions;
+        _offset = Module.RootPosition - clickPosition;
+        var positionList = Module.Data.GridPositions.ToList();
+        for (var index = 0; index < positionList.Count; index++)
+        {
+            positionList[index] = new Vector2Int(positionList[index].x + _offset.x, positionList[index].y + _offset.y);
+        }
+
+        return positionList;
     }
 }
