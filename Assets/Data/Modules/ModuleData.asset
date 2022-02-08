@@ -17,6 +17,7 @@ MonoBehaviour:
   modifierData: {fileID: 11400000, guid: 71441f7413ebdcd43bb1aecdd431dfd1, type: 2}
   GridPositions:
   - {x: 0, y: 0}
+  Dimensions: {x: 1, y: 1}
   GridSprite: {fileID: -2475916986014035249, guid: 166c9afc963d1df46a0b638fc242e193, type: 3}
   Type: 0
   DisplayName: 

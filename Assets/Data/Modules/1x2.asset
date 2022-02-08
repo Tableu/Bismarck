@@ -18,6 +18,7 @@ MonoBehaviour:
   GridPositions:
   - {x: 0, y: 0}
   - {x: 0, y: 1}
+  Dimensions: {x: 1, y: 2}
   GridSprite: {fileID: 8897148762185810136, guid: 7e43c2584801dcf44be91bb8ca0303c3, type: 3}
   Type: 0
   DisplayName: 1x2

@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 80d54776e60df5d4d95483cee9f4e291, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6ca614f6a3224fc44a8deeda91dd6eb2, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -89,6 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Position: {x: 0, y: 0}
-  moduleGridView: {fileID: 0}
+  ModuleGridView: {fileID: 0}
   HoverColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
   _image: {fileID: 2745958153814218098}
