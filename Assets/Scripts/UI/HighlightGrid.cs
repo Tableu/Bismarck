@@ -41,8 +41,12 @@ public class HighlightGrid : MonoBehaviour
                     {
                         _positions = item.GetItemPositions(gridSlot.GetPosition());
                     }
+                    else if (!Mouse.current.leftButton.isPressed)
+                    {
+                        _positions = null;
+                    }
 
-                    if (_currentSlot != null && gridSlot != _currentSlot)
+                    if (_currentSlot != null)
                     {
                         _currentSlot.Exit();
                     }

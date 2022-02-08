@@ -153,7 +153,7 @@ namespace Systems.Modules
             {
                 Vector2Int pos = new Vector2Int(rootPos.x + gridPos.x, rootPos.y + gridPos.y);
 
-                if (pos.x < 0 || pos.x >= _columnLength &&
+                if (pos.x < 0 || pos.x >= _columnLength ||
                     pos.y < 0 || pos.y >= _rowHeight)
                 {
                     Debug.Log("ModulesInfo: position out of bounds");
