@@ -9,38 +9,7 @@ using Object = UnityEngine.Object;
 
 public class @PlayerInputActions : IInputActionCollection, IDisposable
 {
-
-    // Combat
-    private readonly InputActionMap m_Combat;
-    private readonly InputAction m_Combat_LeftClick;
-    private readonly InputAction m_Combat_MiddleClick;
-    private readonly InputAction m_Combat_Pause;
-    private readonly InputAction m_Combat_RightClick;
-    private readonly InputAction m_Combat_ScrollWheel;
-
-    // Mouse
-    private readonly InputActionMap m_Mouse;
-    private readonly InputAction m_Mouse_Point;
-
-    // UI
-    private readonly InputActionMap m_UI;
-    private readonly InputAction m_UI_Cancel;
-    private readonly InputAction m_UI_LeftClick;
-    private readonly InputAction m_UI_MiddleClick;
-    private readonly InputAction m_UI_Navigate;
-    private readonly InputAction m_UI_RightClick;
-    private readonly InputAction m_UI_ScrollWheel;
-    private readonly InputAction m_UI_Submit;
-    private readonly InputAction m_UI_TrackedDeviceOrientation;
-    private readonly InputAction m_UI_TrackedDevicePosition;
-    private ICombatActions m_CombatActionsCallbackInterface;
-    private int m_GamepadSchemeIndex = -1;
-    private int m_JoystickSchemeIndex = -1;
-    private int m_KeyboardMouseSchemeIndex = -1;
-    private IMouseActions m_MouseActionsCallbackInterface;
-    private int m_TouchSchemeIndex = -1;
-    private IUIActions m_UIActionsCallbackInterface;
-    private int m_XRSchemeIndex = -1;
+    public InputActionAsset asset { get; }
     public @PlayerInputActions()
     {
         asset = InputActionAsset.FromJson(@"{
@@ -793,65 +762,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_Point = m_Mouse.FindAction("Point", throwIfNotFound: true);
     }
-    public InputActionAsset asset { get; }
-    public CombatActions @Combat => new CombatActions(this);
-    public UIActions @UI => new UIActions(this);
-    public MouseActions @Mouse => new MouseActions(this);
-    public InputControlScheme KeyboardMouseScheme
-    {
-        get
-        {
-            if (m_KeyboardMouseSchemeIndex == -1)
-            {
-                m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard&Mouse");
-            }
-            return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
-        }
-    }
-    public InputControlScheme GamepadScheme
-    {
-        get
-        {
-            if (m_GamepadSchemeIndex == -1)
-            {
-                m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-            }
-            return asset.controlSchemes[m_GamepadSchemeIndex];
-        }
-    }
-    public InputControlScheme TouchScheme
-    {
-        get
-        {
-            if (m_TouchSchemeIndex == -1)
-            {
-                m_TouchSchemeIndex = asset.FindControlSchemeIndex("Touch");
-            }
-            return asset.controlSchemes[m_TouchSchemeIndex];
-        }
-    }
-    public InputControlScheme JoystickScheme
-    {
-        get
-        {
-            if (m_JoystickSchemeIndex == -1)
-            {
-                m_JoystickSchemeIndex = asset.FindControlSchemeIndex("Joystick");
-            }
-            return asset.controlSchemes[m_JoystickSchemeIndex];
-        }
-    }
-    public InputControlScheme XRScheme
-    {
-        get
-        {
-            if (m_XRSchemeIndex == -1)
-            {
-                m_XRSchemeIndex = asset.FindControlSchemeIndex("XR");
-            }
-            return asset.controlSchemes[m_XRSchemeIndex];
-        }
-    }
 
     public void Dispose()
     {
@@ -896,6 +806,15 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     {
         asset.Disable();
     }
+
+    // Combat
+    private readonly InputActionMap m_Combat;
+    private ICombatActions m_CombatActionsCallbackInterface;
+    private readonly InputAction m_Combat_LeftClick;
+    private readonly InputAction m_Combat_MiddleClick;
+    private readonly InputAction m_Combat_RightClick;
+    private readonly InputAction m_Combat_Pause;
+    private readonly InputAction m_Combat_ScrollWheel;
     public struct CombatActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -951,6 +870,21 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             }
         }
     }
+
+    public CombatActions Combat => new CombatActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_Navigate;
+    private readonly InputAction m_UI_Submit;
+    private readonly InputAction m_UI_Cancel;
+    private readonly InputAction m_UI_LeftClick;
+    private readonly InputAction m_UI_ScrollWheel;
+    private readonly InputAction m_UI_MiddleClick;
+    private readonly InputAction m_UI_RightClick;
+    private readonly InputAction m_UI_TrackedDevicePosition;
+    private readonly InputAction m_UI_TrackedDeviceOrientation;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1034,6 +968,13 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             }
         }
     }
+
+    public UIActions UI => new UIActions(this);
+
+    // Mouse
+    private readonly InputActionMap m_Mouse;
+    private IMouseActions m_MouseActionsCallbackInterface;
+    private readonly InputAction m_Mouse_Point;
     public struct MouseActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1059,6 +1000,63 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Point.performed += instance.OnPoint;
                 @Point.canceled += instance.OnPoint;
             }
+        }
+    }
+
+    public MouseActions Mouse => new MouseActions(this);
+    private int m_KeyboardMouseSchemeIndex = -1;
+
+    public InputControlScheme KeyboardMouseScheme
+    {
+        get
+        {
+            if (m_KeyboardMouseSchemeIndex == -1)
+                m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard&Mouse");
+            return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
+        }
+    }
+
+    private int m_GamepadSchemeIndex = -1;
+
+    public InputControlScheme GamepadScheme
+    {
+        get
+        {
+            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+            return asset.controlSchemes[m_GamepadSchemeIndex];
+        }
+    }
+
+    private int m_TouchSchemeIndex = -1;
+
+    public InputControlScheme TouchScheme
+    {
+        get
+        {
+            if (m_TouchSchemeIndex == -1) m_TouchSchemeIndex = asset.FindControlSchemeIndex("Touch");
+            return asset.controlSchemes[m_TouchSchemeIndex];
+        }
+    }
+
+    private int m_JoystickSchemeIndex = -1;
+
+    public InputControlScheme JoystickScheme
+    {
+        get
+        {
+            if (m_JoystickSchemeIndex == -1) m_JoystickSchemeIndex = asset.FindControlSchemeIndex("Joystick");
+            return asset.controlSchemes[m_JoystickSchemeIndex];
+        }
+    }
+
+    private int m_XRSchemeIndex = -1;
+
+    public InputControlScheme XRScheme
+    {
+        get
+        {
+            if (m_XRSchemeIndex == -1) m_XRSchemeIndex = asset.FindControlSchemeIndex("XR");
+            return asset.controlSchemes[m_XRSchemeIndex];
         }
     }
     public interface ICombatActions
