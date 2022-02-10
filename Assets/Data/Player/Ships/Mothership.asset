@@ -20,15 +20,15 @@ MonoBehaviour:
   weapons: []
   moduleGridHeight: 5
   moduleGridWidth: 5
-  moduleList:
+  defaultModules:
   - Id: TestModule
-    RootPosition: {x: 2, y: 3}
+    RootPosition: {x: 0, y: 0}
   - Id: TestModule
-    RootPosition: {x: 1, y: 4}
-  - Id: TestModule
-    RootPosition: {x: 2, y: 4}
-  - Id: 1x2
     RootPosition: {x: 1, y: 0}
+  - Id: TestModule
+    RootPosition: {x: 2, y: 0}
+  - Id: 1x2
+    RootPosition: {x: 0, y: 3}
   blocksMovement: 1
   health: 20
   speedMultiplier: 1

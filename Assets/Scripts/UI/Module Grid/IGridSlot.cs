@@ -9,6 +9,15 @@ public interface IGridSlot
 {
     public Vector2Int GetPosition();
     public void SetColor(Color color);
-    public void Enter(List<Vector2Int> gridPositions);
-    public void Exit();
+
+    /// <summary>
+    ///     Highlights the grid slot and any additional grid slots in gridpositions
+    /// </summary>
+    /// <param name="gridPositions"></param>
+    public void Highlight(List<Vector2Int> gridPositions);
+
+    /// <summary>
+    ///     Dehighlights the grid slot and other grid slots that were highlighted by Highlight
+    /// </summary>
+    public void DeHighlight();
 }

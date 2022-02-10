@@ -20,4 +20,4 @@ MonoBehaviour:
   Dimensions: {x: 1, y: 1}
   GridSprite: {fileID: -2475916986014035249, guid: 166c9afc963d1df46a0b638fc242e193, type: 3}
   Type: 0
-  DisplayName: 
+  DisplayName: TestModule

@@ -21,7 +21,7 @@ namespace Ships.DataManagement
         [SerializeField] private List<AttackScriptableObject> weapons;
         [SerializeField] private int moduleGridHeight;
         [SerializeField] private int moduleGridWidth;
-        [SerializeField] private List<Module> moduleList;
+        [SerializeField] private List<Module> defaultModules;
         [SerializeField] private bool blocksMovement = true;
 
         [Header("Base Stats")]
@@ -44,6 +44,6 @@ namespace Ships.DataManagement
         public List<AttackScriptableObject> Weapons => weapons;
         public int ModuleGridHeight => moduleGridHeight;
         public int ModuleGridWidth => moduleGridWidth;
-        public List<Module> ModuleList => moduleList;
+        public List<Module> DefaultModules => defaultModules;
     }
 }

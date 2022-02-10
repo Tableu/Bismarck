@@ -13,10 +13,10 @@ namespace Systems.Modules
     ///     Saves and Loads Modules and Module Grid.
     ///     Will init with default values from ShipData if there is no save data.
     /// </summary>
-    [Serializable]
+    [RequireComponent(typeof(ShipInfo))]
     public class ModulesInfo : MonoBehaviour, ISavable
     {
-        public event EventHandler ModuleGridChanged;
+        public event Action ModuleGridChanged;
         [SerializeField] private IdList _moduleIdList;
         private Module[,] _grid;
         private List<Module> _modules;
@@ -28,12 +28,11 @@ namespace Systems.Modules
         public string id => "ModulesInfo";
         public int RowHeight => _rowHeight;
         public int ColumnLength => _columnLength;
-        public List<Module> Modules => _modules;
+        public IReadOnlyList<Module> Modules => _modules;
 
-        protected virtual void OnGridChange(EventArgs e)
+        private void OnGridChange()
         {
-            EventHandler handler = ModuleGridChanged;
-            handler?.Invoke(this, e);
+            ModuleGridChanged.Invoke();
         }
         
         private void Start()
@@ -46,20 +45,21 @@ namespace Systems.Modules
                 _grid = new Module[_rowHeight, _columnLength];
                 _modules = new List<Module>();
 
-                foreach (Module module in _info.Data.ModuleList.ToList())
+                foreach (Module module in _info.Data.DefaultModules)
                 {
                     if (module != null)
                     {
                         Module copy = new Module
                         {
                             Data = _moduleIdList.IDMap[module.Id] as ModuleData,
-                            RootPosition = module.RootPosition
+                            RootPosition = module.RootPosition,
+                            Id = module.Id
                         };
                         AddModule(copy);
                     }
                 }
 
-                OnGridChange(EventArgs.Empty);
+                OnGridChange();
             }
         }
 
@@ -92,15 +92,15 @@ namespace Systems.Modules
                     }
                 }
 
-                Modules.Remove(module);
+                _modules.Remove(module);
 
                 foreach (Vector2Int coords in module.Data.GridPositions)
                 {
                     _grid[newPos.y + coords.y, newPos.x + coords.x] = module;
                 }
 
-                Modules.Add(module);
-                OnGridChange(EventArgs.Empty);
+                _modules.Add(module);
+                OnGridChange();
                 return true;
             }
 
@@ -116,7 +116,7 @@ namespace Systems.Modules
                 _grid[module.RootPosition.y + coords.y, module.RootPosition.x + coords.x] = module;
             }
 
-            Modules.Add(module);
+            _modules.Add(module);
         }
 
         public bool RemoveModule(Vector2Int modulePos)
@@ -140,9 +140,9 @@ namespace Systems.Modules
                     }
                 }
             }
-            
-            Modules.Remove(moduleToRemove);
-            OnGridChange(EventArgs.Empty);
+
+            _modules.Remove(moduleToRemove);
+            OnGridChange();
             return true;
         }
 
@@ -189,10 +189,11 @@ namespace Systems.Modules
                 if (module != null)
                 {
                     module.Data = _moduleIdList.IDMap[module.Id] as ModuleData;
+                    Debug.Assert(module.Data != null);
                 }
             }
 
-            OnGridChange(EventArgs.Empty);
+            OnGridChange();
         }
 
         [Serializable]

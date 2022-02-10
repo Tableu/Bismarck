@@ -48,10 +48,10 @@ public class HighlightGrid : MonoBehaviour
 
                     if (_currentSlot != null)
                     {
-                        _currentSlot.Exit();
+                        _currentSlot.DeHighlight();
                     }
 
-                    gridSlot.Enter(_positions);
+                    gridSlot.Highlight(_positions);
                     _currentSlot = gridSlot;
                     return;
                 }
@@ -60,7 +60,7 @@ public class HighlightGrid : MonoBehaviour
 
         if (_currentSlot != null)
         {
-            _currentSlot.Exit();
+            _currentSlot.DeHighlight();
             _currentSlot = null;
         }
     }

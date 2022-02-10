@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-///     Used by the Module Grid Slot to provide info when a ModuleView hits it with a raycast
+///     Provides info on the grid slot and highlights/dehighlights it
 /// </summary>
 public class ModuleGridSlot : MonoBehaviour, IGridSlot
 {
@@ -22,7 +22,7 @@ public class ModuleGridSlot : MonoBehaviour, IGridSlot
         _image.color = color;
     }
 
-    public void Enter(List<Vector2Int> gridPositions)
+    public void Highlight(List<Vector2Int> gridPositions)
     {
         _image.color = HoverColor;
         if (gridPositions == null || gridPositions.Count <= 0)
@@ -42,7 +42,7 @@ public class ModuleGridSlot : MonoBehaviour, IGridSlot
         _currentGridPositions = gridPositions;
     }
 
-    public void Exit()
+    public void DeHighlight()
     {
         _image.color = new Color(1, 1, 1, 1f);
         if (_currentGridPositions == null)

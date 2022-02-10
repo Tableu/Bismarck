@@ -39,7 +39,7 @@ public class ModuleGridView : MonoBehaviour
         return null;
     }
 
-    private void ModuleGridChanged(object sender, EventArgs e)
+    private void ModuleGridChanged()
     {
         if (!_initialized)
         {
