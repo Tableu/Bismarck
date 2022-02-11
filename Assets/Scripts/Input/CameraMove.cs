@@ -6,13 +6,7 @@ public class CameraMove : MonoBehaviour
     [SerializeField] private float boundary;
     [SerializeField] private Camera camera;
     [SerializeField] private Vector2 scale;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (!camera.enabled)
