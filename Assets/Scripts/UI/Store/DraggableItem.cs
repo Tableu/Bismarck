@@ -3,25 +3,34 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
+/// <summary>
+///     A Canvas UI item that can be dragged (after clicking and holding)
+/// </summary>
 public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public UnityEvent ItemSelected;
     public UnityEvent ItemReleased;
+    public RectTransform RectTransform;
     public string ItemName;
+    public float minimumDistanceForDrag;
+    public bool UseOffset;
     private bool holding;
+    private bool dragging;
     private Vector2 originalPos;
-
-    private void Start()
-    {
-
-    }
+    private Vector2 offset;
+    private Vector2 oldPivot;
 
     private void Update()
     {
         if (holding)
         {
-            Vector2 pos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            transform.position = new Vector3(pos.x, pos.y, 0);
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            var dist = Vector2.Distance(originalPos, mousePos + offset);
+            if (dragging || dist >= minimumDistanceForDrag)
+            {
+                RectTransform.position = mousePos + offset;
+                dragging = true;
+            }
         }
     }
 
@@ -30,7 +39,13 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             holding = true;
-            originalPos = transform.position;
+            dragging = false;
+            originalPos = RectTransform.position;
+            if (UseOffset)
+            {
+                offset = originalPos - (Vector2) Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            }
+
             ItemSelected.Invoke();
         }
     }
@@ -40,8 +55,13 @@ public class DraggableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             ItemReleased.Invoke();
-            transform.position = new Vector3(originalPos.x, originalPos.y, 0);
+            dragging = false;
             holding = false;
         }
+    }
+
+    public void ReturnToOriginalPosition()
+    {
+        RectTransform.position = originalPos;
     }
 }

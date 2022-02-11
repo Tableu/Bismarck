@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
-using Object = UnityEngine.Object;
 
 public class @PlayerInputActions : IInputActionCollection, IDisposable
 {
@@ -20,33 +19,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             ""id"": ""15049782-f5b3-45cb-aa8c-9899180dba77"",
             ""actions"": [
                 {
-                    ""name"": ""LeftClick"",
+                    ""name"": ""PrimarySelect"",
                     ""type"": ""Button"",
                     ""id"": ""a331427e-e23e-4a38-917f-22bbeb347b4a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""MiddleClick"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""dcf49588-a1cf-46ca-b7c5-3c4551b3a7d2"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""RightClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""566d58d3-14c2-43bd-9030-6139e630bade"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""4ba4ed3c-7fa4-4e4f-8ea8-36f11e457954"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -58,31 +33,25 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pointer"",
+                    ""type"": ""Value"",
+                    ""id"": ""bcfe7d27-0eb8-4379-82cb-53de68aad4ea"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""d8c9bba4-b479-411b-9988-9d3a4dd6ed6c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""07354fa8-067f-4b63-842b-8ac86c261937"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""RightClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""dd7b8b35-2784-49aa-a59c-0024d8199bc2"",
-                    ""path"": ""<Mouse>/middleButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""MiddleClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""a8dcde79-435d-44f9-a031-b243995ccf84"",
@@ -90,7 +59,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""LeftClick"",
+                    ""action"": ""PrimarySelect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -101,7 +70,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""LeftClick"",
+                    ""action"": ""PrimarySelect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -112,7 +81,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Touch"",
-                    ""action"": ""LeftClick"",
+                    ""action"": ""PrimarySelect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -123,18 +92,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",
-                    ""action"": ""LeftClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""be64cdcb-0726-47c1-a79a-23fe9cd71d12"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Pause"",
+                    ""action"": ""PrimarySelect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -146,6 +104,28 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""ScrollWheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f0c8246e-5cb3-4015-b24e-ee97dd1e9d03"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Pointer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""efc12de1-4464-413b-a559-1fa3ed66f5c3"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -188,10 +168,10 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""ScrollWheel"",
-                    ""type"": ""PassThrough"",
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
                     ""id"": ""e99c7aa3-8d7c-4d59-a39f-162952b499bf"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -212,18 +192,10 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""TrackedDevicePosition"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""347a7869-add6-4888-ba94-55bc71cd620b"",
-                    ""expectedControlType"": ""Vector3"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""TrackedDeviceOrientation"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""0bbf5526-9136-46bb-9a87-c821086cb126"",
-                    ""expectedControlType"": ""Quaternion"",
+                    ""name"": ""Pan"",
+                    ""type"": ""Value"",
+                    ""id"": ""43c43c1a-7cdc-480d-bf38-045a3ae08e8f"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -577,7 +549,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""ScrollWheel"",
+                    ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -605,23 +577,12 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7236c0d9-6ca3-47cf-a6ee-a97f5b59ea77"",
-                    ""path"": ""<XRController>/devicePosition"",
+                    ""id"": ""4fc9ee86-7c0e-4f39-a5be-cd68826673fb"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""TrackedDevicePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""23e01e3a-f935-4948-8d8b-9bcac77714fb"",
-                    ""path"": ""<XRController>/deviceRotation"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""TrackedDeviceOrientation"",
+                    ""groups"": """",
+                    ""action"": ""Pan"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -742,22 +703,20 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
 }");
         // Combat
         m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
-        m_Combat_LeftClick = m_Combat.FindAction("LeftClick", throwIfNotFound: true);
-        m_Combat_MiddleClick = m_Combat.FindAction("MiddleClick", throwIfNotFound: true);
-        m_Combat_RightClick = m_Combat.FindAction("RightClick", throwIfNotFound: true);
-        m_Combat_Pause = m_Combat.FindAction("Pause", throwIfNotFound: true);
+        m_Combat_PrimarySelect = m_Combat.FindAction("PrimarySelect", throwIfNotFound: true);
         m_Combat_ScrollWheel = m_Combat.FindAction("ScrollWheel", throwIfNotFound: true);
+        m_Combat_Pointer = m_Combat.FindAction("Pointer", throwIfNotFound: true);
+        m_Combat_Cancel = m_Combat.FindAction("Cancel", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
         m_UI_LeftClick = m_UI.FindAction("LeftClick", throwIfNotFound: true);
-        m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
+        m_UI_Zoom = m_UI.FindAction("Zoom", throwIfNotFound: true);
         m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
-        m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
-        m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        m_UI_Pan = m_UI.FindAction("Pan", throwIfNotFound: true);
         // Mouse
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_Point = m_Mouse.FindAction("Point", throwIfNotFound: true);
@@ -765,7 +724,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
 
     public void Dispose()
     {
-        Object.Destroy(asset);
+        UnityEngine.Object.Destroy(asset);
     }
 
     public InputBinding? bindingMask
@@ -815,15 +774,15 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Combat_RightClick;
     private readonly InputAction m_Combat_Pause;
     private readonly InputAction m_Combat_ScrollWheel;
+
     public struct CombatActions
     {
         private @PlayerInputActions m_Wrapper;
         public CombatActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @LeftClick => m_Wrapper.m_Combat_LeftClick;
-        public InputAction @MiddleClick => m_Wrapper.m_Combat_MiddleClick;
-        public InputAction @RightClick => m_Wrapper.m_Combat_RightClick;
-        public InputAction @Pause => m_Wrapper.m_Combat_Pause;
+        public InputAction @PrimarySelect => m_Wrapper.m_Combat_PrimarySelect;
         public InputAction @ScrollWheel => m_Wrapper.m_Combat_ScrollWheel;
+        public InputAction @Pointer => m_Wrapper.m_Combat_Pointer;
+        public InputAction @Cancel => m_Wrapper.m_Combat_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_Combat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -833,45 +792,38 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_CombatActionsCallbackInterface != null)
             {
-                @LeftClick.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnLeftClick;
-                @LeftClick.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnLeftClick;
-                @LeftClick.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnLeftClick;
-                @MiddleClick.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnMiddleClick;
-                @MiddleClick.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnMiddleClick;
-                @MiddleClick.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnMiddleClick;
-                @RightClick.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnRightClick;
-                @RightClick.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnRightClick;
-                @RightClick.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnRightClick;
-                @Pause.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnPause;
-                @Pause.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnPause;
-                @Pause.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnPause;
+                @PrimarySelect.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnPrimarySelect;
+                @PrimarySelect.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnPrimarySelect;
+                @PrimarySelect.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnPrimarySelect;
                 @ScrollWheel.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnScrollWheel;
                 @ScrollWheel.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnScrollWheel;
                 @ScrollWheel.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnScrollWheel;
+                @Pointer.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnPointer;
+                @Pointer.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnPointer;
+                @Pointer.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnPointer;
+                @Cancel.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnCancel;
+                @Cancel.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnCancel;
+                @Cancel.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnCancel;
             }
             m_Wrapper.m_CombatActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @LeftClick.started += instance.OnLeftClick;
-                @LeftClick.performed += instance.OnLeftClick;
-                @LeftClick.canceled += instance.OnLeftClick;
-                @MiddleClick.started += instance.OnMiddleClick;
-                @MiddleClick.performed += instance.OnMiddleClick;
-                @MiddleClick.canceled += instance.OnMiddleClick;
-                @RightClick.started += instance.OnRightClick;
-                @RightClick.performed += instance.OnRightClick;
-                @RightClick.canceled += instance.OnRightClick;
-                @Pause.started += instance.OnPause;
-                @Pause.performed += instance.OnPause;
-                @Pause.canceled += instance.OnPause;
+                @PrimarySelect.started += instance.OnPrimarySelect;
+                @PrimarySelect.performed += instance.OnPrimarySelect;
+                @PrimarySelect.canceled += instance.OnPrimarySelect;
                 @ScrollWheel.started += instance.OnScrollWheel;
                 @ScrollWheel.performed += instance.OnScrollWheel;
                 @ScrollWheel.canceled += instance.OnScrollWheel;
+                @Pointer.started += instance.OnPointer;
+                @Pointer.performed += instance.OnPointer;
+                @Pointer.canceled += instance.OnPointer;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
             }
         }
     }
-
-    public CombatActions Combat => new CombatActions(this);
+    public CombatActions @Combat => new CombatActions(this);
 
     // UI
     private readonly InputActionMap m_UI;
@@ -880,11 +832,11 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_Submit;
     private readonly InputAction m_UI_Cancel;
     private readonly InputAction m_UI_LeftClick;
-    private readonly InputAction m_UI_ScrollWheel;
+    private readonly InputAction m_UI_Zoom;
     private readonly InputAction m_UI_MiddleClick;
     private readonly InputAction m_UI_RightClick;
-    private readonly InputAction m_UI_TrackedDevicePosition;
-    private readonly InputAction m_UI_TrackedDeviceOrientation;
+    private readonly InputAction m_UI_Pan;
+    
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -893,11 +845,10 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
         public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
         public InputAction @LeftClick => m_Wrapper.m_UI_LeftClick;
-        public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
+        public InputAction @Zoom => m_Wrapper.m_UI_Zoom;
         public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
-        public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
-        public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
+        public InputAction @Pan => m_Wrapper.m_UI_Pan;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -919,21 +870,18 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @LeftClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
                 @LeftClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
                 @LeftClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
-                @ScrollWheel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnScrollWheel;
-                @ScrollWheel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnScrollWheel;
-                @ScrollWheel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnScrollWheel;
+                @Zoom.started -= m_Wrapper.m_UIActionsCallbackInterface.OnZoom;
+                @Zoom.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnZoom;
+                @Zoom.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnZoom;
                 @MiddleClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMiddleClick;
                 @MiddleClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMiddleClick;
                 @MiddleClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMiddleClick;
                 @RightClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
                 @RightClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
                 @RightClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
-                @TrackedDevicePosition.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDevicePosition;
-                @TrackedDevicePosition.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDevicePosition;
-                @TrackedDevicePosition.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDevicePosition;
-                @TrackedDeviceOrientation.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
-                @TrackedDeviceOrientation.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
-                @TrackedDeviceOrientation.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
+                @Pan.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPan;
+                @Pan.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPan;
+                @Pan.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPan;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -950,26 +898,22 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @LeftClick.started += instance.OnLeftClick;
                 @LeftClick.performed += instance.OnLeftClick;
                 @LeftClick.canceled += instance.OnLeftClick;
-                @ScrollWheel.started += instance.OnScrollWheel;
-                @ScrollWheel.performed += instance.OnScrollWheel;
-                @ScrollWheel.canceled += instance.OnScrollWheel;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
                 @MiddleClick.started += instance.OnMiddleClick;
                 @MiddleClick.performed += instance.OnMiddleClick;
                 @MiddleClick.canceled += instance.OnMiddleClick;
                 @RightClick.started += instance.OnRightClick;
                 @RightClick.performed += instance.OnRightClick;
                 @RightClick.canceled += instance.OnRightClick;
-                @TrackedDevicePosition.started += instance.OnTrackedDevicePosition;
-                @TrackedDevicePosition.performed += instance.OnTrackedDevicePosition;
-                @TrackedDevicePosition.canceled += instance.OnTrackedDevicePosition;
-                @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
-                @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
-                @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+                @Pan.started += instance.OnPan;
+                @Pan.performed += instance.OnPan;
+                @Pan.canceled += instance.OnPan;
             }
         }
     }
-
-    public UIActions UI => new UIActions(this);
+    public UIActions @UI => new UIActions(this);
 
     // Mouse
     private readonly InputActionMap m_Mouse;
@@ -1002,15 +946,13 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             }
         }
     }
-
-    public MouseActions Mouse => new MouseActions(this);
+    public MouseActions @Mouse => new MouseActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
         get
         {
-            if (m_KeyboardMouseSchemeIndex == -1)
-                m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard&Mouse");
+            if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard&Mouse");
             return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
         }
     }
@@ -1052,11 +994,10 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     }
     public interface ICombatActions
     {
-        void OnLeftClick(InputAction.CallbackContext context);
-        void OnMiddleClick(InputAction.CallbackContext context);
-        void OnRightClick(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
+        void OnPrimarySelect(InputAction.CallbackContext context);
         void OnScrollWheel(InputAction.CallbackContext context);
+        void OnPointer(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
@@ -1064,11 +1005,10 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         void OnSubmit(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
         void OnLeftClick(InputAction.CallbackContext context);
-        void OnScrollWheel(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
         void OnMiddleClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
-        void OnTrackedDevicePosition(InputAction.CallbackContext context);
-        void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        void OnPan(InputAction.CallbackContext context);
     }
     public interface IMouseActions
     {
