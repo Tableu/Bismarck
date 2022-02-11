@@ -6,33 +6,9 @@
             "id": "15049782-f5b3-45cb-aa8c-9899180dba77",
             "actions": [
                 {
-                    "name": "LeftClick",
+                    "name": "PrimarySelect",
                     "type": "Button",
                     "id": "a331427e-e23e-4a38-917f-22bbeb347b4a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "MiddleClick",
-                    "type": "PassThrough",
-                    "id": "dcf49588-a1cf-46ca-b7c5-3c4551b3a7d2",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "RightClick",
-                    "type": "Button",
-                    "id": "566d58d3-14c2-43bd-9030-6139e630bade",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "4ba4ed3c-7fa4-4e4f-8ea8-36f11e457954",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -44,31 +20,25 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Pointer",
+                    "type": "Value",
+                    "id": "bcfe7d27-0eb8-4379-82cb-53de68aad4ea",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "d8c9bba4-b479-411b-9988-9d3a4dd6ed6c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "07354fa8-067f-4b63-842b-8ac86c261937",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "RightClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dd7b8b35-2784-49aa-a59c-0024d8199bc2",
-                    "path": "<Mouse>/middleButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "MiddleClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "a8dcde79-435d-44f9-a031-b243995ccf84",
@@ -76,7 +46,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "LeftClick",
+                    "action": "PrimarySelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -87,7 +57,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "LeftClick",
+                    "action": "PrimarySelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -98,7 +68,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch",
-                    "action": "LeftClick",
+                    "action": "PrimarySelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -109,18 +79,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "LeftClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "be64cdcb-0726-47c1-a79a-23fe9cd71d12",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
+                    "action": "PrimarySelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -132,6 +91,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "ScrollWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0c8246e-5cb3-4015-b24e-ee97dd1e9d03",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pointer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "efc12de1-4464-413b-a559-1fa3ed66f5c3",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

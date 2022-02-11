@@ -11,6 +11,7 @@ TagManager:
   - Store
   - EnemyProjectiles
   - EnemyShips
+  - EmptyModuleSlot
   layers:
   - Default
   - TransparentFX
