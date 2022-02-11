@@ -16,6 +16,8 @@ namespace Ships.DataManagement
         [Header("Info")]
         [SerializeField] private string displayName;
         [SerializeField] private GameObject visuals;
+        [SerializeField] [Range(0.001f, 1f)] private float cameraSizeMultiplier = 1f;
+        [SerializeField] [Range(0.001f, 1f)] private float backgroundSizeMultiplier = 1f;
         [SerializeField] private int cost;
         [SerializeField] private List<AttackScriptableObject> weapons;
         [SerializeField] private bool blocksMovement = true;
@@ -36,6 +38,8 @@ namespace Ships.DataManagement
         public float SensorRange => sensorRange;
         public string DisplayName => displayName;
         public GameObject Visuals => visuals;
+        public float CameraSizeMultiplier => cameraSizeMultiplier;
+        public float BackgroundSizeMultiplier => backgroundSizeMultiplier;
         public int Cost => cost;
         public List<AttackScriptableObject> Weapons => weapons;
     }

@@ -1005,7 +1005,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
 
     public MouseActions Mouse => new MouseActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
-
     public InputControlScheme KeyboardMouseScheme
     {
         get
@@ -1015,9 +1014,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
         }
     }
-
     private int m_GamepadSchemeIndex = -1;
-
     public InputControlScheme GamepadScheme
     {
         get
@@ -1026,9 +1023,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_GamepadSchemeIndex];
         }
     }
-
     private int m_TouchSchemeIndex = -1;
-
     public InputControlScheme TouchScheme
     {
         get
@@ -1037,9 +1032,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_TouchSchemeIndex];
         }
     }
-
     private int m_JoystickSchemeIndex = -1;
-
     public InputControlScheme JoystickScheme
     {
         get
@@ -1048,9 +1041,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_JoystickSchemeIndex];
         }
     }
-
     private int m_XRSchemeIndex = -1;
-
     public InputControlScheme XRScheme
     {
         get
