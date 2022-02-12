@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using Object = UnityEngine.Object;
 
 public class @PlayerInputActions : IInputActionCollection, IDisposable
 {
@@ -724,7 +725,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
 
     public void Dispose()
     {
-        UnityEngine.Object.Destroy(asset);
+        Object.Destroy(asset);
     }
 
     public InputBinding? bindingMask
@@ -769,12 +770,10 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     // Combat
     private readonly InputActionMap m_Combat;
     private ICombatActions m_CombatActionsCallbackInterface;
-    private readonly InputAction m_Combat_LeftClick;
-    private readonly InputAction m_Combat_MiddleClick;
-    private readonly InputAction m_Combat_RightClick;
-    private readonly InputAction m_Combat_Pause;
+    private readonly InputAction m_Combat_PrimarySelect;
     private readonly InputAction m_Combat_ScrollWheel;
-
+    private readonly InputAction m_Combat_Pointer;
+    private readonly InputAction m_Combat_Cancel;
     public struct CombatActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -836,7 +835,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_MiddleClick;
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_Pan;
-    
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
