@@ -21,6 +21,8 @@ namespace Ships.Fleets
         [ReadOnlyField] [SerializeField] private int fleetId;
         [SerializeField] private GameObject shipBasePrefab;
 
+        private InfoWindowManager _infoWindowManager;
+
         private readonly Dictionary<FleetManager, FleetAgroStatus> _agroStatusMap = new Dictionary<FleetManager, FleetAgroStatus>();
 
         public string FleetName => fleetName;
@@ -30,6 +32,8 @@ namespace Ships.Fleets
 
         private void Awake()
         {
+            _infoWindowManager = GetComponent<InfoWindowManager>();
+            
             fleetId = fleetName.GetHashCode();
             _agroStatusMap[this] = FleetAgroStatus.Self;
             foreach (var fleet in ActiveFleets)
@@ -75,6 +79,10 @@ namespace Ships.Fleets
             var newShip = Instantiate(shipBasePrefab, position, Quaternion.identity, transform);
             var info = newShip.GetComponent<ShipInfo>();
             info.Initialize(shipData);
+            if (_infoWindowManager != null)
+            {
+                _infoWindowManager.SpawnInfoWindow(newShip);
+            }
             // todo: move ships to avoid collisions
             return newShip;
         }
