@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using UI.InfoWindow;
 using Systems;
 using Systems.Modules;
 using UnityEngine;
+using Subsystem = UI.InfoWindow.Subsystem;
 
 namespace Ships.DataManagement
 {
@@ -24,6 +26,7 @@ namespace Ships.DataManagement
         [SerializeField] private int moduleGridHeight;
         [SerializeField] private int moduleGridWidth;
         [SerializeField] private List<Module> defaultModules;
+        [SerializeField] private Subsystem enabledSubsystems;
         [SerializeField] private bool blocksMovement = true;
 
         [Header("Base Stats")]
@@ -49,5 +52,6 @@ namespace Ships.DataManagement
         public int ModuleGridHeight => moduleGridHeight;
         public int ModuleGridWidth => moduleGridWidth;
         public List<Module> DefaultModules => defaultModules;
+        public Subsystem EnabledSubsystems => enabledSubsystems;
     }
 }
