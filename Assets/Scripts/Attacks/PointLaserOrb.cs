@@ -1,4 +1,5 @@
 using UnityEngine;
+using Subsystem = UI.InfoWindow.Subsystem;
 
 public class PointLaserOrb : Projectile, IDamageable
 {
@@ -8,6 +9,7 @@ public class PointLaserOrb : Projectile, IDamageable
     [SerializeField] private float size;
     private int _cooldown;
     private int _lasers;
+    public Subsystem Subsystem { get; private set; } = Subsystem.Weapon;
     private new void Start()
     {
         base.Start();

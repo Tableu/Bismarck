@@ -11,6 +11,7 @@ namespace UI.InfoWindow
         public ShipInfo ShipInfo;
         public Subsystem Subsystem;
         public ButtonData ButtonData;
+        public IDamageable Target;
 
         void Start()
         {
@@ -45,6 +46,14 @@ namespace UI.InfoWindow
                     }
 
                     break;
+            }
+        }
+
+        private void OnClick()
+        {
+            if (ShipInfo != null && Target != null)
+            {
+                ShipInfo.SelectedTarget = Target;
             }
         }
 

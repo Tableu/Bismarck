@@ -9,26 +9,36 @@ namespace UI.InfoWindow
     {
         None = 0,
         Weapon = 1 << 0,
-        Engine = 1 << 1
+        Engine = 1 << 1,
+        Hull = 1 << 2
     }
 
     public class SubsystemButtonManager : MonoBehaviour
     {
-        public ShipInfo ShipInfo;
+        private ShipInfo _info;
         [SerializeField] private GameObject _subsystemButtonPrefab;
         [SerializeField] private SubsystemButtonData _subsystemButtonData;
 
         void Start()
         {
-            foreach (Subsystem subsystem in Enum.GetValues(typeof(Subsystem)))
+            _info = GetComponentInParent<ShipInfo>();
+            if (_info == null)
             {
-                if ((subsystem & ShipInfo.Data.EnabledSubsystems) != Subsystem.None)
+                return;
+            }
+
+            IDamageable[] targets = _info.gameObject.GetComponents<IDamageable>();
+            foreach (IDamageable target in targets)
+            {
+                if ((target.Subsystem & _info.Data.EnabledSubsystems) != Subsystem.None)
                 {
                     GameObject subsystemButton = Instantiate(_subsystemButtonPrefab, transform, false);
                     SubsystemButton button = subsystemButton.GetComponent<SubsystemButton>();
-                    button.Subsystem = subsystem;
-                    button.ShipInfo = ShipInfo;
-                    button.ButtonData = _subsystemButtonData.ButtonData.Find(data => data.Subsystem == subsystem);
+                    button.Subsystem = target.Subsystem;
+                    button.ShipInfo = _info;
+                    button.ButtonData =
+                        _subsystemButtonData.ButtonData.Find(data => data.Subsystem == target.Subsystem);
+                    button.Target = target;
                 }
             }
         }

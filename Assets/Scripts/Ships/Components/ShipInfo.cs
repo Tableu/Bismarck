@@ -18,6 +18,7 @@ namespace Ships.Components
         public ModifiableStat MaxHealth { get; } = new ModifiableStat(0);
         public ModifiableStat DamageMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat SpeedMultiplier { get; } = new ModifiableStat(0);
+        public IDamageable SelectedTarget { get; set; }
 
         private void Awake()
         {
