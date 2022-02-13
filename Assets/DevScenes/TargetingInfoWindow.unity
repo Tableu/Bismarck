@@ -481,7 +481,6 @@ GameObject:
   m_Component:
   - component: {fileID: 902141237}
   - component: {fileID: 902141236}
-  - component: {fileID: 902141235}
   - component: {fileID: 902141238}
   m_Layer: 9
   m_Name: InfoWindowCamera
@@ -490,14 +489,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &902141235
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 902141234}
-  m_Enabled: 1
 --- !u!20 &902141236
 Camera:
   m_ObjectHideFlags: 0
@@ -568,7 +559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500ce8312d88b0a4aa7017911485e77c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  background: {fileID: 0}
 --- !u!1 &1011181984
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,6 +809,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098e953fec967d7489486ddf02d8e3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipInfo: {fileID: 462574881}
   _subsystemButtonPrefab: {fileID: 4561551169085519207, guid: b1a6728c8a724f1448d30265e859b053, type: 3}
   _subsystemButtonData: {fileID: 11400000, guid: 10cb94d7425310b42a8a8f55149ca684, type: 2}

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace UI.InfoWindow
 {
+    /// <summary>
+    ///     Used as a bitmask and type for IDamageable classes and Subsystem buttons.
+    /// </summary>
     [Flags]
     public enum Subsystem
     {
@@ -13,6 +16,9 @@ namespace UI.InfoWindow
         Hull = 1 << 2
     }
 
+    /// <summary>
+    ///     Instantiates subsystem buttons in a horizontal layout group in a ships Targeting Info Window.
+    /// </summary>
     public class SubsystemButtonManager : MonoBehaviour
     {
         private ShipInfo _info;

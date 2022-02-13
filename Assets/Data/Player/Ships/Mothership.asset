@@ -25,7 +25,7 @@ MonoBehaviour:
   defaultModules:
   - Id: TestModule
     RootPosition: {x: 0, y: 0}
-  enabledSubsystems: 3
+  enabledSubsystems: 2147483647
   blocksMovement: 1
   health: 20
   speedMultiplier: 1

@@ -4,6 +4,11 @@ using UnityEngine.UI;
 
 namespace UI.InfoWindow
 {
+    /// <summary>
+    ///     Displays a subsystems icon in a button which is colored based on the state of the subsystem.
+    ///     e.g. the button turns red when the subsystem is disabled.
+    ///     When clicked the button sets the target subsystem of the ship.
+    /// </summary>
     public class SubsystemButton : MonoBehaviour
     {
         [SerializeField] private Button _button;
