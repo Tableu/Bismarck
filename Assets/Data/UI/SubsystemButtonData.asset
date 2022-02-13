@@ -21,3 +21,7 @@ MonoBehaviour:
     Button: {fileID: 0}
     Name: Engine
     Subsystem: 2
+  - Icon: {fileID: 0}
+    Button: {fileID: 0}
+    Name: Hull
+    Subsystem: 4
