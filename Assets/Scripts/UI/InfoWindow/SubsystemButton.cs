@@ -1,3 +1,4 @@
+using System;
 using Ships.Components;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,6 +31,11 @@ namespace UI.InfoWindow
         void Update()
         {
             RefreshButton();
+        }
+
+        private void OnDestroy()
+        {
+            _button.onClick.RemoveAllListeners();
         }
 
         private void RefreshButton()

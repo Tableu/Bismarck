@@ -17,7 +17,6 @@ MonoBehaviour:
   displayName: Mothership
   visuals: {fileID: 8178566776061135549, guid: a191fb943a00e394e8e0504dc7c673ab, type: 3}
   cameraSizeMultiplier: 0.881
-  backgroundSizeMultiplier: 0.715
   cost: 0
   weapons: []
   moduleGridHeight: 2
@@ -25,7 +24,7 @@ MonoBehaviour:
   defaultModules:
   - Id: TestModule
     RootPosition: {x: 0, y: 0}
-  enabledSubsystems: 2147483647
+  targetableSubsystems: 2147483647
   blocksMovement: 1
   health: 20
   speedMultiplier: 1

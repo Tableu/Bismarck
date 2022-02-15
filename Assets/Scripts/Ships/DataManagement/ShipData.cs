@@ -25,7 +25,7 @@ namespace Ships.DataManagement
         [SerializeField] private int moduleGridHeight;
         [SerializeField] private int moduleGridWidth;
         [SerializeField] private List<Module> defaultModules;
-        [SerializeField] private Subsystem enabledSubsystems;
+        [SerializeField] private Subsystem targetableSubsystems;
         [SerializeField] private bool blocksMovement = true;
 
         [Header("Base Stats")]
@@ -50,6 +50,6 @@ namespace Ships.DataManagement
         public int ModuleGridHeight => moduleGridHeight;
         public int ModuleGridWidth => moduleGridWidth;
         public List<Module> DefaultModules => defaultModules;
-        public Subsystem EnabledSubsystems => enabledSubsystems;
+        public Subsystem TargetableSubsystems => targetableSubsystems;
     }
 }

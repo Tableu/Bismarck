@@ -21,27 +21,26 @@ namespace UI.InfoWindow
     /// </summary>
     public class SubsystemButtonManager : MonoBehaviour
     {
-        private ShipInfo _info;
         [SerializeField] private GameObject _subsystemButtonPrefab;
         [SerializeField] private SubsystemButtonData _subsystemButtonData;
 
-        void Start()
+        public void Refresh(ShipInfo shipInfo)
         {
-            _info = GetComponentInParent<ShipInfo>();
-            if (_info == null)
+            foreach (Transform child in transform)
             {
-                return;
+                Destroy(child.gameObject);
             }
 
-            IDamageable[] targets = _info.gameObject.GetComponents<IDamageable>();
+            IDamageable[] targets = shipInfo.GetComponentsInChildren<IDamageable>();
+            
             foreach (IDamageable target in targets)
             {
-                if ((target.Subsystem & _info.Data.EnabledSubsystems) != Subsystem.None)
+                if ((target.Subsystem & shipInfo.Data.TargetableSubsystems) != Subsystem.None)
                 {
                     GameObject subsystemButton = Instantiate(_subsystemButtonPrefab, transform, false);
                     SubsystemButton button = subsystemButton.GetComponent<SubsystemButton>();
                     button.Subsystem = target.Subsystem;
-                    button.ShipInfo = _info;
+                    button.ShipInfo = shipInfo;
                     button.ButtonData =
                         _subsystemButtonData.ButtonData.Find(data => data.Subsystem == target.Subsystem);
                     button.Target = target;
