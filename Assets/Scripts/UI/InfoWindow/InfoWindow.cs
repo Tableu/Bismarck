@@ -3,7 +3,7 @@ using UI.InfoWindow;
 using UnityEngine;
 
 /// <summary>
-/// Instantiates InfoWindow and attaches them to each ShipInfo in its children
+/// Refreshes InfoWindow based on a ShipInfo instance. Enables/Disables the InfoWindow camera and canvas elements accordingly.
 /// </summary>
 public class InfoWindow : MonoBehaviour
 {
