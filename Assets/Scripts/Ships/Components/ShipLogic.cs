@@ -61,7 +61,6 @@ public class ShipLogic : MonoBehaviour
             }
 
             var attackCommand = attackScriptableObject.MakeAttack();
-            StartCoroutine(attackCommand.DoAttack(gameObject, turretPos.Current));
             attackCommand.SetParent(parent.transform);
             _attackCommands.Add(attackCommand);
         }
@@ -112,12 +111,6 @@ public class ShipLogic : MonoBehaviour
         if (enemy != null)
         {
             _moveToTarget.Target = enemy;
-            foreach (var command in _attackCommands)
-            {
-                command.SetTarget(enemy);
-                StartCoroutine(command.DoAttack(gameObject));
-            }
-
             return true;
         }
 

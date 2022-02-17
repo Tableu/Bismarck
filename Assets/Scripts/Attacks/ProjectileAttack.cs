@@ -1,4 +1,5 @@
 using System.Collections;
+using Ships.Components;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Attack", menuName = "Attacks/Projectile", order = 0)]
@@ -13,34 +14,26 @@ public class ProjectileAttack : AttackScriptableObject
 
     private class Attack : AttackCommand
     {
-        private int _coroutineCount = 0;
         private Vector2 _direction;
         private float _fireDelay;
+        private float _fireTime;
         private Transform _parent;
         private GameObject _projectilePrefab;
         private Transform _spawnPosition;
-        private GameObject _target;
-        private bool _useTarget = true;
+        private ShipInfo _target;
 
         public Attack(GameObject projectilePrefab, float fireDelay)
         {
             _projectilePrefab = projectilePrefab;
             _fireDelay = fireDelay;
-            _useTarget = false;
-        }
-        private bool Stop { get; set; }
-
-        public void StopAttack()
-        {
-            Stop = true;
+            _fireTime = Time.deltaTime;
         }
 
-        public void SetTarget(GameObject target)
+        public void SetTarget(ShipInfo target)
         {
             if (target != null)
             {
                 _target = target;
-                _useTarget = true;
             }
         }
 
@@ -49,22 +42,21 @@ public class ProjectileAttack : AttackScriptableObject
             _parent = parent;
         }
 
-        public IEnumerator DoAttack(GameObject attacker, Transform spawnPosition)
+        public bool DoAttack(GameObject attacker, Transform spawnPosition)
         {
-            _coroutineCount++;
             if (spawnPosition != null)
             {
                 _spawnPosition = spawnPosition;
             }
 
-            int coroutineCount = _coroutineCount;
-            Stop = false;
-            yield return new WaitForSeconds(_fireDelay / 2);
-            while (!Stop && coroutineCount.Equals(_coroutineCount))
+            if (Time.deltaTime - _fireTime > _fireDelay)
             {
+                _fireTime = Time.deltaTime;
                 SpawnProjectile(attacker);
-                yield return new WaitForSeconds(_fireDelay);
+                return true;    
             }
+
+            return false;
         }
 
         private void SpawnProjectile(GameObject attacker)
@@ -80,19 +72,10 @@ public class ProjectileAttack : AttackScriptableObject
             if (controller != null)
             {
                 float rotation = 0;
-                float direction = attacker.transform.localScale.x;
-                if (!_useTarget)
-                {
-                    _direction = new Vector2(direction, 0);
-                }
-                else if (_target != null)
+                if (_target != null)
                 {
                     Vector2 diff = _target.transform.position - _spawnPosition.position;
                     _direction = diff.normalized;
-                }
-                else
-                {
-                    Stop = true;
                 }
 
                 rotation = Vector2.SignedAngle(Vector2.right, _direction);

@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
+using Ships.Components;
 using UnityEngine;
 
 public interface AttackCommand
 {
-    public IEnumerator DoAttack(GameObject attacker, Transform spawnPosition = null);
-    public void StopAttack();
-    public void SetTarget(GameObject target);
+    public bool DoAttack(GameObject attacker, Transform spawnPosition = null);
+    public void SetTarget(ShipInfo target);
     public void SetParent(Transform parent);
 }
 
