@@ -1,12 +1,12 @@
 using System;
-using System.Collections;
 using Ships.Components;
+using Systems.Modifiers;
 using UnityEngine;
 
 public interface AttackCommand
 {
-    public bool DoAttack(GameObject attacker, Transform spawnPosition = null);
-    public void SetTarget(ShipInfo target);
+    public ModifiableStat HitChanceMultiplier { get; }
+    public bool DoAttack(IDamageable target);
     public void SetParent(Transform parent);
 }
 
@@ -16,5 +16,8 @@ public abstract class AttackScriptableObject : ScriptableObject
     public GameObject Turret;
     public string AttackName;
     public int Cost;
-    public abstract AttackCommand MakeAttack();
+    public float HitChance;
+    public int Damage;
+
+    public abstract AttackCommand MakeAttack(ShipInfo shipInfo);
 }

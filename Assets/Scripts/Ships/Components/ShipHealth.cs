@@ -17,8 +17,11 @@ namespace Ships.Components
         private bool _healthDirty;
         private ShipInfo _info;
 
+        public ShipInfo ShipInfo => _info;
         public float Health => PercentHealth * _info.MaxHealth;
+        public float DodgeChance => PercentDodgeChance * _info.DodgeChanceMultiplier;
         public float PercentHealth { get; private set; } = 1f;
+        public float PercentDodgeChance { get; private set; } = 1f;
 
         private void Awake()
         {
@@ -44,11 +47,7 @@ namespace Ships.Components
                 Destroy(gameObject);
             }
         }
-
-        public bool DestroyProjectile(CollisionType type)
-        {
-            return true;
-        }
+        
         public string id => "health";
         public object SaveState()
         {
@@ -66,7 +65,7 @@ namespace Ships.Components
         [ContextMenu("Test Damage")]
         public void TestDamage()
         {
-            TakeDamage(new Damage(Vector2.down, 1, CollisionType.energy));
+            TakeDamage(new Damage(this, 10, 100));
         }
 
         [ContextMenu("Repair")]

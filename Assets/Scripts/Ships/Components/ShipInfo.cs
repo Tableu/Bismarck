@@ -10,14 +10,17 @@ namespace Ships.Components
     /// </summary>
     public class ShipInfo : MonoBehaviour
     {
+        private GameObject _visuals;
         [SerializeField] private ShipData data;
         public ShipData Data => data;
+        public GameObject Visuals => _visuals;
         public FleetManager Fleet { get; private set; }
 
         // ModifiableStat must be read only so that other components can get references to them during Start/Awake.
         public ModifiableStat MaxHealth { get; } = new ModifiableStat(0);
         public ModifiableStat DamageMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat SpeedMultiplier { get; } = new ModifiableStat(0);
+        public ModifiableStat DodgeChanceMultiplier { get; } = new ModifiableStat(0);
 
         private void Awake()
         {
@@ -56,7 +59,7 @@ namespace Ships.Components
             SpeedMultiplier.UpdateBaseValue(data.BaseSpeedMultiplier);
 
             // Add ship visuals
-            Instantiate(data.Visuals, transform);
+            _visuals = Instantiate(data.Visuals, transform);
         }
     }
 }

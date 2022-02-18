@@ -2,22 +2,38 @@ using UnityEngine;
 
 public struct Damage
 {
-    public Damage(Vector2 source, float rawDamage, CollisionType type)
+    private IDamageable _target;
+    private float _rawDamage;
+    private float _hitChance;
+
+    public float RawDamage => _rawDamage;
+
+    public Damage(IDamageable target, float rawDamage, float hitChance)
     {
-        Source = source;
-        RawDamage = rawDamage;
-        Type = type;
+        _target = target;
+        _rawDamage = rawDamage;
+        _hitChance = hitChance;
     }
 
-    public Vector2 Source;
-    public float RawDamage;
-    public CollisionType Type;
-}
+    public bool Hit()
+    {
+        if (_target != null)
+        {
+            float hit = Random.Range(0f, 1f);
+            if (hit > (100 - _hitChance) + _target.DodgeChance)
+            {
+                return true;
+            }
+        }
 
-public enum CollisionType
-{
-    energy,
-    kinetic,
-    pointlaser,
-    ship
+        return false;
+    }
+
+    public void ApplyDamage()
+    {
+        if (_target != null)
+        {
+            _target.TakeDamage(this);
+        }
+    }
 }

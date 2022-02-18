@@ -31,7 +31,7 @@ namespace Effects
             }
             protected override void Tick()
             {
-                _health.TakeDamage(new Damage(Vector2.zero, _baseDamage, CollisionType.kinetic));
+                _health.TakeDamage(new Damage(_health, _baseDamage, 100));
                 Debug.Log("Dealing Damage");
             }
         }

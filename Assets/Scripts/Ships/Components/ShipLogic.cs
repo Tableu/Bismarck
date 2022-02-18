@@ -60,7 +60,7 @@ public class ShipLogic : MonoBehaviour
                 break;
             }
 
-            var attackCommand = attackScriptableObject.MakeAttack();
+            var attackCommand = attackScriptableObject.MakeAttack(stats);
             attackCommand.SetParent(parent.transform);
             _attackCommands.Add(attackCommand);
         }

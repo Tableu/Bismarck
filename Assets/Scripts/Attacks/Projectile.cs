@@ -10,7 +10,6 @@ public class SpeedSegment
 }
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private BoxCollider2D boxCollider2D;
     [SerializeField] private GameObject visuals;
     [SerializeField] private List<SpeedSegment> speedSegments;
 
@@ -18,7 +17,6 @@ public class Projectile : MonoBehaviour
     public LayerMask enemyLayer;
     public float speed;
     public Vector2 _direction;
-    public CollisionType type;
     private SpeedSegment _currentSegment;
     private int _speedSegmentIndex;
     private int _speedSegmentMax;
@@ -69,30 +67,8 @@ public class Projectile : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    protected void OnTriggerEnter2D(Collider2D other)
-    {
-        if (((1 << other.gameObject.layer) & enemyLayer) != 0)
-        {
-            var enemy = other.gameObject.GetComponent<IDamageable>();
-            var dmg = new Damage
-            {
-                RawDamage = damage,
-                Source = transform.position,
-                Type = type
-            };
-            if (enemy != null)
-            {
-                enemy.TakeDamage(dmg);
-                if (enemy.DestroyProjectile(CollisionType.energy))
-                {
-                    Destroy(gameObject);
-                }
-            }
-        }
-        return;
-    }
 
-    public void Init(Vector2 direction, float zRotation, int shipLayer)
+    public void Init(Vector2 direction, float zRotation)
     {
         _direction = direction;
         Vector3 scale = transform.localScale;
@@ -100,7 +76,5 @@ public class Projectile : MonoBehaviour
         Vector3 rotation = visuals.transform.rotation.eulerAngles;
         visuals.transform.rotation = Quaternion.Euler(rotation.x, rotation.y,
             (rotation.z - zRotation) * Mathf.Sign(direction.x));
-        gameObject.layer = shipLayer + 1;
-        enemyLayer = enemyLayer & ~LayerMask.GetMask(LayerMask.LayerToName(shipLayer + 1), LayerMask.LayerToName(shipLayer));
     }
 }
