@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace SystemMap
 {
@@ -10,6 +11,7 @@ namespace SystemMap
     public class EllipseDrawer: MonoBehaviour
     {
         // todo: make shader
+        public GameObject tracer;
         public float semiMajorAxis;
         public float semiMinorAxis;
         public int resolution;
@@ -17,6 +19,7 @@ namespace SystemMap
 
         private LineRenderer _lineRenderer;
         private float _baseMultiply;
+        private Spline2D spline;
         
         private void Awake()
         {
@@ -30,6 +33,9 @@ namespace SystemMap
         {
             Matrix4x4 mat = cam.projectionMatrix;
             _lineRenderer.widthMultiplier = _baseMultiply / mat.m11;
+            var mousePos = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Vector3 pointOnLine = spline.ClosestPointOnSpline(mousePos);
+            tracer.transform.position = pointOnLine;
         }
         private void OnValidate()
         {
@@ -43,19 +49,22 @@ namespace SystemMap
 
         private void Redraw()
         {
-            var inc = 2f * Mathf.PI / resolution;
+            const float inc = 0.1f;
+            float t = 0;
             var points = new Vector3[resolution];
+            spline = new Spline2D(Vector2.zero, Vector2.left, Vector2.zero);
+            spline.AddSegment(2, new Vector2(1, 1));
+            spline.AddSegment(5, new Vector2(1, 0));
+            spline.AddSegment(6, new Vector2(0, 1));
 
             for (int i = 0; i < resolution; i++)
             {
-                points[i] = new Vector3(
-                    semiMinorAxis*Mathf.Cos(inc*i), 
-                    semiMajorAxis*Mathf.Sin(inc*i),
-                    0);
+                t += inc;
+                points[i] = spline.Evaluate(t);
             }
             _lineRenderer.positionCount = resolution;
             _lineRenderer.SetPositions(points);
-            _lineRenderer.loop = true;
+            _lineRenderer.loop = false;
         }
     }
 }
