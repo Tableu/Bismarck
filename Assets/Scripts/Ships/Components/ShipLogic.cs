@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Attacks;
 using Ships.Components;
 using Ships.DataManagement;
 using Ships.Fleets;
@@ -18,7 +19,7 @@ public class ShipLogic : MonoBehaviour
     protected MoveToPositionState _moveToPosition;
     protected MoveToTargetState _moveToTarget;
     protected FleetManager _shipSpawner;
-    private List<AttackScriptableObject> attackScriptableObjects;
+    private List<AttackData> attackScriptableObjects;
     protected FSM StateMachine;
     public bool BlocksMovement { get; private set; }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Attacks;
 using Systems;
 using Systems.Modules;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace Ships.DataManagement
         [SerializeField] private string displayName;
         [SerializeField] private GameObject visuals;
         [SerializeField] private int cost;
-        [SerializeField] private List<AttackScriptableObject> weapons;
+        [SerializeField] private List<AttackData> weapons;
         [SerializeField] private int moduleGridHeight;
         [SerializeField] private int moduleGridWidth;
         [SerializeField] private List<Module> defaultModules;
@@ -41,7 +42,7 @@ namespace Ships.DataManagement
         public string DisplayName => displayName;
         public GameObject Visuals => visuals;
         public int Cost => cost;
-        public List<AttackScriptableObject> Weapons => weapons;
+        public List<AttackData> Weapons => weapons;
         public int ModuleGridHeight => moduleGridHeight;
         public int ModuleGridWidth => moduleGridWidth;
         public List<Module> DefaultModules => defaultModules;

@@ -10,7 +10,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private int playerHealth;
 
     [SerializeField] private float barDisplacement;
-    private ShipHealth _shipHealth;
+    private Hull _hull;
 
     // Start is called before the first frame update
     private void Start()
@@ -33,24 +33,24 @@ public class HealthBar : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (_shipHealth != null)
+        if (_hull != null)
         {
-            _shipHealth.OnHealthChanged -= Redraw;
+            _hull.OnHealthChanged -= Redraw;
         }
     }
 
-    public void Bind(ShipHealth bindingTarget)
+    public void Bind(Hull bindingTarget)
     {
         healthBar.maxValue = 1f;
         healthBar.value = bindingTarget.PercentHealth;
         target = bindingTarget.transform;
-        _shipHealth = bindingTarget;
-        _shipHealth.OnHealthChanged += Redraw;
+        _hull = bindingTarget;
+        _hull.OnHealthChanged += Redraw;
         transform.localPosition = Vector2.down * barDisplacement;
     }
 
     private void Redraw()
     {
-        healthBar.value = _shipHealth.PercentHealth;
+        healthBar.value = _hull.PercentHealth;
     }
 }

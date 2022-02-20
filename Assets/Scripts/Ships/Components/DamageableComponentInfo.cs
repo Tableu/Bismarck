@@ -1,33 +1,38 @@
 using System;
-using Newtonsoft.Json.Linq;
-using Systems.Save;
+using Systems;
 using UnityEngine;
 
 namespace Ships.Components
 {
     /// <summary>
-    ///     Stores ship health and manages receiving damage.
+    ///     Stores ship component health and manages receiving damage.
     /// </summary>
-    public class ShipHealth : MonoBehaviour, IDamageable, ISavable
+    public abstract class DamageableComponentInfo : MonoBehaviour
     {
         /// <summary>
         ///     Keeps track of if health has changed this frame.
         ///     Used so that OnHealthChanged is only invoked once per frame.
         /// </summary>
         private bool _healthDirty;
-        private ShipInfo _info;
 
+        private float _maxHealth;
+        protected ShipInfo _info;
+        
         public ShipInfo ShipInfo => _info;
-        public float Health => PercentHealth * _info.MaxHealth;
-        public float DodgeChance => PercentDodgeChance * _info.DodgeChanceMultiplier;
-        public float PercentHealth { get; private set; } = 1f;
-        public float PercentDodgeChance { get; private set; } = 1f;
+        public float Health => PercentHealth * _maxHealth;
+        public float DodgeChance => PercentDodgeChance * 100;
+        public float PercentHealth { get; protected set; } = 1f;
+        public float PercentDodgeChance { get; protected set; } = 1f;
 
+        public void Init(float maxHealth)
+        {
+            _maxHealth = maxHealth;
+        }
         private void Awake()
         {
             _info = GetComponent<ShipInfo>();
+            OnHealthChanged += DisableComponent;
         }
-
         private void Update()
         {
             if (_healthDirty)
@@ -36,7 +41,6 @@ namespace Ships.Components
                 OnHealthChanged?.Invoke();
             }
         }
-
         public void TakeDamage(Damage dmg)
         {
             PercentHealth -= dmg.RawDamage / _info.MaxHealth;
@@ -47,20 +51,8 @@ namespace Ships.Components
                 Destroy(gameObject);
             }
         }
-        
-        public string id => "health";
-        public object SaveState()
-        {
-            return new SaveData
-            {
-                CurrentHealth = PercentHealth
-            };
-        }
-        public void LoadState(JObject state)
-        {
-            var saveData = state.ToObject<SaveData>();
-            PercentHealth = saveData.CurrentHealth;
-        }
+
+        protected abstract void DisableComponent();
 
         [ContextMenu("Test Damage")]
         public void TestDamage()
@@ -74,13 +66,7 @@ namespace Ships.Components
             PercentHealth = 1;
             OnHealthChanged?.Invoke();
         }
-
+        
         public event Action OnHealthChanged;
-
-        [Serializable]
-        private struct SaveData
-        {
-            public float CurrentHealth;
-        }
     }
 }

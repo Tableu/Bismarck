@@ -1,4 +1,5 @@
-﻿using Ships.DataManagement;
+﻿using Attacks;
+using Ships.DataManagement;
 using Ships.Fleets;
 using Systems.Modifiers;
 using UnityEngine;
@@ -42,6 +43,16 @@ namespace Ships.Components
             Debug.Assert(data == null, "ShipInfo.data overwritten");
             data = shipData;
             Initialize();
+        }
+
+        public void InitializeWeapons()
+        {
+            foreach (AttackData attackData in data.Weapons)
+            {
+                GameObject turret = Instantiate(attackData.Turret, transform);
+                Weapon weapon = turret.AddComponent<Weapon>();
+                weapon.Initialize(this, attackData);
+            }
         }
 
         /// <summary>

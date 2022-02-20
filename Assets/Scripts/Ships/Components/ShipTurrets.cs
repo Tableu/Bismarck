@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Attacks;
 using UnityEngine;
 
 public class ShipTurrets : MonoBehaviour
@@ -8,7 +9,7 @@ public class ShipTurrets : MonoBehaviour
 
     [SerializeField] private Transform turretParent;
 
-    private List<AttackScriptableObject> _weapons;
+    private List<AttackData> _weapons;
 
     public IReadOnlyCollection<Transform> TurretPositions => turretPositions;
 

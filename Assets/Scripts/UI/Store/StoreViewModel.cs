@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using Attacks;
 using Ships.Components;
 using Ships.Fleets;
 using UnityEngine;
@@ -110,7 +111,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
             foreach (var ship in selectedShips.Ships)
             {
                 Money -= ComputeRepairCost(ship);
-                var health = ship.GetComponent<ShipHealth>();
+                var health = ship.GetComponent<Hull>();
                 health.Repair();
             }
 
@@ -189,14 +190,14 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
     private static int ComputeRepairCost(GameObject ship)
     {
         var data = ship.GetComponent<ShipInfo>().Data;
-        var health = ship.GetComponent<ShipHealth>();
+        var health = ship.GetComponent<Hull>();
         return (int)(data.Cost * (1 - health.PercentHealth));
     }
 
     private static int ComputeSellValue(GameObject ship)
     {
         var data = ship.GetComponent<ShipInfo>().Data;
-        var health = ship.GetComponent<ShipHealth>();
+        var health = ship.GetComponent<Hull>();
         return (int)(data.Cost * health.PercentHealth);
     }
 }

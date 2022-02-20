@@ -1,14 +1,16 @@
+using Ships.Components;
 using UnityEngine;
 
-public struct Damage
+public class Damage
 {
-    private IDamageable _target;
+    private DamageableComponentInfo _target;
     private float _rawDamage;
     private float _hitChance;
 
     public float RawDamage => _rawDamage;
+    public float HitChance => _hitChance;
 
-    public Damage(IDamageable target, float rawDamage, float hitChance)
+    public Damage(DamageableComponentInfo target, float rawDamage, float hitChance)
     {
         _target = target;
         _rawDamage = rawDamage;
