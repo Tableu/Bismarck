@@ -21,6 +21,8 @@ namespace Ships.Fleets
         [ReadOnlyField] [SerializeField] private int fleetId;
         [SerializeField] private GameObject shipBasePrefab;
 
+        private InfoWindow _infoWindow;
+
         private readonly Dictionary<FleetManager, FleetAgroStatus> _agroStatusMap = new Dictionary<FleetManager, FleetAgroStatus>();
 
         public string FleetName => fleetName;
@@ -30,6 +32,8 @@ namespace Ships.Fleets
 
         private void Awake()
         {
+            _infoWindow = GetComponent<InfoWindow>();
+            
             fleetId = fleetName.GetHashCode();
             _agroStatusMap[this] = FleetAgroStatus.Self;
             foreach (var fleet in ActiveFleets)

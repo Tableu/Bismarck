@@ -15,7 +15,9 @@ MonoBehaviour:
   id: id_junk
   parentList: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}
   displayName: Junkship
-  prefab: {fileID: 7984613099506236774, guid: 4619aa023012ad44fb441f84689794a0, type: 3}
+  visuals: {fileID: 0}
+  cameraSizeMultiplier: 0
+  backgroundSizeMultiplier: 0
   cost: 0
   weapons: []
   blocksMovement: 1
