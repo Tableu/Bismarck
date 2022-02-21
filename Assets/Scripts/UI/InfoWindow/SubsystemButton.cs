@@ -17,7 +17,7 @@ namespace UI.InfoWindow
         public ShipInfo ShipInfo;
         public Subsystem Subsystem;
         public ButtonData ButtonData;
-        public IDamageable Target;
+        public DamageableComponentInfo Target;
 
         void Start()
         {

@@ -22,7 +22,7 @@ namespace Ships.Components
         public ModifiableStat DamageMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat SpeedMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat DodgeChanceMultiplier { get; } = new ModifiableStat(0);
-        public IDamageable SelectedTarget { get; set; }
+        public DamageableComponentInfo SelectedTarget { get; set; }
 
         private void Awake()
         {

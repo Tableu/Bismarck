@@ -24,8 +24,6 @@ namespace Ships.Components
         public float DodgeChance => PercentDodgeChance * 100;
         public float PercentHealth { get; protected set; } = 1f;
         public float PercentDodgeChance { get; protected set; } = 1f;
-        public float Health => PercentHealth * _info.MaxHealth;
-        public float PercentHealth { get; private set; } = 1f;
         public Subsystem Subsystem { get; private set; } = Subsystem.Hull;
 
         public void Init(float maxHealth)

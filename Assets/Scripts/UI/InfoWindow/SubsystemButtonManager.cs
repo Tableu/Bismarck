@@ -31,9 +31,9 @@ namespace UI.InfoWindow
                 Destroy(child.gameObject);
             }
 
-            IDamageable[] targets = shipInfo.GetComponentsInChildren<IDamageable>();
-            
-            foreach (IDamageable target in targets)
+            DamageableComponentInfo[] targets = shipInfo.GetComponentsInChildren<DamageableComponentInfo>();
+
+            foreach (DamageableComponentInfo target in targets)
             {
                 if ((target.Subsystem & shipInfo.Data.TargetableSubsystems) != Subsystem.None)
                 {
