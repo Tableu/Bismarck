@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using UI.InfoWindow;
 using Systems;
 using Systems.Modules;
 using UnityEngine;
+using Subsystem = UI.InfoWindow.Subsystem;
 
 namespace Ships.DataManagement
 {
@@ -17,11 +19,13 @@ namespace Ships.DataManagement
         [Header("Info")]
         [SerializeField] private string displayName;
         [SerializeField] private GameObject visuals;
+        [SerializeField] [Range(0.001f, 1f)] private float cameraSizeMultiplier = 1f;
         [SerializeField] private int cost;
         [SerializeField] private List<AttackScriptableObject> weapons;
         [SerializeField] private int moduleGridHeight;
         [SerializeField] private int moduleGridWidth;
         [SerializeField] private List<Module> defaultModules;
+        [SerializeField] private Subsystem targetableSubsystems;
         [SerializeField] private bool blocksMovement = true;
 
         [Header("Base Stats")]
@@ -40,10 +44,12 @@ namespace Ships.DataManagement
         public float SensorRange => sensorRange;
         public string DisplayName => displayName;
         public GameObject Visuals => visuals;
+        public float CameraSizeMultiplier => cameraSizeMultiplier;
         public int Cost => cost;
         public List<AttackScriptableObject> Weapons => weapons;
         public int ModuleGridHeight => moduleGridHeight;
         public int ModuleGridWidth => moduleGridWidth;
         public List<Module> DefaultModules => defaultModules;
+        public Subsystem TargetableSubsystems => targetableSubsystems;
     }
 }

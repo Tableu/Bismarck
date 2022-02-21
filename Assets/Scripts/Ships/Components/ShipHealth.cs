@@ -2,6 +2,7 @@ using System;
 using Newtonsoft.Json.Linq;
 using Systems.Save;
 using UnityEngine;
+using Subsystem = UI.InfoWindow.Subsystem;
 
 namespace Ships.Components
 {
@@ -19,6 +20,7 @@ namespace Ships.Components
 
         public float Health => PercentHealth * _info.MaxHealth;
         public float PercentHealth { get; private set; } = 1f;
+        public Subsystem Subsystem { get; private set; } = Subsystem.Hull;
 
         private void Awake()
         {

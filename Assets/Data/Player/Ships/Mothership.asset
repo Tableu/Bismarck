@@ -16,19 +16,15 @@ MonoBehaviour:
   parentList: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}
   displayName: Mothership
   visuals: {fileID: 8178566776061135549, guid: a191fb943a00e394e8e0504dc7c673ab, type: 3}
+  cameraSizeMultiplier: 0.881
   cost: 0
   weapons: []
-  moduleGridHeight: 5
-  moduleGridWidth: 5
+  moduleGridHeight: 2
+  moduleGridWidth: 2
   defaultModules:
   - Id: TestModule
     RootPosition: {x: 0, y: 0}
-  - Id: TestModule
-    RootPosition: {x: 1, y: 0}
-  - Id: TestModule
-    RootPosition: {x: 2, y: 0}
-  - Id: 1x2
-    RootPosition: {x: 0, y: 3}
+  targetableSubsystems: 2147483647
   blocksMovement: 1
   health: 20
   speedMultiplier: 1
