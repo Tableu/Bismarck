@@ -22,7 +22,7 @@ public class Damage
         if (_target != null)
         {
             float hit = Random.Range(0f, 1f);
-            if (hit > (100 - _hitChance) + _target.DodgeChance)
+            if (hit > (1 - _hitChance) + _target.DodgeChance)
             {
                 return true;
             }

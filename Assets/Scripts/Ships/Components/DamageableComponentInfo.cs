@@ -1,5 +1,4 @@
 using System;
-using Systems;
 using UnityEngine;
 using Subsystem = UI.InfoWindow.Subsystem;
 
@@ -17,18 +16,20 @@ namespace Ships.Components
         private bool _healthDirty;
 
         private float _maxHealth;
+        private float _maxDodgeChance;
         protected ShipInfo _info;
         
         public ShipInfo ShipInfo => _info;
         public float Health => PercentHealth * _maxHealth;
-        public float DodgeChance => PercentDodgeChance * 100;
+        public float DodgeChance => PercentDodgeChance * _maxDodgeChance;
         public float PercentHealth { get; protected set; } = 1f;
         public float PercentDodgeChance { get; protected set; } = 1f;
         public Subsystem Subsystem { get; private set; } = Subsystem.Hull;
 
-        public void Init(float maxHealth)
+        public void Init(float maxHealth, float maxDodgeChance)
         {
             _maxHealth = maxHealth;
+            _maxDodgeChance = maxDodgeChance;
         }
         private void Awake()
         {

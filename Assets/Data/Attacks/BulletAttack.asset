@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951f35511ed205f4ba6da23b58d57bd5, type: 3}
   m_Name: BulletAttack
   m_EditorClassIdentifier: 
-  Turret: {fileID: 1283657631717619512, guid: 2995b25aa64468e45a6deabd82b539a7, type: 3}
-  AttackName: BulletAttack
-  Cost: 100
-  projectilePrefab: {fileID: 8144733008931587362, guid: 00de159b41387fb4483acf352e22a71a, type: 3}
+  id: 
+  parentList: {fileID: 0}
+  turret: {fileID: 8999165618575785506, guid: c72e4944465a81047bd3d4b0391fa25e, type: 3}
+  mapIcon: {fileID: 7906569513621911616, guid: 1b9551e7277c9504581c99af2e357822, type: 3}
+  attackName: 
+  cost: 10
+  hitChance: 1
+  damage: 10
+  health: 10
   fireDelay: 0.5

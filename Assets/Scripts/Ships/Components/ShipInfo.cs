@@ -1,4 +1,5 @@
-﻿using Attacks;
+﻿using System.Collections.Generic;
+using Attacks;
 using Ships.DataManagement;
 using Ships.Fleets;
 using Systems.Modifiers;
@@ -12,6 +13,7 @@ namespace Ships.Components
     public class ShipInfo : MonoBehaviour
     {
         private GameObject _visuals;
+        private List<Weapon> _weapons = new List<Weapon>();
         [SerializeField] private ShipData data;
         public ShipData Data => data;
         public GameObject Visuals => _visuals;
@@ -46,6 +48,7 @@ namespace Ships.Components
             Initialize();
         }
 
+        [ContextMenu("InitializeWeapons")]
         public void InitializeWeapons()
         {
             foreach (AttackData attackData in data.Weapons)
@@ -53,7 +56,15 @@ namespace Ships.Components
                 GameObject turret = Instantiate(attackData.Turret, transform);
                 Weapon weapon = turret.AddComponent<Weapon>();
                 weapon.Initialize(this, attackData);
+                _weapons.Add(weapon);
             }
+        }
+
+        [ContextMenu("InitializeHull")]
+        public void InitializeHull()
+        {
+            Hull hull = gameObject.AddComponent<Hull>();
+            hull.Init(data.BaseHealth, data.BaseDodgeChance);
         }
 
         /// <summary>
@@ -68,10 +79,23 @@ namespace Ships.Components
             // Set all the base values
             MaxHealth.UpdateBaseValue(data.BaseHealth);
             DamageMultiplier.UpdateBaseValue(data.BaseDamageMultiplier);
+            DodgeChanceMultiplier.UpdateBaseValue(data.BaseDodgeChance);
             SpeedMultiplier.UpdateBaseValue(data.BaseSpeedMultiplier);
 
             // Add ship visuals
             _visuals = Instantiate(data.Visuals, transform);
         }
+
+#if UNITY_EDITOR
+        public DamageableComponentInfo TestTarget;
+        [ContextMenu("Set Weapon Target")]
+        public void SetWeaponTarget()
+        {
+            foreach (Weapon weapon in _weapons)
+            {
+                weapon.SetTarget(TestTarget);
+            }
+        }
+#endif
     }
 }

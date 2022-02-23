@@ -14,7 +14,14 @@ namespace Attacks
 
         private void Start()
         {
-            StartCoroutine(AttackAnimation.Fire(Attacker, StartTravel));
+            if (AttackAnimation != null)
+            {
+                StartCoroutine(AttackAnimation.Fire(Attacker, StartTravel));
+            }
+            else
+            {
+                StartTravel();
+            }
         }
 
         private void StartTravel()
@@ -27,25 +34,40 @@ namespace Attacks
             var target = Target.transform.position;
             while (!transform.position.Equals(target))
             {
-                Vector2.MoveTowards(transform.position, target, 1);
+                transform.position = Vector2.MoveTowards(transform.position, target, 1);
                 yield return null;
             }
 
             if (Damage.Hit())
             {
-                StartCoroutine(AttackAnimation.Hit(Target, delegate
+                if (AttackAnimation != null)
+                {
+                    StartCoroutine(AttackAnimation.Hit(Target, delegate
+                    {
+                        Damage.ApplyDamage();
+                        Destroy(gameObject);
+                    }));
+                }
+                else
                 {
                     Damage.ApplyDamage();
                     Destroy(gameObject);
-                }));
+                }
             }
             else
             {
-                StartCoroutine(AttackAnimation.Miss(Target, delegate { Destroy(gameObject); }));
+                if (AttackAnimation != null)
+                {
+                    StartCoroutine(AttackAnimation.Miss(Target, delegate { Destroy(gameObject); }));
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }
-
+    
     public interface InfoWindowAttackAnimation
     {
         public IEnumerator Fire(ShipInfo attacker, Action callback);

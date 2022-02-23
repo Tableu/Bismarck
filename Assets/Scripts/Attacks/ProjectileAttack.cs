@@ -30,7 +30,7 @@ namespace Attacks
                 _shipInfo = shipInfo;
                 _mapIcon = mapIcon;
                 _fireDelay = fireDelay;
-                _fireTime = Time.deltaTime;
+                _fireTime = Time.fixedTime;
                 _damage = damage;
                 HitChanceMultiplier.UpdateBaseValue(hitChance);
                 MaxHealth.UpdateBaseValue(health);
@@ -45,7 +45,7 @@ namespace Attacks
             {
                 if (target != null)
                 {
-                    if (Time.deltaTime - _fireTime > _fireDelay)
+                    if (Time.fixedTime - _fireTime > _fireDelay)
                     {
                         _fireTime = Time.deltaTime;
                         SpawnProjectile(target);
@@ -59,7 +59,7 @@ namespace Attacks
             private void SpawnProjectile(DamageableComponentInfo target)
             {
                 Damage damage = new Damage(target, _damage, HitChanceMultiplier);
-                GameObject mapIcon = Instantiate(_mapIcon, _shipInfo.transform.position, Quaternion.identity, _parent);
+                GameObject mapIcon = Instantiate(_mapIcon, _shipInfo.transform.position, Quaternion.identity);
                 AttackIcon attackIcon = mapIcon.GetComponent<AttackIcon>();
                 attackIcon.Damage = damage;
                 attackIcon.Attacker = _shipInfo;

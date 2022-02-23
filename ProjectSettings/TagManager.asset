@@ -19,12 +19,12 @@ TagManager:
   - 
   - Water
   - UI
-  - PlayerShips
-  - PlayerProjectiles
+  - Map
+  - Ships
   - Boundary
-  - EnemyShips
-  - EnemyProjectiles
-  - Turrets
+  - 
+  - 
+  - 
   - 
   - 
   - 
