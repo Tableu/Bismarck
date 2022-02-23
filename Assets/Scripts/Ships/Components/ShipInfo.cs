@@ -2,6 +2,7 @@
 using Attacks;
 using Ships.DataManagement;
 using Ships.Fleets;
+using SystemMap;
 using Systems.Modifiers;
 using UnityEngine;
 
@@ -13,10 +14,12 @@ namespace Ships.Components
     public class ShipInfo : MonoBehaviour
     {
         private GameObject _visuals;
+        private GameObject _mapIcon;
         private List<Weapon> _weapons = new List<Weapon>();
         [SerializeField] private ShipData data;
         public ShipData Data => data;
         public GameObject Visuals => _visuals;
+        public GameObject MapIcon => _mapIcon;
         public FleetManager Fleet { get; private set; }
 
         // ModifiableStat must be read only so that other components can get references to them during Start/Awake.
@@ -84,9 +87,11 @@ namespace Ships.Components
 
             // Add ship visuals
             _visuals = Instantiate(data.Visuals, transform);
+            _mapIcon = Instantiate(data.MapIcon, transform);
         }
 
 #if UNITY_EDITOR
+        [Header("Test")]
         public DamageableComponentInfo TestTarget;
         [ContextMenu("Set Weapon Target")]
         public void SetWeaponTarget()

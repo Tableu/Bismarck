@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 835566440334441105}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turrets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5822599417466534020}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TurretPos (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6910845134256004354}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TurretPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 886138891726400778}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TurretPositions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 1161008015329893240}
   - component: {fileID: 207436044997910099}
   - component: {fileID: 6701727200262700673}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Junkship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,8 +286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97b3bf16789c544b9a7b220e406788b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedShips: {fileID: 11400000, guid: 6e3aab74dffbad44bba749aeebcda05f, type: 2}
-  healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
 --- !u!114 &207436044997910099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,3 +318,4 @@ MonoBehaviour:
   turretPositions:
   - {fileID: 6910845134256004354}
   - {fileID: 5822599417466534020}
+  tag: 

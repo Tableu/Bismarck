@@ -59,7 +59,7 @@ namespace Attacks
             private void SpawnProjectile(DamageableComponentInfo target)
             {
                 Damage damage = new Damage(target, _damage, HitChanceMultiplier);
-                GameObject mapIcon = Instantiate(_mapIcon, _shipInfo.transform.position, Quaternion.identity);
+                GameObject mapIcon = Instantiate(_mapIcon, _shipInfo.MapIcon.transform.position, Quaternion.identity);
                 AttackIcon attackIcon = mapIcon.GetComponent<AttackIcon>();
                 attackIcon.Damage = damage;
                 attackIcon.Attacker = _shipInfo;

@@ -34,7 +34,7 @@ namespace Attacks
             var target = Target.transform.position;
             while (!transform.position.Equals(target))
             {
-                transform.position = Vector2.MoveTowards(transform.position, target, 1);
+                transform.position = Vector2.MoveTowards(transform.position, target, 0.1f);
                 yield return null;
             }
 

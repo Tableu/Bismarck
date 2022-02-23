@@ -58,6 +58,9 @@ TagManager:
   - name: Player
     uniqueID: 560798983
     locked: 0
+  - name: Map
+    uniqueID: 2815162003
+    locked: 0
   - name: UI
     uniqueID: 649457069
     locked: 0
