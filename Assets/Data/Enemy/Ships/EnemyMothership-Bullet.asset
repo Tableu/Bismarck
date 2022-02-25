@@ -15,12 +15,20 @@ MonoBehaviour:
   id: id_bullet_ship
   parentList: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}
   displayName: MothershipEnemy
-  prefab: {fileID: 8178566776061135549, guid: a191fb943a00e394e8e0504dc7c673ab, type: 3}
-  cost: 0
-  weapons: []
+  visuals: {fileID: 8178566776061135549, guid: a191fb943a00e394e8e0504dc7c673ab, type: 3}
+  mapIcon: {fileID: 5733703903460528341, guid: 7a67b28abc95099418a8720961154119, type: 3}
+  cameraSizeMultiplier: 1
+  cost: 10
+  weapons:
+  - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
+  moduleGridHeight: 0
+  moduleGridWidth: 0
+  defaultModules: []
+  targetableSubsystems: 0
   blocksMovement: 1
   health: 10
   speedMultiplier: 1
   damageMultiplier: 1
+  dodgeChanceMultiplier: 1
   sensorRange: 50
   targetRange: 10

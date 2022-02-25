@@ -4,8 +4,12 @@ using UnityEngine.InputSystem;
 
 public class MapIconOpener : MonoBehaviour
 {
-    [SerializeField] private GameObject infoWindowPrefab;
-    [SerializeField] private GameObject cameraPrefab;
+    [Header("Prefabs")] [SerializeField] private GameObject enemyInfoWindow;
+    [SerializeField] private GameObject enemyCamera;
+    [SerializeField] private GameObject playerInfoWindow;
+    [SerializeField] private GameObject playerCamera;
+
+    [Header("Scene References")]
     [SerializeField] private GameObject canvas;
     [SerializeField] private GameObject infoWindowCameras;
     [SerializeField] private ShipInfo player;
@@ -32,8 +36,19 @@ public class MapIconOpener : MonoBehaviour
 
     private void SpawnInfoWindow(ShipInfo shipInfo)
     {
-        GameObject infoWindow = Instantiate(infoWindowPrefab, canvas.transform);
-        GameObject camera = Instantiate(cameraPrefab, infoWindowCameras.transform);
+        GameObject infoWindow;
+        GameObject camera;
+        if (shipInfo == player)
+        {
+            infoWindow = Instantiate(playerInfoWindow, canvas.transform);
+            camera = Instantiate(playerCamera, infoWindowCameras.transform);
+        }
+        else
+        {
+            infoWindow = Instantiate(enemyInfoWindow, canvas.transform);
+            camera = Instantiate(enemyCamera, infoWindowCameras.transform);
+        }
+
         InfoWindow infoWindowScript = infoWindow.GetComponent<InfoWindow>();
         infoWindowScript.Camera = camera.GetComponent<Camera>();
         infoWindowScript.Player = player;

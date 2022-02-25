@@ -15,17 +15,17 @@ MonoBehaviour:
   randomFleet:
   - randomShips:
     - {fileID: 11400000, guid: a06b30b53fd25ef43bad58b17671b938, type: 2}
-    - {fileID: 11400000, guid: b0e1a5141ee538f41835be130043d9af, type: 2}
-    - {fileID: 11400000, guid: 3ca2a0657c687d64daeddd311000b36b, type: 2}
+    - {fileID: 11400000, guid: a06b30b53fd25ef43bad58b17671b938, type: 2}
+    - {fileID: 11400000, guid: a06b30b53fd25ef43bad58b17671b938, type: 2}
     shipWeights: 320000003200000064000000
   - randomShips:
     - {fileID: 11400000, guid: a06b30b53fd25ef43bad58b17671b938, type: 2}
-    - {fileID: 11400000, guid: b0e1a5141ee538f41835be130043d9af, type: 2}
-    - {fileID: 11400000, guid: 3ca2a0657c687d64daeddd311000b36b, type: 2}
+    - {fileID: 11400000, guid: a06b30b53fd25ef43bad58b17671b938, type: 2}
+    - {fileID: 11400000, guid: a06b30b53fd25ef43bad58b17671b938, type: 2}
     shipWeights: 320000006400000032000000
   - randomShips:
     - {fileID: 11400000, guid: a06b30b53fd25ef43bad58b17671b938, type: 2}
-    - {fileID: 11400000, guid: b0e1a5141ee538f41835be130043d9af, type: 2}
-    - {fileID: 11400000, guid: 3ca2a0657c687d64daeddd311000b36b, type: 2}
+    - {fileID: 11400000, guid: a06b30b53fd25ef43bad58b17671b938, type: 2}
+    - {fileID: 11400000, guid: a06b30b53fd25ef43bad58b17671b938, type: 2}
     shipWeights: 320000006400000032000000
-  fleetVisualsPrefab: {fileID: 2951792128203091993, guid: 437676f31b9fffd43b213000b4b671ab, type: 3}
+  fleetVisualsPrefab: {fileID: 7453232963881573317, guid: 4fcc7280b657fb649adf0e40f5f5c557, type: 3}
