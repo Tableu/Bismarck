@@ -84,7 +84,8 @@ namespace Ships.Components
             SpeedMultiplier.UpdateBaseValue(data.BaseSpeedMultiplier);
 
             // Add ship visuals
-            _visuals = Instantiate(data.Visuals, transform);
+            _visuals = Instantiate(data.Visuals, ShipVisualsManager.Instance.GetParent());
+            _visuals.transform.position = ShipVisualsManager.Instance.GetPosition(data.Visuals);
             _mapIcon = Instantiate(data.MapIcon, transform);
         }
 

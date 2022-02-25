@@ -36,8 +36,7 @@ public class InfoWindow : MonoBehaviour
             Refresh();
         }
     }
-
-    [ContextMenu("Refresh")]
+    
     public void Refresh(ShipInfo newTarget = null)
     {
         if (newTarget != null)
@@ -47,7 +46,7 @@ public class InfoWindow : MonoBehaviour
 
         if (Camera != null && shipInfo != null)
         {
-            var shipPos = shipInfo.transform.position;
+            var shipPos = shipInfo.Visuals.transform.position;
             Camera.transform.position = new Vector3(shipPos.x, shipPos.y, Camera.transform.position.z);
 
             subsystemButtonManager.Player = Player;
