@@ -21,6 +21,7 @@ namespace UI.InfoWindow
     /// </summary>
     public class SubsystemButtonManager : MonoBehaviour
     {
+        public ShipInfo Player;
         [SerializeField] private GameObject _subsystemButtonPrefab;
         [SerializeField] private SubsystemButtonData _subsystemButtonData;
 
@@ -44,6 +45,7 @@ namespace UI.InfoWindow
                     button.ButtonData =
                         _subsystemButtonData.ButtonData.Find(data => data.Subsystem == target.Subsystem);
                     button.Target = target;
+                    button.Player = Player;
                 }
             }
         }

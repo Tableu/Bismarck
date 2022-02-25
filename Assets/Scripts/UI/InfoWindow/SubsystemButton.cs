@@ -1,4 +1,3 @@
-using System;
 using Ships.Components;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +14,7 @@ namespace UI.InfoWindow
         [SerializeField] private Button _button;
         [SerializeField] private Text _buttonText;
         public ShipInfo ShipInfo;
+        public ShipInfo Player;
         public Subsystem Subsystem;
         public ButtonData ButtonData;
         public DamageableComponentInfo Target;
@@ -63,9 +63,9 @@ namespace UI.InfoWindow
 
         private void OnClick()
         {
-            if (ShipInfo != null && Target != null)
+            if (Player != null && Target != null)
             {
-                ShipInfo.SelectedTarget = Target;
+                Player.SetWeaponsTarget(Target);
             }
         }
 

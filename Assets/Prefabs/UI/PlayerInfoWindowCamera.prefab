@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 1856225516127055860}
   - component: {fileID: 1856225516127055861}
   m_Layer: 9
-  m_Name: InfoWindowCamera
+  m_Name: PlayerInfoWindowCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

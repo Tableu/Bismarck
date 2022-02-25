@@ -2,7 +2,6 @@
 using Attacks;
 using Ships.DataManagement;
 using Ships.Fleets;
-using SystemMap;
 using Systems.Modifiers;
 using UnityEngine;
 
@@ -27,7 +26,6 @@ namespace Ships.Components
         public ModifiableStat DamageMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat SpeedMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat DodgeChanceMultiplier { get; } = new ModifiableStat(0);
-        public DamageableComponentInfo SelectedTarget { get; set; }
 
         private void Awake()
         {
@@ -90,16 +88,24 @@ namespace Ships.Components
             _mapIcon = Instantiate(data.MapIcon, transform);
         }
 
+        public void SetWeaponsTarget(DamageableComponentInfo target)
+        {
+            if (target != null)
+            {
+                foreach (Weapon weapon in _weapons)
+                {
+                    weapon.SetTarget(target);
+                }
+            }
+        }
+
 #if UNITY_EDITOR
         [Header("Test")]
         public DamageableComponentInfo TestTarget;
         [ContextMenu("Set Weapon Target")]
-        public void SetWeaponTarget()
+        private void TestSetWeaponsTarget()
         {
-            foreach (Weapon weapon in _weapons)
-            {
-                weapon.SetTarget(TestTarget);
-            }
+            SetWeaponsTarget(TestTarget);
         }
 #endif
     }
