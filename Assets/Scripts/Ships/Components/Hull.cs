@@ -35,21 +35,6 @@ namespace Ships.Components
             PercentHealth = saveData.CurrentHealth;
         }
 
-        [ContextMenu("Test Damage")]
-        public void TestDamage()
-        {
-            TakeDamage(new Damage(this, 10, 100));
-        }
-
-        [ContextMenu("Repair")]
-        public void Repair()
-        {
-            PercentHealth = 1;
-            OnHealthChanged?.Invoke();
-        }
-
-        public event Action OnHealthChanged;
-
         [Serializable]
         private struct SaveData
         {

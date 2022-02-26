@@ -1,61 +1,66 @@
-using System;
 using UnityEngine;
 
-public class ShipVisualsManager : MonoBehaviour
+namespace Scene
 {
-    private static ShipVisualsManager _instance;
-
-    public static ShipVisualsManager Instance
+    /// <summary>
+    ///     Defines the position difference between ShipVisuals in the world
+    /// </summary>
+    public class ShipVisualsManager : MonoBehaviour
     {
-        get
+        private static ShipVisualsManager _instance;
+
+        public static ShipVisualsManager Instance
         {
-            if (_instance == null)
+            get
             {
-                _instance = FindObjectOfType<ShipVisualsManager>();
                 if (_instance == null)
                 {
-                    GameObject gameObject = new GameObject();
-                    _instance = gameObject.AddComponent<ShipVisualsManager>();
+                    _instance = FindObjectOfType<ShipVisualsManager>();
+                    if (_instance == null)
+                    {
+                        GameObject gameObject = new GameObject();
+                        _instance = gameObject.AddComponent<ShipVisualsManager>();
+                    }
                 }
+
+                return _instance;
+            }
+        }
+
+        private void Awake()
+        {
+            if (_instance == null || _instance == this)
+            {
+                _instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
             }
 
-            return _instance;
+            _availablePos = -padding;
         }
-    }
 
-    private void Awake()
-    {
-        if (_instance == null || _instance == this)
+        private void OnDestroy()
         {
-            _instance = this;
+            _instance = null;
         }
-        else
+
+        private Vector2 _availablePos;
+        [SerializeField] private Vector2 padding = new Vector2(20, 20);
+
+        public Vector2 GetPosition(GameObject shipVisual)
         {
-            Destroy(gameObject);
+            Vector2 pos = _availablePos;
+            SpriteRenderer sr = shipVisual.GetComponent<SpriteRenderer>();
+            Bounds bounds = sr.sprite.bounds;
+            _availablePos = new Vector2(pos.x - bounds.size.x - padding.x, pos.y);
+            return pos;
         }
 
-        _availablePos = -padding;
-    }
-
-    private void OnDestroy()
-    {
-        _instance = null;
-    }
-
-    private Vector2 _availablePos;
-    [SerializeField] private Vector2 padding = new Vector2(20, 20);
-
-    public Vector2 GetPosition(GameObject shipVisual)
-    {
-        Vector2 pos = _availablePos;
-        SpriteRenderer sr = shipVisual.GetComponent<SpriteRenderer>();
-        Bounds bounds = sr.sprite.bounds;
-        _availablePos = new Vector2(pos.x - bounds.size.x - padding.x, pos.y);
-        return pos;
-    }
-
-    public Transform GetParent()
-    {
-        return transform;
+        public Transform GetParent()
+        {
+            return transform;
+        }
     }
 }
