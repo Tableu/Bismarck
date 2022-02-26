@@ -4,6 +4,7 @@ using Ships.DataManagement;
 using Ships.Fleets;
 using Systems.Modifiers;
 using UnityEngine;
+using Subsystem = UI.InfoWindow.Subsystem;
 
 namespace Ships.Components
 {
@@ -32,6 +33,8 @@ namespace Ships.Components
             if (data != null)
             {
                 Initialize();
+                InitializeHull();
+                InitializeWeapons();
             }
         }
 
@@ -47,6 +50,8 @@ namespace Ships.Components
             Debug.Assert(data == null, "ShipInfo.data overwritten");
             data = shipData;
             Initialize();
+            InitializeHull();
+            InitializeWeapons();
         }
 
         [ContextMenu("InitializeWeapons")]
@@ -65,7 +70,7 @@ namespace Ships.Components
         public void InitializeHull()
         {
             Hull hull = gameObject.AddComponent<Hull>();
-            hull.Init(data.BaseHealth, data.BaseDodgeChance);
+            hull.Init(data.BaseHealth, data.BaseDodgeChance, Subsystem.Hull);
         }
 
         /// <summary>

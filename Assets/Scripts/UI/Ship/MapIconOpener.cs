@@ -26,7 +26,7 @@ public class MapIconOpener : MonoBehaviour
             if (hit)
             {
                 var ship = hit.transform.parent.gameObject.GetComponent<ShipInfo>();
-                if (ship != null)
+                if (ship != null && ship != player)
                 {
                     SpawnInfoWindow(ship);
                 }

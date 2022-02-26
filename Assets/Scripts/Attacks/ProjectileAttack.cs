@@ -23,6 +23,7 @@ namespace Attacks
 
             public ModifiableStat HitChanceMultiplier { get; } = new ModifiableStat(0);
             public ModifiableStat MaxHealth { get; } = new ModifiableStat(0);
+            public float FireTimePercent => Mathf.Min((Time.fixedTime - _fireTime) / _fireDelay, 1);
 
             public Attack(ShipInfo shipInfo, GameObject mapIcon, float fireDelay, float hitChance, float damage,
                 float health)
@@ -47,7 +48,7 @@ namespace Attacks
                 {
                     if (Time.fixedTime - _fireTime > _fireDelay)
                     {
-                        _fireTime = Time.deltaTime;
+                        _fireTime = Time.fixedTime;
                         SpawnProjectile(target);
                         return true;
                     }

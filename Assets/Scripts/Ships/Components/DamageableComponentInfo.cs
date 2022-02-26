@@ -24,10 +24,11 @@ namespace Ships.Components
         public float DodgeChance => PercentDodgeChance * _maxDodgeChance;
         public float PercentHealth { get; protected set; } = 1f;
         public float PercentDodgeChance { get; protected set; } = 1f;
-        public Subsystem Subsystem { get; private set; } = Subsystem.Hull;
+        public Subsystem Subsystem { get; protected set; } = Subsystem.Hull;
 
-        public void Init(float maxHealth, float maxDodgeChance)
+        public void Init(float maxHealth, float maxDodgeChance, Subsystem subsystem)
         {
+            Subsystem = subsystem;
             _maxHealth = maxHealth;
             _maxDodgeChance = maxDodgeChance;
         }

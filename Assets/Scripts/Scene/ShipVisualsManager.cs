@@ -11,8 +11,12 @@ public class ShipVisualsManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                GameObject gameObject = new GameObject();
-                _instance = gameObject.AddComponent<ShipVisualsManager>();
+                _instance = FindObjectOfType<ShipVisualsManager>();
+                if (_instance == null)
+                {
+                    GameObject gameObject = new GameObject();
+                    _instance = gameObject.AddComponent<ShipVisualsManager>();
+                }
             }
 
             return _instance;
@@ -21,7 +25,7 @@ public class ShipVisualsManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance == null)
+        if (_instance == null || _instance == this)
         {
             _instance = this;
         }
@@ -33,8 +37,13 @@ public class ShipVisualsManager : MonoBehaviour
         _availablePos = -padding;
     }
 
+    private void OnDestroy()
+    {
+        _instance = null;
+    }
+
     private Vector2 _availablePos;
-    [SerializeField] private Vector2 padding;
+    [SerializeField] private Vector2 padding = new Vector2(20, 20);
 
     public Vector2 GetPosition(GameObject shipVisual)
     {

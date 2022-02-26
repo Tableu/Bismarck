@@ -1,5 +1,6 @@
 using Attacks;
 using UnityEngine;
+using Subsystem = UI.InfoWindow.Subsystem;
 
 namespace Ships.Components
 {
@@ -11,6 +12,7 @@ namespace Ships.Components
         private bool _disabled;
 
         public bool Disabled => _disabled;
+        public float FireTimePercent => _attackCommand.FireTimePercent;
 
         public void Initialize(ShipInfo shipInfo, AttackData attackData)
         {
@@ -19,9 +21,10 @@ namespace Ships.Components
                 tag = tag
             };
 
+            _info = shipInfo;
             _attackCommand = attackData.MakeAttack(shipInfo);
             _attackCommand.SetParent(parent.transform);
-            Init(attackData.BaseHealth, shipInfo.DodgeChanceMultiplier);
+            Init(attackData.BaseHealth, shipInfo.DodgeChanceMultiplier, Subsystem.Weapon);
         }
 
         public void SetTarget(DamageableComponentInfo target)

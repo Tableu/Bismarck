@@ -24,11 +24,11 @@ MonoBehaviour:
   moduleGridHeight: 0
   moduleGridWidth: 0
   defaultModules: []
-  targetableSubsystems: 0
+  targetableSubsystems: 2147483647
   blocksMovement: 1
   health: 10
   speedMultiplier: 1
   damageMultiplier: 1
-  dodgeChanceMultiplier: 1
+  dodgeChanceMultiplier: 0
   sensorRange: 50
   targetRange: 10

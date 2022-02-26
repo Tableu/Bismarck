@@ -61,7 +61,7 @@ namespace UI.InfoWindow
             }
         }
 
-        private void OnClick()
+        protected virtual void OnClick()
         {
             if (Player != null && Target != null)
             {

@@ -10,6 +10,7 @@ namespace Attacks
     {
         public ModifiableStat HitChanceMultiplier { get; }
         public ModifiableStat MaxHealth { get; }
+        public float FireTimePercent { get; }
         public bool DoAttack(DamageableComponentInfo target);
         public void SetParent(Transform parent);
     }
