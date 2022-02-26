@@ -4,6 +4,9 @@ using Subsystem = UI.InfoWindow.Subsystem;
 
 namespace Ships.Components
 {
+    /// <summary>
+    ///     Exposes data from an attack and provides access attack logic to Player UI and Enemies.
+    /// </summary>
     public class Weapon : DamageableComponentInfo
     {
         private AttackData _attackData;
