@@ -17,8 +17,12 @@ namespace Ships.Components
 
         private float _maxHealth;
         private float _maxDodgeChance;
-        protected ShipInfo _info;
+        private float _disableStart;
+        private bool _disabled;
         
+        protected ShipInfo _info;
+
+        public bool Disabled => _disabled;
         public ShipInfo ShipInfo => _info;
         public float Health => PercentHealth * _maxHealth;
         public float DodgeChance => PercentDodgeChance * _maxDodgeChance;
@@ -35,7 +39,6 @@ namespace Ships.Components
         private void Awake()
         {
             _info = GetComponent<ShipInfo>();
-            OnHealthChanged += DisableComponent;
         }
         private void Update()
         {
@@ -44,19 +47,29 @@ namespace Ships.Components
                 _healthDirty = false;
                 OnHealthChanged?.Invoke();
             }
+
+            if (_disabled)
+            {
+                if (Time.time - _disableStart > _info.RepairTimeMultiplier)
+                {
+                    _disabled = false;
+                    PercentHealth = 1;
+                    OnDisabledChanged?.Invoke();
+                }
+            }
         }
         public void TakeDamage(Damage dmg)
         {
             PercentHealth -= dmg.RawDamage / _info.MaxHealth;
             PercentHealth = Mathf.Min(PercentHealth, 1);
             _healthDirty = true;
-            if (PercentHealth <= 0)
+            if (Health <= 0)
             {
-                Destroy(gameObject);
+                _disabled = true;
+                _disableStart = Time.time;
+                OnDisabledChanged?.Invoke();
             }
         }
-
-        protected abstract void DisableComponent();
 
         [ContextMenu("Test Damage")]
         public void TestDamage()
@@ -72,5 +85,6 @@ namespace Ships.Components
         }
         
         public event Action OnHealthChanged;
+        public event Action OnDisabledChanged;
     }
 }

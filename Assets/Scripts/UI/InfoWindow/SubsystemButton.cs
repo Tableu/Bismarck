@@ -45,7 +45,17 @@ namespace UI.InfoWindow
                 case Subsystem.None:
                     break;
                 case Subsystem.Weapon:
-                    //TODO Disable/Enable button case for Weapons
+                    if (Target is Weapon weapon)
+                    {
+                        if (weapon.Disabled)
+                        {
+                            SetButtonDamaged();
+                        }
+                        else
+                        {
+                            SetButtonNormal();
+                        }
+                    }
                     break;
                 case Subsystem.Engine:
                     if (ShipInfo.SpeedMultiplier.CurrentValue <= 0)
@@ -56,7 +66,6 @@ namespace UI.InfoWindow
                     {
                         SetButtonNormal();
                     }
-
                     break;
             }
         }
@@ -71,16 +80,18 @@ namespace UI.InfoWindow
 
         private void SetButtonDamaged()
         {
-            var colors = _button.colors;
-            colors.normalColor = Color.red;
-            _button.colors = colors;
+            if (ButtonData != null)
+            {
+                _button.image.sprite = ButtonData.DamagedButton;
+            }
         }
 
         private void SetButtonNormal()
         {
-            var colors = _button.colors;
-            colors.normalColor = Color.white;
-            _button.colors = colors;
+            if (ButtonData != null)
+            {
+                _button.image.sprite = ButtonData.Button;
+            }
         }
     }
 }

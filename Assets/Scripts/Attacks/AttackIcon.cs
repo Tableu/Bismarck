@@ -8,8 +8,8 @@ namespace Attacks
     public class AttackIcon : MonoBehaviour
     {
         public Damage Damage;
-        public ShipInfo Attacker;
-        public ShipInfo Target;
+        public DamageableComponentInfo Attacker;
+        public DamageableComponentInfo Target;
         public InfoWindowAttackAnimation AttackAnimation;
 
         private void Start()
@@ -70,8 +70,8 @@ namespace Attacks
     
     public interface InfoWindowAttackAnimation
     {
-        public IEnumerator Fire(ShipInfo attacker, Action callback);
-        public IEnumerator Hit(ShipInfo target, Action callback);
-        public IEnumerator Miss(ShipInfo target, Action callback);
+        public IEnumerator Fire(DamageableComponentInfo attacker, Action callback);
+        public IEnumerator Hit(DamageableComponentInfo target, Action callback);
+        public IEnumerator Miss(DamageableComponentInfo target, Action callback);
     }
 }

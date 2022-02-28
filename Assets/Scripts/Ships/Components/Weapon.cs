@@ -12,9 +12,7 @@ namespace Ships.Components
         private AttackData _attackData;
         private AttackCommand _attackCommand;
         private DamageableComponentInfo _target;
-        private bool _disabled;
-
-        public bool Disabled => _disabled;
+        
         public float FireTimePercent => _attackCommand.FireTimePercent;
 
         public void Initialize(ShipInfo shipInfo, AttackData attackData)
@@ -25,7 +23,7 @@ namespace Ships.Components
             };
 
             _info = shipInfo;
-            _attackCommand = attackData.MakeAttack(shipInfo);
+            _attackCommand = attackData.MakeAttack(this);
             _attackCommand.SetParent(parent.transform);
             Init(attackData.BaseHealth, shipInfo.DodgeChanceMultiplier, Subsystem.Weapon);
         }
@@ -39,18 +37,6 @@ namespace Ships.Components
         public bool Fire()
         {
             return _attackCommand.DoAttack(_target);
-        }
-
-        protected override void DisableComponent()
-        {
-            if (Health <= 0)
-            {
-                _disabled = true;
-            }
-            else if (Health > 100)
-            {
-                _disabled = false;
-            }
         }
     }
 }

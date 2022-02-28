@@ -7,14 +7,14 @@ namespace Attacks
     [CreateAssetMenu(fileName = "Attack", menuName = "Attacks/Projectile", order = 0)]
     public class ProjectileAttack : AttackData
     {
-        public override AttackCommand MakeAttack(ShipInfo shipInfo)
+        public override AttackCommand MakeAttack(DamageableComponentInfo componentInfo)
         {
-            return new Attack(shipInfo, MapIcon, FireDelay, BaseHitChance, BaseDamage, BaseHealth);
+            return new Attack(componentInfo, MapIcon, FireDelay, BaseHitChance, BaseDamage, BaseHealth);
         }
 
         private class Attack : AttackCommand
         {
-            private ShipInfo _shipInfo;
+            private DamageableComponentInfo _componentInfo;
             private float _fireDelay;
             private float _fireTime;
             private float _damage;
@@ -25,10 +25,11 @@ namespace Attacks
             public ModifiableStat MaxHealth { get; } = new ModifiableStat(0);
             public float FireTimePercent => Mathf.Min((Time.fixedTime - _fireTime) / _fireDelay, 1);
 
-            public Attack(ShipInfo shipInfo, GameObject mapIcon, float fireDelay, float hitChance, float damage,
+            public Attack(DamageableComponentInfo componentInfo, GameObject mapIcon, float fireDelay, float hitChance,
+                float damage,
                 float health)
             {
-                _shipInfo = shipInfo;
+                _componentInfo = componentInfo;
                 _mapIcon = mapIcon;
                 _fireDelay = fireDelay;
                 _fireTime = Time.fixedTime;
@@ -60,11 +61,12 @@ namespace Attacks
             private void SpawnProjectile(DamageableComponentInfo target)
             {
                 Damage damage = new Damage(target, _damage, HitChanceMultiplier);
-                GameObject mapIcon = Instantiate(_mapIcon, _shipInfo.MapIcon.transform.position, Quaternion.identity);
+                GameObject mapIcon = Instantiate(_mapIcon, _componentInfo.ShipInfo.MapIcon.transform.position,
+                    Quaternion.identity);
                 AttackIcon attackIcon = mapIcon.GetComponent<AttackIcon>();
                 attackIcon.Damage = damage;
-                attackIcon.Attacker = _shipInfo;
-                attackIcon.Target = target.ShipInfo;
+                attackIcon.Attacker = _componentInfo;
+                attackIcon.Target = target;
             }
         }
     }

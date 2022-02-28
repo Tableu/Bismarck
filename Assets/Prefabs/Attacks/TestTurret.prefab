@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3662647687977147166}
   - component: {fileID: 5505417351076246377}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TestTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17,9 +17,17 @@ namespace SystemMap
         private Vector3 baseScale;
         private void Awake()
         {
-            Matrix4x4 mat = cam.projectionMatrix;
-            baseScale = transform.localScale * mat.m11 * 0.5f;
-            Rescale();
+            Init();
+        }
+
+        public void Init()
+        {
+            if (cam != null)
+            {
+                Matrix4x4 mat = cam.projectionMatrix;
+                baseScale = transform.localScale * mat.m11 * 0.5f;
+                Rescale();
+            }
         }
         private void LateUpdate() => Rescale();
 

@@ -44,6 +44,7 @@ namespace UI.Weapons
                         _weaponButtonData.ButtonData.Find(data => data.Subsystem == weapon.Subsystem);
                     button.Target = weapon;
                     button.Player = Player;
+                    weapon.OnDisabledChanged += Refresh;
                 }
             }
         }

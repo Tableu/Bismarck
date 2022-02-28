@@ -43,28 +43,6 @@ public class ShipLogic : MonoBehaviour
         StateMachine = new FSM();
         attackScriptableObjects = data.Weapons;
         _attackCommands = new List<AttackCommand>();
-        if (!enabled)
-        {
-            return;
-        }
-        var turretPos = turretPositions.GetEnumerator();
-
-        var parent = GameObject.FindWithTag(tag) ?? new GameObject
-        {
-            tag = tag
-        };
-
-        foreach (var attackScriptableObject in attackScriptableObjects)
-        {
-            if (!turretPos.MoveNext())
-            {
-                break;
-            }
-
-            var attackCommand = attackScriptableObject.MakeAttack(stats);
-            attackCommand.SetParent(parent.transform);
-            _attackCommands.Add(attackCommand);
-        }
     }
 
     public void MoveToPosition(Vector2 position)

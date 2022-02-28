@@ -10,13 +10,16 @@ namespace Ships.Components
     /// </summary>
     public class Hull : DamageableComponentInfo, ISavable
     {
-        protected override void DisableComponent()
+        public void Start()
         {
-            if (Health <= 0)
+            OnDisabledChanged += delegate
             {
-                //TODO handle other parts of death
-                Destroy(gameObject); //Kill ship
-            }
+                if (Disabled)
+                {
+                    //TODO handle other parts of death
+                    Destroy(gameObject); //Kill ship
+                }
+            };
         }
 
         public string id => "health";

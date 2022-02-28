@@ -35,6 +35,7 @@ namespace Ships.DataManagement
         [SerializeField] private float speedMultiplier = 1;
         [SerializeField] private float damageMultiplier = 1;
         [SerializeField] private float dodgeChanceMultiplier = 0;
+        [SerializeField] private float repairTime;
         [SerializeField] private float sensorRange = 50;
 
         [Header("Config")]
@@ -43,6 +44,7 @@ namespace Ships.DataManagement
         public float BaseSpeedMultiplier => speedMultiplier;
         public float BaseDamageMultiplier => damageMultiplier;
         public float BaseDodgeChance => dodgeChanceMultiplier;
+        public float BaseRepairTime => repairTime;
         public float TargetRange => targetRange;
         public bool BlocksMovement => blocksMovement;
         public float SensorRange => sensorRange;

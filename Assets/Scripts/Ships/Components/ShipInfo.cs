@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Attacks;
 using Scene;
 using Ships.DataManagement;
 using Ships.Fleets;
+using SystemMap;
 using Systems.Modifiers;
 using UnityEngine;
 using Subsystem = UI.InfoWindow.Subsystem;
@@ -28,6 +30,7 @@ namespace Ships.Components
         public ModifiableStat DamageMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat SpeedMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat DodgeChanceMultiplier { get; } = new ModifiableStat(0);
+        public ModifiableStat RepairTimeMultiplier { get; } = new ModifiableStat(0);
 
         private void Awake()
         {
@@ -37,6 +40,11 @@ namespace Ships.Components
                 InitializeHull();
                 InitializeWeapons();
             }
+        }
+
+        private void OnDestroy()
+        {
+            OnShipDestroyed?.Invoke();
         }
 
 
@@ -60,8 +68,9 @@ namespace Ships.Components
         {
             foreach (AttackData attackData in data.Weapons)
             {
-                GameObject turret = Instantiate(attackData.Turret, transform);
-                Weapon weapon = turret.AddComponent<Weapon>();
+                GameObject turret = Instantiate(attackData.Turret, _visuals.transform);
+                turret.transform.position = _visuals.transform.position;
+                Weapon weapon = gameObject.AddComponent<Weapon>();
                 weapon.Initialize(this, attackData);
                 _weapons.Add(weapon);
             }
@@ -88,11 +97,15 @@ namespace Ships.Components
             DamageMultiplier.UpdateBaseValue(data.BaseDamageMultiplier);
             DodgeChanceMultiplier.UpdateBaseValue(data.BaseDodgeChance);
             SpeedMultiplier.UpdateBaseValue(data.BaseSpeedMultiplier);
+            RepairTimeMultiplier.UpdateBaseValue(data.BaseRepairTime);
 
             // Add ship visuals
             _visuals = Instantiate(data.Visuals, ShipVisualsManager.Instance.GetParent());
             _visuals.transform.position = ShipVisualsManager.Instance.GetPosition(data.Visuals);
             _mapIcon = Instantiate(data.MapIcon, transform);
+            MapIcon mapIcon = _mapIcon.AddComponent<MapIcon>();
+            mapIcon.cam = Camera.main;
+            mapIcon.Init();
         }
 
         public void SetWeaponsTarget(DamageableComponentInfo target)
@@ -105,6 +118,8 @@ namespace Ships.Components
                 }
             }
         }
+
+        public event Action OnShipDestroyed;
 
 #if UNITY_EDITOR
         [Header("Test")]

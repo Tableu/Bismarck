@@ -35,6 +35,8 @@ namespace UI.InfoWindow
         {
             if (shipInfo != null)
             {
+                shipInfo.OnShipDestroyed -= CloseWindow;
+                shipInfo.OnShipDestroyed += CloseWindow;
                 Refresh();
             }
         }
@@ -43,7 +45,13 @@ namespace UI.InfoWindow
         {
             if (newTarget != null)
             {
+                if (shipInfo != null)
+                {
+                    shipInfo.OnShipDestroyed -= CloseWindow;
+                }
+
                 shipInfo = newTarget;
+                shipInfo.OnShipDestroyed += CloseWindow;
             }
 
             if (Camera != null && shipInfo != null)
@@ -63,8 +71,20 @@ namespace UI.InfoWindow
 
         private void CloseWindow()
         {
-            Destroy(Camera.gameObject);
-            Destroy(gameObject);
+            if (shipInfo != null)
+            {
+                shipInfo.OnShipDestroyed -= CloseWindow;
+            }
+
+            if (Camera != null)
+            {
+                Destroy(Camera.gameObject);
+            }
+
+            if (this != null && gameObject != null)
+            {
+                Destroy(gameObject);
+            }
         }
 
 #if UNITY_EDITOR

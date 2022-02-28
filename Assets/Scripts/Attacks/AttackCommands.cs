@@ -41,6 +41,6 @@ namespace Attacks
         public float BaseDamage => damage;
         public float FireDelay => fireDelay;
 
-        public abstract AttackCommand MakeAttack(ShipInfo shipInfo);
+        public abstract AttackCommand MakeAttack(DamageableComponentInfo componentInfo);
     }
 }
