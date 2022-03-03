@@ -1,4 +1,5 @@
-﻿using Ships.Components;
+﻿using Attacks;
+using Ships.Components;
 using Systems.Modifiers;
 using UnityEngine;
 
@@ -31,7 +32,7 @@ namespace Effects
             }
             protected override void Tick()
             {
-                _health.TakeDamage(new Damage(_health, _baseDamage, 100));
+                _health.TakeDamage(new AttackInfo(null, _health, _baseDamage, 100));
                 Debug.Log("Dealing Damage");
             }
         }

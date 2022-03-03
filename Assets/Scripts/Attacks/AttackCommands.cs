@@ -32,6 +32,12 @@ namespace Attacks
         [SerializeField] private float health;
         [SerializeField] private float fireDelay;
 
+        [Header("InfoWindow Animations")] [SerializeField]
+        private GameObject hitAnimation;
+
+        [SerializeField] private GameObject missAnimation;
+        [SerializeField] private GameObject fireAnimation;
+
         public GameObject Turret => turret;
         public GameObject MapIcon => mapIcon;
         public string AttackName => attackName;
@@ -40,6 +46,9 @@ namespace Attacks
         public float BaseHealth => health;
         public float BaseDamage => damage;
         public float FireDelay => fireDelay;
+        public GameObject HitAnimation => hitAnimation;
+        public GameObject MissAnimation => missAnimation;
+        public GameObject FireAnimation => fireAnimation;
 
         public abstract AttackCommand MakeAttack(DamageableComponentInfo componentInfo);
     }

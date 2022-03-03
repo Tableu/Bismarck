@@ -7,16 +7,23 @@ namespace Attacks
 {
     public class AttackIcon : MonoBehaviour
     {
-        public Damage Damage;
+        public AttackInfo AttackInfo;
         public DamageableComponentInfo Attacker;
         public DamageableComponentInfo Target;
-        public InfoWindowAttackAnimation AttackAnimation;
+        [SerializeField] private SpriteRenderer SpriteRenderer;
+        private Vector2 _direction;
 
         private void Start()
         {
-            if (AttackAnimation != null)
+            SpriteRenderer.enabled = false;
+            GameObject Fire = Instantiate(AttackInfo.AttackData.FireAnimation, Attacker.ShipInfo.Visuals.transform);
+            AttackAnimation animation = Fire.GetComponent<AttackAnimation>();
+            _direction = (Target.ShipInfo.MapIcon.transform.position - Attacker.ShipInfo.MapIcon.transform.position)
+                .normalized;
+            if (animation != null)
             {
-                StartCoroutine(AttackAnimation.Fire(Attacker, StartTravel));
+                animation.OnAnimationFinish += StartTravel;
+                animation.Direction = _direction;
             }
             else
             {
@@ -31,6 +38,7 @@ namespace Attacks
 
         private IEnumerator Travel()
         {
+            SpriteRenderer.enabled = true;
             var target = Target.transform.position;
             while (!transform.position.Equals(target))
             {
@@ -38,27 +46,37 @@ namespace Attacks
                 yield return null;
             }
 
-            if (Damage.Hit())
+            if (AttackInfo.Hit())
             {
-                if (AttackAnimation != null)
+                SpriteRenderer.enabled = false;
+                GameObject hit = Instantiate(AttackInfo.AttackData.HitAnimation, Target.ShipInfo.Visuals.transform);
+                AttackAnimation animation = hit != null ? hit.GetComponent<AttackAnimation>() : null;
+                if (animation != null)
                 {
-                    StartCoroutine(AttackAnimation.Hit(Target, delegate
+                    animation.OnAnimationFinish += delegate
                     {
-                        Damage.ApplyDamage();
+                        AttackInfo.ApplyDamage();
                         Destroy(gameObject);
-                    }));
+                    };
+                    animation.Direction = _direction;
+                    animation.transform.localPosition = -2 * _direction;
                 }
                 else
                 {
-                    Damage.ApplyDamage();
+                    AttackInfo.ApplyDamage();
                     Destroy(gameObject);
                 }
             }
             else
             {
-                if (AttackAnimation != null)
+                SpriteRenderer.enabled = false;
+                GameObject miss = Instantiate(AttackInfo.AttackData.MissAnimation, Target.ShipInfo.Visuals.transform);
+                AttackAnimation animation = miss != null ? miss.GetComponent<AttackAnimation>() : null;
+                if (animation != null)
                 {
-                    StartCoroutine(AttackAnimation.Miss(Target, delegate { Destroy(gameObject); }));
+                    animation.OnAnimationFinish += delegate { Destroy(gameObject); };
+                    animation.Direction = _direction;
+                    animation.transform.localPosition = -2 * _direction;
                 }
                 else
                 {
@@ -66,12 +84,5 @@ namespace Attacks
                 }
             }
         }
-    }
-    
-    public interface InfoWindowAttackAnimation
-    {
-        public IEnumerator Fire(DamageableComponentInfo attacker, Action callback);
-        public IEnumerator Hit(DamageableComponentInfo target, Action callback);
-        public IEnumerator Miss(DamageableComponentInfo target, Action callback);
     }
 }

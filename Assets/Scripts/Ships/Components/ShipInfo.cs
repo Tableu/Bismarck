@@ -80,7 +80,7 @@ namespace Ships.Components
         public void InitializeHull()
         {
             Hull hull = gameObject.AddComponent<Hull>();
-            hull.Init(data.BaseHealth, data.BaseDodgeChance, Subsystem.Hull);
+            hull.SetData(data.BaseHealth, data.BaseDodgeChance, Subsystem.Hull);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Ships.Components
 
             // Add ship visuals
             _visuals = Instantiate(data.Visuals, ShipVisualsManager.Instance.GetParent());
-            _visuals.transform.position = ShipVisualsManager.Instance.GetPosition(data.Visuals);
+            _visuals.transform.position = ShipVisualsManager.Instance.GetPosition();
             _mapIcon = Instantiate(data.MapIcon, transform);
             MapIcon mapIcon = _mapIcon.AddComponent<MapIcon>();
             mapIcon.cam = Camera.main;

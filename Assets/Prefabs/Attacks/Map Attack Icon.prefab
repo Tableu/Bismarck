@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attacker: {fileID: 0}
   Target: {fileID: 0}
+  SpriteRenderer: {fileID: 9071783411094433093}
 --- !u!212 &9071783411094433093
 SpriteRenderer:
   m_ObjectHideFlags: 0

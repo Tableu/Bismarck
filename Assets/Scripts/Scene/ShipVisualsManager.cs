@@ -46,15 +46,13 @@ namespace Scene
             _instance = null;
         }
 
-        private Vector2 _availablePos;
+        private Vector2 _availablePos = new Vector2(-20, 0);
         [SerializeField] private Vector2 padding = new Vector2(20, 20);
 
-        public Vector2 GetPosition(GameObject shipVisual)
+        public Vector2 GetPosition()
         {
             Vector2 pos = _availablePos;
-            SpriteRenderer sr = shipVisual.GetComponent<SpriteRenderer>();
-            Bounds bounds = sr.sprite.bounds;
-            _availablePos = new Vector2(pos.x - bounds.size.x - padding.x, pos.y);
+            _availablePos = new Vector2(pos.x - padding.x, pos.y);
             return pos;
         }
 

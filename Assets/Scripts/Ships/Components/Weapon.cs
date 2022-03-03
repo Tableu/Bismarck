@@ -25,7 +25,7 @@ namespace Ships.Components
             _info = shipInfo;
             _attackCommand = attackData.MakeAttack(this);
             _attackCommand.SetParent(parent.transform);
-            Init(attackData.BaseHealth, shipInfo.DodgeChanceMultiplier, Subsystem.Weapon);
+            SetData(attackData.BaseHealth, shipInfo.DodgeChanceMultiplier, Subsystem.Weapon);
         }
 
         public void SetTarget(DamageableComponentInfo target)

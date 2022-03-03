@@ -9,33 +9,27 @@ namespace Attacks
     {
         public override AttackCommand MakeAttack(DamageableComponentInfo componentInfo)
         {
-            return new Attack(componentInfo, MapIcon, FireDelay, BaseHitChance, BaseDamage, BaseHealth);
+            return new Attack(componentInfo, this);
         }
 
         private class Attack : AttackCommand
         {
             private DamageableComponentInfo _componentInfo;
-            private float _fireDelay;
+            private AttackData _data;
             private float _fireTime;
-            private float _damage;
             private Transform _parent;
-            private GameObject _mapIcon;
 
             public ModifiableStat HitChanceMultiplier { get; } = new ModifiableStat(0);
             public ModifiableStat MaxHealth { get; } = new ModifiableStat(0);
-            public float FireTimePercent => Mathf.Min((Time.fixedTime - _fireTime) / _fireDelay, 1);
+            public float FireTimePercent => Mathf.Min((Time.fixedTime - _fireTime) / _data.FireDelay, 1);
 
-            public Attack(DamageableComponentInfo componentInfo, GameObject mapIcon, float fireDelay, float hitChance,
-                float damage,
-                float health)
+            public Attack(DamageableComponentInfo componentInfo, AttackData attackData)
             {
                 _componentInfo = componentInfo;
-                _mapIcon = mapIcon;
-                _fireDelay = fireDelay;
+                _data = attackData;
                 _fireTime = Time.fixedTime;
-                _damage = damage;
-                HitChanceMultiplier.UpdateBaseValue(hitChance);
-                MaxHealth.UpdateBaseValue(health);
+                HitChanceMultiplier.UpdateBaseValue(attackData.BaseHitChance);
+                MaxHealth.UpdateBaseValue(attackData.BaseHealth);
             }
 
             public void SetParent(Transform parent)
@@ -47,7 +41,7 @@ namespace Attacks
             {
                 if (target != null)
                 {
-                    if (Time.fixedTime - _fireTime > _fireDelay)
+                    if (Time.fixedTime - _fireTime > _data.FireDelay)
                     {
                         _fireTime = Time.fixedTime;
                         SpawnProjectile(target);
@@ -60,11 +54,11 @@ namespace Attacks
 
             private void SpawnProjectile(DamageableComponentInfo target)
             {
-                Damage damage = new Damage(target, _damage, HitChanceMultiplier);
-                GameObject mapIcon = Instantiate(_mapIcon, _componentInfo.ShipInfo.MapIcon.transform.position,
+                AttackInfo attackInfo = new AttackInfo(_data, target, _data.BaseDamage, HitChanceMultiplier);
+                GameObject mapIcon = Instantiate(_data.MapIcon, _componentInfo.ShipInfo.MapIcon.transform.position,
                     Quaternion.identity);
                 AttackIcon attackIcon = mapIcon.GetComponent<AttackIcon>();
-                attackIcon.Damage = damage;
+                attackIcon.AttackInfo = attackInfo;
                 attackIcon.Attacker = _componentInfo;
                 attackIcon.Target = target;
             }

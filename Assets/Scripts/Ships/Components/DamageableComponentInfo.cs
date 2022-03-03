@@ -1,4 +1,5 @@
 using System;
+using Attacks;
 using UnityEngine;
 using Subsystem = UI.InfoWindow.Subsystem;
 
@@ -30,7 +31,7 @@ namespace Ships.Components
         public float PercentDodgeChance { get; protected set; } = 1f;
         public Subsystem Subsystem { get; protected set; } = Subsystem.Hull;
 
-        public void Init(float maxHealth, float maxDodgeChance, Subsystem subsystem)
+        public void SetData(float maxHealth, float maxDodgeChance, Subsystem subsystem)
         {
             Subsystem = subsystem;
             _maxHealth = maxHealth;
@@ -58,7 +59,8 @@ namespace Ships.Components
                 }
             }
         }
-        public void TakeDamage(Damage dmg)
+
+        public void TakeDamage(AttackInfo dmg)
         {
             PercentHealth -= dmg.RawDamage / _info.MaxHealth;
             PercentHealth = Mathf.Min(PercentHealth, 1);
@@ -74,7 +76,7 @@ namespace Ships.Components
         [ContextMenu("Test Damage")]
         public void TestDamage()
         {
-            TakeDamage(new Damage(this, 10, 100));
+            TakeDamage(new AttackInfo(null, this, 10, 100));
         }
 
         [ContextMenu("Repair")]

@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Ships.Components;
 using UI.InfoWindow;
 using UnityEngine;
-using Subsystem = UnityEngine.Subsystem;
 
 namespace UI.Weapons
 {
