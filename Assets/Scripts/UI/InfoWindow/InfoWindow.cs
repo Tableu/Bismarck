@@ -15,6 +15,8 @@ namespace UI.InfoWindow
         [SerializeField] private SubsystemButtonManager subsystemButtonManager;
         [SerializeField] private ShipInfo shipInfo;
         [SerializeField] private Button closeButton;
+        [SerializeField] private Slider healthBar;
+        private Hull _hull;
 
         public void Awake()
         {
@@ -35,9 +37,20 @@ namespace UI.InfoWindow
         {
             if (shipInfo != null)
             {
+                Refresh(shipInfo);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (_hull != null)
+            {
+                _hull.OnHealthChanged -= Redraw;
+            }
+
+            if (shipInfo != null)
+            {
                 shipInfo.OnShipDestroyed -= CloseWindow;
-                shipInfo.OnShipDestroyed += CloseWindow;
-                Refresh();
             }
         }
 
@@ -48,10 +61,24 @@ namespace UI.InfoWindow
                 if (shipInfo != null)
                 {
                     shipInfo.OnShipDestroyed -= CloseWindow;
+                    if (_hull != null)
+                    {
+                        _hull.OnHealthChanged -= Redraw;
+                    }
                 }
 
                 shipInfo = newTarget;
                 shipInfo.OnShipDestroyed += CloseWindow;
+                _hull = shipInfo.GetComponent<Hull>();
+                if (_hull != null)
+                {
+                    healthBar.gameObject.SetActive(true);
+                    _hull.OnHealthChanged += Redraw;
+                }
+                else
+                {
+                    healthBar.gameObject.SetActive(false);
+                }
             }
 
             if (Camera != null && shipInfo != null)
@@ -71,11 +98,6 @@ namespace UI.InfoWindow
 
         private void CloseWindow()
         {
-            if (shipInfo != null)
-            {
-                shipInfo.OnShipDestroyed -= CloseWindow;
-            }
-
             if (Camera != null)
             {
                 Destroy(Camera.gameObject);
@@ -85,6 +107,11 @@ namespace UI.InfoWindow
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void Redraw()
+        {
+            healthBar.value = _hull.PercentHealth;
         }
 
 #if UNITY_EDITOR

@@ -1,5 +1,6 @@
 using System;
 using Newtonsoft.Json.Linq;
+using Scene;
 using Systems.Save;
 using UnityEngine;
 
@@ -20,6 +21,16 @@ namespace Ships.Components
                     Destroy(gameObject); //Kill ship
                 }
             };
+            GameObject parent = GameObject.FindWithTag("HealthBars");
+            if (parent != null)
+            {
+                GameObject healthBar = Instantiate(_info.Data.HealthBar, parent.transform);
+                HealthBar script = healthBar.GetComponent<HealthBar>();
+                if (script != null)
+                {
+                    script.Bind(this);
+                }
+            }
         }
 
         public string id => "health";

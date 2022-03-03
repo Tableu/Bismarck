@@ -14,7 +14,7 @@ namespace Ships.Components
     /// <summary>
     ///     Stores basic ship information, such as stats and data.
     /// </summary>
-    public class ShipInfo : MonoBehaviour
+    public class ShipInfo : ModifiableTarget
     {
         private GameObject _visuals;
         private GameObject _mapIcon;

@@ -11,14 +11,12 @@ public class HealthBar : MonoBehaviour
 
     [SerializeField] private float barDisplacement;
     private Hull _hull;
-
-    // Start is called before the first frame update
+    
     private void Start()
     {
         healthBar = GetComponent<Slider>();
     }
-
-    // Update is called once per frame
+    
     private void Update()
     {
         if (target != null)

@@ -65,7 +65,7 @@ namespace Ships.Components
             PercentHealth -= dmg.RawDamage / _info.MaxHealth;
             PercentHealth = Mathf.Min(PercentHealth, 1);
             _healthDirty = true;
-            if (Health <= 0)
+            if (Health <= 0.01)
             {
                 _disabled = true;
                 _disableStart = Time.time;

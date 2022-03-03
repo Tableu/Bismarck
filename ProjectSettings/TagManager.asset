@@ -12,6 +12,7 @@ TagManager:
   - EnemyProjectiles
   - EnemyShips
   - EmptyModuleSlot
+  - HealthBars
   layers:
   - Default
   - TransparentFX
