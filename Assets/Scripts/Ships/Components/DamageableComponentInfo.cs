@@ -29,7 +29,7 @@ namespace Ships.Components
         public float DodgeChance => PercentDodgeChance * _maxDodgeChance;
         public float PercentHealth { get; protected set; } = 1f;
         public float PercentDodgeChance { get; protected set; } = 1f;
-        public Subsystem Subsystem { get; protected set; } = Subsystem.Hull;
+        public Subsystem Subsystem { get; protected set; }
 
         public void SetData(float maxHealth, float maxDodgeChance, Subsystem subsystem)
         {
@@ -62,7 +62,7 @@ namespace Ships.Components
 
         public void TakeDamage(AttackInfo dmg)
         {
-            PercentHealth -= dmg.RawDamage / _info.MaxHealth;
+            PercentHealth -= dmg.RawDamage / _maxHealth;
             PercentHealth = Mathf.Min(PercentHealth, 1);
             _healthDirty = true;
             if (Health <= 0.01)

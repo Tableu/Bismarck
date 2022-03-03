@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using Scene;
 using Systems.Save;
 using UnityEngine;
+using Subsystem = UI.InfoWindow.Subsystem;
 
 namespace Ships.Components
 {
@@ -13,6 +14,7 @@ namespace Ships.Components
     {
         public void Start()
         {
+            Subsystem = Subsystem.Hull;
             OnDisabledChanged += delegate
             {
                 if (Disabled)
