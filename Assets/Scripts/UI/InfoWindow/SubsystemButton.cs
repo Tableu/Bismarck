@@ -19,7 +19,7 @@ namespace UI.InfoWindow
         public ButtonData ButtonData;
         public DamageableComponentInfo Target;
 
-        void Start()
+        protected virtual void Start()
         {
             if (ButtonData != null)
             {
@@ -28,7 +28,7 @@ namespace UI.InfoWindow
             }
         }
 
-        void Update()
+        protected virtual void Update()
         {
             RefreshButton();
         }

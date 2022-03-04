@@ -8,6 +8,7 @@ namespace Systems.Abilities
     ///     Data for an ability that can be activated to apply modifiers to a target, with a set cooldown
     ///     between activations.
     /// </summary>
+    [CreateAssetMenu(fileName = "New Ability", menuName = "Abilities/Ability", order = 0)]
     public class AbilityData : ScriptableObject
     {
         [SerializeField] private List<ModifierData> modifiers;
