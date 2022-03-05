@@ -58,6 +58,7 @@ namespace UI.Abilities
             Player = player;
             ShipInfo = player;
             _ability = ability;
+            ButtonData = ability.AbilityData.ButtonData;
             if (_ability != null)
             {
                 _ability.CooldownEvent += UpdateTimer;

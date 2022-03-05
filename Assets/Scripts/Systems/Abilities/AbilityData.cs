@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Systems.Modifiers;
+using UI.InfoWindow;
 using UnityEngine;
 
 namespace Systems.Abilities
@@ -13,8 +14,10 @@ namespace Systems.Abilities
     {
         [SerializeField] private List<ModifierData> modifiers;
         [SerializeField] private float cooldown;
+        [SerializeField] private ButtonData buttonData;
 
         public List<ModifierData> Modifiers => modifiers;
         public float Cooldown => cooldown;
+        public ButtonData ButtonData => buttonData;
     }
 }

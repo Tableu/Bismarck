@@ -15,3 +15,9 @@ MonoBehaviour:
   modifiers:
   - {fileID: 11400000, guid: 71441f7413ebdcd43bb1aecdd431dfd1, type: 2}
   cooldown: 5
+  buttonData:
+    Icon: {fileID: 21300000, guid: 6281c1c288b5da64fb23b04d0a076fe1, type: 3}
+    Button: {fileID: 21300000, guid: 171f5b85821916f44b4c208513c59e91, type: 3}
+    DamagedButton: {fileID: 21300000, guid: 7813316c3ed5c024182c0006271ec3bb, type: 3}
+    Name: Ability
+    Subsystem: 0
