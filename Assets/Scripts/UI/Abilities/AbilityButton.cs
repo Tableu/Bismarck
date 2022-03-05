@@ -5,65 +5,79 @@ using UI.InfoWindow;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AbilityButton : SubsystemButton
+namespace UI.Abilities
 {
-    [SerializeField] private Slider slider;
-    private Ability _ability;
-
-    private void Awake()
+    public class AbilityButton : SubsystemButton
     {
-        slider.minValue = 0;
-        slider.maxValue = 1;
+        [SerializeField] private Slider slider;
+        private Ability _ability;
 
-        if (_ability != null)
+        private void Awake()
         {
-            _ability.CooldownEvent += UpdateTimer;
-        }
-    }
+            slider.minValue = 0;
+            slider.maxValue = 1;
 
-    protected override void Start()
-    {
-        base.Start();
-        if (_ability != null)
-        {
-            StartCoroutine(_ability.CooldownTimer());
-        }
-    }
-
-    protected override void OnClick()
-    {
-        if (Player != null && !_ability.OnCooldown)
-        {
-            foreach (ModifierData modifier in _ability.AbilityData.Modifiers)
+            if (_ability != null)
             {
-                modifier.AttachNewModifer(Player);
+                _ability.CooldownEvent += UpdateTimer;
             }
-
-            StartCoroutine(_ability.CooldownTimer());
         }
-    }
 
-    private void FixedUpdate()
-    {
-        if (Player != null && Target is Weapon weapon)
+        protected override void Start()
         {
-            slider.value = weapon.FireTimePercent;
+            base.Start();
+            if (_ability != null)
+            {
+                StartCoroutine(_ability.CooldownTimer());
+            }
         }
-    }
 
-    private void UpdateTimer(float percentage)
-    {
-        slider.value = percentage;
-    }
+        protected override void OnClick()
+        {
+            if (Player != null && !_ability.OnCooldown)
+            {
+                foreach (ModifierData modifier in _ability.AbilityData.Modifiers)
+                {
+                    modifier.AttachNewModifer(Player);
+                }
+
+                StartCoroutine(_ability.CooldownTimer());
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (Player != null && Target is Weapon weapon)
+            {
+                slider.value = weapon.FireTimePercent;
+            }
+        }
+
+        public void Initialize(ShipInfo player, Ability ability)
+        {
+            Player = player;
+            ShipInfo = player;
+            _ability = ability;
+            if (_ability != null)
+            {
+                _ability.CooldownEvent += UpdateTimer;
+            }
+        }
+
+        private void UpdateTimer(float percentage)
+        {
+            slider.value = percentage;
+        }
 #if UNITY_EDITOR
-    [Header("Debug")] [SerializeField] private AbilityData testData;
+        [Header("Debug")] [SerializeField] private AbilityData testData;
 
-    [ContextMenu("Test Ability")]
-    private void TestAbility()
-    {
-        _ability = new Ability(testData);
-        _ability.CooldownEvent += UpdateTimer;
-        OnClick();
-    }
+        [ContextMenu("Test Ability")]
+        private void TestAbility()
+        {
+            _ability = new Ability(testData);
+            _ability.CooldownEvent += UpdateTimer;
+            OnClick();
+        }
 #endif
+    }
 }
