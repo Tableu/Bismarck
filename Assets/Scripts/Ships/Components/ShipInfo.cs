@@ -5,6 +5,7 @@ using Scene;
 using Ships.DataManagement;
 using Ships.Fleets;
 using SystemMap;
+using Systems.Abilities;
 using Systems.Modifiers;
 using UnityEngine;
 using Subsystem = UI.InfoWindow.Subsystem;
@@ -19,10 +20,12 @@ namespace Ships.Components
         private GameObject _visuals;
         private GameObject _mapIcon;
         private List<Weapon> _weapons = new List<Weapon>();
+        private List<Ability> _abilities = new List<Ability>();
         [SerializeField] private ShipData data;
         public ShipData Data => data;
         public GameObject Visuals => _visuals;
         public GameObject MapIcon => _mapIcon;
+        public List<Ability> Abilities => _abilities;
         public FleetManager Fleet { get; private set; }
 
         // ModifiableStat must be read only so that other components can get references to them during Start/Awake.
@@ -39,6 +42,7 @@ namespace Ships.Components
                 Initialize();
                 InitializeHull();
                 InitializeWeapons();
+                InitializeAbilities();
             }
         }
 
@@ -61,6 +65,7 @@ namespace Ships.Components
             Initialize();
             InitializeHull();
             InitializeWeapons();
+            InitializeAbilities();
         }
 
         [ContextMenu("InitializeWeapons")]
@@ -73,6 +78,16 @@ namespace Ships.Components
                 Weapon weapon = gameObject.AddComponent<Weapon>();
                 weapon.Initialize(this, attackData);
                 _weapons.Add(weapon);
+            }
+        }
+
+        [ContextMenu("InitializeWeapons")]
+        public void InitializeAbilities()
+        {
+            foreach (AbilityData abilityData in data.Abilities)
+            {
+                Ability ability = new Ability(abilityData);
+                _abilities.Add(ability);
             }
         }
 

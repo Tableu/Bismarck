@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Ships.Components;
@@ -17,6 +18,14 @@ namespace UI.Abilities
         [SerializeField] private GameObject _weaponButtonPrefab;
         [SerializeField] private SubsystemButtonData _abilityButtonData;
         private List<Ability> _abilities;
+
+        public void Start()
+        {
+            if (Player != null)
+            {
+                SetAbilities(Player.Abilities);
+            }
+        }
 
         public void SetAbilities(List<Ability> abilities)
         {
