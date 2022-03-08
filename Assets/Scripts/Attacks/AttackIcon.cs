@@ -22,8 +22,8 @@ namespace Attacks
                 .normalized;
             if (animation != null)
             {
-                animation.OnAnimationFinish += StartTravel;
-                animation.Direction = _direction;
+                animation.Initialize(_direction, AttackInfo.AttackData.BaseInfoWindowSpeed,
+                    AttackInfo.AttackData.InfoWindowSprite, StartTravel);
             }
             else
             {
@@ -42,7 +42,8 @@ namespace Attacks
             var target = Target.transform.position;
             while (!transform.position.Equals(target))
             {
-                transform.position = Vector2.MoveTowards(transform.position, target, 0.1f);
+                transform.position =
+                    Vector2.MoveTowards(transform.position, target, AttackInfo.AttackData.BaseMapSpeed);
                 yield return null;
             }
 
@@ -53,12 +54,12 @@ namespace Attacks
                 AttackAnimation animation = hit != null ? hit.GetComponent<AttackAnimation>() : null;
                 if (animation != null)
                 {
-                    animation.OnAnimationFinish += delegate
-                    {
-                        AttackInfo.ApplyDamage();
-                        Destroy(gameObject);
-                    };
-                    animation.Direction = _direction;
+                    animation.Initialize(_direction, AttackInfo.AttackData.BaseInfoWindowSpeed,
+                        AttackInfo.AttackData.InfoWindowSprite, delegate
+                        {
+                            AttackInfo.ApplyDamage();
+                            Destroy(gameObject);
+                        });
                     animation.transform.localPosition = -2 * _direction;
                 }
                 else
@@ -74,8 +75,8 @@ namespace Attacks
                 AttackAnimation animation = miss != null ? miss.GetComponent<AttackAnimation>() : null;
                 if (animation != null)
                 {
-                    animation.OnAnimationFinish += delegate { Destroy(gameObject); };
-                    animation.Direction = _direction;
+                    animation.Initialize(_direction, AttackInfo.AttackData.BaseInfoWindowSpeed,
+                        AttackInfo.AttackData.InfoWindowSprite, delegate { Destroy(gameObject); });
                     animation.transform.localPosition = -2 * _direction;
                 }
                 else

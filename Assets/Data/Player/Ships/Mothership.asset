@@ -22,7 +22,8 @@ MonoBehaviour:
   cost: 0
   weapons:
   - {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
-  abilities: []
+  abilities:
+  - {fileID: 11400000, guid: 696b46ef70da763479cb42f158b0b639, type: 2}
   moduleGridHeight: 2
   moduleGridWidth: 2
   defaultModules:

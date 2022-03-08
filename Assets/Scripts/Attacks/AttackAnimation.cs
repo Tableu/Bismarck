@@ -1,4 +1,5 @@
 using System;
+using Attacks;
 using UnityEngine;
 
 public abstract class AttackAnimation : MonoBehaviour
@@ -9,6 +10,8 @@ public abstract class AttackAnimation : MonoBehaviour
     public float MaxDistance;
     public SpriteRenderer SpriteRenderer;
 
+    public abstract void Initialize(Vector2 direction, float speed, Sprite sprite, Action callback);
+    
     protected void RaiseAnimationFinish()
     {
         if (this != null && OnAnimationFinish != null)

@@ -1,4 +1,5 @@
 using System;
+using Attacks;
 using UnityEngine;
 
 public class FireAnimation : AttackAnimation
@@ -20,6 +21,14 @@ public class FireAnimation : AttackAnimation
             Finish();
             Destroy(gameObject);
         }
+    }
+
+    public override void Initialize(Vector2 direction, float speed, Sprite sprite, Action callback)
+    {
+        Direction = direction;
+        Speed = speed;
+        SpriteRenderer.sprite = sprite;
+        OnAnimationFinish += callback;
     }
 
     public override void Finish()
