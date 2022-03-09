@@ -69,6 +69,43 @@ namespace Systems.Movement
             return Evaluate(globalMin);
         }
 
+        public (float start, float end)[] IntervalsInBounds(Bounds bounds)
+        {
+            var ret = new List<(float start, float end)>();
+            float start = float.NaN;
+            float end = float.NaN;
+
+            for (int i = 0; i < _segments.Count; i++)
+            {
+                var intercepts = _segments[i].IntervalsInBounds(bounds);
+                float t0 = _segments[i].t0;
+                float tf = float.PositiveInfinity;
+                if (i != _segments.Count - 1) tf = _segments[i + 1].t0;
+                var p = _segments[i];
+
+                if (float.IsNaN(start) && bounds.Contains(p.Evaluate(t0)))
+                {
+                    start = t0;
+                }
+
+                foreach (var intercept in intercepts.Where(intercept => intercept < tf && intercept >= t0))
+                {
+                    if (float.IsNaN(start))
+                    {
+                        start = (float)intercept;
+                    }
+                    else if (float.IsNaN(end))
+                    {
+                        end = (float)intercept;
+                        ret.Add((start, end));
+                        end = float.NaN;
+                        start = float.NaN;
+                    }
+                }
+            }
+            return ret.ToArray();
+        }
+
         private int FindSegmentIndex(float t)
         {
             int i;
@@ -104,6 +141,28 @@ namespace Systems.Movement
             {
                 t -= t0;
                 return a * t * t + b * t + c;
+            }
+
+            public List<float> IntervalsInBounds(Bounds bounds)
+            {
+                var px = new MathNet.Numerics.Polynomial(c.x, b.x, a.x);
+                var py = new MathNet.Numerics.Polynomial(c.y, b.y, a.y);
+
+                var intercepts = new List<float>();
+                float t1 = t0;
+                intercepts.AddRange(MathNet.Numerics.Polynomial.Add(px, -bounds.min.x).Roots()
+                    .Where(r => r.Imaginary == 0 && py.Evaluate(r.Real) <= bounds.max.y && py.Evaluate(r.Real) >= bounds.min.y && px.Differentiate().Evaluate(r.Real) != 0)
+                    .Select(r => (float)r.Real + t1));
+                intercepts.AddRange(MathNet.Numerics.Polynomial.Add(px, -bounds.max.x).Roots()
+                    .Where(r => r.Imaginary == 0 && py.Evaluate(r.Real) <= bounds.max.y && py.Evaluate(r.Real) >= bounds.min.y && px.Differentiate().Evaluate(r.Real) != 0)
+                    .Select(r => (float)r.Real + t1));
+                intercepts.AddRange(MathNet.Numerics.Polynomial.Add(py, -bounds.min.y).Roots()
+                    .Where(r => r.Imaginary == 0 && px.Evaluate(r.Real) <= bounds.max.x && px.Evaluate(r.Real) >= bounds.min.x && py.Differentiate().Evaluate(r.Real) != 0)
+                    .Select(r => (float)r.Real + t1));
+                intercepts.AddRange(MathNet.Numerics.Polynomial.Add(py, -bounds.max.y).Roots()
+                    .Where(r => r.Imaginary == 0 && px.Evaluate(r.Real) <= bounds.max.x && px.Evaluate(r.Real) >= bounds.min.x && py.Differentiate().Evaluate(r.Real) != 0)
+                    .Select(r => (float)r.Real + t1));
+                return intercepts;
             }
 
             public (float, float) ClosestPoint(Vector2 d, float tf)

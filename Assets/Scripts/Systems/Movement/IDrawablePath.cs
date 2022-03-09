@@ -13,7 +13,9 @@ namespace Systems.Movement
         /// </summary>
         /// <param name="t">A value between 0 and 1 that parameterize the path</param>
         /// <returns>The point on the path</returns>
-        Vector2 PointOnPath(float t);
+        Vector2 Evaluate(float t);
+
+        (float start, float end)[] IntervalsInBounds(Bounds bounds);
 
         /// <summary>
         ///     Invoked everytime the path has changed and must be redrawn
