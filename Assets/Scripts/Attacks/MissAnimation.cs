@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Attacks
 {
-    public class FireAnimation : AttackAnimation
+    public class MissAnimation : AttackAnimation
     {
         private float _distance;
 
