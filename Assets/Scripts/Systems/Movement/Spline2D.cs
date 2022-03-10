@@ -60,7 +60,7 @@ namespace Systems.Movement
             return _segments[i].Evaluate(t);
         }
 
-        public Vector2 ClosestPointOnSpline(Vector2 p)
+        public float ClosestPointOnSpline(Vector2 p)
         {
             var minDist = float.PositiveInfinity;
             var globalMin = 0f;
@@ -76,7 +76,7 @@ namespace Systems.Movement
                     globalMin = min;
                 }
             }
-            return Evaluate(globalMin);
+            return globalMin;
         }
 
         public (float start, float end)[] IntervalsInBounds(Bounds bounds)

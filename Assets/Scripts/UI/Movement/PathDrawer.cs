@@ -2,7 +2,7 @@
 using Systems.Movement;
 using UnityEngine;
 
-namespace UI.Map
+namespace UI.Movement
 {
     [RequireComponent(typeof(LineRenderer))]
     public class PathDrawer : MonoBehaviour

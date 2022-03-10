@@ -8,7 +8,7 @@ namespace UI
     /// </summary>
     public class WorldSpaceUI : MonoBehaviour
     {
-        [SerializeField] private Transform target;
+        public Transform target;
         [SerializeField] public Camera primaryCamera;
         private RectTransform _rectTransform;
 

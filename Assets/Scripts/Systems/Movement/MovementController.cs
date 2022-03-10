@@ -7,6 +7,11 @@ namespace Systems.Movement
         private WorldLine _worldLine = new WorldLine();
         public IDrawablePath Path => _worldLine;
 
+        public void ScheduleManeuver(Maneuver maneuver)
+        {
+            _worldLine.AddManeuver(maneuver);
+        }
+
         private void Awake()
         {
             _worldLine.AddManeuver(new Maneuver

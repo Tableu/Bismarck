@@ -17,6 +17,8 @@ namespace Systems.Movement
 
         (float start, float end)[] IntervalsInBounds(Bounds bounds);
 
+        float ClosestPointOnPath(Vector2 p);
+
         /// <summary>
         ///     Invoked everytime the path has changed and must be redrawn
         /// </summary>

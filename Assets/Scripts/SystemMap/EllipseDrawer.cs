@@ -35,8 +35,8 @@ namespace SystemMap
             Matrix4x4 mat = cam.projectionMatrix;
             _lineRenderer.widthMultiplier = _baseMultiply / mat.m11;
             var mousePos = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            Vector3 pointOnLine = spline.ClosestPointOnSpline(mousePos);
-            tracer.transform.position = pointOnLine;
+            var pointOnLine = spline.ClosestPointOnSpline(mousePos);
+            tracer.transform.position = spline.Evaluate(pointOnLine);
         }
         private void OnValidate()
         {

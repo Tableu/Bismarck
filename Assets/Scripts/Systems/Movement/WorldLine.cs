@@ -11,6 +11,7 @@ namespace Systems.Movement
         public bool ClosedPath => false;
         public Vector2 Evaluate(float time) => _spline.Evaluate(time);
         public (float start, float end)[] IntervalsInBounds(Bounds bounds) => _spline.IntervalsInBounds(bounds);
+        public float ClosestPointOnPath(Vector2 p) => _spline.ClosestPointOnSpline(p);
 
         public event Action OnPathChanged;
 
