@@ -44,6 +44,16 @@ namespace Systems.Movement
 
         }
 
+        public void ResetZeroTime(float newZero)
+        {
+            for (int i = 0; i < _segments.Count; i++)
+            {
+                var p = _segments[i];
+                p.t0 -= newZero;
+                _segments[i] = p;
+            }
+        }
+
         public Vector2 Evaluate(float t)
         {
             var i = FindSegmentIndex(t);
@@ -92,11 +102,11 @@ namespace Systems.Movement
                 {
                     if (float.IsNaN(start))
                     {
-                        start = (float)intercept;
+                        start = intercept;
                     }
                     else if (float.IsNaN(end))
                     {
-                        end = (float)intercept;
+                        end = intercept;
                         ret.Add((start, end));
                         end = float.NaN;
                         start = float.NaN;

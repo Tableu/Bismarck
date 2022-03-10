@@ -6,8 +6,13 @@ namespace Systems.Movement
     public class WorldLine : IDrawablePath
     {
         private Spline2D _spline = new Spline2D(Vector2.zero, Vector2.zero, Vector2.zero);
-        private float _t0 = 0;
-        public float CurrentTime => _t0;
+        public float CurrentTime { get; private set; } = 0;
+
+        public bool ClosedPath => false;
+        public Vector2 Evaluate(float time) => _spline.Evaluate(time);
+        public (float start, float end)[] IntervalsInBounds(Bounds bounds) => _spline.IntervalsInBounds(bounds);
+
+        public event Action OnPathChanged;
 
         public void AddManeuver(Maneuver maneuver)
         {
@@ -17,18 +22,12 @@ namespace Systems.Movement
         }
         public void UpdateTime(float deltaTime)
         {
-            _t0 += deltaTime;
+            CurrentTime += deltaTime;
+            if (CurrentTime > 1e3)
+            {
+                _spline.ResetZeroTime(CurrentTime);
+                CurrentTime = 0;
+            }
         }
-
-        public bool ClosedPath => false;
-        public Vector2 Evaluate(float time)
-        {
-            return _spline.Evaluate(time);
-        }
-        public (float start, float end)[] IntervalsInBounds(Bounds bounds)
-        {
-            return _spline.IntervalsInBounds(bounds);
-        }
-        public event Action OnPathChanged;
     }
 }
