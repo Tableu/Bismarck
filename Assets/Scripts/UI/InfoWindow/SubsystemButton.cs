@@ -13,6 +13,7 @@ namespace UI.InfoWindow
     {
         [SerializeField] private Button _button;
         [SerializeField] private Text _buttonText;
+        [SerializeField] private Image _image;
         public ShipInfo ShipInfo;
         public ShipInfo Player;
         public Subsystem Subsystem;
@@ -25,6 +26,7 @@ namespace UI.InfoWindow
             {
                 _buttonText.text = ButtonData.Name;
                 _button.onClick.AddListener(OnClick);
+                _image.sprite = ButtonData.Icon;
             }
         }
 
