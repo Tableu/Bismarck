@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Attacks;
-using UI.InfoWindow;
 using Systems;
 using Systems.Abilities;
 using Systems.Modules;
 using UnityEngine;
+using Weapons;
 using Subsystem = UI.InfoWindow.Subsystem;
 
 namespace Ships.DataManagement
@@ -25,7 +24,7 @@ namespace Ships.DataManagement
         [SerializeField] private GameObject healthBar;
         [SerializeField] [Range(0.001f, 1f)] private float cameraSizeMultiplier = 1f;
         [SerializeField] private int cost;
-        [SerializeField] private List<AttackData> weapons;
+        [SerializeField] private List<WeaponData> weapons;
         [SerializeField] private List<AbilityData> abilities;
         [SerializeField] private int moduleGridHeight;
         [SerializeField] private int moduleGridWidth;
@@ -57,7 +56,7 @@ namespace Ships.DataManagement
         public GameObject HealthBar => healthBar;
         public float CameraSizeMultiplier => cameraSizeMultiplier;
         public int Cost => cost;
-        public List<AttackData> Weapons => weapons;
+        public List<WeaponData> Weapons => weapons;
         public List<AbilityData> Abilities => abilities;
         public int ModuleGridHeight => moduleGridHeight;
         public int ModuleGridWidth => moduleGridWidth;

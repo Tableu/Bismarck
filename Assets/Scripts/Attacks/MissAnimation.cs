@@ -17,7 +17,7 @@ namespace Attacks
         {
             transform.Translate(Direction * Speed);
             _distance += Speed;
-            if (_distance > MaxDistance)
+            if (_distance > MaxDistance * 2)
             {
                 Finish();
                 Destroy(gameObject);

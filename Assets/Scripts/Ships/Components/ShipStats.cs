@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using Attacks;
 using Scene;
 using Ships.DataManagement;
 using Ships.Fleets;
 using SystemMap;
-using Systems.Abilities;
 using Systems.Modifiers;
 using UnityEngine;
 using Subsystem = UI.InfoWindow.Subsystem;
@@ -15,17 +12,16 @@ namespace Ships.Components
     /// <summary>
     ///     Stores basic ship information, such as stats and data.
     /// </summary>
-    public class ShipInfo : ModifiableTarget
+    public class ShipStats : ModifiableTarget
     {
         private GameObject _visuals;
         private GameObject _mapIcon;
-        private List<Weapon> _weapons = new List<Weapon>();
-        private List<Ability> _abilities = new List<Ability>();
+        private AbilityManager _abilityManager;
         [SerializeField] private ShipData data;
         public ShipData Data => data;
         public GameObject Visuals => _visuals;
         public GameObject MapIcon => _mapIcon;
-        public List<Ability> Abilities => _abilities;
+        public AbilityManager AbilityManager => _abilityManager;
         public FleetManager Fleet { get; private set; }
 
         // ModifiableStat must be read only so that other components can get references to them during Start/Awake.
@@ -40,9 +36,6 @@ namespace Ships.Components
             if (data != null)
             {
                 Initialize();
-                InitializeHull();
-                InitializeWeapons();
-                InitializeAbilities();
             }
         }
 
@@ -63,39 +56,6 @@ namespace Ships.Components
             Debug.Assert(data == null, "ShipInfo.data overwritten");
             data = shipData;
             Initialize();
-            InitializeHull();
-            InitializeWeapons();
-            InitializeAbilities();
-        }
-
-        [ContextMenu("InitializeWeapons")]
-        public void InitializeWeapons()
-        {
-            foreach (AttackData attackData in data.Weapons)
-            {
-                GameObject turret = Instantiate(attackData.Turret, _visuals.transform);
-                turret.transform.position = _visuals.transform.position;
-                Weapon weapon = gameObject.AddComponent<Weapon>();
-                weapon.Initialize(this, attackData);
-                _weapons.Add(weapon);
-            }
-        }
-
-        [ContextMenu("InitializeWeapons")]
-        public void InitializeAbilities()
-        {
-            foreach (AbilityData abilityData in data.Abilities)
-            {
-                Ability ability = new Ability(abilityData);
-                _abilities.Add(ability);
-            }
-        }
-
-        [ContextMenu("InitializeHull")]
-        public void InitializeHull()
-        {
-            Hull hull = gameObject.AddComponent<Hull>();
-            hull.SetData(data.BaseHealth, data.BaseDodgeChance, Subsystem.Hull);
         }
 
         /// <summary>
@@ -121,29 +81,16 @@ namespace Ships.Components
             MapIcon mapIcon = _mapIcon.AddComponent<MapIcon>();
             mapIcon.cam = Camera.main;
             mapIcon.Init();
-        }
 
-        public void SetWeaponsTarget(DamageableComponentInfo target)
-        {
-            if (target != null)
-            {
-                foreach (Weapon weapon in _weapons)
-                {
-                    weapon.SetTarget(target);
-                }
-            }
+            //Init hull
+            Hull hull = gameObject.AddComponent<Hull>();
+            hull.SetData(data.BaseHealth, data.BaseDodgeChance, Subsystem.Hull);
+
+            //Init AbilityManager
+            _abilityManager = gameObject.AddComponent<AbilityManager>();
+            _abilityManager.Initialize(data, this);
         }
 
         public event Action OnShipDestroyed;
-
-#if UNITY_EDITOR
-        [Header("Test")]
-        public DamageableComponentInfo TestTarget;
-        [ContextMenu("Set Weapon Target")]
-        private void TestSetWeaponsTarget()
-        {
-            SetWeaponsTarget(TestTarget);
-        }
-#endif
     }
 }

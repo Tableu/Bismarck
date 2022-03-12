@@ -91,7 +91,7 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             foreach (var ship in selectedShips.Ships)
             {
-                var data = ship.GetComponent<ShipInfo>().Data;
+                var data = ship.GetComponent<ShipStats>().Data;
                 Money += data.Cost;
                 Destroy(ship);
             }
@@ -157,8 +157,8 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
                     var index = hit.gameObject.transform.GetSiblingIndex();
                     if (shipInfoPopup.Ship != null)
                     {
-                        var shipData = shipInfoPopup.Ship.GetComponent<ShipInfo>().Data;
-                        shipData.Weapons[index] = attack;
+                        var shipData = shipInfoPopup.Ship.GetComponent<ShipStats>().Data;
+                        //shipData.Weapons[index] = attack;
                         Money -= attack.Cost;
                         var turrets = shipInfoPopup.Ship.GetComponent<ShipTurrets>();
                         if (turrets != null)
@@ -189,14 +189,14 @@ public class StoreViewModel : MonoBehaviour, INotifyPropertyChanged
 
     private static int ComputeRepairCost(GameObject ship)
     {
-        var data = ship.GetComponent<ShipInfo>().Data;
+        var data = ship.GetComponent<ShipStats>().Data;
         var health = ship.GetComponent<Hull>();
         return (int)(data.Cost * (1 - health.PercentHealth));
     }
 
     private static int ComputeSellValue(GameObject ship)
     {
-        var data = ship.GetComponent<ShipInfo>().Data;
+        var data = ship.GetComponent<ShipStats>().Data;
         var health = ship.GetComponent<Hull>();
         return (int)(data.Cost * health.PercentHealth);
     }

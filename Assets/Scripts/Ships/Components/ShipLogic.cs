@@ -4,6 +4,7 @@ using Ships.Components;
 using Ships.DataManagement;
 using Ships.Fleets;
 using UnityEngine;
+using Weapons;
 
 public class ShipLogic : MonoBehaviour
 {
@@ -12,14 +13,14 @@ public class ShipLogic : MonoBehaviour
     [SerializeField] public List<Transform> turretPositions;
 
     [SerializeField] private string tag;
-    protected List<AttackCommand> _attackCommands;
+    protected List<Attack> _attackCommands;
     protected ShipData _data;
     protected MoveForwardState _moveForward;
     protected MovementController _movementController;
     protected MoveToPositionState _moveToPosition;
     protected MoveToTargetState _moveToTarget;
     protected FleetManager _shipSpawner;
-    private List<AttackData> attackScriptableObjects;
+    private List<WeaponData> attackScriptableObjects;
     protected FSM StateMachine;
     public bool BlocksMovement { get; private set; }
 
@@ -34,7 +35,7 @@ public class ShipLogic : MonoBehaviour
         _shipSpawner = spawner;
         _data = data;
         BlocksMovement = data.BlocksMovement;
-        var stats = GetComponent<ShipInfo>();
+        var stats = GetComponent<ShipStats>();
         Debug.Assert(stats != null, "Ship missing stats component");
         _movementController = new MovementController(gameObject, stats.SpeedMultiplier, 0, LayerMask.GetMask("EnemyShips"));
         _moveToTarget = new MoveToTargetState(this, _movementController, target);
@@ -42,7 +43,7 @@ public class ShipLogic : MonoBehaviour
         _moveForward = new MoveForwardState(this, _movementController);
         StateMachine = new FSM();
         attackScriptableObjects = data.Weapons;
-        _attackCommands = new List<AttackCommand>();
+        _attackCommands = new List<Attack>();
     }
 
     public void MoveToPosition(Vector2 position)

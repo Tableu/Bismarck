@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Attacks
 {
-    public class AttackInfo
+    public class AttackProjectile
     {
-        private DamageableComponentInfo _target;
+        private DamageableComponent _target;
         private AttackData _attackData;
         private float _rawDamage;
         private float _hitChance;
@@ -14,7 +14,7 @@ namespace Attacks
         public float RawDamage => _rawDamage;
         public float HitChance => _hitChance;
 
-        public AttackInfo(AttackData attackData, DamageableComponentInfo target, float rawDamage, float hitChance)
+        public AttackProjectile(AttackData attackData, DamageableComponent target, float rawDamage, float hitChance)
         {
             _attackData = attackData;
             _target = target;
@@ -40,7 +40,19 @@ namespace Attacks
         {
             if (_target != null)
             {
-                _target.TakeDamage(this);
+                if (_target is Hull)
+                {
+                    _target.TakeDamage(_rawDamage);
+                }
+                else
+                {
+                    _target.TakeDamage(_rawDamage * Mathf.Min(_attackData.ModuleDamagePercent, 1));
+                    Hull hull = _target.GetComponent<Hull>();
+                    if (hull != null)
+                    {
+                        hull.TakeDamage(_rawDamage * (Mathf.Max(0, 1 - _attackData.ModuleDamagePercent)));
+                    }
+                }
             }
         }
     }

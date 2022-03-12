@@ -10,7 +10,7 @@ namespace Systems.Abilities
     ///     between activations.
     /// </summary>
     [CreateAssetMenu(fileName = "New Ability", menuName = "Abilities/Ability", order = 0)]
-    public class AbilityData : ScriptableObject
+    public class AbilityData : UniqueId
     {
         [SerializeField] private List<ModifierData> modifiers;
         [SerializeField] private float cooldown;

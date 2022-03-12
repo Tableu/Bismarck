@@ -11,14 +11,14 @@ namespace UI.InfoWindow
     /// </summary>
     public class SubsystemButton : MonoBehaviour
     {
-        [SerializeField] private Button _button;
+        [SerializeField] protected Button _button;
         [SerializeField] private Text _buttonText;
-        [SerializeField] private Image _image;
-        public ShipInfo ShipInfo;
-        public ShipInfo Player;
+        [SerializeField] protected Image _image;
+        public ShipStats shipStats;
+        public ShipStats Player;
         public Subsystem Subsystem;
         public ButtonData ButtonData;
-        public DamageableComponentInfo Target;
+        public DamageableComponent Target;
 
         protected virtual void Start()
         {
@@ -60,7 +60,7 @@ namespace UI.InfoWindow
                     }
                     break;
                 case Subsystem.Engine:
-                    if (ShipInfo.SpeedMultiplier.CurrentValue <= 0)
+                    if (shipStats.SpeedMultiplier.CurrentValue <= 0)
                     {
                         SetButtonDamaged();
                     }
@@ -76,7 +76,7 @@ namespace UI.InfoWindow
         {
             if (Player != null && Target != null)
             {
-                Player.SetWeaponsTarget(Target);
+                Player.AbilityManager.SetWeaponsTarget(Target);
             }
         }
 
@@ -94,6 +94,10 @@ namespace UI.InfoWindow
             {
                 _button.image.sprite = ButtonData.Button;
             }
+        }
+
+        protected void GreyOutButton()
+        {
         }
     }
 }

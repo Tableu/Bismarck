@@ -1,6 +1,5 @@
 using Ships.Components;
 using Systems.Abilities;
-using Systems.Modifiers;
 using UI.InfoWindow;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +9,7 @@ namespace UI.Abilities
     public class AbilityButton : SubsystemButton
     {
         [SerializeField] private Slider slider;
-        private Ability _ability;
+        private CooldownAbility _ability;
 
         private void Awake()
         {
@@ -36,29 +35,19 @@ namespace UI.Abilities
         {
             if (Player != null && !_ability.OnCooldown)
             {
-                foreach (ModifierData modifier in _ability.AbilityData.Modifiers)
+                if (_ability.Fire(Player))
                 {
-                    modifier.AttachNewModifer(Player);
+                    StartCoroutine(_ability.CooldownTimer());
                 }
-
-                StartCoroutine(_ability.CooldownTimer());
             }
         }
 
-        private void FixedUpdate()
-        {
-            if (Player != null && Target is Weapon weapon)
-            {
-                slider.value = weapon.FireTimePercent;
-            }
-        }
-
-        public void Initialize(ShipInfo player, Ability ability)
+        public void Initialize(ShipStats player, CooldownAbility ability)
         {
             Player = player;
-            ShipInfo = player;
+            shipStats = player;
             _ability = ability;
-            ButtonData = ability.AbilityData.ButtonData;
+            ButtonData = ability.ButtonData;
             if (_ability != null)
             {
                 _ability.CooldownEvent += UpdateTimer;

@@ -14,8 +14,8 @@ namespace Ships.Fleets
         private InputAction _pointerPos;
         private InputAction _cancel;
 
-        public static event Action<ShipInfo> OnSelect;
-        public ShipInfo SelectedShip { get; private set; }
+        public static event Action<ShipStats> OnSelect;
+        public ShipStats SelectedShip { get; private set; }
 
         private void Awake()
         {
@@ -45,10 +45,10 @@ namespace Ships.Fleets
             if (hit)
             {
                 Transform ship = hit.transform.parent;
-                var shipInfo = ship?.GetComponent<ShipInfo>();
+                var shipInfo = ship?.GetComponent<ShipStats>();
                 if (shipInfo != null)
                 {
-                    SelectedShip = ship.GetComponent<ShipInfo>();
+                    SelectedShip = ship.GetComponent<ShipStats>();
                     OnSelect?.Invoke(SelectedShip);
                     Debug.Log(ship.gameObject.name);
                 }

@@ -20,13 +20,14 @@ MonoBehaviour:
   attackName: Railgun
   cost: 100
   hitChance: 0.9
-  moduleHitChance: 0
+  moduleHitChance: 1
   damage: 10
-  moduleDamagePercent: 0
+  moduleDamagePercent: 0.5
   mapSpeed: 0.2
   infoWindowSpeed: 0.2
   health: 10
   fireDelay: 2
+  range: 5
   hitAnimation: {fileID: 8618547449836231095, guid: 48a31821a5622904bb2dfe58fce0ecef, type: 3}
   missAnimation: {fileID: 5781190496415471603, guid: 61738da822e59a54e88f1e1ff0446d8f, type: 3}
   fireAnimation: {fileID: 8618547449836231095, guid: 48a31821a5622904bb2dfe58fce0ecef, type: 3}

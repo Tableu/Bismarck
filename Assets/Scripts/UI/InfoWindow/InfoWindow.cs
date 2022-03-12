@@ -11,9 +11,9 @@ namespace UI.InfoWindow
     public class InfoWindow : MonoBehaviour
     {
         public Camera Camera;
-        public ShipInfo Player;
+        public ShipStats Player;
         [SerializeField] private SubsystemButtonManager subsystemButtonManager;
-        [SerializeField] private ShipInfo shipInfo;
+        [SerializeField] private ShipStats shipStats;
         [SerializeField] private Button closeButton;
         [SerializeField] private Slider healthBar;
         private Hull _hull;
@@ -25,7 +25,7 @@ namespace UI.InfoWindow
                 closeButton.onClick.AddListener(CloseWindow);
             }
 
-            if (shipInfo == null)
+            if (shipStats == null)
             {
                 gameObject.SetActive(false);
             }
@@ -35,9 +35,9 @@ namespace UI.InfoWindow
 
         public void Start()
         {
-            if (shipInfo != null)
+            if (shipStats != null)
             {
-                Refresh(shipInfo);
+                Refresh(shipStats);
             }
         }
 
@@ -48,28 +48,28 @@ namespace UI.InfoWindow
                 _hull.OnHealthChanged -= Redraw;
             }
 
-            if (shipInfo != null)
+            if (shipStats != null)
             {
-                shipInfo.OnShipDestroyed -= CloseWindow;
+                shipStats.OnShipDestroyed -= CloseWindow;
             }
         }
 
-        public void Refresh(ShipInfo newTarget = null)
+        public void Refresh(ShipStats newTarget = null)
         {
             if (newTarget != null)
             {
-                if (shipInfo != null)
+                if (shipStats != null)
                 {
-                    shipInfo.OnShipDestroyed -= CloseWindow;
+                    shipStats.OnShipDestroyed -= CloseWindow;
                     if (_hull != null)
                     {
                         _hull.OnHealthChanged -= Redraw;
                     }
                 }
 
-                shipInfo = newTarget;
-                shipInfo.OnShipDestroyed += CloseWindow;
-                _hull = shipInfo.GetComponent<Hull>();
+                shipStats = newTarget;
+                shipStats.OnShipDestroyed += CloseWindow;
+                _hull = shipStats.GetComponent<Hull>();
                 if (_hull != null)
                 {
                     healthBar.gameObject.SetActive(true);
@@ -81,13 +81,13 @@ namespace UI.InfoWindow
                 }
             }
 
-            if (Camera != null && shipInfo != null)
+            if (Camera != null && shipStats != null)
             {
-                var shipPos = shipInfo.Visuals.transform.position;
+                var shipPos = shipStats.Visuals.transform.position;
                 Camera.transform.position = new Vector3(shipPos.x, shipPos.y, Camera.transform.position.z);
 
                 subsystemButtonManager.Player = Player;
-                subsystemButtonManager.Refresh(shipInfo);
+                subsystemButtonManager.Refresh(shipStats);
                 gameObject.SetActive(true);
             }
             else
@@ -115,12 +115,12 @@ namespace UI.InfoWindow
         }
 
 #if UNITY_EDITOR
-        [Header("Debug")] [SerializeField] private ShipInfo testInfo;
+        [Header("Debug")] [SerializeField] private ShipStats testStats;
 
         [ContextMenu("Refresh")]
         private void DebugRefresh()
         {
-            Refresh(testInfo);
+            Refresh(testStats);
         }
 #endif
     }

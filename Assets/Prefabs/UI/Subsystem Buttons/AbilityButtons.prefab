@@ -76,8 +76,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  _weaponButtonPrefab: {fileID: 6210488606273788205, guid: 7469c471e5e41aa46b57b520a5ccc05e, type: 3}
-  _abilityButtonData: {fileID: 11400000, guid: 10cb94d7425310b42a8a8f55149ca684, type: 2}
+  _buttonPrefab: {fileID: 6210488606273788205, guid: 7469c471e5e41aa46b57b520a5ccc05e, type: 3}
+  _buttonData: {fileID: 11400000, guid: 10cb94d7425310b42a8a8f55149ca684, type: 2}
+  _weapons: 0
   _abilityDatas:
   - {fileID: 11400000, guid: 696b46ef70da763479cb42f158b0b639, type: 2}
 --- !u!1 &7946098330699171578

@@ -32,7 +32,7 @@ namespace Effects
             }
             protected override void Tick()
             {
-                _health.TakeDamage(new AttackInfo(null, _health, _baseDamage, 100));
+                _health.TakeDamage(_baseDamage);
                 Debug.Log("Dealing Damage");
             }
         }

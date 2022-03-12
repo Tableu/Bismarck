@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Ships.Components;
 using UnityEngine;
@@ -7,23 +6,24 @@ namespace Attacks
 {
     public class AttackIcon : MonoBehaviour
     {
-        public AttackInfo AttackInfo;
-        public DamageableComponentInfo Attacker;
-        public DamageableComponentInfo Target;
+        public AttackProjectile AttackProjectile;
+        public DamageableComponent Attacker;
+        public DamageableComponent Target;
         [SerializeField] private SpriteRenderer SpriteRenderer;
         private Vector2 _direction;
 
         private void Start()
         {
             SpriteRenderer.enabled = false;
-            GameObject Fire = Instantiate(AttackInfo.AttackData.FireAnimation, Attacker.ShipInfo.Visuals.transform);
+            GameObject Fire = Instantiate(AttackProjectile.AttackData.FireAnimation,
+                Attacker.ShipStats.Visuals.transform);
             AttackAnimation animation = Fire.GetComponent<AttackAnimation>();
-            _direction = (Target.ShipInfo.MapIcon.transform.position - Attacker.ShipInfo.MapIcon.transform.position)
+            _direction = (Target.ShipStats.MapIcon.transform.position - Attacker.ShipStats.MapIcon.transform.position)
                 .normalized;
             if (animation != null)
             {
-                animation.Initialize(_direction, AttackInfo.AttackData.BaseInfoWindowSpeed,
-                    AttackInfo.AttackData.InfoWindowSprite, StartTravel);
+                animation.Initialize(_direction, AttackProjectile.AttackData.BaseInfoWindowSpeed,
+                    AttackProjectile.AttackData.InfoWindowSprite, StartTravel);
             }
             else
             {
@@ -43,40 +43,42 @@ namespace Attacks
             while (!transform.position.Equals(target))
             {
                 transform.position =
-                    Vector2.MoveTowards(transform.position, target, AttackInfo.AttackData.BaseMapSpeed);
+                    Vector2.MoveTowards(transform.position, target, AttackProjectile.AttackData.BaseMapSpeed);
                 yield return null;
             }
 
-            if (AttackInfo.Hit())
+            if (AttackProjectile.Hit())
             {
                 SpriteRenderer.enabled = false;
-                GameObject hit = Instantiate(AttackInfo.AttackData.HitAnimation, Target.ShipInfo.Visuals.transform);
+                GameObject hit = Instantiate(AttackProjectile.AttackData.HitAnimation,
+                    Target.ShipStats.Visuals.transform);
                 AttackAnimation animation = hit != null ? hit.GetComponent<AttackAnimation>() : null;
                 if (animation != null)
                 {
-                    animation.Initialize(_direction, AttackInfo.AttackData.BaseInfoWindowSpeed,
-                        AttackInfo.AttackData.InfoWindowSprite, delegate
+                    animation.Initialize(_direction, AttackProjectile.AttackData.BaseInfoWindowSpeed,
+                        AttackProjectile.AttackData.InfoWindowSprite, delegate
                         {
-                            AttackInfo.ApplyDamage();
+                            AttackProjectile.ApplyDamage();
                             Destroy(gameObject);
                         });
                     animation.transform.localPosition = -2 * _direction;
                 }
                 else
                 {
-                    AttackInfo.ApplyDamage();
+                    AttackProjectile.ApplyDamage();
                     Destroy(gameObject);
                 }
             }
             else
             {
                 SpriteRenderer.enabled = false;
-                GameObject miss = Instantiate(AttackInfo.AttackData.MissAnimation, Target.ShipInfo.Visuals.transform);
+                GameObject miss = Instantiate(AttackProjectile.AttackData.MissAnimation,
+                    Target.ShipStats.Visuals.transform);
                 AttackAnimation animation = miss != null ? miss.GetComponent<AttackAnimation>() : null;
                 if (animation != null)
                 {
-                    animation.Initialize(_direction, AttackInfo.AttackData.BaseInfoWindowSpeed,
-                        AttackInfo.AttackData.InfoWindowSprite, delegate { Destroy(gameObject); });
+                    animation.Initialize(_direction, AttackProjectile.AttackData.BaseInfoWindowSpeed,
+                        AttackProjectile.AttackData.InfoWindowSprite, delegate { Destroy(gameObject); });
                     animation.transform.localPosition = -2 * _direction;
                 }
                 else

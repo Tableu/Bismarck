@@ -60,7 +60,7 @@ namespace Ships.Fleets
         /// <returns>null if no fleet was found</returns>
         public static FleetManager GetFleet(GameObject ship)
         {
-            var info = ship.GetComponent<ShipInfo>();
+            var info = ship.GetComponent<ShipStats>();
             return info == null ? null : info.Fleet;
         }
 
@@ -73,7 +73,7 @@ namespace Ships.Fleets
         public GameObject SpawnShip(ShipData shipData, Vector2 position)
         {
             var newShip = Instantiate(shipBasePrefab, position, Quaternion.identity, transform);
-            var info = newShip.GetComponent<ShipInfo>();
+            var info = newShip.GetComponent<ShipStats>();
             info.Initialize(shipData);
             // todo: move ships to avoid collisions
             return newShip;

@@ -1,5 +1,4 @@
 using System;
-using Attacks;
 using UnityEngine;
 using Subsystem = UI.InfoWindow.Subsystem;
 
@@ -8,7 +7,7 @@ namespace Ships.Components
     /// <summary>
     ///     Stores ship component health and manages receiving damage.
     /// </summary>
-    public abstract class DamageableComponentInfo : MonoBehaviour
+    public abstract class DamageableComponent : MonoBehaviour
     {
         /// <summary>
         ///     Keeps track of if health has changed this frame.
@@ -20,11 +19,11 @@ namespace Ships.Components
         private float _maxDodgeChance;
         private float _disableStart;
         private bool _disabled;
-        
-        protected ShipInfo _info;
+
+        protected ShipStats Stats;
 
         public bool Disabled => _disabled;
-        public ShipInfo ShipInfo => _info;
+        public ShipStats ShipStats => Stats;
         public float Health => PercentHealth * _maxHealth;
         public float DodgeChance => PercentDodgeChance * _maxDodgeChance;
         public float PercentHealth { get; protected set; } = 1f;
@@ -39,7 +38,7 @@ namespace Ships.Components
         }
         private void Awake()
         {
-            _info = GetComponent<ShipInfo>();
+            Stats = GetComponent<ShipStats>();
         }
         private void Update()
         {
@@ -51,7 +50,7 @@ namespace Ships.Components
 
             if (_disabled)
             {
-                if (Time.time - _disableStart > _info.RepairTimeMultiplier)
+                if (Time.time - _disableStart > Stats.RepairTimeMultiplier)
                 {
                     _disabled = false;
                     PercentHealth = 1;
@@ -60,9 +59,9 @@ namespace Ships.Components
             }
         }
 
-        public void TakeDamage(AttackInfo dmg)
+        public void TakeDamage(float damage)
         {
-            PercentHealth -= dmg.RawDamage / _maxHealth;
+            PercentHealth -= damage / _maxHealth;
             PercentHealth = Mathf.Min(PercentHealth, 1);
             _healthDirty = true;
             if (Health <= 0.01)
@@ -76,7 +75,7 @@ namespace Ships.Components
         [ContextMenu("Test Damage")]
         public void TestDamage()
         {
-            TakeDamage(new AttackInfo(null, this, 10, 100));
+            TakeDamage(10);
         }
 
         [ContextMenu("Repair")]

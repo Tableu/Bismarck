@@ -18,7 +18,7 @@ namespace UI.Map
         private GameObject canvas;
 
         [SerializeField] private GameObject infoWindowCameras;
-        [SerializeField] private ShipInfo player;
+        [SerializeField] private ShipStats player;
 
         private void Update()
         {
@@ -31,7 +31,7 @@ namespace UI.Map
                     LayerMask.GetMask("Map"));
                 if (hit)
                 {
-                    var ship = hit.transform.parent.gameObject.GetComponent<ShipInfo>();
+                    var ship = hit.transform.parent.gameObject.GetComponent<ShipStats>();
                     if (ship != null && ship != player)
                     {
                         SpawnInfoWindow(ship);
@@ -40,11 +40,11 @@ namespace UI.Map
             }
         }
 
-        private void SpawnInfoWindow(ShipInfo shipInfo)
+        private void SpawnInfoWindow(ShipStats shipStats)
         {
             GameObject infoWindow;
             GameObject camera;
-            if (shipInfo == player)
+            if (shipStats == player)
             {
                 infoWindow = Instantiate(playerInfoWindow, canvas.transform);
                 camera = Instantiate(playerCamera, infoWindowCameras.transform);
@@ -58,7 +58,7 @@ namespace UI.Map
             InfoWindow.InfoWindow infoWindowScript = infoWindow.GetComponent<InfoWindow.InfoWindow>();
             infoWindowScript.Camera = camera.GetComponent<Camera>();
             infoWindowScript.Player = player;
-            infoWindowScript.Refresh(shipInfo);
+            infoWindowScript.Refresh(shipStats);
         }
     }
 }

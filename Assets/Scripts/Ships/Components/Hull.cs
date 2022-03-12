@@ -10,7 +10,7 @@ namespace Ships.Components
     /// <summary>
     ///     Stores ship health and manages receiving damage.
     /// </summary>
-    public class Hull : DamageableComponentInfo, ISavable
+    public class Hull : DamageableComponent, ISavable
     {
         public void Start()
         {
@@ -26,7 +26,7 @@ namespace Ships.Components
             GameObject parent = GameObject.FindWithTag("HealthBars");
             if (parent != null)
             {
-                GameObject healthBar = Instantiate(_info.Data.HealthBar, parent.transform);
+                GameObject healthBar = Instantiate(Stats.Data.HealthBar, parent.transform);
                 HealthBar script = healthBar.GetComponent<HealthBar>();
                 if (script != null)
                 {

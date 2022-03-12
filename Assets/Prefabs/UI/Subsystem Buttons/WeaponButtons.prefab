@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4316390849515806156}
   - component: {fileID: 878174740185092672}
-  - component: {fileID: 8007097683990942077}
+  - component: {fileID: 7787089905070994023}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &8007097683990942077
+--- !u!114 &7787089905070994023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,9 +193,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8042266516382651648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44744f350e23eca468fb80e403af197f, type: 3}
+  m_Script: {fileID: 11500000, guid: b997672d80444c74ea05bf8e241f08d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  _weaponButtonPrefab: {fileID: 7102667864848777517, guid: b6ded9ed081c6aa4cbbdeb0315e94d30, type: 3}
-  _weaponButtonData: {fileID: 11400000, guid: 10cb94d7425310b42a8a8f55149ca684, type: 2}
+  _buttonPrefab: {fileID: 6210488606273788205, guid: 7469c471e5e41aa46b57b520a5ccc05e, type: 3}
+  _buttonData: {fileID: 11400000, guid: 10cb94d7425310b42a8a8f55149ca684, type: 2}
+  _weapons: 1
+  _abilityDatas: []

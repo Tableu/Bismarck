@@ -40,7 +40,7 @@ namespace Ships.DataManagement
             }
 
             position = ship.transform.position;
-            shipDataId = ship.GetComponent<ShipInfo>().Data.id;
+            shipDataId = ship.GetComponent<ShipStats>().Data.id;
         }
     }
 }

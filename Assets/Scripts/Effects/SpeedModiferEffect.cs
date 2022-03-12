@@ -10,7 +10,7 @@ namespace Effects
 
         protected override ModifiableStat GetStat(ModifiableTarget ship)
         {
-            var stats = ship.GetComponent<ShipInfo>();
+            var stats = ship.GetComponent<ShipStats>();
             return stats.SpeedMultiplier;
         }
     }
