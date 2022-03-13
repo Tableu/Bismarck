@@ -38,7 +38,7 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("InitializeWeapons")]
+    [ContextMenu("InitializeAbilities")]
     public void InitializeAbilities()
     {
         foreach (AbilityData abilityData in _data.Abilities)

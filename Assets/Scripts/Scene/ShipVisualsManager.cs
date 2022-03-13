@@ -35,6 +35,7 @@ namespace Scene
             }
             else
             {
+                Debug.LogError("ShipVisualsManager destroyed");
                 Destroy(gameObject);
             }
 

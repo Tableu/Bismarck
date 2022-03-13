@@ -72,6 +72,7 @@ namespace Ships.Components
             }
         }
 
+#if UNITY_EDITOR
         [ContextMenu("Test Damage")]
         public void TestDamage()
         {
@@ -84,6 +85,7 @@ namespace Ships.Components
             PercentHealth = 1;
             OnHealthChanged?.Invoke();
         }
+#endif
         
         public event Action OnHealthChanged;
         public event Action OnDisabledChanged;
