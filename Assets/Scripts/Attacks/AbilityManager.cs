@@ -43,7 +43,7 @@ public class AbilityManager : MonoBehaviour
     {
         foreach (AbilityData abilityData in _data.Abilities)
         {
-            Ability ability = new Ability(abilityData);
+            Ability ability = new Ability(abilityData, _shipStats);
             _abilities.Add(ability);
         }
     }

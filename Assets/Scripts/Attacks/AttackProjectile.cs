@@ -1,4 +1,5 @@
 using Ships.Components;
+using Systems.Abilities;
 using UnityEngine;
 
 namespace Attacks
@@ -6,17 +7,17 @@ namespace Attacks
     public class AttackProjectile
     {
         private DamageableComponent _target;
-        private AttackData _attackData;
+        private AbilityData _abilityData;
         private float _rawDamage;
         private float _hitChance;
 
-        public AttackData AttackData => _attackData;
+        public AbilityData AbilityData => _abilityData;
         public float RawDamage => _rawDamage;
         public float HitChance => _hitChance;
 
-        public AttackProjectile(AttackData attackData, DamageableComponent target, float rawDamage, float hitChance)
+        public AttackProjectile(AbilityData abilityData, DamageableComponent target, float rawDamage, float hitChance)
         {
-            _attackData = attackData;
+            _abilityData = abilityData;
             _target = target;
             _rawDamage = rawDamage;
             _hitChance = hitChance;
@@ -46,11 +47,11 @@ namespace Attacks
                 }
                 else
                 {
-                    _target.TakeDamage(_rawDamage * Mathf.Min(_attackData.ModuleDamagePercent, 1));
+                    _target.TakeDamage(_rawDamage * Mathf.Min(_abilityData.ModuleDamagePercent, 1));
                     Hull hull = _target.GetComponent<Hull>();
                     if (hull != null)
                     {
-                        hull.TakeDamage(_rawDamage * (Mathf.Max(0, 1 - _attackData.ModuleDamagePercent)));
+                        hull.TakeDamage(_rawDamage * (Mathf.Max(0, 1 - _abilityData.ModuleDamagePercent)));
                     }
                 }
             }

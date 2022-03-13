@@ -1,4 +1,3 @@
-using Attacks;
 using Systems.Abilities;
 using Systems.Modifiers;
 using UnityEngine;
@@ -13,13 +12,13 @@ namespace Ships.Components
     public class Weapon : DamageableComponent
     {
         private WeaponData _weaponData;
-        private Attack _attackCommand;
+        private Ability _attackCommand;
         private DamageableComponent _target;
 
         public ModifiableStat MaxRange { get; } = new ModifiableStat(0);
         public ModifiableStat MaxHealth { get; } = new ModifiableStat(0);
 
-        public Attack Attack => _attackCommand;
+        public Ability Attack => _attackCommand;
 
         public void Initialize(ShipStats shipStats, WeaponData weaponData)
         {
@@ -30,7 +29,7 @@ namespace Ships.Components
 
             Stats = shipStats;
             _weaponData = weaponData;
-            _attackCommand = _weaponData.AttackData.MakeAttack(this);
+            _attackCommand = _weaponData.AttackData.MakeAttack(shipStats);
             _attackCommand.SetParent(parent.transform);
             StartCoroutine(_attackCommand.CooldownTimer());
             SetData(_weaponData.BaseHealth, shipStats.DodgeChanceMultiplier, Subsystem.Weapon);

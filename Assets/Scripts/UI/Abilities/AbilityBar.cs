@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Ships.Components;
 using Systems.Abilities;
 using UI.InfoWindow;
@@ -17,13 +16,13 @@ namespace UI.Abilities
         [SerializeField] private GameObject _buttonPrefab;
         [SerializeField] private SubsystemButtonData _buttonData;
         [SerializeField] private bool _weapons;
-        private List<CooldownAbility> _abilities;
+        private List<Ability> _abilities;
 
         private void Start()
         {
             if (_weapons)
             {
-                _abilities = new List<CooldownAbility>();
+                _abilities = new List<Ability>();
                 foreach (Weapon weapon in Player.AbilityManager.Weapons)
                 {
                     if (weapon != null && weapon.Attack != null)
@@ -36,11 +35,11 @@ namespace UI.Abilities
             }
             else
             {
-                SetAbilities(Player.AbilityManager.Abilities.Cast<CooldownAbility>().ToList());
+                SetAbilities(Player.AbilityManager.Abilities);
             }
         }
 
-        public void SetAbilities(List<CooldownAbility> abilities)
+        public void SetAbilities(List<Ability> abilities)
         {
             _abilities = abilities;
             Refresh();
@@ -56,7 +55,7 @@ namespace UI.Abilities
 
             if (Player != null)
             {
-                foreach (CooldownAbility ability in _abilities)
+                foreach (Ability ability in _abilities)
                 {
                     GameObject abilityButton = Instantiate(_buttonPrefab, transform, false);
                     AbilityButton button = abilityButton.GetComponent<AbilityButton>();
@@ -66,13 +65,14 @@ namespace UI.Abilities
         }
 #if UNITY_EDITOR
         [Header("Debug")] [SerializeField] private List<AbilityData> _abilityDatas;
+        [SerializeField] private DamageableComponent _target;
         [ContextMenu("Test Refresh")]
         private void TestRefresh()
         {
-            _abilities = new List<CooldownAbility>();
+            _abilities = new List<Ability>();
             foreach (AbilityData abilityData in _abilityDatas)
             {
-                CooldownAbility ability = new Ability(abilityData);
+                Ability ability = new Ability(abilityData, Player);
                 _abilities.Add(ability);
             }
 

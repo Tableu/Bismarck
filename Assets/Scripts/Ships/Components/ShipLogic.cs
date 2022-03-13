@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Attacks;
 using Ships.Components;
 using Ships.DataManagement;
 using Ships.Fleets;
+using Systems.Abilities;
 using UnityEngine;
 using Weapons;
 
@@ -13,7 +13,7 @@ public class ShipLogic : MonoBehaviour
     [SerializeField] public List<Transform> turretPositions;
 
     [SerializeField] private string tag;
-    protected List<Attack> _attackCommands;
+    protected List<Ability> _attackCommands;
     protected ShipData _data;
     protected MoveForwardState _moveForward;
     protected MovementController _movementController;
@@ -43,7 +43,7 @@ public class ShipLogic : MonoBehaviour
         _moveForward = new MoveForwardState(this, _movementController);
         StateMachine = new FSM();
         attackScriptableObjects = data.Weapons;
-        _attackCommands = new List<Attack>();
+        _attackCommands = new List<Ability>();
     }
 
     public void MoveToPosition(Vector2 position)

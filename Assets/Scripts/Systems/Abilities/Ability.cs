@@ -1,34 +1,72 @@
 using System;
 using System.Collections;
+using Attacks;
 using Ships.Components;
 using Systems.Modifiers;
-using UI.InfoWindow;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Systems.Abilities
 {
     public class Ability : CooldownAbility
     {
         private AbilityData _data;
+        private Transform _parent;
+        private ShipStats _user;
+        private DamageableComponent _target;
 
         public AbilityData Data => _data;
+        public ModifiableStat HitChanceMultiplier { get; } = new ModifiableStat(0);
+        public ModifiableStat ModuleHitChanceMultiplier { get; } = new ModifiableStat(0);
 
-        public override ButtonData ButtonData => _data.ButtonData;
-
-        public Ability(AbilityData data)
+        public Ability(AbilityData data, ShipStats user)
         {
+            _user = user;
             _data = data;
+            HitChanceMultiplier.UpdateBaseValue(_data.BaseHitChance);
+            ModuleHitChanceMultiplier.UpdateBaseValue(_data.BaseModuleHitChance);
             CooldownMultiplier.UpdateBaseValue(data.Cooldown);
         }
 
-        public override bool Fire(ShipStats attacker)
+        public void SetParent(Transform parent)
         {
-            foreach (ModifierData modifier in Data.Modifiers)
+            _parent = parent;
+        }
+
+        public void SetTarget(DamageableComponent target)
+        {
+            _target = target;
+        }
+
+        public override bool Fire()
+        {
+            if (!OnCooldown)
             {
-                modifier.AttachNewModifer(attacker);
+                if (_data.FireAnimation == null || _data.HitAnimation == null || _data.MissAnimation == null)
+                {
+                    foreach (ModifierData modifier in Data.Modifiers)
+                    {
+                        modifier.AttachNewModifer(_user);
+                    }
+                }
+                else if (_target != null)
+                {
+                    AttackProjectile attackProjectile = _target is Hull
+                        ? new AttackProjectile(_data, _target, _data.BaseDamage, HitChanceMultiplier)
+                        : new AttackProjectile(_data, _target, _data.BaseDamage, ModuleHitChanceMultiplier);
+
+                    GameObject mapIcon = Object.Instantiate(_data.MapIcon, _user.transform.position,
+                        Quaternion.identity);
+                    AttackIcon attackIcon = mapIcon.GetComponent<AttackIcon>();
+                    attackIcon.AttackProjectile = attackProjectile;
+                    attackIcon.Target = _target;
+                    attackIcon.Attacker = _user;
+
+                    return true;
+                }
             }
 
-            return true;
+            return false;
         }
     }
 
@@ -37,7 +75,6 @@ namespace Systems.Abilities
         private bool _onCooldown;
         public bool OnCooldown => _onCooldown;
         public ModifiableStat CooldownMultiplier { get; } = new ModifiableStat(0);
-        public abstract ButtonData ButtonData { get; }
         public IEnumerator CooldownTimer()
         {
             float startTime = Time.time;
@@ -52,7 +89,7 @@ namespace Systems.Abilities
             _onCooldown = false;
         }
 
-        public abstract bool Fire(ShipStats attacker);
+        public abstract bool Fire();
 
         public Action<float> CooldownEvent;
     }

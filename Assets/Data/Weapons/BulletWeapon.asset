@@ -15,6 +15,6 @@ MonoBehaviour:
   id: BulletWeapon
   parentList: {fileID: 11400000, guid: 79dffe52373b64747835e02673a039a1, type: 2}
   turret: {fileID: 8999165618575785506, guid: c72e4944465a81047bd3d4b0391fa25e, type: 3}
-  attackData: {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
+  abilityData: {fileID: 11400000, guid: 955e7b178406a4a41a7411fa8d80f4a4, type: 2}
   health: 10
   range: 10

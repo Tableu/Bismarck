@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Systems.Abilities;
 using UnityEngine;
 
 namespace Attacks
@@ -8,9 +9,9 @@ namespace Attacks
     [Serializable]
     public class AttackDBScriptableObject : ScriptableObject
     {
-        [SerializeField] private List<AttackData> attackDB;
+        [SerializeField] private List<AbilityData> attackDB;
 
-        public AttackData GetAttack(string attackName)
+        public AbilityData GetAttack(string attackName)
         {
             return attackDB.Find(x => x.AttackName == attackName);
         }

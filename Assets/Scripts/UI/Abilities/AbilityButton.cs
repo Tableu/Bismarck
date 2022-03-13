@@ -9,7 +9,7 @@ namespace UI.Abilities
     public class AbilityButton : SubsystemButton
     {
         [SerializeField] private Slider slider;
-        private CooldownAbility _ability;
+        private Ability _ability;
 
         private void Awake()
         {
@@ -33,21 +33,21 @@ namespace UI.Abilities
 
         protected override void OnClick()
         {
-            if (Player != null && !_ability.OnCooldown)
+            if (!_ability.OnCooldown)
             {
-                if (_ability.Fire(Player))
+                if (_ability.Fire())
                 {
                     StartCoroutine(_ability.CooldownTimer());
                 }
             }
         }
 
-        public void Initialize(ShipStats player, CooldownAbility ability)
+        public void Initialize(ShipStats player, Ability ability)
         {
             Player = player;
             shipStats = player;
             _ability = ability;
-            ButtonData = ability.ButtonData;
+            ButtonData = ability.Data.ButtonData;
             if (_ability != null)
             {
                 _ability.CooldownEvent += UpdateTimer;
@@ -64,7 +64,7 @@ namespace UI.Abilities
         [ContextMenu("Test Ability")]
         private void TestAbility()
         {
-            _ability = new Ability(testData);
+            _ability = new Ability(testData, Player);
             _ability.CooldownEvent += UpdateTimer;
             OnClick();
         }
