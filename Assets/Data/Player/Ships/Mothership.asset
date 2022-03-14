@@ -16,8 +16,7 @@ MonoBehaviour:
   parentList: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}
   displayName: Mothership
   visuals: {fileID: 8178566776061135549, guid: a191fb943a00e394e8e0504dc7c673ab, type: 3}
-  mapIcon: {fileID: 5733703903460528341, guid: 7a67b28abc95099418a8720961154119, type: 3}
-  healthBar: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
+  mapIcon: {fileID: 21300000, guid: f920081238a12554da0cb56b72bdb7af, type: 3}
   cameraSizeMultiplier: 0.881
   cost: 0
   weapons:

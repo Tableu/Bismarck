@@ -15,12 +15,10 @@ namespace Ships.Components
     public class ShipStats : ModifiableTarget
     {
         private GameObject _visuals;
-        private GameObject _mapIcon;
         private AbilityManager _abilityManager;
         [SerializeField] private ShipData data;
         public ShipData Data => data;
         public GameObject Visuals => _visuals;
-        public GameObject MapIcon => _mapIcon;
         public AbilityManager AbilityManager => _abilityManager;
         public FleetManager Fleet { get; private set; }
 
@@ -77,10 +75,6 @@ namespace Ships.Components
             // Add ship visuals
             _visuals = Instantiate(data.Visuals, ShipVisualsManager.Instance.GetParent());
             _visuals.transform.position = ShipVisualsManager.Instance.GetPosition();
-            _mapIcon = Instantiate(data.MapIcon, transform);
-            MapIcon mapIcon = _mapIcon.AddComponent<MapIcon>();
-            mapIcon.cam = Camera.main;
-            mapIcon.Init();
 
             //Init hull
             Hull hull = gameObject.AddComponent<Hull>();

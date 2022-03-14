@@ -54,7 +54,7 @@ namespace Ships.Components
                 {
                     _disabled = false;
                     PercentHealth = 1;
-                    OnDisabledChanged?.Invoke();
+                    OnDisabledChanged?.Invoke(false);
                 }
             }
         }
@@ -68,7 +68,7 @@ namespace Ships.Components
             {
                 _disabled = true;
                 _disableStart = Time.time;
-                OnDisabledChanged?.Invoke();
+                OnDisabledChanged?.Invoke(true);
             }
         }
 
@@ -88,6 +88,6 @@ namespace Ships.Components
 #endif
         
         public event Action OnHealthChanged;
-        public event Action OnDisabledChanged;
+        public event Action<bool> OnDisabledChanged;
     }
 }

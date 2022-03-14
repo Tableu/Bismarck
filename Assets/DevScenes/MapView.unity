@@ -128,6 +128,56 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7946098331162035854, guid: b2c356507d201bd4fb25603225948e1b, type: 3}
   m_PrefabInstance: {fileID: 7946098331119617309}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &256056445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 256056447}
+  - component: {fileID: 256056446}
+  m_Layer: 0
+  m_Name: InfoWindowManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &256056446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256056445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14719d96e92265c4a93003ed2d3fe999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyInfoWindow: {fileID: 4151248605266986520, guid: 0ce362ba43e0f9842aa228c4880f4ff6, type: 3}
+  enemyCamera: {fileID: 5951572898960610730, guid: 9d8718fa4d81c1c48921fdf2cf985795, type: 3}
+  playerInfoWindow: {fileID: 2702873735222476615, guid: 485046c0a17690145b854e9f8cacd08e, type: 3}
+  playerCamera: {fileID: 718183649}
+  canvas: {fileID: 1801688876}
+  infoWindowCameras: {fileID: 1955663067}
+  player: {fileID: 1016780141}
+--- !u!4 &256056447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256056445}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9397718, y: -0.9543627, z: 11.016044}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &314673484 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6009485807678400252, guid: 53cf838232c8b50428ec0839c9b2501d, type: 3}
@@ -322,8 +372,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 617287315}
+  - component: {fileID: 617287316}
   m_Layer: 0
-  m_Name: HealthBars
+  m_Name: Ships
   m_TagString: HealthBars
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -348,6 +399,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &617287316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617287314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fa3563bc5086da40bdf24e0427391de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 617287314}
+  healthBarPrefab: {fileID: 5507526505189846090, guid: c562efb799dc87f44b2ff506f6db53d2, type: 3}
+  shipIconPrefab: {fileID: 3492267618953419297, guid: 350b3064b765ab9459e3d5a47b4f141c, type: 3}
 --- !u!1 &625137592 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7414892826725891289, guid: 9536fe817e09fa34f8506976c2ddb4ef, type: 3}
@@ -372,6 +438,11 @@ MonoBehaviour:
   closeButton: {fileID: 0}
   healthBar: {fileID: 1482095663}
   testStats: {fileID: 0}
+--- !u!1 &718183649 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6009485807678400131, guid: 53cf838232c8b50428ec0839c9b2501d, type: 3}
+  m_PrefabInstance: {fileID: 1089665426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &780610729
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +625,6 @@ GameObject:
   - component: {fileID: 1591745686}
   - component: {fileID: 1591745685}
   - component: {fileID: 1591745684}
-  - component: {fileID: 1591745687}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -618,25 +688,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1591745687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1591745683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14719d96e92265c4a93003ed2d3fe999, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyInfoWindow: {fileID: 4151248605266986520, guid: 0ce362ba43e0f9842aa228c4880f4ff6, type: 3}
-  enemyCamera: {fileID: 5951572898960610730, guid: 9d8718fa4d81c1c48921fdf2cf985795, type: 3}
-  playerInfoWindow: {fileID: 2702873735222476615, guid: 485046c0a17690145b854e9f8cacd08e, type: 3}
-  playerCamera: {fileID: 0}
-  canvas: {fileID: 1801688876}
-  infoWindowCameras: {fileID: 1955663067}
-  player: {fileID: 1016780141}
 --- !u!1 &1726624246
 GameObject:
   m_ObjectHideFlags: 0

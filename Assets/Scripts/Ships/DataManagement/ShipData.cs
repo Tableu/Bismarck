@@ -20,8 +20,7 @@ namespace Ships.DataManagement
         [Header("Info")]
         [SerializeField] private string displayName;
         [SerializeField] private GameObject visuals;
-        [SerializeField] private GameObject mapIcon;
-        [SerializeField] private GameObject healthBar;
+        [SerializeField] private Sprite mapIcon;
         [SerializeField] [Range(0.001f, 1f)] private float cameraSizeMultiplier = 1f;
         [SerializeField] private int cost;
         [SerializeField] private List<WeaponData> weapons;
@@ -52,8 +51,7 @@ namespace Ships.DataManagement
         public float SensorRange => sensorRange;
         public string DisplayName => displayName;
         public GameObject Visuals => visuals;
-        public GameObject MapIcon => mapIcon;
-        public GameObject HealthBar => healthBar;
+        public Sprite MapIcon => mapIcon;
         public float CameraSizeMultiplier => cameraSizeMultiplier;
         public int Cost => cost;
         public List<WeaponData> Weapons => weapons;

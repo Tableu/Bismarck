@@ -18,7 +18,7 @@ namespace Attacks
             GameObject Fire = Instantiate(AttackProjectile.AbilityData.FireAnimation,
                 Attacker.Visuals.transform);
             AttackAnimation animation = Fire.GetComponent<AttackAnimation>();
-            _direction = (Target.ShipStats.MapIcon.transform.position - Attacker.MapIcon.transform.position)
+            _direction = (Target.ShipStats.transform.position - Attacker.transform.position)
                 .normalized;
             if (animation != null)
             {

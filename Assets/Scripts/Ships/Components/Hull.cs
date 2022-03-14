@@ -1,8 +1,6 @@
 using System;
 using Newtonsoft.Json.Linq;
-using Scene;
 using Systems.Save;
-using UnityEngine;
 using Subsystem = UI.InfoWindow.Subsystem;
 
 namespace Ships.Components
@@ -15,24 +13,14 @@ namespace Ships.Components
         public void Start()
         {
             Subsystem = Subsystem.Hull;
-            OnDisabledChanged += delegate
+            OnDisabledChanged += delegate(bool disabled)
             {
-                if (Disabled)
+                if (disabled)
                 {
                     //TODO handle other parts of death
                     Destroy(gameObject); //Kill ship
                 }
             };
-            GameObject parent = GameObject.FindWithTag("HealthBars");
-            if (parent != null)
-            {
-                GameObject healthBar = Instantiate(Stats.Data.HealthBar, parent.transform);
-                HealthBar script = healthBar.GetComponent<HealthBar>();
-                if (script != null)
-                {
-                    script.Bind(this);
-                }
-            }
         }
 
         public string id => "health";

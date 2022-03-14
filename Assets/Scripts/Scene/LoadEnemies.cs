@@ -9,8 +9,7 @@ public class LoadEnemies : MonoBehaviour
     [SerializeField] private Transform fleetParent;
     [SerializeField] private FleetManager shipSpawner;
 
-    // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         var randomFleetDB = mapContext.CurrentSystem.RandomFleetDB;
         // enemyShipSpawner.ProjectileParent = projectileParent;

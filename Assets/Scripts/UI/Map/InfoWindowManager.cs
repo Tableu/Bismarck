@@ -1,13 +1,12 @@
 using Ships.Components;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace UI.Map
 {
     /// <summary>
     ///     Opens the relevant info window and camera, when a ships MapIcon is clicked. Refreshes info window on spawn
     /// </summary>
-    public class MapIconOpener : MonoBehaviour
+    public class InfoWindowManager : MonoBehaviour
     {
         [Header("Prefabs")] [SerializeField] private GameObject enemyInfoWindow;
         [SerializeField] private GameObject enemyCamera;
@@ -20,27 +19,40 @@ namespace UI.Map
         [SerializeField] private GameObject infoWindowCameras;
         [SerializeField] private ShipStats player;
 
-        private void Update()
+        private static InfoWindowManager _instance;
+
+        public static InfoWindowManager Instance
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame)
+            get
             {
-                var hit = Physics2D.Raycast(
-                    Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()),
-                    Vector2.zero,
-                    Mathf.Infinity,
-                    LayerMask.GetMask("Map"));
-                if (hit)
+                if (_instance == null)
                 {
-                    var ship = hit.transform.parent.gameObject.GetComponent<ShipStats>();
-                    if (ship != null && ship != player)
+                    _instance = FindObjectOfType<InfoWindowManager>();
+                    if (_instance == null)
                     {
-                        SpawnInfoWindow(ship);
+                        GameObject gameObject = new GameObject();
+                        _instance = gameObject.AddComponent<InfoWindowManager>();
                     }
                 }
+
+                return _instance;
             }
         }
 
-        private void SpawnInfoWindow(ShipStats shipStats)
+        private void Awake()
+        {
+            if (_instance == null || _instance == this)
+            {
+                _instance = this;
+            }
+            else
+            {
+                Debug.LogError("InfoWindowManager destroyed");
+                Destroy(gameObject);
+            }
+        }
+
+        public void SpawnInfoWindow(ShipStats shipStats)
         {
             GameObject infoWindow;
             GameObject camera;
