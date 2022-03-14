@@ -20,10 +20,14 @@ namespace UI.Movement
         {
             _lineRenderer = GetComponent<LineRenderer>();
             _path = GetComponent<Systems.Movement.MovementController>().Path;
+            _path.OnPathChanged += DrawPath;
             Matrix4x4 mat = cam.projectionMatrix;
             _baseMultiply = mat.m11;
         }
-
+        private void OnDestroy()
+        {
+            _path.OnPathChanged -= DrawPath;
+        }
         private void LateUpdate()
         {
             Matrix4x4 mat = cam.projectionMatrix;
@@ -60,7 +64,10 @@ namespace UI.Movement
                 float t = interval.start;
                 while (t < interval.end)
                 {
-                    points.Add(_path.Evaluate(t));
+                    if (_path.EvaluateVelocity(t).sqrMagnitude > 0)
+                    {
+                        points.Add(_path.Evaluate(t));
+                    }
                     t += segmentSize;
                 }
             }

@@ -4,13 +4,8 @@ namespace Systems.Movement
 {
     public class MovementController : MonoBehaviour
     {
-        private WorldLine _worldLine = new WorldLine();
-        public IDrawablePath Path => _worldLine;
-
-        public void ScheduleManeuver(Maneuver maneuver)
-        {
-            _worldLine.AddManeuver(maneuver);
-        }
+        private readonly WorldLine _worldLine = new WorldLine();
+        public WorldLine Path => _worldLine;
 
         private void Awake()
         {
@@ -33,5 +28,9 @@ namespace Systems.Movement
             _worldLine.UpdateTime(Time.deltaTime);
             transform.position = _worldLine.Evaluate(_worldLine.CurrentTime);
         }
+
+        public int ScheduleManeuver(Maneuver maneuver) => _worldLine.AddManeuver(maneuver);
+        public void RemoveManeuver(int id) => _worldLine.RemoveManeuver(id);
+        public void EditManeuver(int id, Maneuver maneuver) => _worldLine.EditManeuver(id, maneuver);
     }
 }

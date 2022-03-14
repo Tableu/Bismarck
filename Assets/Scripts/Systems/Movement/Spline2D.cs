@@ -59,6 +59,11 @@ namespace Systems.Movement
             var i = FindSegmentIndex(t);
             return _segments[i].Evaluate(t);
         }
+        public Vector2 EvaluateVelocity(float t)
+        {
+            var i = FindSegmentIndex(t);
+            return _segments[i].EvaluateDerivative(t);
+        }
 
         public float ClosestPointOnSpline(Vector2 p)
         {
@@ -151,6 +156,11 @@ namespace Systems.Movement
             {
                 t -= t0;
                 return a * t * t + b * t + c;
+            }
+            public Vector2 EvaluateDerivative(float t)
+            {
+                t -= t0;
+                return 2 * a * t + b;
             }
 
             public List<float> IntervalsInBounds(Bounds bounds)
