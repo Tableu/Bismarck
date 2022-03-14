@@ -456,10 +456,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.8509804}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -493,7 +493,7 @@ MonoBehaviour:
   _button: {fileID: 1877505539943660520}
   _buttonText: {fileID: 2637991140477750882}
   _image: {fileID: 932466282504709197}
-  ShipInfo: {fileID: 0}
+  Ship: {fileID: 0}
   Player: {fileID: 0}
   Subsystem: 1
   ButtonData:
@@ -502,7 +502,7 @@ MonoBehaviour:
     DamagedButton: {fileID: 0}
     Name: 
     Subsystem: 0
-  Target: {fileID: 0}
+  SubsystemComponent: {fileID: 0}
   slider: {fileID: 631019508465552252}
   testData: {fileID: 11400000, guid: 696b46ef70da763479cb42f158b0b639, type: 2}
 --- !u!1 &6737866303583579110

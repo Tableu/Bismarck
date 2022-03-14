@@ -16,6 +16,7 @@ namespace Systems.Abilities
         private DamageableComponent _target;
 
         public AbilityData Data => _data;
+        public DamageableComponent Target => _target;
         public ModifiableStat HitChanceMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat ModuleHitChanceMultiplier { get; } = new ModifiableStat(0);
 
@@ -61,7 +62,6 @@ namespace Systems.Abilities
                     attackIcon.AttackProjectile = attackProjectile;
                     attackIcon.Target = _target;
                     attackIcon.Attacker = _user;
-
                     return true;
                 }
             }

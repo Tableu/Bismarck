@@ -26,6 +26,7 @@ MonoBehaviour:
     DamagedButton: {fileID: 21300000, guid: 62a5c739c4a97e34ca3bba3f7eac843d, type: 3}
     Name: 
     Subsystem: 1
+  validTargets: 12
   hitChance: 1
   moduleHitChance: 1
   damage: 2

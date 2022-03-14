@@ -115,12 +115,14 @@ namespace Ships.Fleets
 #endif
     }
 
+    [Flags]
     public enum FleetAgroStatus
     {
-        Self,
-        Allied,
-        Neutral,
-        Hostile
+        None = 0,
+        Self = 1,
+        Allied = 2,
+        Neutral = 4,
+        Hostile = 8
     }
 
 }

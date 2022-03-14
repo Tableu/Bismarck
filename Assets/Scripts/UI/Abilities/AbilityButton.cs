@@ -1,4 +1,5 @@
 using Ships.Components;
+using Ships.Fleets;
 using Systems.Abilities;
 using UI.InfoWindow;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace UI.Abilities
     {
         [SerializeField] private Slider slider;
         private Ability _ability;
+        private DamageableComponent _target;
 
         private void Awake()
         {
@@ -31,6 +33,10 @@ namespace UI.Abilities
             }
         }
 
+        protected override void Update()
+        {
+        }
+
         protected override void OnClick()
         {
             if (!_ability.OnCooldown)
@@ -45,12 +51,37 @@ namespace UI.Abilities
         public void Initialize(ShipStats player, Ability ability)
         {
             Player = player;
-            shipStats = player;
+            Ship = player;
             _ability = ability;
-            ButtonData = ability.Data.ButtonData;
+            if (ability != null)
+            {
+                ButtonData = ability.Data.ButtonData;
+                _ability.CooldownEvent += UpdateTimer;
+            }
+
+            Refresh();
+        }
+
+        public void Refresh()
+        {
             if (_ability != null)
             {
-                _ability.CooldownEvent += UpdateTimer;
+                _target = _ability.Target;
+                if (_target == null && _ability.Data.ValidTargets.HasFlag(FleetAgroStatus.Self))
+                {
+                    EnableButton();
+                }
+                else if (_target != null &&
+                         Player.Fleet.AgroStatusMap.TryGetValue(_target.ShipStats.Fleet,
+                             out FleetAgroStatus fleetAgroStatus) &&
+                         _ability.Data.ValidTargets.HasFlag(fleetAgroStatus))
+                {
+                    EnableButton();
+                }
+                else
+                {
+                    DisableButton();
+                }
             }
         }
 

@@ -368,7 +368,7 @@ MonoBehaviour:
   Camera: {fileID: 314673484}
   Player: {fileID: 1016780141}
   subsystemButtonManager: {fileID: 1754658054}
-  shipStats: {fileID: 1016780141}
+  target: {fileID: 1016780141}
   closeButton: {fileID: 0}
   healthBar: {fileID: 1482095663}
   testStats: {fileID: 0}

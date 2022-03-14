@@ -13,7 +13,7 @@ namespace UI.InfoWindow
         public Camera Camera;
         public ShipStats Player;
         [SerializeField] private SubsystemButtonManager subsystemButtonManager;
-        [SerializeField] private ShipStats shipStats;
+        [SerializeField] private ShipStats target;
         [SerializeField] private Button closeButton;
         [SerializeField] private Slider healthBar;
         private Hull _hull;
@@ -25,7 +25,7 @@ namespace UI.InfoWindow
                 closeButton.onClick.AddListener(CloseWindow);
             }
 
-            if (shipStats == null)
+            if (target == null)
             {
                 gameObject.SetActive(false);
             }
@@ -35,9 +35,9 @@ namespace UI.InfoWindow
 
         public void Start()
         {
-            if (shipStats != null)
+            if (target != null)
             {
-                Refresh(shipStats);
+                Refresh(target);
             }
         }
 
@@ -48,9 +48,9 @@ namespace UI.InfoWindow
                 _hull.OnHealthChanged -= Redraw;
             }
 
-            if (shipStats != null)
+            if (target != null)
             {
-                shipStats.OnShipDestroyed -= CloseWindow;
+                target.OnShipDestroyed -= CloseWindow;
             }
         }
 
@@ -58,18 +58,18 @@ namespace UI.InfoWindow
         {
             if (newTarget != null)
             {
-                if (shipStats != null)
+                if (target != null)
                 {
-                    shipStats.OnShipDestroyed -= CloseWindow;
+                    target.OnShipDestroyed -= CloseWindow;
                     if (_hull != null)
                     {
                         _hull.OnHealthChanged -= Redraw;
                     }
                 }
 
-                shipStats = newTarget;
-                shipStats.OnShipDestroyed += CloseWindow;
-                _hull = shipStats.GetComponent<Hull>();
+                target = newTarget;
+                target.OnShipDestroyed += CloseWindow;
+                _hull = target.GetComponent<Hull>();
                 if (_hull != null)
                 {
                     healthBar.gameObject.SetActive(true);
@@ -81,13 +81,13 @@ namespace UI.InfoWindow
                 }
             }
 
-            if (Camera != null && shipStats != null)
+            if (Camera != null && target != null)
             {
-                var shipPos = shipStats.Visuals.transform.position;
+                var shipPos = target.Visuals.transform.position;
                 Camera.transform.position = new Vector3(shipPos.x, shipPos.y, Camera.transform.position.z);
 
                 subsystemButtonManager.Player = Player;
-                subsystemButtonManager.Refresh(shipStats);
+                subsystemButtonManager.Refresh(target);
                 gameObject.SetActive(true);
             }
             else
@@ -98,6 +98,12 @@ namespace UI.InfoWindow
 
         private void CloseWindow()
         {
+            if (Player != null && Player.AbilityManager.Target != null &&
+                Player.AbilityManager.Target.ShipStats == target)
+            {
+                Player.AbilityManager.SetWeaponsTarget(null);
+            }
+
             if (Camera != null)
             {
                 Destroy(Camera.gameObject);

@@ -14,11 +14,11 @@ namespace UI.InfoWindow
         [SerializeField] protected Button _button;
         [SerializeField] private Text _buttonText;
         [SerializeField] protected Image _image;
-        public ShipStats shipStats;
+        public ShipStats Ship;
         public ShipStats Player;
         public Subsystem Subsystem;
         public ButtonData ButtonData;
-        public DamageableComponent Target;
+        public DamageableComponent SubsystemComponent;
 
         protected virtual void Start()
         {
@@ -47,7 +47,7 @@ namespace UI.InfoWindow
                 case Subsystem.None:
                     break;
                 case Subsystem.Weapon:
-                    if (Target is Weapon weapon)
+                    if (SubsystemComponent is Weapon weapon)
                     {
                         if (weapon.Disabled)
                         {
@@ -60,7 +60,7 @@ namespace UI.InfoWindow
                     }
                     break;
                 case Subsystem.Engine:
-                    if (shipStats.SpeedMultiplier.CurrentValue <= 0)
+                    if (Ship.SpeedMultiplier.CurrentValue <= 0)
                     {
                         SetButtonDamaged();
                     }
@@ -74,9 +74,9 @@ namespace UI.InfoWindow
 
         protected virtual void OnClick()
         {
-            if (Player != null && Target != null)
+            if (Player != null && SubsystemComponent != null)
             {
-                Player.AbilityManager.SetWeaponsTarget(Target);
+                Player.AbilityManager.SetWeaponsTarget(SubsystemComponent);
             }
         }
 
@@ -96,8 +96,14 @@ namespace UI.InfoWindow
             }
         }
 
-        protected void GreyOutButton()
+        public void DisableButton()
         {
+            _button.interactable = false;
+        }
+
+        public void EnableButton()
+        {
+            _button.interactable = true;
         }
     }
 }

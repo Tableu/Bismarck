@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Ships.Components;
 using Ships.DataManagement;
 using Systems.Abilities;
+using UI.Abilities;
 using UnityEngine;
 using Weapons;
 
@@ -11,9 +13,12 @@ public class AbilityManager : MonoBehaviour
     private List<Weapon> _weapons = new List<Weapon>();
     private List<Ability> _abilities = new List<Ability>();
     private ShipData _data;
+    private AbilityBar abilityBar;
+    private DamageableComponent _target;
     public ShipData Data => _data;
     public List<Ability> Abilities => _abilities;
     public List<Weapon> Weapons => _weapons;
+    public DamageableComponent Target => _target;
 
     public void Initialize(ShipData shipData, ShipStats shipStats)
     {
@@ -50,14 +55,16 @@ public class AbilityManager : MonoBehaviour
 
     public void SetWeaponsTarget(DamageableComponent target)
     {
-        if (target != null)
+        _target = target;
+        foreach (Weapon weapon in _weapons)
         {
-            foreach (Weapon weapon in _weapons)
-            {
-                weapon.Attack.SetTarget(target);
-            }
+            weapon.Attack.SetTarget(target);
         }
+
+        OnTargetChanged?.Invoke();
     }
+
+    public event Action OnTargetChanged;
 
 #if UNITY_EDITOR
     [Header("Test")] public DamageableComponent TestTarget;

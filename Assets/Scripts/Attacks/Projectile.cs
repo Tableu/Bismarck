@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Ships.Components;
 using UnityEngine;
 
 namespace Attacks

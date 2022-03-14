@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Attacks;
 using Ships.Components;
+using Ships.Fleets;
 using Systems.Modifiers;
 using UI.InfoWindow;
 using UnityEngine;
@@ -21,6 +21,7 @@ namespace Systems.Abilities
         [SerializeField] private List<ModifierData> modifiers;
         [SerializeField] private float cooldown;
         [SerializeField] private ButtonData buttonData;
+        [SerializeField] private FleetAgroStatus validTargets;
 
         [Header("Projectile Stats")] [SerializeField]
         private float hitChance;
@@ -40,6 +41,7 @@ namespace Systems.Abilities
         public List<ModifierData> Modifiers => modifiers;
         public float Cooldown => cooldown;
         public ButtonData ButtonData => buttonData;
+        public FleetAgroStatus ValidTargets => validTargets;
         public GameObject MapIcon => mapIcon;
         public Sprite InfoWindowSprite => infoWindowSprite;
         public string AttackName => attackName;

@@ -17,8 +17,9 @@ namespace UI.Abilities
         [SerializeField] private SubsystemButtonData _buttonData;
         [SerializeField] private bool _weapons;
         private List<Ability> _abilities;
+        private List<AbilityButton> _abilityButtons;
 
-        private void Start()
+        public void Start()
         {
             if (_weapons)
             {
@@ -31,28 +32,20 @@ namespace UI.Abilities
                     }
                 }
 
-                Refresh();
+                Initialize();
             }
             else
             {
-                SetAbilities(Player.AbilityManager.Abilities);
-            }
-        }
-
-        public void SetAbilities(List<Ability> abilities)
-        {
-            _abilities = abilities;
-            Refresh();
-        }
-
-        [ContextMenu("Refresh")]
-        public void Refresh()
-        {
-            foreach (Transform child in transform)
-            {
-                Destroy(child.gameObject);
+                _abilities = Player.AbilityManager.Abilities;
+                Initialize();
             }
 
+            Player.AbilityManager.OnTargetChanged += Refresh;
+        }
+
+        private void Initialize()
+        {
+            _abilityButtons = new List<AbilityButton>();
             if (Player != null)
             {
                 foreach (Ability ability in _abilities)
@@ -60,7 +53,16 @@ namespace UI.Abilities
                     GameObject abilityButton = Instantiate(_buttonPrefab, transform, false);
                     AbilityButton button = abilityButton.GetComponent<AbilityButton>();
                     button.Initialize(Player, ability);
+                    _abilityButtons.Add(button);
                 }
+            }
+        }
+
+        public void Refresh()
+        {
+            foreach (AbilityButton button in _abilityButtons)
+            {
+                button.Refresh();
             }
         }
 #if UNITY_EDITOR
