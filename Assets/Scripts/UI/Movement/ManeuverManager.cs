@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Systems.Movement;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,7 +15,8 @@ namespace UI.Movement
         [SerializeField] private RectTransform tracer;
         [SerializeField] private float minMouseDist = 50;
         [SerializeField] private PlayerInputScriptableObject input;
-        private List<GameObject> _maneuverButtons = new List<GameObject>();
+        [SerializeField] private ManeuverGizmo gizmo;
+        private readonly Dictionary<int, GameObject> _maneuverButtons = new Dictionary<int, GameObject>();
 
         private float _currentT;
         private Vector2 _currentPos;
@@ -27,11 +27,6 @@ namespace UI.Movement
         }
         private void OnOnPathChanged()
         {
-            foreach (var button in _maneuverButtons.Where(button => button != null))
-            {
-                Destroy(button);
-            }
-            _maneuverButtons.Clear();
             RedrawManeuvers();
         }
 
@@ -43,20 +38,30 @@ namespace UI.Movement
                 var id = pair.Key;
                 var maneuver = pair.Value;
 
-                var button = Instantiate(buttonPrefab, _currentPos, Quaternion.identity, canvas).GetComponent<WorldSpaceUI>();
-                var target = new GameObject("Maneuver Target")
+                var targetPos = movementController.Path.Evaluate(maneuver.startTime);
+
+                if (_maneuverButtons.ContainsKey(id))
                 {
-                    transform =
+                    _maneuverButtons[id].GetComponent<WorldSpaceUI>().target.transform.position = targetPos;
+                }
+                else
+                {
+                    var button = Instantiate(buttonPrefab, _currentPos, Quaternion.identity, canvas).GetComponent<WorldSpaceUI>();
+                    var target = new GameObject("Maneuver Target")
                     {
-                        position = movementController.Path.Evaluate(maneuver.startTime),
-                        parent = transform
-                    }
-                };
-                button.primaryCamera = cam;
-                button.target = target.transform;
-                button.GetComponent<ManeuverButton>().maneuverId = id;
-                button.GetComponent<ManeuverButton>().Line = movementController.Path;
-                _maneuverButtons.Add(button.gameObject);
+                        transform =
+                        {
+                            position = targetPos,
+                            parent = transform
+                        }
+                    };
+                    button.primaryCamera = cam;
+                    button.target = target.transform;
+                    button.GetComponent<ManeuverButton>().maneuverId = id;
+                    button.GetComponent<ManeuverButton>().Line = movementController.Path;
+                    button.GetComponent<ManeuverButton>().gizmo = gizmo;
+                    _maneuverButtons.Add(id, button.gameObject);
+                }
             }
         }
         private void OnDestroy()
@@ -80,7 +85,7 @@ namespace UI.Movement
                     movementController.ScheduleManeuver(new Maneuver
                     {
                         startTime = _currentT,
-                        duration = 1,
+                        duration = 10,
                         thrust = Vector2.zero
                     });
                     RedrawManeuvers();

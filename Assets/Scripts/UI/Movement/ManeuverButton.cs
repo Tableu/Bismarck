@@ -8,11 +8,25 @@ namespace UI.Movement
     {
         public WorldLine Line;
         public int maneuverId;
+        public ManeuverGizmo gizmo;
+
+        public void OnClick()
+        {
+            gizmo.gameObject.SetActive(true);
+            gizmo.ManeuverButton = this;
+        }
 
         private void OnDestroy()
         {
             var c = GetComponent<WorldSpaceUI>();
-            Destroy(c.target.gameObject);
+            if (c != null && c.target != null)
+            {
+                Destroy(c.target.gameObject);
+            }
+            if (gizmo != null && gizmo.ManeuverButton == this)
+            {
+                gizmo.ManeuverButton = null;
+            }
         }
     }
 }

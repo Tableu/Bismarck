@@ -6,7 +6,6 @@ namespace Systems.Movement
     {
         private readonly WorldLine _worldLine = new WorldLine();
         public WorldLine Path => _worldLine;
-
         private void Awake()
         {
             _worldLine.AddManeuver(new Maneuver
@@ -31,6 +30,11 @@ namespace Systems.Movement
 
         public int ScheduleManeuver(Maneuver maneuver) => _worldLine.AddManeuver(maneuver);
         public void RemoveManeuver(int id) => _worldLine.RemoveManeuver(id);
-        public void EditManeuver(int id, Maneuver maneuver) => _worldLine.EditManeuver(id, maneuver);
+        public void EditManeuver(int id, Vector2 thrust)
+        {
+            var maneuver = _worldLine.Maneuvers[id];
+            maneuver.thrust = thrust;
+            _worldLine.EditManeuver(id, maneuver);
+        }
     }
 }
