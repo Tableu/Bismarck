@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Attacks;
 using Ships.Components;
+using Ships.Fleets;
 using Systems.Modifiers;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -19,6 +20,7 @@ namespace Systems.Abilities
         public DamageableComponent Target => _target;
         public ModifiableStat HitChanceMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat ModuleHitChanceMultiplier { get; } = new ModifiableStat(0);
+        public ModifiableStat MaxRange { get; } = new ModifiableStat(0);
 
         public Ability(AbilityData data, ShipStats user)
         {
@@ -26,6 +28,7 @@ namespace Systems.Abilities
             _data = data;
             HitChanceMultiplier.UpdateBaseValue(_data.BaseHitChance);
             ModuleHitChanceMultiplier.UpdateBaseValue(_data.BaseModuleHitChance);
+            MaxRange.UpdateBaseValue(data.BaseRange);
             CooldownMultiplier.UpdateBaseValue(data.Cooldown);
         }
 
@@ -39,9 +42,19 @@ namespace Systems.Abilities
             _target = target;
         }
 
+        public bool InRange()
+        {
+            if (_target != null && (_user.transform.position - _target.transform.position).magnitude < MaxRange)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public override bool Fire()
         {
-            if (!OnCooldown)
+            if (!OnCooldown && InRange())
             {
                 if (_data.FireAnimation == null || _data.HitAnimation == null || _data.MissAnimation == null)
                 {

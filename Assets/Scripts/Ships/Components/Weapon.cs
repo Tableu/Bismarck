@@ -14,8 +14,7 @@ namespace Ships.Components
         private WeaponData _weaponData;
         private Ability _attackCommand;
         private DamageableComponent _target;
-
-        public ModifiableStat MaxRange { get; } = new ModifiableStat(0);
+        
         public ModifiableStat MaxHealth { get; } = new ModifiableStat(0);
 
         public Ability Attack => _attackCommand;
@@ -33,18 +32,7 @@ namespace Ships.Components
             _attackCommand.SetParent(parent.transform);
             StartCoroutine(_attackCommand.CooldownTimer());
             SetData(_weaponData.BaseHealth, shipStats.DodgeChanceMultiplier, Subsystem.Weapon);
-            MaxRange.UpdateBaseValue(_weaponData.BaseRange);
             MaxHealth.UpdateBaseValue(_weaponData.BaseHealth);
-        }
-
-        public bool InRange()
-        {
-            if (_target != null && (transform.position - _target.transform.position).magnitude < MaxRange)
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Systems.Abilities
         [SerializeField] private float moduleDamagePercent;
         [SerializeField] private float mapSpeed;
         [SerializeField] private float infoWindowSpeed;
+        [SerializeField] private float range;
 
         [Header("InfoWindow Animations")] [SerializeField]
         private GameObject hitAnimation;
@@ -49,6 +50,7 @@ namespace Systems.Abilities
         public float BaseHitChance => hitChance;
         public float BaseModuleHitChance => moduleHitChance;
         public float BaseDamage => damage;
+        public float BaseRange => range;
         public float ModuleDamagePercent => moduleDamagePercent;
         public float BaseMapSpeed => mapSpeed;
         public float BaseInfoWindowSpeed => infoWindowSpeed;

@@ -1,8 +1,10 @@
 using Ships.Components;
 using Ships.Fleets;
+using SystemMap;
 using Systems.Abilities;
 using UI.InfoWindow;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UI.Abilities
@@ -10,8 +12,10 @@ namespace UI.Abilities
     public class AbilityButton : SubsystemButton
     {
         [SerializeField] private Slider slider;
+        [SerializeField] private GameObject rangeIndicatorPrefab;
         private Ability _ability;
         private DamageableComponent _target;
+        private GameObject _rangeIndicator;
 
         private void Awake()
         {
@@ -45,6 +49,32 @@ namespace UI.Abilities
                 {
                     StartCoroutine(_ability.CooldownTimer());
                 }
+            }
+        }
+
+        public void OnPointerEnter()
+        {
+            _rangeIndicator = Instantiate(rangeIndicatorPrefab, Ship.transform, false);
+            EllipseDrawer ellipseDrawer = _rangeIndicator.GetComponentInChildren<EllipseDrawer>();
+
+            if (ellipseDrawer != null)
+            {
+                ellipseDrawer.cam = Camera.main;
+                ellipseDrawer.semiMajorAxis = _ability.MaxRange;
+                ellipseDrawer.semiMinorAxis = _ability.MaxRange;
+                ellipseDrawer.Initialize();
+            }
+            else
+            {
+                Destroy(_rangeIndicator);
+            }
+        }
+
+        public void OnPointerExit()
+        {
+            if (_rangeIndicator != null)
+            {
+                Destroy(_rangeIndicator);
             }
         }
 

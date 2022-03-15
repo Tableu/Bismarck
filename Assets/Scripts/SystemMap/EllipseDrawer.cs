@@ -21,6 +21,16 @@ namespace SystemMap
         private void Awake()
         {
             _lineRenderer = GetComponent<LineRenderer>();
+            if (cam != null)
+            {
+                Redraw();
+                Matrix4x4 mat = cam.projectionMatrix;
+                _baseMultiply = mat.m11;
+            }
+        }
+
+        public void Initialize()
+        {
             Redraw();
             Matrix4x4 mat = cam.projectionMatrix;
             _baseMultiply = mat.m11;
@@ -51,7 +61,7 @@ namespace SystemMap
                 points[i] = new Vector3(
                     semiMinorAxis*Mathf.Cos(inc*i), 
                     semiMajorAxis*Mathf.Sin(inc*i),
-                    0);
+                    0) + transform.position;
             }
             _lineRenderer.positionCount = resolution;
             _lineRenderer.SetPositions(points);

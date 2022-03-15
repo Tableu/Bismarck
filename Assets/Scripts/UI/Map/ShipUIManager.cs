@@ -22,7 +22,6 @@ namespace UI.Map
                     icon.Bind(ship);
                 }
 
-
                 GameObject healthBar = Instantiate(healthBarPrefab, shipIcon.transform);
                 HealthBar script = healthBar.GetComponent<HealthBar>();
                 if (script != null)

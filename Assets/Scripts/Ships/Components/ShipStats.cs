@@ -2,7 +2,6 @@
 using Scene;
 using Ships.DataManagement;
 using Ships.Fleets;
-using SystemMap;
 using Systems.Modifiers;
 using UnityEngine;
 using Subsystem = UI.InfoWindow.Subsystem;

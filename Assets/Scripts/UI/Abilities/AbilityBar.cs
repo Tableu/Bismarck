@@ -24,30 +24,24 @@ namespace UI.Abilities
             if (_weapons)
             {
                 _abilities = new List<Ability>();
+                _abilityButtons = new List<AbilityButton>();
                 foreach (Weapon weapon in Player.AbilityManager.Weapons)
                 {
                     if (weapon != null && weapon.Attack != null)
                     {
                         _abilities.Add(weapon.Attack);
+                        GameObject abilityButton = Instantiate(_buttonPrefab, transform, false);
+                        AbilityButton button = abilityButton.GetComponent<AbilityButton>();
+                        button.Initialize(Player, weapon.Attack);
+                        button.SubsystemComponent = weapon;
+                        _abilityButtons.Add(button);
                     }
                 }
-
-                Initialize();
             }
             else
             {
                 _abilities = Player.AbilityManager.Abilities;
-                Initialize();
-            }
-
-            Player.AbilityManager.OnTargetChanged += Refresh;
-        }
-
-        private void Initialize()
-        {
-            _abilityButtons = new List<AbilityButton>();
-            if (Player != null)
-            {
+                _abilityButtons = new List<AbilityButton>();
                 foreach (Ability ability in _abilities)
                 {
                     GameObject abilityButton = Instantiate(_buttonPrefab, transform, false);
@@ -56,6 +50,8 @@ namespace UI.Abilities
                     _abilityButtons.Add(button);
                 }
             }
+
+            Player.AbilityManager.OnTargetChanged += Refresh;
         }
 
         public void Refresh()

@@ -13,11 +13,9 @@ namespace Weapons
         [SerializeField] private AbilityData abilityData;
 
         [Header("Stats")] [SerializeField] private float health;
-        [SerializeField] private float range;
 
         public GameObject Turret => turret;
         public AbilityData AttackData => abilityData;
         public float BaseHealth => health;
-        public float BaseRange => range;
     }
 }

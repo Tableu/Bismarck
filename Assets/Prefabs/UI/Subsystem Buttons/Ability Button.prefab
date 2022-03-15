@@ -367,6 +367,7 @@ GameObject:
   - component: {fileID: 7376636702869492241}
   - component: {fileID: 1877505539943660520}
   - component: {fileID: 5401322807687642284}
+  - component: {fileID: 8458953840228281629}
   m_Layer: 5
   m_Name: Ability Button
   m_TagString: Untagged
@@ -504,7 +505,53 @@ MonoBehaviour:
     Subsystem: 0
   SubsystemComponent: {fileID: 0}
   slider: {fileID: 631019508465552252}
+  rangeIndicatorPrefab: {fileID: 7058369397748834965, guid: 66a26c771090911489e91df64c1d7e80, type: 3}
   testData: {fileID: 11400000, guid: 696b46ef70da763479cb42f158b0b639, type: 2}
+--- !u!114 &8458953840228281629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6210488606273788205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5401322807687642284}
+          m_TargetAssemblyTypeName: UI.Abilities.AbilityButton, Scripts
+          m_MethodName: OnPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5401322807687642284}
+          m_TargetAssemblyTypeName: UI.Abilities.AbilityButton, Scripts
+          m_MethodName: OnPointerExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &6737866303583579110
 GameObject:
   m_ObjectHideFlags: 0
