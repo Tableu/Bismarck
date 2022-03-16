@@ -14,7 +14,6 @@ namespace UI.Abilities
         [SerializeField] private Slider slider;
         [SerializeField] private GameObject rangeIndicatorPrefab;
         private Ability _ability;
-        private DamageableComponent _target;
         private GameObject _rangeIndicator;
 
         private void Awake()
@@ -96,15 +95,11 @@ namespace UI.Abilities
         {
             if (_ability != null)
             {
-                _target = _ability.Target;
-                if (_target == null && _ability.Data.ValidTargets.HasFlag(FleetAgroStatus.Self))
+                if (_ability.TargetingSelf())
                 {
                     EnableButton();
                 }
-                else if (_target != null &&
-                         Player.Fleet.AgroStatusMap.TryGetValue(_target.ShipStats.Fleet,
-                             out FleetAgroStatus fleetAgroStatus) &&
-                         _ability.Data.ValidTargets.HasFlag(fleetAgroStatus))
+                else if (_ability.InRange())
                 {
                     EnableButton();
                 }

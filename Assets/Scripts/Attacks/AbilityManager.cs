@@ -40,6 +40,7 @@ public class AbilityManager : MonoBehaviour
             Weapon weapon = gameObject.AddComponent<Weapon>();
             weapon.Initialize(_shipStats, weaponData);
             _weapons.Add(weapon);
+            _abilities.Add(weapon.Attack);
         }
     }
 

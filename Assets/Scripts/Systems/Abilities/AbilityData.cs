@@ -22,6 +22,7 @@ namespace Systems.Abilities
         [SerializeField] private float cooldown;
         [SerializeField] private ButtonData buttonData;
         [SerializeField] private FleetAgroStatus validTargets;
+        [SerializeField] private List<string> tags;
 
         [Header("Projectile Stats")] [SerializeField]
         private float hitChance;
@@ -43,6 +44,7 @@ namespace Systems.Abilities
         public float Cooldown => cooldown;
         public ButtonData ButtonData => buttonData;
         public FleetAgroStatus ValidTargets => validTargets;
+        public List<string> Tags => tags;
         public GameObject MapIcon => mapIcon;
         public Sprite InfoWindowSprite => infoWindowSprite;
         public string AttackName => attackName;

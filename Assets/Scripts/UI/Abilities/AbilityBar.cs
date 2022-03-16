@@ -15,34 +15,17 @@ namespace UI.Abilities
 
         [SerializeField] private GameObject _buttonPrefab;
         [SerializeField] private SubsystemButtonData _buttonData;
-        [SerializeField] private bool _weapons;
+        [SerializeField] private string tagFilter;
         private List<Ability> _abilities;
         private List<AbilityButton> _abilityButtons;
 
         public void Start()
         {
-            if (_weapons)
+            _abilities = Player.AbilityManager.Abilities;
+            _abilityButtons = new List<AbilityButton>();
+            foreach (Ability ability in _abilities)
             {
-                _abilities = new List<Ability>();
-                _abilityButtons = new List<AbilityButton>();
-                foreach (Weapon weapon in Player.AbilityManager.Weapons)
-                {
-                    if (weapon != null && weapon.Attack != null)
-                    {
-                        _abilities.Add(weapon.Attack);
-                        GameObject abilityButton = Instantiate(_buttonPrefab, transform, false);
-                        AbilityButton button = abilityButton.GetComponent<AbilityButton>();
-                        button.Initialize(Player, weapon.Attack);
-                        button.SubsystemComponent = weapon;
-                        _abilityButtons.Add(button);
-                    }
-                }
-            }
-            else
-            {
-                _abilities = Player.AbilityManager.Abilities;
-                _abilityButtons = new List<AbilityButton>();
-                foreach (Ability ability in _abilities)
+                if (ability != null && ability.Data.Tags.Contains(tagFilter))
                 {
                     GameObject abilityButton = Instantiate(_buttonPrefab, transform, false);
                     AbilityButton button = abilityButton.GetComponent<AbilityButton>();

@@ -52,11 +52,21 @@ namespace Systems.Abilities
             return false;
         }
 
+        public bool TargetingSelf()
+        {
+            if (_target == null && _data.ValidTargets.HasFlag(FleetAgroStatus.Self))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public override bool Fire()
         {
-            if (!OnCooldown && InRange())
+            if (!OnCooldown && (TargetingSelf() || InRange()))
             {
-                if (_data.FireAnimation == null || _data.HitAnimation == null || _data.MissAnimation == null)
+                if (_data.FireAnimation == null && _data.HitAnimation == null && _data.MissAnimation == null)
                 {
                     foreach (ModifierData modifier in Data.Modifiers)
                     {
