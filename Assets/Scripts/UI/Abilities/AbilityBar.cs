@@ -34,7 +34,7 @@ namespace UI.Abilities
                 }
             }
 
-            Player.AbilityManager.OnTargetChanged += Refresh;
+            Player.TargetingHelper.OnTargetChanged += Refresh;
         }
 
         public void Refresh()

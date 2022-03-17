@@ -95,11 +95,11 @@ namespace UI.Abilities
         {
             if (_ability != null)
             {
-                if (_ability.TargetingSelf())
+                if (Ship.TargetingHelper.TargetingSelf(_ability))
                 {
                     EnableButton();
                 }
-                else if (_ability.InRange())
+                else if (Ship.TargetingHelper.InRange(_ability))
                 {
                     EnableButton();
                 }

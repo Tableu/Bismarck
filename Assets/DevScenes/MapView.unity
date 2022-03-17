@@ -1521,6 +1521,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 1016780141}
+    - target: {fileID: 7787089905070994023, guid: 8c9f94b2a583b17458b3a8e71d60422f, type: 3}
+      propertyPath: tagFilter
+      value: Weapon
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c9f94b2a583b17458b3a8e71d60422f, type: 3}
 --- !u!1001 &7946098331119617309
@@ -1534,6 +1538,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 1016780141}
+    - target: {fileID: 7946098329220083078, guid: b2c356507d201bd4fb25603225948e1b, type: 3}
+      propertyPath: tagFilter
+      value: Ability
+      objectReference: {fileID: 0}
     - target: {fileID: 7946098331162035854, guid: b2c356507d201bd4fb25603225948e1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

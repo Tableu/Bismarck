@@ -98,10 +98,10 @@ namespace UI.InfoWindow
 
         private void CloseWindow()
         {
-            if (Player != null && Player.AbilityManager.Target != null &&
-                Player.AbilityManager.Target.ShipStats == target)
+            if (Player != null && Player.TargetingHelper.Target != null &&
+                Player.TargetingHelper.Target.ShipStats == target)
             {
-                Player.AbilityManager.SetWeaponsTarget(null);
+                Player.TargetingHelper.SetTarget(null);
             }
 
             if (Camera != null)

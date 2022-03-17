@@ -15,10 +15,12 @@ namespace Ships.Components
     {
         private GameObject _visuals;
         private AbilityManager _abilityManager;
+        private TargetingHelper _targetingHelper;
         [SerializeField] private ShipData data;
         public ShipData Data => data;
         public GameObject Visuals => _visuals;
         public AbilityManager AbilityManager => _abilityManager;
+        public TargetingHelper TargetingHelper => _targetingHelper;
         public FleetManager Fleet { get; private set; }
 
         // ModifiableStat must be read only so that other components can get references to them during Start/Awake.
@@ -82,6 +84,9 @@ namespace Ships.Components
             //Init AbilityManager
             _abilityManager = gameObject.AddComponent<AbilityManager>();
             _abilityManager.Initialize(data, this);
+
+            _targetingHelper = gameObject.AddComponent<TargetingHelper>();
+            _targetingHelper.Initialize(data, this);
         }
 
         public event Action OnShipDestroyed;

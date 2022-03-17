@@ -76,7 +76,7 @@ namespace UI.InfoWindow
         {
             if (Player != null && SubsystemComponent != null)
             {
-                Player.AbilityManager.SetWeaponsTarget(SubsystemComponent);
+                Player.TargetingHelper.SetTarget(SubsystemComponent);
             }
         }
 

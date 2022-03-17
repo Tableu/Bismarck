@@ -28,12 +28,15 @@ MonoBehaviour:
     Name: Ability
     Subsystem: 0
   validTargets: 2147483647
+  tags:
+  - Ability
   hitChance: 0
   moduleHitChance: 0
   damage: 0
   moduleDamagePercent: 0
   mapSpeed: 0
   infoWindowSpeed: 0
+  range: 0
   hitAnimation: {fileID: 0}
   missAnimation: {fileID: 0}
   fireAnimation: {fileID: 0}

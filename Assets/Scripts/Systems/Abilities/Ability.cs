@@ -14,10 +14,8 @@ namespace Systems.Abilities
         private AbilityData _data;
         private Transform _parent;
         private ShipStats _user;
-        private DamageableComponent _target;
 
         public AbilityData Data => _data;
-        public DamageableComponent Target => _target;
         public ModifiableStat HitChanceMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat ModuleHitChanceMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat MaxRange { get; } = new ModifiableStat(0);
@@ -37,53 +35,30 @@ namespace Systems.Abilities
             _parent = parent;
         }
 
-        public void SetTarget(DamageableComponent target)
-        {
-            _target = target;
-        }
-
-        public bool InRange()
-        {
-            if (_target != null && (_user.transform.position - _target.transform.position).magnitude < MaxRange)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool TargetingSelf()
-        {
-            if (_target == null && _data.ValidTargets.HasFlag(FleetAgroStatus.Self))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         public override bool Fire()
         {
-            if (!OnCooldown && (TargetingSelf() || InRange()))
+            if (!OnCooldown)
             {
-                if (_data.FireAnimation == null && _data.HitAnimation == null && _data.MissAnimation == null)
+                if (_user.TargetingHelper.TargetingSelf(this))
                 {
                     foreach (ModifierData modifier in Data.Modifiers)
                     {
                         modifier.AttachNewModifer(_user);
                     }
                 }
-                else if (_target != null)
+                else if (_user.TargetingHelper.InRange(this))
                 {
-                    AttackProjectile attackProjectile = _target is Hull
-                        ? new AttackProjectile(_data, _target, _data.BaseDamage, HitChanceMultiplier)
-                        : new AttackProjectile(_data, _target, _data.BaseDamage, ModuleHitChanceMultiplier);
+                    AttackProjectile attackProjectile = _user.TargetingHelper.Target is Hull
+                        ? new AttackProjectile(_data, _user.TargetingHelper.Target, _data.BaseDamage,
+                            HitChanceMultiplier)
+                        : new AttackProjectile(_data, _user.TargetingHelper.Target, _data.BaseDamage,
+                            ModuleHitChanceMultiplier);
 
                     GameObject mapIcon = Object.Instantiate(_data.MapIcon, _user.transform.position,
                         Quaternion.identity);
                     AttackIcon attackIcon = mapIcon.GetComponent<AttackIcon>();
                     attackIcon.AttackProjectile = attackProjectile;
-                    attackIcon.Target = _target;
+                    attackIcon.Target = _user.TargetingHelper.Target;
                     attackIcon.Attacker = _user;
                     return true;
                 }

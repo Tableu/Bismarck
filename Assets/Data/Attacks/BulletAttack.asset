@@ -27,6 +27,8 @@ MonoBehaviour:
     Name: 
     Subsystem: 1
   validTargets: 12
+  tags:
+  - Weapon
   hitChance: 1
   moduleHitChance: 1
   damage: 2
