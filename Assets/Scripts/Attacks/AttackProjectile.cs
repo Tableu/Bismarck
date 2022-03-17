@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Attacks
 {
+    /// <summary>
+    ///     Holds information for attacks traveling between attacker and target
+    /// </summary>
     public class AttackProjectile
     {
         private DamageableComponent _target;

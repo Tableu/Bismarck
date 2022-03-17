@@ -52,7 +52,7 @@ namespace Ships.Components
         public void Initialize(ShipData shipData)
         {
             // This function is not expected to be called multiple times or if ship data is provided via the inspector
-            Debug.Assert(data == null, "ShipInfo.data overwritten");
+            Debug.Assert(data == null, "ShipStats.data overwritten");
             data = shipData;
             Initialize();
         }

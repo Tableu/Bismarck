@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using Attacks;
 using Ships.Components;
-using Ships.Fleets;
 using Systems.Modifiers;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -56,6 +55,7 @@ namespace Systems.Abilities
 
                     GameObject mapIcon = Object.Instantiate(_data.MapIcon, _user.transform.position,
                         Quaternion.identity);
+                    mapIcon.transform.parent = _parent;
                     AttackIcon attackIcon = mapIcon.GetComponent<AttackIcon>();
                     attackIcon.AttackProjectile = attackProjectile;
                     attackIcon.Target = _user.TargetingHelper.Target;
