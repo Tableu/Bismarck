@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -217,7 +217,7 @@ MonoBehaviour:
   _button: {fileID: 4561551169085519201}
   _buttonText: {fileID: 4561551168632339365}
   _image: {fileID: 7824523415276900108}
-  ShipInfo: {fileID: 0}
+  Ship: {fileID: 0}
   Player: {fileID: 0}
   Subsystem: 0
   ButtonData:
@@ -226,7 +226,7 @@ MonoBehaviour:
     DamagedButton: {fileID: 0}
     Name: 
     Subsystem: 0
-  Target: {fileID: 0}
+  SubsystemComponent: {fileID: 0}
 --- !u!1 &7418997719018725000
 GameObject:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ namespace Attacks
         {
             SpriteRenderer.enabled = true;
             var target = Target.transform.position;
-            while (!transform.position.Equals(target))
+            while ((transform.position - target).magnitude > 0.1f)
             {
                 transform.position =
                     Vector2.MoveTowards(transform.position, target, AttackProjectile.AbilityData.BaseMapSpeed);

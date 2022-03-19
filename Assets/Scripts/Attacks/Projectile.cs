@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Ships.Components;
 using UnityEngine;
 
 namespace Attacks
@@ -41,8 +40,7 @@ namespace Attacks
                 _stopTimer = true;
             }
         }
-
-        // Update is called once per frame
+        
         protected void FixedUpdate()
         {
             transform.Translate(new Vector2(_direction.x, _direction.y) * speed * Time.fixedDeltaTime);
