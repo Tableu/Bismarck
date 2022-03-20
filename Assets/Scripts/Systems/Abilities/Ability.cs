@@ -13,16 +13,18 @@ namespace Systems.Abilities
         private AbilityData _data;
         private Transform _parent;
         private ShipStats _user;
+        private DamageableComponent _damageableComponent;
 
         public AbilityData Data => _data;
         public ModifiableStat HitChanceMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat ModuleHitChanceMultiplier { get; } = new ModifiableStat(0);
         public ModifiableStat MaxRange { get; } = new ModifiableStat(0);
 
-        public Ability(AbilityData data, ShipStats user)
+        public Ability(AbilityData data, ShipStats user, DamageableComponent damageableComponent = null)
         {
             _user = user;
             _data = data;
+            _damageableComponent = damageableComponent;
             HitChanceMultiplier.UpdateBaseValue(_data.BaseHitChance);
             ModuleHitChanceMultiplier.UpdateBaseValue(_data.BaseModuleHitChance);
             MaxRange.UpdateBaseValue(data.BaseRange);
@@ -60,6 +62,10 @@ namespace Systems.Abilities
                     attackIcon.AttackProjectile = attackProjectile;
                     attackIcon.Target = _user.TargetingHelper.Target;
                     attackIcon.Attacker = _user;
+                    if (_damageableComponent != null)
+                    {
+                        attackIcon.SpawnLocation = _damageableComponent.Visuals.transform.position;
+                    }
                     return true;
                 }
             }

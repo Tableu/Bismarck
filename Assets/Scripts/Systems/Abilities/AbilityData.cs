@@ -60,9 +60,9 @@ namespace Systems.Abilities
         public GameObject MissAnimation => missAnimation;
         public GameObject FireAnimation => fireAnimation;
 
-        public Ability MakeAttack(ShipStats shipStats)
+        public Ability MakeAbility(ShipStats shipStats, DamageableComponent damageableComponent = null)
         {
-            return new Ability(this, shipStats);
+            return new Ability(this, shipStats, damageableComponent);
         }
     }
 }

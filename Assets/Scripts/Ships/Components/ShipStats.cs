@@ -79,7 +79,7 @@ namespace Ships.Components
 
             //Init hull
             Hull hull = gameObject.AddComponent<Hull>();
-            hull.SetData(data.BaseHealth, data.BaseDodgeChance, Subsystem.Hull);
+            hull.SetData(data.BaseHealth, data.BaseDodgeChance, Subsystem.Hull, _visuals);
 
             //Init AbilityManager
             _abilityManager = gameObject.AddComponent<AbilityManager>();

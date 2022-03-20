@@ -26,8 +26,11 @@ namespace Ships.Components
 
         public void SetTarget(DamageableComponent target)
         {
-            _target = target;
-            OnTargetChanged?.Invoke();
+            if (target == null || target.ShipStats != _shipStats)
+            {
+                _target = target;
+                OnTargetChanged?.Invoke();
+            }
         }
 
         public bool IsEnemy(ShipStats target)

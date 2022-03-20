@@ -29,7 +29,7 @@ MonoBehaviour:
   validTargets: 12
   tags:
   - Weapon
-  hitChance: 1
+  hitChance: 0.5
   moduleHitChance: 1
   damage: 2
   moduleDamagePercent: 0.5

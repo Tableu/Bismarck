@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 0.1
   Direction: {x: 0, y: 1}
-  MaxDistance: 5
+  MaxDistance: 8
   SpriteRenderer: {fileID: 9067325861272495916}
 --- !u!1 &6004126865301985277
 GameObject:

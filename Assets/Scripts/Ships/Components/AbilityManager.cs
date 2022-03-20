@@ -32,12 +32,19 @@ namespace Ships.Components
         [ContextMenu("InitializeWeapons")]
         public void InitializeWeapons()
         {
+            ShipTurrets turrets = _shipStats.Visuals.GetComponent<ShipTurrets>();
+            using IEnumerator<Transform> enumerator = turrets.TurretPositions.GetEnumerator();
+            
             foreach (WeaponData weaponData in _data.Weapons)
             {
+                enumerator.MoveNext();
                 GameObject turret = Instantiate(weaponData.Turret, _shipStats.Visuals.transform);
-                turret.transform.position = _shipStats.Visuals.transform.position;
+                turret.transform.position = enumerator.Current != null
+                    ? enumerator.Current.position
+                    : _shipStats.Visuals.transform.position;
+                
                 Weapon weapon = gameObject.AddComponent<Weapon>();
-                weapon.Initialize(_shipStats, weaponData);
+                weapon.Initialize(_shipStats, weaponData, turret);
                 _weapons.Add(weapon);
                 _abilities.Add(weapon.Attack);
             }

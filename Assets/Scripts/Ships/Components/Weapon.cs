@@ -19,7 +19,7 @@ namespace Ships.Components
 
         public Ability Attack => _attackCommand;
 
-        public void Initialize(ShipStats shipStats, WeaponData weaponData)
+        public void Initialize(ShipStats shipStats, WeaponData weaponData, GameObject visuals)
         {
             var parent = GameObject.FindWithTag(tag) ?? new GameObject
             {
@@ -28,10 +28,10 @@ namespace Ships.Components
 
             Stats = shipStats;
             _weaponData = weaponData;
-            _attackCommand = _weaponData.AttackData.MakeAttack(shipStats);
+            _attackCommand = _weaponData.AttackData.MakeAbility(shipStats, this);
             _attackCommand.SetParent(parent.transform);
             StartCoroutine(_attackCommand.CooldownTimer());
-            SetData(_weaponData.BaseHealth, shipStats.DodgeChanceMultiplier, Subsystem.Weapon);
+            SetData(_weaponData.BaseHealth, shipStats.DodgeChanceMultiplier, Subsystem.Weapon, visuals);
             MaxHealth.UpdateBaseValue(_weaponData.BaseHealth);
         }
     }

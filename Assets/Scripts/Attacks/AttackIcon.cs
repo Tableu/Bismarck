@@ -9,6 +9,7 @@ namespace Attacks
         public AttackProjectile AttackProjectile;
         public ShipStats Attacker;
         public DamageableComponent Target;
+        public Vector2? SpawnLocation;
         [SerializeField] private SpriteRenderer SpriteRenderer;
         private Vector2 _direction;
 
@@ -24,6 +25,10 @@ namespace Attacks
             {
                 animation.Initialize(_direction, AttackProjectile.AbilityData.BaseInfoWindowSpeed,
                     AttackProjectile.AbilityData.InfoWindowSprite, StartTravel);
+                if (SpawnLocation != null)
+                {
+                    animation.transform.position = SpawnLocation.Value;
+                }
             }
             else
             {
@@ -61,7 +66,8 @@ namespace Attacks
                             AttackProjectile.ApplyDamage();
                             Destroy(gameObject);
                         });
-                    animation.transform.localPosition = -2 * _direction;
+                    animation.transform.position = (-animation.MaxDistance * _direction) +
+                                                   (Vector2) Target.Visuals.transform.position;
                 }
                 else
                 {
@@ -79,7 +85,8 @@ namespace Attacks
                 {
                     animation.Initialize(_direction, AttackProjectile.AbilityData.BaseInfoWindowSpeed,
                         AttackProjectile.AbilityData.InfoWindowSprite, delegate { Destroy(gameObject); });
-                    animation.transform.localPosition = -2 * _direction;
+                    animation.transform.position = (-animation.MaxDistance * _direction) +
+                                                   (Vector2) Target.Visuals.transform.position;
                 }
                 else
                 {

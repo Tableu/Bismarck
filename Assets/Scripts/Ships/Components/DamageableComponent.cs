@@ -19,6 +19,7 @@ namespace Ships.Components
         private float _maxDodgeChance;
         private float _disableStart;
         private bool _disabled;
+        private GameObject _visuals;
 
         protected ShipStats Stats;
 
@@ -29,12 +30,14 @@ namespace Ships.Components
         public float PercentHealth { get; protected set; } = 1f;
         public float PercentDodgeChance { get; protected set; } = 1f;
         public Subsystem Subsystem { get; protected set; }
+        public GameObject Visuals => _visuals;
 
-        public void SetData(float maxHealth, float maxDodgeChance, Subsystem subsystem)
+        public void SetData(float maxHealth, float maxDodgeChance, Subsystem subsystem, GameObject visuals)
         {
             Subsystem = subsystem;
             _maxHealth = maxHealth;
             _maxDodgeChance = maxDodgeChance;
+            _visuals = visuals;
         }
         private void Awake()
         {
