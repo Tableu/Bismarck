@@ -29,6 +29,8 @@ MonoBehaviour:
   validTargets: 12
   tags:
   - Weapon
+  fireSound: Attack
+  hitSound: Hit
   hitChance: 0.5
   moduleHitChance: 1
   damage: 2

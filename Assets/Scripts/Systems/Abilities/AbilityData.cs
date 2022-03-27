@@ -23,6 +23,8 @@ namespace Systems.Abilities
         [SerializeField] private ButtonData buttonData;
         [SerializeField] private FleetAgroStatus validTargets;
         [SerializeField] private List<string> tags;
+        [SerializeField] private string fireSound;
+        [SerializeField] private string hitSound;
 
         [Header("Projectile Stats")] [SerializeField]
         private float hitChance;
@@ -45,6 +47,8 @@ namespace Systems.Abilities
         public ButtonData ButtonData => buttonData;
         public FleetAgroStatus ValidTargets => validTargets;
         public List<string> Tags => tags;
+        public string FireSound => fireSound;
+        public string HitSound => hitSound;
         public GameObject MapIcon => mapIcon;
         public Sprite InfoWindowSprite => infoWindowSprite;
         public string AttackName => attackName;

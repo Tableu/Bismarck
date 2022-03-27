@@ -12,9 +12,11 @@ namespace Attacks
         public Vector2? SpawnLocation;
         [SerializeField] private SpriteRenderer SpriteRenderer;
         private Vector2 _direction;
+        private Sound _sound;
 
         private void Start()
         {
+            _sound = GetComponent<Sound>();
             SpriteRenderer.enabled = false;
             GameObject Fire = Instantiate(AttackProjectile.AbilityData.FireAnimation,
                 Attacker.Visuals.transform);
@@ -63,6 +65,10 @@ namespace Attacks
                     animation.Initialize(_direction, AttackProjectile.AbilityData.BaseInfoWindowSpeed,
                         AttackProjectile.AbilityData.InfoWindowSprite, delegate
                         {
+                            if (_sound != null)
+                            {
+                                _sound.Play(AttackProjectile.AbilityData.HitSound);
+                            }
                             AttackProjectile.ApplyDamage();
                             Destroy(gameObject);
                         });

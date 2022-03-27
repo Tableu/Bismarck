@@ -6,13 +6,11 @@ TagManager:
   tags:
   - Ships
   - FleetScreen
-  - PlayerProjectiles
   - Weapon
   - Store
-  - EnemyProjectiles
-  - EnemyShips
   - EmptyModuleSlot
   - HealthBars
+  - CameraCanvas
   layers:
   - Default
   - TransparentFX

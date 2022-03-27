@@ -7,16 +7,24 @@ using UnityEngine;
 public class AudioDB : ScriptableObject
 {
     [SerializeField] private List<AudioData> _dB;
+    private AudioSource _uiAudioSource;
     public List<AudioData> DB => _dB;
+    public AudioSource UiAudioSource => _uiAudioSource;
 
-    public AudioData GetAudio(string id)
+    public void OnEnable()
     {
-        return _dB.Find(data => id == data.id);
+        GameObject cameraCanvas = GameObject.FindWithTag("CameraCanvas");
+        _uiAudioSource = cameraCanvas != null ? cameraCanvas.GetComponent<AudioSource>() : null;
+    }
+
+    public AudioClip GetAudio(string id)
+    {
+        return _dB.Find(data => id == data.id)?.AudioClip;
     }
 }
 
 [Serializable]
-public struct AudioData
+public class AudioData
 {
     public string id;
     public AudioClip AudioClip;

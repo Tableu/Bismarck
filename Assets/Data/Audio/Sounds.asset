@@ -14,4 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dB:
   - id: Click
-    AudioClip: {fileID: 8300000, guid: 88191c917f220ff438194a8341ef2703, type: 3}
+    AudioClip: {fileID: 8300000, guid: c81681e00e071fd478a149c5466cf7b7, type: 3}
+  - id: Attack
+    AudioClip: {fileID: 8300000, guid: 7777b0d1ae2998f40b79fede8eb61c97, type: 3}
+  - id: Ability
+    AudioClip: {fileID: 8300000, guid: f9576fee19d1dc34b90f86a2a56f202e, type: 3}
+  - id: Hit
+    AudioClip: {fileID: 8300000, guid: 44d08286fb30caf48b31f9e29aac2c73, type: 3}

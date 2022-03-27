@@ -46,6 +46,8 @@ namespace Systems.Abilities
                     {
                         modifier.AttachNewModifer(_user);
                     }
+
+                    return true;
                 }
                 else if (_user.TargetingHelper.InRange(this))
                 {

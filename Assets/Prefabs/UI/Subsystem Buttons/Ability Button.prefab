@@ -368,6 +368,7 @@ GameObject:
   - component: {fileID: 1877505539943660520}
   - component: {fileID: 5401322807687642284}
   - component: {fileID: 8458953840228281629}
+  - component: {fileID: 6968738288619410499}
   m_Layer: 5
   m_Name: Ability Button
   m_TagString: Untagged
@@ -552,6 +553,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &6968738288619410499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6210488606273788205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a20d694f945b3c4439f561bb19b48cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioDB: {fileID: 11400000, guid: a4595b325e047b4419e640b4e9d7d83d, type: 2}
+  Id: Click
 --- !u!1 &6737866303583579110
 GameObject:
   m_ObjectHideFlags: 0

@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 4561551169085519200}
   - component: {fileID: 4561551169085519201}
   - component: {fileID: 4229499677514600632}
+  - component: {fileID: 7866709454613299003}
   m_Layer: 9
   m_Name: SubSystem Button
   m_TagString: Untagged
@@ -201,7 +202,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4561551169085519200}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7866709454613299003}
+        m_TargetAssemblyTypeName: Sound, Scripts
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4229499677514600632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +240,20 @@ MonoBehaviour:
     Name: 
     Subsystem: 0
   SubsystemComponent: {fileID: 0}
+--- !u!114 &7866709454613299003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4561551169085519207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a20d694f945b3c4439f561bb19b48cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioDB: {fileID: 11400000, guid: a4595b325e047b4419e640b4e9d7d83d, type: 2}
+  Id: Click
 --- !u!1 &7418997719018725000
 GameObject:
   m_ObjectHideFlags: 0

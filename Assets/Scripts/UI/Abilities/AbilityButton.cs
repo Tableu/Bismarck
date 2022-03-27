@@ -15,6 +15,7 @@ namespace UI.Abilities
         [SerializeField] private GameObject rangeIndicatorPrefab;
         private Ability _ability;
         private GameObject _rangeIndicator;
+        private Sound _sound;
 
         private void Awake()
         {
@@ -30,6 +31,7 @@ namespace UI.Abilities
         protected override void Start()
         {
             base.Start();
+            _sound = GetComponent<Sound>();
             if (_ability != null)
             {
                 StartCoroutine(_ability.CooldownTimer());
@@ -47,6 +49,17 @@ namespace UI.Abilities
                 if (_ability.Fire())
                 {
                     StartCoroutine(_ability.CooldownTimer());
+                    if (_sound != null)
+                    {
+                        _sound.Play(_ability.Data.FireSound);
+                    }
+                }
+            }
+            else
+            {
+                if (_sound != null)
+                {
+                    _sound.Play();
                 }
             }
         }

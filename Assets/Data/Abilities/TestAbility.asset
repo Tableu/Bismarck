@@ -30,6 +30,8 @@ MonoBehaviour:
   validTargets: 2147483647
   tags:
   - Ability
+  fireSound: Ability
+  hitSound: 
   hitChance: 0
   moduleHitChance: 0
   damage: 0
