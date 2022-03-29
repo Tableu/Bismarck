@@ -9,6 +9,7 @@ namespace UI.InfoWindow
     {
         public Sprite Icon;
         public Sprite Button;
+        public Sprite DamagedButton;
         public string Name;
         public Subsystem Subsystem;
     }

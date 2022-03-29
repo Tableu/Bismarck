@@ -102,11 +102,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d638081aaff48814aae2d32c0371a582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 5507526505189846093}
-  canvasRect: {fileID: 5507526505189846091}
   target: {fileID: 0}
+  displacement: {x: 0, y: -1}
+  rectTransform: {fileID: 0}
+  healthBar: {fileID: 5507526505189846093}
   playerHealth: 0
-  barDisplacement: 2
 --- !u!1 &5507526505458356364
 GameObject:
   m_ObjectHideFlags: 0

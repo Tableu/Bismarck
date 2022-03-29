@@ -6,12 +6,11 @@ TagManager:
   tags:
   - Ships
   - FleetScreen
-  - PlayerProjectiles
   - Weapon
   - Store
-  - EnemyProjectiles
-  - EnemyShips
   - EmptyModuleSlot
+  - HealthBars
+  - CameraCanvas
   layers:
   - Default
   - TransparentFX
@@ -19,12 +18,12 @@ TagManager:
   - 
   - Water
   - UI
-  - PlayerShips
-  - PlayerProjectiles
+  - Map
+  - Ships
   - Boundary
-  - EnemyShips
-  - EnemyProjectiles
-  - Turrets
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -57,6 +56,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 560798983
+    locked: 0
+  - name: Map
+    uniqueID: 2815162003
     locked: 0
   - name: UI
     uniqueID: 649457069

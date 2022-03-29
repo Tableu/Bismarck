@@ -13,15 +13,18 @@ MonoBehaviour:
   m_Name: SubsystemButtonData
   m_EditorClassIdentifier: 
   _buttonData:
-  - Icon: {fileID: 0}
-    Button: {fileID: 0}
+  - Icon: {fileID: 21300000, guid: e344d6fa21041db4ea8249a49ba4e892, type: 3}
+    Button: {fileID: 21300000, guid: 171f5b85821916f44b4c208513c59e91, type: 3}
+    DamagedButton: {fileID: 21300000, guid: 7813316c3ed5c024182c0006271ec3bb, type: 3}
     Name: Weapon
     Subsystem: 1
-  - Icon: {fileID: 0}
-    Button: {fileID: 0}
+  - Icon: {fileID: 21300000, guid: e344d6fa21041db4ea8249a49ba4e892, type: 3}
+    Button: {fileID: 21300000, guid: 171f5b85821916f44b4c208513c59e91, type: 3}
+    DamagedButton: {fileID: 21300000, guid: 7813316c3ed5c024182c0006271ec3bb, type: 3}
     Name: Engine
     Subsystem: 2
-  - Icon: {fileID: 0}
-    Button: {fileID: 0}
+  - Icon: {fileID: 21300000, guid: e344d6fa21041db4ea8249a49ba4e892, type: 3}
+    Button: {fileID: 21300000, guid: 171f5b85821916f44b4c208513c59e91, type: 3}
+    DamagedButton: {fileID: 21300000, guid: 7813316c3ed5c024182c0006271ec3bb, type: 3}
     Name: Hull
     Subsystem: 4

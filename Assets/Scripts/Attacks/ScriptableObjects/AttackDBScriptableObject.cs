@@ -1,14 +1,19 @@
 using System;
 using System.Collections.Generic;
+using Systems.Abilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Attacks", menuName = "Attacks/AttackDB")] [Serializable]
-public class AttackDBScriptableObject : ScriptableObject
+namespace Attacks
 {
-    [SerializeField] private List<AttackScriptableObject> attackDB;
-
-    public AttackScriptableObject GetAttack(string attackName)
+    [CreateAssetMenu(fileName = "Attacks", menuName = "Attacks/AttackDB")]
+    [Serializable]
+    public class AttackDBScriptableObject : ScriptableObject
     {
-        return attackDB.Find(x => x.AttackName == attackName);
+        [SerializeField] private List<AbilityData> attackDB;
+
+        public AbilityData GetAttack(string attackName)
+        {
+            return attackDB.Find(x => x.AttackName == attackName);
+        }
     }
 }

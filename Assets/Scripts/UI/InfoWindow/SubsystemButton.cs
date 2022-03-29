@@ -1,4 +1,3 @@
-using System;
 using Ships.Components;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,23 +11,26 @@ namespace UI.InfoWindow
     /// </summary>
     public class SubsystemButton : MonoBehaviour
     {
-        [SerializeField] private Button _button;
+        [SerializeField] protected Button _button;
         [SerializeField] private Text _buttonText;
-        public ShipInfo ShipInfo;
+        [SerializeField] protected Image _image;
+        public ShipStats Ship;
+        public ShipStats Player;
         public Subsystem Subsystem;
         public ButtonData ButtonData;
-        public IDamageable Target;
+        public DamageableComponent SubsystemComponent;
 
-        void Start()
+        protected virtual void Start()
         {
             if (ButtonData != null)
             {
                 _buttonText.text = ButtonData.Name;
                 _button.onClick.AddListener(OnClick);
+                _image.sprite = ButtonData.Icon;
             }
         }
 
-        void Update()
+        protected virtual void Update()
         {
             RefreshButton();
         }
@@ -45,10 +47,20 @@ namespace UI.InfoWindow
                 case Subsystem.None:
                     break;
                 case Subsystem.Weapon:
-                    //TODO Disable/Enable button case for Weapons
+                    if (SubsystemComponent is Weapon weapon)
+                    {
+                        if (weapon.Disabled)
+                        {
+                            SetButtonDamaged();
+                        }
+                        else
+                        {
+                            SetButtonNormal();
+                        }
+                    }
                     break;
                 case Subsystem.Engine:
-                    if (ShipInfo.SpeedMultiplier.CurrentValue <= 0)
+                    if (Ship.SpeedMultiplier.CurrentValue <= 0)
                     {
                         SetButtonDamaged();
                     }
@@ -56,31 +68,42 @@ namespace UI.InfoWindow
                     {
                         SetButtonNormal();
                     }
-
                     break;
             }
         }
 
-        private void OnClick()
+        protected virtual void OnClick()
         {
-            if (ShipInfo != null && Target != null)
+            if (Player != null && SubsystemComponent != null)
             {
-                ShipInfo.SelectedTarget = Target;
+                Player.TargetingHelper.SetTarget(SubsystemComponent);
             }
         }
 
         private void SetButtonDamaged()
         {
-            var colors = _button.colors;
-            colors.normalColor = Color.red;
-            _button.colors = colors;
+            if (ButtonData != null)
+            {
+                _button.image.sprite = ButtonData.DamagedButton;
+            }
         }
 
         private void SetButtonNormal()
         {
-            var colors = _button.colors;
-            colors.normalColor = Color.white;
-            _button.colors = colors;
+            if (ButtonData != null)
+            {
+                _button.image.sprite = ButtonData.Button;
+            }
+        }
+
+        public void DisableButton()
+        {
+            _button.interactable = false;
+        }
+
+        public void EnableButton()
+        {
+            _button.interactable = true;
         }
     }
 }

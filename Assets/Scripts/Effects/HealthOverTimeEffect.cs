@@ -1,4 +1,5 @@
-﻿using Ships.Components;
+﻿using Attacks;
+using Ships.Components;
 using Systems.Modifiers;
 using UnityEngine;
 
@@ -16,22 +17,22 @@ namespace Effects
         }
         public override PeriodicEffectInstance CreateInstance(ModifiableTarget target)
         {
-            return new Impl(target.GetComponent<ShipHealth>(), tickPeriod, baseDamage);
+            return new Impl(target.GetComponent<Hull>(), tickPeriod, baseDamage);
         }
 
         private class Impl : PeriodicEffectInstance
         {
             private readonly float _baseDamage;
-            private readonly ShipHealth _health;
+            private readonly Hull _health;
 
-            public Impl(ShipHealth health, float tickPeriod, float baseDamage) : base(tickPeriod)
+            public Impl(Hull health, float tickPeriod, float baseDamage) : base(tickPeriod)
             {
                 _health = health;
                 _baseDamage = baseDamage;
             }
             protected override void Tick()
             {
-                _health.TakeDamage(new Damage(Vector2.zero, _baseDamage, CollisionType.kinetic));
+                _health.TakeDamage(_baseDamage);
                 Debug.Log("Dealing Damage");
             }
         }

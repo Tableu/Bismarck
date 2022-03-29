@@ -1,5 +1,6 @@
 using System;
 using Ships.Components;
+using Ships.Fleets;
 using UnityEngine;
 
 namespace UI.InfoWindow
@@ -21,29 +22,32 @@ namespace UI.InfoWindow
     /// </summary>
     public class SubsystemButtonManager : MonoBehaviour
     {
+        public ShipStats Player;
         [SerializeField] private GameObject _subsystemButtonPrefab;
         [SerializeField] private SubsystemButtonData _subsystemButtonData;
 
-        public void Refresh(ShipInfo shipInfo)
+        public void Refresh(ShipStats target)
         {
+            Player.Fleet.AgroStatusMap.TryGetValue(target.Fleet, out FleetAgroStatus fleetAgroStatus);
             foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);
             }
 
-            IDamageable[] targets = shipInfo.GetComponentsInChildren<IDamageable>();
-            
-            foreach (IDamageable target in targets)
+            DamageableComponent[] damageableComponents = target.GetComponentsInChildren<DamageableComponent>();
+
+            foreach (DamageableComponent damageableComponent in damageableComponents)
             {
-                if ((target.Subsystem & shipInfo.Data.TargetableSubsystems) != Subsystem.None)
+                if ((damageableComponent.Subsystem & target.Data.TargetableSubsystems) != Subsystem.None)
                 {
                     GameObject subsystemButton = Instantiate(_subsystemButtonPrefab, transform, false);
                     SubsystemButton button = subsystemButton.GetComponent<SubsystemButton>();
-                    button.Subsystem = target.Subsystem;
-                    button.ShipInfo = shipInfo;
+                    button.Subsystem = damageableComponent.Subsystem;
+                    button.Ship = target;
                     button.ButtonData =
-                        _subsystemButtonData.ButtonData.Find(data => data.Subsystem == target.Subsystem);
-                    button.Target = target;
+                        _subsystemButtonData.ButtonData.Find(data => data.Subsystem == damageableComponent.Subsystem);
+                    button.SubsystemComponent = damageableComponent;
+                    button.Player = Player;
                 }
             }
         }

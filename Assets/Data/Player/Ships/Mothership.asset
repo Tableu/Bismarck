@@ -16,9 +16,14 @@ MonoBehaviour:
   parentList: {fileID: 11400000, guid: 08cbb2bf66b4c6e4daad7dc432d49e16, type: 2}
   displayName: Mothership
   visuals: {fileID: 8178566776061135549, guid: a191fb943a00e394e8e0504dc7c673ab, type: 3}
+  mapIcon: {fileID: 21300000, guid: f920081238a12554da0cb56b72bdb7af, type: 3}
   cameraSizeMultiplier: 0.881
   cost: 0
-  weapons: []
+  weapons:
+  - {fileID: 11400000, guid: ebf81b17aa224164d94939ce3059e63b, type: 2}
+  - {fileID: 11400000, guid: ebf81b17aa224164d94939ce3059e63b, type: 2}
+  abilities:
+  - {fileID: 11400000, guid: 696b46ef70da763479cb42f158b0b639, type: 2}
   moduleGridHeight: 2
   moduleGridWidth: 2
   defaultModules:
@@ -29,5 +34,7 @@ MonoBehaviour:
   health: 20
   speedMultiplier: 1
   damageMultiplier: 1
+  dodgeChanceMultiplier: 0
+  repairTime: 0
   sensorRange: 50
   targetRange: 10

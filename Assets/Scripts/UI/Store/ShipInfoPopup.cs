@@ -34,7 +34,7 @@ public class ShipInfoPopup : MonoBehaviour
         }
 
         Ship = ship;
-        _shipData = ship.GetComponent<ShipInfo>().Data;
+        _shipData = ship.GetComponent<ShipStats>().Data;
         SpawnWeapons();
         bool weapons = weaponsGridLayout.transform.childCount != 0;
         bool modules = modulesGridLayout.transform.childCount != 0;
@@ -61,7 +61,7 @@ public class ShipInfoPopup : MonoBehaviour
                     weaponSlot.GetComponent<Image>().sprite =
                         weapons.Current.Turret.GetComponent<SpriteRenderer>().sprite;
                     DraggableItem draggableItem = weaponSlot.AddComponent<DraggableItem>();
-                    draggableItem.ItemName = weapons.Current.AttackName;
+                    //draggableItem.ItemName = weapons.Current.AttackName;
                     draggableItem.ItemReleased = new UnityEvent();
                     draggableItem.ItemSelected = new UnityEvent();
                     draggableItem.ItemReleased.AddListener(DropItem);

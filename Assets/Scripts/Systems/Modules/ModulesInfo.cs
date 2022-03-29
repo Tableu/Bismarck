@@ -13,7 +13,7 @@ namespace Systems.Modules
     ///     Saves and Loads Modules and Module Grid.
     ///     Will init with default values from ShipData if there is no save data.
     /// </summary>
-    [RequireComponent(typeof(ShipInfo))]
+    [RequireComponent(typeof(ShipStats))]
     public class ModulesInfo : MonoBehaviour, ISavable
     {
         public event Action ModuleGridChanged;
@@ -23,7 +23,7 @@ namespace Systems.Modules
         private int _rowHeight;
         private int _columnLength;
 
-        private ShipInfo _info;
+        private ShipStats _stats;
 
         public string id => "ModulesInfo";
         public int RowHeight => _rowHeight;
@@ -37,15 +37,15 @@ namespace Systems.Modules
         
         private void Start()
         {
-            _info = GetComponent<ShipInfo>();
+            _stats = GetComponent<ShipStats>();
             if (_grid == null)
             {
-                _rowHeight = _info.Data.ModuleGridHeight;
-                _columnLength = _info.Data.ModuleGridWidth;
+                _rowHeight = _stats.Data.ModuleGridHeight;
+                _columnLength = _stats.Data.ModuleGridWidth;
                 _grid = new Module[_rowHeight, _columnLength];
                 _modules = new List<Module>();
 
-                foreach (Module module in _info.Data.DefaultModules)
+                foreach (Module module in _stats.Data.DefaultModules)
                 {
                     if (module != null)
                     {

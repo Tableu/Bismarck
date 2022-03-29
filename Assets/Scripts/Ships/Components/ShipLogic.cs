@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using Ships.Components;
 using Ships.DataManagement;
 using Ships.Fleets;
+using Systems.Abilities;
 using UnityEngine;
+using Weapons;
 
 public class ShipLogic : MonoBehaviour
 {
@@ -11,14 +13,14 @@ public class ShipLogic : MonoBehaviour
     [SerializeField] public List<Transform> turretPositions;
 
     [SerializeField] private string tag;
-    protected List<AttackCommand> _attackCommands;
+    protected List<Ability> _attackCommands;
     protected ShipData _data;
     protected MoveForwardState _moveForward;
     protected MovementController _movementController;
     protected MoveToPositionState _moveToPosition;
     protected MoveToTargetState _moveToTarget;
     protected FleetManager _shipSpawner;
-    private List<AttackScriptableObject> attackScriptableObjects;
+    private List<WeaponData> attackScriptableObjects;
     protected FSM StateMachine;
     public bool BlocksMovement { get; private set; }
 
@@ -33,7 +35,7 @@ public class ShipLogic : MonoBehaviour
         _shipSpawner = spawner;
         _data = data;
         BlocksMovement = data.BlocksMovement;
-        var stats = GetComponent<ShipInfo>();
+        var stats = GetComponent<ShipStats>();
         Debug.Assert(stats != null, "Ship missing stats component");
         _movementController = new MovementController(gameObject, stats.SpeedMultiplier, 0, LayerMask.GetMask("EnemyShips"));
         _moveToTarget = new MoveToTargetState(this, _movementController, target);
@@ -41,30 +43,7 @@ public class ShipLogic : MonoBehaviour
         _moveForward = new MoveForwardState(this, _movementController);
         StateMachine = new FSM();
         attackScriptableObjects = data.Weapons;
-        _attackCommands = new List<AttackCommand>();
-        if (!enabled)
-        {
-            return;
-        }
-        var turretPos = turretPositions.GetEnumerator();
-
-        var parent = GameObject.FindWithTag(tag) ?? new GameObject
-        {
-            tag = tag
-        };
-
-        foreach (var attackScriptableObject in attackScriptableObjects)
-        {
-            if (!turretPos.MoveNext())
-            {
-                break;
-            }
-
-            var attackCommand = attackScriptableObject.MakeAttack();
-            StartCoroutine(attackCommand.DoAttack(gameObject, turretPos.Current));
-            attackCommand.SetParent(parent.transform);
-            _attackCommands.Add(attackCommand);
-        }
+        _attackCommands = new List<Ability>();
     }
 
     public void MoveToPosition(Vector2 position)
@@ -112,12 +91,6 @@ public class ShipLogic : MonoBehaviour
         if (enemy != null)
         {
             _moveToTarget.Target = enemy;
-            foreach (var command in _attackCommands)
-            {
-                command.SetTarget(enemy);
-                StartCoroutine(command.DoAttack(gameObject));
-            }
-
             return true;
         }
 

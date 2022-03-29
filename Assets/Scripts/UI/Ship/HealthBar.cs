@@ -2,55 +2,57 @@ using Ships.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+namespace UI.Ship
 {
-    [SerializeField] private Slider healthBar;
-    [SerializeField] private RectTransform canvasRect;
-    [SerializeField] private Transform target;
-    [SerializeField] private int playerHealth;
-
-    [SerializeField] private float barDisplacement;
-    private ShipHealth _shipHealth;
-
-    // Start is called before the first frame update
-    private void Start()
+    /// <summary>
+    ///     A canvas healthbar that tracks a ships location
+    /// </summary>
+    public class HealthBar : BindableUIComponent<Hull>
     {
-        healthBar = GetComponent<Slider>();
-    }
+        [SerializeField] private Slider healthBar;
+        [SerializeField] private int playerHealth;
+        private Hull _hull;
 
-    // Update is called once per frame
-    private void Update()
-    {
-        if (target != null)
+        private void Start()
         {
-            gameObject.transform.position = (Vector2)target.position + Vector2.down * barDisplacement;
+            healthBar = GetComponent<Slider>();
         }
-        else
+
+        private void OnDestroy()
         {
-            Destroy(gameObject);
+            if (_hull != null)
+            {
+                _hull.OnHealthChanged -= Redraw;
+            }
         }
-    }
 
-    private void OnDestroy()
-    {
-        if (_shipHealth != null)
+        public override void Bind(Hull bindingTarget)
         {
-            _shipHealth.OnHealthChanged -= Redraw;
+            if (bindingTarget != null)
+            {
+                healthBar.maxValue = 1f;
+                healthBar.value = bindingTarget.PercentHealth;
+                target = bindingTarget.transform;
+                _hull = bindingTarget;
+                _hull.OnHealthChanged += Redraw;
+                _hull.OnDisabledChanged += delegate(bool disabled)
+                {
+                    if (disabled)
+                    {
+                        Destroy(gameObject);
+                    }
+                };
+                transform.localPosition = displacement;
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
-    }
 
-    public void Bind(ShipHealth bindingTarget)
-    {
-        healthBar.maxValue = 1f;
-        healthBar.value = bindingTarget.PercentHealth;
-        target = bindingTarget.transform;
-        _shipHealth = bindingTarget;
-        _shipHealth.OnHealthChanged += Redraw;
-        transform.localPosition = Vector2.down * barDisplacement;
-    }
-
-    private void Redraw()
-    {
-        healthBar.value = _shipHealth.PercentHealth;
+        private void Redraw()
+        {
+            healthBar.value = _hull.PercentHealth;
+        }
     }
 }

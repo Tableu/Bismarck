@@ -32,7 +32,7 @@ namespace Ships.DataManagement
         public ShipSaveData(GameObject ship)
         {
             healthPercentage = 0;
-            var heath = ship.GetComponent<ShipHealth>();
+            var heath = ship.GetComponent<Hull>();
             Debug.Assert(heath != null, "Missing health component on ship to save");
             if (heath != null)
             {
@@ -40,7 +40,7 @@ namespace Ships.DataManagement
             }
 
             position = ship.transform.position;
-            shipDataId = ship.GetComponent<ShipInfo>().Data.id;
+            shipDataId = ship.GetComponent<ShipStats>().Data.id;
         }
     }
 }

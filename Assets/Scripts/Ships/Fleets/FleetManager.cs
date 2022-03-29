@@ -21,8 +21,6 @@ namespace Ships.Fleets
         [ReadOnlyField] [SerializeField] private int fleetId;
         [SerializeField] private GameObject shipBasePrefab;
 
-        private InfoWindow _infoWindow;
-
         private readonly Dictionary<FleetManager, FleetAgroStatus> _agroStatusMap = new Dictionary<FleetManager, FleetAgroStatus>();
 
         public string FleetName => fleetName;
@@ -32,8 +30,6 @@ namespace Ships.Fleets
 
         private void Awake()
         {
-            _infoWindow = GetComponent<InfoWindow>();
-            
             fleetId = fleetName.GetHashCode();
             _agroStatusMap[this] = FleetAgroStatus.Self;
             foreach (var fleet in ActiveFleets)
@@ -64,7 +60,7 @@ namespace Ships.Fleets
         /// <returns>null if no fleet was found</returns>
         public static FleetManager GetFleet(GameObject ship)
         {
-            var info = ship.GetComponent<ShipInfo>();
+            var info = ship.GetComponent<ShipStats>();
             return info == null ? null : info.Fleet;
         }
 
@@ -77,7 +73,7 @@ namespace Ships.Fleets
         public GameObject SpawnShip(ShipData shipData, Vector2 position)
         {
             var newShip = Instantiate(shipBasePrefab, position, Quaternion.identity, transform);
-            var info = newShip.GetComponent<ShipInfo>();
+            var info = newShip.GetComponent<ShipStats>();
             info.Initialize(shipData);
             // todo: move ships to avoid collisions
             return newShip;
@@ -119,12 +115,14 @@ namespace Ships.Fleets
 #endif
     }
 
+    [Flags]
     public enum FleetAgroStatus
     {
-        Self,
-        Allied,
-        Neutral,
-        Hostile
+        None = 0,
+        Self = 1,
+        Allied = 2,
+        Neutral = 4,
+        Hostile = 8
     }
 
 }

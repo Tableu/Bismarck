@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using UI.InfoWindow;
 using Systems;
+using Systems.Abilities;
 using Systems.Modules;
 using UnityEngine;
+using Weapons;
 using Subsystem = UI.InfoWindow.Subsystem;
 
 namespace Ships.DataManagement
@@ -19,9 +20,11 @@ namespace Ships.DataManagement
         [Header("Info")]
         [SerializeField] private string displayName;
         [SerializeField] private GameObject visuals;
+        [SerializeField] private Sprite mapIcon;
         [SerializeField] [Range(0.001f, 1f)] private float cameraSizeMultiplier = 1f;
         [SerializeField] private int cost;
-        [SerializeField] private List<AttackScriptableObject> weapons;
+        [SerializeField] private List<WeaponData> weapons;
+        [SerializeField] private List<AbilityData> abilities;
         [SerializeField] private int moduleGridHeight;
         [SerializeField] private int moduleGridWidth;
         [SerializeField] private List<Module> defaultModules;
@@ -32,6 +35,8 @@ namespace Ships.DataManagement
         [SerializeField] private float health = 10;
         [SerializeField] private float speedMultiplier = 1;
         [SerializeField] private float damageMultiplier = 1;
+        [SerializeField] private float dodgeChanceMultiplier = 0;
+        [SerializeField] private float repairTime;
         [SerializeField] private float sensorRange = 50;
 
         [Header("Config")]
@@ -39,14 +44,18 @@ namespace Ships.DataManagement
         public float BaseHealth => health;
         public float BaseSpeedMultiplier => speedMultiplier;
         public float BaseDamageMultiplier => damageMultiplier;
+        public float BaseDodgeChance => dodgeChanceMultiplier;
+        public float BaseRepairTime => repairTime;
         public float TargetRange => targetRange;
         public bool BlocksMovement => blocksMovement;
         public float SensorRange => sensorRange;
         public string DisplayName => displayName;
         public GameObject Visuals => visuals;
+        public Sprite MapIcon => mapIcon;
         public float CameraSizeMultiplier => cameraSizeMultiplier;
         public int Cost => cost;
-        public List<AttackScriptableObject> Weapons => weapons;
+        public List<WeaponData> Weapons => weapons;
+        public List<AbilityData> Abilities => abilities;
         public int ModuleGridHeight => moduleGridHeight;
         public int ModuleGridWidth => moduleGridWidth;
         public List<Module> DefaultModules => defaultModules;
